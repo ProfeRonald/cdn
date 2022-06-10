@@ -1,0 +1,26 @@
+
+
+{
+	"sProcessing":     "Procesando...",
+	"sLengthMenu":     "Mostrar asignaturas: _MENU_",
+	"sZeroRecords":    "No se encontraron asignaturas",
+	"sEmptyTable":     "Ninguna asignatura disponible",
+	"sInfo":           "Mostrando asignaturas de la _START_ a la _END_ de un total de _TOTAL_ asignaturas",
+	"sInfoEmpty":      "Mostrando asignaturas de la 0 a la 0 de un total de 0 asignaturas",
+	"sInfoFiltered":   "(filtrado de un total de _MAX_ asignaturas)",
+	"sInfoPostFix":    "",
+	"sSearch":         "Buscar:",
+	"sUrl":            "",
+	"sInfoThousands":  ",",
+	"sLoadingRecords": "Cargando...",
+	"oPaginate": {
+		"sFirst":    "Primera",
+		"sLast":     "Última",
+		"sNext":     "Siguiente",
+		"sPrevious": "Anterior"
+	},
+	"oAria": {
+		"sSortAscending":  ": Activar para ordenar de forma ascendente",
+		"sSortDescending": ": Activar para ordenar de forma descendente"
+	}
+}

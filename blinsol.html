@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="google" content="notranslate" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blinsol</title>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+</head>
+<body>
+
+<script>
+
+const gps = new URLSearchParams(window.location.search);
+const baston = Number(gps.get('b'));
+
+if(baston !=''){
+
+const latitud = Number(gps.get('la'));
+const longitud = Number(gps.get('lo'));
+
+const firebaseConfig = {
+apiKey: "AIzaSyAh6vRA1H9X7uYeLilbsGUvQz1NGjb84B8",
+authDomain: "blinsol.firebaseapp.com",
+projectId: "blinsol",
+storageBucket: "blinsol.appspot.com",
+messagingSenderId: "1006660375428",
+appId: "1:1006660375428:web:c4f662f893eb69f82d43d1",
+measurementId: "G-17M8WB3EXE"
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+
+firebase.database().ref('bastones/' + baston + '/latitud').set(latitud);
+firebase.database().ref('bastones/' + baston + '/longitud').set(longitud);
+firebase.database().ref('bastones/' + baston + '/fecha').set(Date.now());
+
+}
+
+</script>
+</body>
+</html>

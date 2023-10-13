@@ -96,8 +96,8 @@ $(document).on('change', '#sel-grupo-seccion', function () {
 function csvURL(input) {
   if (input.files && input.files[0]) {
     var reader = new FileReader();
-	var urlcdn = $("#datos_js").attr("urlcdn");
-    var csv = urlcdn + '/imagenes/csv.png';
+	var urlimgs = $("#datos_js").attr("urlimgs");
+    var csv = urlimgs + '/csv.png';
     reader.onload = function (e) {
       $('#csvarchivo').css('background-image', 'url('+csv+')');
       $('#csvarchivo').hide();

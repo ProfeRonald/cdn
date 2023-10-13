@@ -372,7 +372,7 @@ $(document).on("blur", ".CalificacionesRP", function () {
     $('#VerRecuperacion').attr("class", 'btn btn-lg btn-block btn-dark');
     $('#VerIndicadores').attr("class", 'btn btn-lg btn-block btn-secondary');
     CalcularComptencias();
-   
+    $('#barra-des').attr('max', $('.dataTables_scrollBody')[0].scrollWidth);
     }
   
     window.CalcularComptencias = function () {
@@ -395,6 +395,7 @@ $(document).on("blur", ".CalificacionesRP", function () {
    $('#VerRecuperacion').attr("rp", '1');
    $('#VerRecuperacion').attr("class", 'btn btn-lg btn-block btn-secondary');
    $('#VerIndicadores').attr("class", 'btn btn-lg btn-block btn-dark');
+   $('#barra-des').attr('max', $('.dataTables_scrollBody')[0].scrollWidth); 
       
   }
 
@@ -769,7 +770,7 @@ $(document).on('click', '#CalificacionesGCTodas', function () {
        }else{
          VerIndicadores();
        }
-  
+       $('#barra-des').attr('max', $('.dataTables_scrollBody')[0].scrollWidth);
      }, 101);
 
 

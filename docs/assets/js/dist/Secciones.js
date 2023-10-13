@@ -3,7 +3,7 @@ $(document).ready(function () {
   var cdnfiles = $("#datos_js").attr("cdnfiles");
   var target = $("#datos_js").attr("target");
   var urlerd = $("#datos_js").attr("urlerd");
-  var urlcdn = $("#datos_js").attr("urlcdn");
+  var urlcdn = $("#datos_js").attr("urlimgs");
   var movilagent = $("#datos_js").attr("movilagent");
  
 

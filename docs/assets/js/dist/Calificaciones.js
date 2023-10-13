@@ -4,7 +4,7 @@ $(document).ready(function () {
   var id_asignaturamf = $("#datos_js").attr("id_asignaturamf");
   var id_grupo = $("#datos_js").attr("id_grupo");
   var urlerd = $("#datos_js").attr("urlerd");
-  var urlcdn = $("#datos_js").attr("urlcdn");
+  var urlimgs = $("#datos_js").attr("urlimgs");
   var aarch = Number($("#datos_js").attr("aarch"));
   var target = Number($("#datos_js").attr("target"));
   var local = Number($("#datos_js").attr("local"));
@@ -538,16 +538,16 @@ $(document).ready(function () {
     if (clic == "no") {
 
       if (t == 2) {
-        $('#casi').html('<img src="' + urlcdn + '/imagenes/asistencia.jpg" />');
+        $('#casi').html('<img src="' + urlimgs + '/asistencia.jpg" />');
       } else {
         if (ta == 0) {
-          $('#casi').html('<img src="' + urlcdn + '/imagenes/indicadores.jpg" />');
+          $('#casi').html('<img src="' + urlimgs + '/indicadores.jpg" />');
         } else {
 
           if (ta == 1) {
-            $('#casi').html('<img src="' + urlcdn + '/imagenes/ficha_ra1.jpg" /><br /><img src="' + urlcdn + '/imagenes/ficha_ra2.jpg" /><br /><img src="' + urlcdn + '/imagenes/ficha_ra3.jpg" />');
+            $('#casi').html('<img src="' + urlimgs + '/ficha_ra1.jpg" /><br /><img src="' + urlimgs + '/ficha_ra2.jpg" /><br /><img src="' + urlimgs + '/ficha_ra3.jpg" />');
           } else {
-            $('#casi').html('<img src="' + urlcdn + '/imagenes/ficha_fct1.jpg" /><br /><img src="' + urlcdn + '/imagenes/ficha_fct2.jpg" />');
+            $('#casi').html('<img src="' + urlimgs + '/ficha_fct1.jpg" /><br /><img src="' + urlimgs + '/ficha_fct2.jpg" />');
           }
 
         }
@@ -567,7 +567,6 @@ $(document).ready(function () {
     }
 
   });
-
 
   $(document).on('click', '#activar_asistencia', function () {
 
@@ -1077,5 +1076,37 @@ $(document).ready(function () {
     $('body').addClass('modal-open');
 
   })
+
+  $(window).scroll(function () {
+    var display = $('#slidecontainer').attr('display');
+    if(display == 1){
+		var scrls_info = $("#TablaCalificaciones_info").offset().top - 575;
+    var scrls_table = $("#TablaCalificaciones").offset().top - 400;
+		var wscrl = $(window).scrollTop();
+		if (wscrl > scrls_info) {
+      $('#slidecontainer').hide();
+		}else if (wscrl > scrls_table) {
+			$('#slidecontainer').show();
+		}else{
+      $('#slidecontainer').hide();
+    }
+  }
+	});
+
+
+  $(window).on("load", function () {
+
+    $('#barra-des').attr('max', $('.dataTables_scrollBody')[0].scrollWidth);
+
+  });
+
+  $('#barra-des').on('input', function () {
+    $('.dataTables_scrollBody').scrollLeft($(this).val());
+  });
+
+  $('#cerrar-barra').on('click', function () {
+    $('#slidecontainer').removeAttr('display');
+    $('#slidecontainer').hide('slow');
+  });
 
 });

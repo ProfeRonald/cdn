@@ -811,7 +811,7 @@ td {
 }
 
 .tablanotas {
-  max-width: 970px;
+  max-width: 885px;
   overflow: hidden;
   z-index: 400;
 }
@@ -2181,4 +2181,43 @@ color: rgba(255,255,255,0.5);
 
   .cuenta-nav img{
     width: 100px;
+    }
+
+
+    #slidecontainer{
+      position: fixed;
+      bottom: 80px;
+      z-index: 99;
+      width: 77%;
+    }
+    
+  
+    .slider {
+      -webkit-appearance: none;
+      width: 98%;
+      height: 15px;
+      border-radius: 5px;  
+      background: #7fb3d5;
+      outline: none;
+      opacity: 0.7;
+      -webkit-transition: .2s;
+      transition: opacity .2s;
+    }
+    
+    .slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%; 
+      background: #2980b9;
+      cursor: pointer;
+    }
+    
+    .slider::-moz-range-thumb {
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      background: #2980b9;
+      cursor: pointer;
     }

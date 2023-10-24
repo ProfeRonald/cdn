@@ -660,6 +660,7 @@ $(document).on("click", ".indtop", function () {
   $("#incom_text").text("Cargando...");
   var o = $(this).attr("data-id");
   $("#incom_text").html($(".indtop" + o).html());
+  $('body').css("overflow", "auto");
 });
 
 $(document).on("change blur", ".AsistenciasILFechaFinales", function () {

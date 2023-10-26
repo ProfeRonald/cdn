@@ -207,6 +207,44 @@ $(document).ready(function () {
 
 }
 
+$(document).on('click', '.ordenarGrupo', function () {
+  $('.ordenarGrupo').removeClass('bg-dark text-white');
+  var orden = $(this).attr('orden');
+  var ordGrp = new Array();
+  var idGrp = new Array();
+  var valGrp = new Array();
+  var d = 0;
+  $("#gruposc .ordenGrupo").each(function(){
+  ordGrp[d] = $(this).attr('orden');
+  idGrp[ordGrp[d]] = $(this).attr('idg');
+  valGrp[ordGrp[d]] = $(this).prop('outerHTML');
+  d++;
+  });
+
+  if(orden == 'za' || orden == 'az'){
+  ordGrp.sort();
+  if(orden == 'za'){
+    ordGrp.reverse();
+  }
+  }else{
+    
+  }
+  var htmlGrp = '';
+  var ordg = '';
+  $.each(ordGrp, function (i, o) {
+    ordg += idGrp[o] + ',';
+    htmlGrp += valGrp[o];
+  });
+
+  ordg = ordg.substring(0, ordg.length - 1);
+  console.log(ordg);
+  document.cookie = 'ordenGrupo='+ordg+'; expires=Thu, 22 Dec ' + jyear2 + ' 01:00:00 UTC';
+  $("#gruposc").html(htmlGrp);
+
+  $(this).addClass('bg-dark text-white');
+
+  });
+
 });
 
 var fecha = new Date();

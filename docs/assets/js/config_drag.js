@@ -25,6 +25,10 @@ redips.init = function () {
 	// enable cloning DIV elements with pressed SHIFT key
 	rd.clone.keyDiv = false;
 	rd.dropMode = 'switch';
+	//rd.event.dropped = function () {
+	//var rsas = $(rd.td.source.attributes.class)[0].value;
+	//RecesosAlmuerzos(rsas);
+	//}
 };
 
 

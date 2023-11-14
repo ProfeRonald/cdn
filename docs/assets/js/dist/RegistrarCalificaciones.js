@@ -2,6 +2,7 @@ var id_sesion = $("#datos_js").attr("id_sesion");
 var local = $("#datos_js").attr("local");
 var year_1 = $("#datos_js").attr("year_1");
 var year_2 = $("#datos_js").attr("year_2");
+var urlerd = $("#datos_js").attr("urlerd");
 
 $(document).ready(function () {
 
@@ -210,6 +211,7 @@ $(document).ready(function () {
 $(document).on('click', '.ordenarGrupo', function () {
   $('.ordenarGrupo').removeClass('bg-dark text-white');
   var orden = $(this).attr('orden');
+  if(orden == 'za' || orden == 'az'){
   var ordGrp = new Array();
   var idGrp = new Array();
   var valGrp = new Array();
@@ -221,14 +223,12 @@ $(document).on('click', '.ordenarGrupo', function () {
   d++;
   });
 
-  if(orden == 'za' || orden == 'az'){
+  
   ordGrp.sort();
   if(orden == 'za'){
     ordGrp.reverse();
   }
-  }else{
-    
-  }
+  
   var htmlGrp = '';
   var ordg = '';
   $.each(ordGrp, function (i, o) {
@@ -238,10 +238,26 @@ $(document).on('click', '.ordenarGrupo', function () {
 
   ordg = ordg.substring(0, ordg.length - 1);
   console.log(ordg);
-  document.cookie = 'ordenGrupo='+ordg+'; expires=Thu, 22 Dec ' + jyear2 + ' 01:00:00 UTC';
+  document.cookie = 'ordenGrupoaz=; expires=Thu, 01 Jan 1970 00:00:01 GMT';
+  document.cookie = 'ordenGrupoza=; expires=Thu, 01 Jan 1970 00:00:01 GMT';
+  document.cookie = 'ordenGrupo'+orden+'='+ordg+'; expires=Thu, 22 Dec ' + jyear2 + ' 01:00:00 UTC';
   $("#gruposc").html(htmlGrp);
 
   $(this).addClass('bg-dark text-white');
+  
+  }
+  
+  if(orden == 'hor'){
+
+    var ordg = $(this).attr('ordg');
+    document.cookie = 'ordenGrupoaz=; expires=Thu, 01 Jan 1970 00:00:01 GMT';
+    document.cookie = 'ordenGrupoza=; expires=Thu, 01 Jan 1970 00:00:01 GMT';
+    document.cookie = 'ordenGrupo='+ordg+'; expires=Thu, 22 Dec ' + jyear2 + ' 01:00:00 UTC';
+    window.location.href = urlerd + "/index.php?sec=RegistrarCalificaciones";
+
+  }
+
+  
 
   });
 

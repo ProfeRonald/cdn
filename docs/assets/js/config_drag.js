@@ -13,7 +13,6 @@
 // create redips container
 let redips = {};
 
-
 // redips initialization
 redips.init = function () {
 	// reference to the REDIPS.drag lib
@@ -25,10 +24,40 @@ redips.init = function () {
 	// enable cloning DIV elements with pressed SHIFT key
 	rd.clone.keyDiv = false;
 	rd.dropMode = 'switch';
-	//rd.event.dropped = function () {
-	//var rsas = $(rd.td.source.attributes.class)[0].value;
-	//RecesosAlmuerzos(rsas);
-	//}
+	rd.event.clicked=function(){
+		var casillaTD = $(rd.td.source);
+		var recesoyalmuerzo = casillaTD.find('.fz').text();
+		casillaTD = casillaTD.html();
+		rd.event.deleted = function(){
+			if(recesoyalmuerzo != 'ALMUERZO' && recesoyalmuerzo != 'RECESO'){
+		$('[rel="tooltip"]').tooltip("hide");
+		$('#trash-asig').append('<tr><td class="casilla_hora asignatura">' + casillaTD + '</td></tr>');
+		$('[rel="tooltip"]').tooltip();
+		rd.init();
+			}
+		};
+
+		rd.event.dropped = function () {
+		$('#trash-asig .fzremove').remove();
+		if(recesoyalmuerzo == 'ALMUERZO' || recesoyalmuerzo == 'RECESO'){
+			var casillaTDHora = $(rd.td.source);
+			var casillaTDHoraA = casillaTDHora.html();
+			casillaTDHora.find('div:first').remove();
+			casillaTDHora = casillaTDHora.html();
+			if(casillaTDHora == ''){
+				$(rd.td.source).html(casillaTDHoraA);
+			}
+				if(casillaTDHora != ''){
+			var ra = $(rd.td.target);
+			ra.html(casillaTDHora);
+				}
+			RecesosAlmuerzos();
+			rd.init();
+		}
+		};
+
+	};
+	
 };
 
 

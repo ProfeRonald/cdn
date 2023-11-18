@@ -240,7 +240,9 @@ $(document).on('click', '.ordenarGrupo', function () {
   console.log(ordg);
   document.cookie = 'ordenGrupoaz=; expires=Thu, 01 Jan 1970 00:00:01 GMT';
   document.cookie = 'ordenGrupoza=; expires=Thu, 01 Jan 1970 00:00:01 GMT';
+  document.cookie = 'ordenGrupoHO=; expires=Thu, 01 Jan 1970 00:00:01 GMT';
   document.cookie = 'ordenGrupo'+orden+'='+ordg+'; expires=Thu, 22 Dec ' + jyear2 + ' 01:00:00 UTC';
+  document.cookie = 'ordenGrupo='+ordg+'; expires=Thu, 22 Dec ' + jyear2 + ' 01:00:00 UTC';
   $("#gruposc").html(htmlGrp);
 
   $(this).addClass('bg-dark text-white');
@@ -252,6 +254,7 @@ $(document).on('click', '.ordenarGrupo', function () {
     var ordg = $(this).attr('ordg');
     document.cookie = 'ordenGrupoaz=; expires=Thu, 01 Jan 1970 00:00:01 GMT';
     document.cookie = 'ordenGrupoza=; expires=Thu, 01 Jan 1970 00:00:01 GMT';
+    document.cookie = 'ordenGrupoHO='+ordg+'; expires=Thu, 22 Dec ' + jyear2 + ' 01:00:00 UTC';
     document.cookie = 'ordenGrupo='+ordg+'; expires=Thu, 22 Dec ' + jyear2 + ' 01:00:00 UTC';
     window.location.href = urlerd + "/index.php?sec=RegistrarCalificaciones";
 
@@ -283,6 +286,9 @@ $(document).on('click', '.moverg', function () {
     store: {
       set: function (sortable) {
       var ordg = sortable.toArray();
+      document.cookie = 'ordenGrupoaz=; expires=Thu, 01 Jan 1970 00:00:01 GMT';
+      document.cookie = 'ordenGrupoza=; expires=Thu, 01 Jan 1970 00:00:01 GMT';
+      document.cookie = 'ordenGrupoHO=; expires=Thu, 01 Jan 1970 00:00:01 GMT';
       document.cookie = 'ordenGrupo='+ordg+'; expires=Thu, 22 Dec ' + jyear2 + ' 01:00:00 UTC';
       }
         },

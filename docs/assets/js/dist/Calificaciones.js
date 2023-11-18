@@ -444,13 +444,19 @@ $(document).ready(function () {
     
     setTimeout(function () {
 
-    var calhtml = '<div class="row" style="position;relative;margin-bottom:-40px;;margin-left:-50px;width:150px;cursor:pointer;font-size:25pt;">';
+    var calhtml = '<div class="row border" style="position;relative;margin-bottom:-40px;;margin-left:-120px;width:150px;cursor:pointer;font-size:1.5rem;">';
+
+    calhtml += '<div id="sizecal" class="d-none d-md-inline-block mr-3" style="font-size:1rem">100%</div>';
+
+    calhtml += '<div class="sizecal border d-none d-md-inline-block mr-3" size="r"><i rel="tooltip" title="Disminuir tama&ntilde;o" class="fa fa-calculator" aria-hidden="true" style="cursor:pointer;"></i></div>';
+
+    calhtml += '<div class="sizecal border d-none d-md-inline-block mr-3" size="a"><i rel="tooltip" title="Aumentar tama&ntilde;o" class="fa fa-calculator" aria-hidden="true" style="cursor:pointer;"></i></div>';
     
-    calhtml += '<div id="calcal" class="col d-none d-md-block"><i rel="tooltip" title="Calculadora" class="fa fa-calculator" aria-hidden="true" style="cursor:pointer;"></i></div>';
+    calhtml += '<div id="calcal" class="d-none d-md-inline-block mr-3"><i rel="tooltip" title="Calculadora" class="fa fa-calculator" aria-hidden="true" style="cursor:pointer;"></i></div>';
     
   if(taa == 2){
     
-      calhtml += '<div id="cargar-asisencias" class="col"><i rel="tooltip" title="Cargar toda la asistencia de archivo" class="fa fa-check-circle-o" aria-hidden="true"></i></div>';   
+      calhtml += '<div id="cargar-asisencias" class="d-inline-block mr-3"><i rel="tooltip" title="Cargar toda la asistencia de archivo" class="fa fa-check-circle-o" aria-hidden="true"></i></div>';   
   }
 
       calhtml += '</div>';

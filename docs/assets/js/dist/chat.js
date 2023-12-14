@@ -169,43 +169,6 @@ $(document).ready(function () {
                       )
                       .set(nle);
 
-                    var colores = [
-                      "#fff",
-                      "#E63E6D",
-                      "#FFF6CD",
-                      "#F0D9FF",
-                      "#38A3A5",
-                      "#FC5404",
-                      "#FEC260",
-                      "#E2C2B9",
-                      "#FD6F96",
-                      "#D4ECDD",
-                      "#2D46B9",
-                      "#57CC99",
-                      "#E4D8DC",
-                      "#B8DFD8",
-                      "#95DAC1",
-                      "#C68B59",
-                      "#865439",
-                      "#22577A",
-                      "#BFA2DB",
-                      "#3DB2FF",
-                      "#F7FD04",
-                      "#4B6587",
-                      "#E7EAB5",
-                      "#FFE194",
-                      "#B42B51",
-                      "#82ccdd",
-                      "#FF95C5",
-                      "#BFD8B8",
-                      "#E05D5D",
-                      "#86340A",
-                      "#C36839",
-                      "#78e08f",
-                      "#7EB5A6",
-                      "#345B63",
-                    ];
-
                     var profesor_grupo = $("#datos_js").attr("profesor_grupo");
                     var urlimgs = $("#datos_js").attr("urlimgs");
                     
@@ -345,8 +308,10 @@ $(document).ready(function () {
 
                               if(persona.val().conectado == 1 || (persona.val().conectado == 2 && (persona.key == id_usuario || id_usuario == "p-" + profesor_grupo))) {
                                 var listar = 1;
+                                var display = '';
                               }else{
                                 var listar = 0;
+                                var display = ' style="display:none"';
                               }
                               
                               if(persona.val().conectado == 2 && (persona.key == id_usuario || id_usuario == "p-" + profesor_grupo)) {
@@ -357,13 +322,13 @@ $(document).ready(function () {
                               var estado_icon = '';
                               }
 
-                              if (persona.val().quien == "estudiante" && listar == 1) {
+                              if (persona.val().quien == "estudiante") {
                                 if (persona.val().conectado == 1 || persona.val().conectado == 2) {
                                   econectados +=
-                                    '<li class="active pl-2 mb-1 pt-1 pb-0"><div class="u-lector-' +
+                                    '<li class="active pl-2 mb-1 pt-1 pb-0"'+display+'><div class="u-lector-' +
                                     persona.key +
                                     ' d-flex bd-highlight" nle="' +
-                                    persona.val().nle +
+                                    Number(persona.val().nle) +
                                     '" style="height: 45px;"><div class="img_cont"><img src="' +
                                     urlimgs +
                                     '/fotos/foto.jpg" data-container="#contactos" rel="tooltip" data-html="true" title="Desde hace ' +
@@ -375,10 +340,12 @@ $(document).ready(function () {
                                     '"><span class="online_icon'+estado_icon+'"></span></div><div class="pl-1 user_info"><span>' +
                                     nombre +
                                     '</span><p>'+estado+'</p></div></div></li>';
+                                    if (listar == 1) {
                                   ecs++;
+                                    }
                                 } else {
                                   econectados +=
-                                    '<li class="active pl-2 mb-1 pt-1 pb-0"><div class="u-lector-' +
+                                    '<li class="active pl-2 mb-1 pt-1 pb-0"'+display+'><div class="u-lector-' +
                                     persona.key +
                                     ' d-flex bd-highlight" nle="' +
                                     persona.val().nle +
@@ -394,11 +361,13 @@ $(document).ready(function () {
                                     nombre +
                                     "</span><p>Desconectado</p></div></div></li>";
                                 }
-                                es++;
-                              } else if(listar == 1){
+                                if (listar == 1) {
+                                  es++;
+                                }
+                              } else{
                                 if (persona.val().conectado == 1 || persona.val().conectado == 2) {
                                   conectados +=
-                                    '<li class="active pl-2 mb-1 pt-1 pb-0"><div class="u-lector-' +
+                                    '<li class="active pl-2 mb-1 pt-1 pb-0"'+display+'><div class="u-lector-' +
                                     persona.key +
                                     ' d-flex bd-highlight" nle="' +
                                     persona.val().nle +
@@ -413,14 +382,16 @@ $(document).ready(function () {
                                     '"><span class="online_icon'+estado_icon+'"></span></div><div class="pl-1 user_info"><span>' +
                                     nombre +
                                     '</span><p>'+estado+'</p></div></div></li>';
+                                    if (listar == 1) {
                                   pcs++;
+                                    }
                                 } else if (persona.val().nombre != undefined) {
                                   conectados +=
-                                    '<li class="pl-2"><div class="u-lector-' +
+                                    '<li class="pl-2"'+display+'><div class="u-lector-' +
                                     persona.key +
                                     ' d-flex bd-highlight" nle="' +
                                     persona.val().nle +
-                                    '" style="height: 45px;"><div class="img_cont"><img data-container="#contactos" rel="tooltip" title="&Uacute;ltima conexi&oacute;n hace ' +
+                                    '" style="height: 45px;'+display+'"><div class="img_cont"><img data-container="#contactos" rel="tooltip" title="&Uacute;ltima conexi&oacute;n hace ' +
                                     HaceTiempo(
                                       persona.val().UltimaConexion
                                     )[0] +
@@ -432,7 +403,9 @@ $(document).ready(function () {
                                     nombre +
                                     "</span><p>Desconectado</p></div></div></li>";
                                 }
+                                if (listar == 1) {
                                 ps++;
+                                }
                               }
                             }
                           });
@@ -445,7 +418,7 @@ $(document).ready(function () {
                             $("#tconectadose").text("Desconectados");
                           }else {
                               $("#tconectadose").text("");
-                            }
+                          }
 
                           if (pcs > 0) {
                             $("#tconectadosp").text(pcs + " personal");
@@ -453,10 +426,14 @@ $(document).ready(function () {
                             $("#tconectadosp").text("Desconectados");
                           }else {
                               $("#tconectadosp").text("");
-                            }
+                          }
 
                           $("#chatpconectados").html(conectados);
                           FotosMsj();
+                          setTimeout(function () {
+                            $('#enlinea').attr('v', 'v');
+                          }, 1000);
+                            
                         });
 
                     const enlinea = document.getElementById("enlinea");
@@ -1320,6 +1297,43 @@ $(document).ready(function () {
                         });
                     }
 
+                    var colores = [
+                      "#fff",
+                      "#E63E6D",
+                      "#FFF6CD",
+                      "#F0D9FF",
+                      "#38A3A5",
+                      "#FC5404",
+                      "#FEC260",
+                      "#E2C2B9",
+                      "#FD6F96",
+                      "#D4ECDD",
+                      "#2D46B9",
+                      "#57CC99",
+                      "#E4D8DC",
+                      "#B8DFD8",
+                      "#95DAC1",
+                      "#C68B59",
+                      "#865439",
+                      "#22577A",
+                      "#BFA2DB",
+                      "#3DB2FF",
+                      "#F7FD04",
+                      "#4B6587",
+                      "#E7EAB5",
+                      "#FFE194",
+                      "#B42B51",
+                      "#82ccdd",
+                      "#FF95C5",
+                      "#BFD8B8",
+                      "#E05D5D",
+                      "#86340A",
+                      "#C36839",
+                      "#78e08f",
+                      "#7EB5A6",
+                      "#345B63",
+                    ];
+
                     function MsjChat(n, i, msjs, f = 0) {
                       var msjchathtml = "";
                       var msj = msjs.val();
@@ -1384,7 +1398,7 @@ $(document).ready(function () {
                             datos_u = $(".u-lector-" + msj.usuario);
                             var nombre = datos_u.find(".user_info span").html();
                             var foto = datos_u.find("img").attr("src");
-                            var nle = datos_u.attr("nle");
+                            var nle = Number(datos_u.attr("nle"));
 
                             var msj_mensaje = "";
 
@@ -1750,7 +1764,6 @@ $(document).ready(function () {
                       firebase.auth().signOut().then(() => {});
                       
                         $("#ventanachat").hide("slow");
-                        $("#ventanachat").hide("slow");
                         $("#ventanachat").remove();
                         $("body").removeClass("modal-open");
                         
@@ -1775,9 +1788,8 @@ $(document).ready(function () {
 
           
         }else{
-
+          
           $("#btnchat").remove();
-            $("#ventanachat").hide("slow");
             $("#ventanachat").hide("slow");
             $("#ventanachat").remove();
             $("body").removeClass("modal-open");

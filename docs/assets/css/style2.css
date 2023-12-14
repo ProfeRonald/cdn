@@ -2335,5 +2335,9 @@ margin-left: -4px;
 }
 
 .user-area .dropdown-toggle.noactive:before {
-  background: #c2bf16; 
+  background: #c2bf16 !important;
+}
+
+.user-area .dropdown-toggle.offline:before {
+  background-color: #c23616 !important;
 }

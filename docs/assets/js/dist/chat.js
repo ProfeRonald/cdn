@@ -72,13 +72,13 @@ $(document).ready(function () {
                   $("#enlinea").attr('usuario', id_usuario);
 
                   if (id_grupo != undefined && id_usuario != undefined) {
-                    /*window.addEventListener(
+                    window.addEventListener(
                       "contextmenu",
                       function (e) {
                         e.preventDefault();
                       },
                       false
-                    );*/
+                    );
 
                     var escuela_sesion = $("#datos_js").attr("escuela_sesion");
                     var foto_sesion = $("#datos_js").attr("foto_sesion");

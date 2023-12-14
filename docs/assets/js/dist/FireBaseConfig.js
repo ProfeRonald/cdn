@@ -1,4 +1,4 @@
-const firebaseConfig = {
+const CDNfirebaseConfig = {
     apiKey: "AIzaSyAjm3Arzoel_j1WKbodgtsXzveIvaYTPck",
     authDomain: "cdn-escuelard.firebaseapp.com",
     projectId: "cdn-escuelard",
@@ -7,5 +7,6 @@ const firebaseConfig = {
     appId: "1:996094148222:web:6987e0612e83f05c8ee22f",
   };
 
-  firebase.initializeApp(firebaseConfig);
+const CDN = firebase.initializeApp(CDNfirebaseConfig, "CDN");
+
   

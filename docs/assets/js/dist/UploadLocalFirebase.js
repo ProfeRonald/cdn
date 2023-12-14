@@ -96,9 +96,8 @@ $(".input_file_foto").change(function () {
 				  }else{
 				  
 				 
-				  var subirimagen = firebase.storage().ref().child(FotoGrupo).putString(dataurl, 'data_url');
+				  var subirimagen = CDN.storage().ref().child(FotoGrupo).putString(dataurl, 'data_url');
 				 
-
 				  subirimagen.on(firebase.storage.TaskEvent.STATE_CHANGED,
 				function(snapshot) {
 			  

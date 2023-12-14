@@ -98,17 +98,17 @@ $(".input_file_foto").change(function () {
 				 
 				  var subirimagen = CDN.storage().ref().child(FotoGrupo).putString(dataurl, 'data_url');
 				 
-				  subirimagen.on(firebase.storage.TaskEvent.STATE_CHANGED,
+				  subirimagen.on(CDN.storage.TaskEvent.STATE_CHANGED,
 				function(snapshot) {
 			  
 				  var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
 				  var progress = Math.round(progress);
 				  $('#barra_upload').html('<div class="progress-bar rounded progress-bar-striped d-block bg-info progress-bar-animated" role="progressbar" style="width: ' + progress + '%;font-weight:bold;font-size:15pt" aria-valuenow="' + progress + '" aria-valuemin="0" aria-valuemax="100">' + progress + '%</div>');
 				  switch (snapshot.state) {
-					case firebase.storage.TaskState.PAUSED:
+					case CDN.storage.TaskState.PAUSED:
 					  console.log('Pausar subida');
 					  break;
-					case firebase.storage.TaskState.RUNNING:
+					case CDN.storage.TaskState.RUNNING:
 					  $('#mensaje_uploading').html('<div class="text-info"><i class="fa fa-refresh rotar"></i> Subiendo imagen...</div>');
 					  break;
 				  }

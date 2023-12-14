@@ -1,3 +1,4 @@
+
 var id_sesion = $("#datos_js").attr("id_sesion");
 var local = $("#datos_js").attr("local");
 var year_1 = $("#datos_js").attr("year_1");
@@ -117,7 +118,7 @@ $(document).ready(function () {
        if(local == 1){
         document.cookie = "ColorGrupo" + grupo + "_" + year_1 + "-" + year_2 + "_" + quien + "_" + id_sesion + "=" + scolor;
        }else{
-       fetch('https://web-escuelard-default-rtdb.firebaseio.com/' + year_1 + '-' + year_2 + '/' + quien + '_' + id_sesion + '.json', {method: 'PATCH',body: JSON.stringify({[grupo]:scolor}),headers:{'Content-Type': 'application/json'}}); 
+       fetch('https://cdn-escuelard-default-rtdb.firebaseio.com/' + year_1 + '-' + year_2 + '/' + quien + '_' + id_sesion + '.json', {method: 'PATCH',body: JSON.stringify({[grupo]:scolor}),headers:{'Content-Type': 'application/json'}}); 
        }
       });
     } else {

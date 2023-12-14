@@ -83,7 +83,7 @@ function read(a){
 		});
 	
     }else{
-    console.log(a);
+
     document.cookie = 'sesionqr=' + a;
     window.location = 'sesion.php?op=SesionQR';
   	}

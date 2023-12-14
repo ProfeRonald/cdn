@@ -444,13 +444,13 @@ $(document).ready(function () {
     
     setTimeout(function () {
 
-    var calhtml = '<div class="row border" style="position;relative;margin-bottom:-40px;;margin-left:-120px;width:150px;cursor:pointer;font-size:1.5rem;">';
+    var calhtml = '<div class="row" style="position;relative;margin-bottom:-40px;;margin-left:-140px;width:225px;cursor:pointer;font-size:1.5rem;">';
 
-    calhtml += '<div id="sizecal" class="d-none d-md-inline-block mr-3" style="font-size:1rem">100%</div>';
+  // calhtml += '<div id="sizecal" class="mt-2 font-weight-bold d-none d-md-inline-block mr-3" style="font-size:1rem" por="100">100%</div>';
 
-    calhtml += '<div class="sizecal border d-none d-md-inline-block mr-3" size="r"><i rel="tooltip" title="Disminuir tama&ntilde;o" class="fa fa-calculator" aria-hidden="true" style="cursor:pointer;"></i></div>';
+  //  calhtml += '<div class="sizecal border d-none d-md-inline-block mr-3" size="r"><img src="'+urlimgs+'/reducir_fuente.png" rel="tooltip" title="Disminuir tama&ntilde;o" style="cursor:pointer;"></div>';
 
-    calhtml += '<div class="sizecal border d-none d-md-inline-block mr-3" size="a"><i rel="tooltip" title="Aumentar tama&ntilde;o" class="fa fa-calculator" aria-hidden="true" style="cursor:pointer;"></i></div>';
+   // calhtml += '<div class="sizecal border d-none d-md-inline-block mr-3" size="a"><img src="'+urlimgs+'/aumentar_fuente.png" rel="tooltip" title="Aumentar tama&ntilde;o" style="cursor:pointer;"></div>';
     
     calhtml += '<div id="calcal" class="d-none d-md-inline-block mr-3"><i rel="tooltip" title="Calculadora" class="fa fa-calculator" aria-hidden="true" style="cursor:pointer;"></i></div>';
     
@@ -468,6 +468,31 @@ $(document).ready(function () {
 
 
   })
+
+  $(document).on('click', '.sizecal', function () {
+  var por = Number($('#sizecal').attr('por'));
+  var size = $(this).attr('size');
+ 
+  if(size == 'a' && por >= 10 && por < 291){
+    $('#sizecal').attr('por', por + 10);
+    $('#sizecal').text((por + 10) + '%');
+  }else if(size == 'r' && por > 10 && por <= 300){
+    $('#sizecal').attr('por', por - 10);
+    $('#sizecal').text((por - 10) + '%');
+  }
+
+  var por = Number($('#sizecal').attr('por'));
+ $('#TablaCalificaciones tbody td').css({'font-size':'' + por*60/10000 + 'rem'});
+ $('#TablaCalificaciones_wrapper tbody td').css({'font-size':'' + por*60/10000 + 'rem'});
+ $('#TablaCalificaciones_wrapper tbody td .foto-estudiantep').css({'width':'' + por + '%', 'height':'' + por + '%'});
+ $('#TablaCalificaciones_wrapper tbody td .foto-estudiantep').parent().css({'width':'' + por/4 + 'px'});
+ $('#TablaCalificaciones tbody td .foto-estudiantep').parent().css({'width':'' + por/4 + 'px'});
+ $('.fototh').css({'min-width':'' + por/4 + 'px'});
+ $('.nombre1th').css({'min-width':'' + por/3 + 'px'});
+ 
+  
+  })
+
 
   $(document).on('click', '#calcal, #cerrcal', function () {
 

@@ -1,5 +1,6 @@
 $(".input_file_foto").change(function () {
 
+
 		$('#barra_upload').show('slow');
 		$('#mensaje_uploading').show('slow');
 		var xwidth = $(this).attr('xwidth');
@@ -8,8 +9,6 @@ $(".input_file_foto").change(function () {
         var mime_type_img = $(this).attr('mime_type_img');
 		var cmini = $(this).attr('cmini');
 		var local = $("#datos_js").attr("local");
-      
-     var file = this.files[0];
 	   
 			  (function() {
 			  if(window.performance && window.performance.now) return;
@@ -96,19 +95,19 @@ $(".input_file_foto").change(function () {
 				  }else{
 				  
 				 
-				  var subirimagen = CDN.storage().ref().child(FotoGrupo).putString(dataurl, 'data_url');
+				  var subirimagen = firebase.storage().ref().child(FotoGrupo).putString(dataurl, 'data_url');
 				 
-				  subirimagen.on(CDN.storage.TaskEvent.STATE_CHANGED,
+				  subirimagen.on(firebase.storage.TaskEvent.STATE_CHANGED,
 				function(snapshot) {
 			  
 				  var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
 				  var progress = Math.round(progress);
 				  $('#barra_upload').html('<div class="progress-bar rounded progress-bar-striped d-block bg-info progress-bar-animated" role="progressbar" style="width: ' + progress + '%;font-weight:bold;font-size:15pt" aria-valuenow="' + progress + '" aria-valuemin="0" aria-valuemax="100">' + progress + '%</div>');
 				  switch (snapshot.state) {
-					case CDN.storage.TaskState.PAUSED:
+					case firebase.storage.TaskState.PAUSED:
 					  console.log('Pausar subida');
 					  break;
-					case CDN.storage.TaskState.RUNNING:
+					case firebase.storage.TaskState.RUNNING:
 					  $('#mensaje_uploading').html('<div class="text-info"><i class="fa fa-refresh rotar"></i> Subiendo imagen...</div>');
 					  break;
 				  }

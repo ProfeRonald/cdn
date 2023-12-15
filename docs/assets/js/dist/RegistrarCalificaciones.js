@@ -128,17 +128,6 @@ $(document).ready(function () {
 
   if(local != 1){
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyAjm3Arzoel_j1WKbodgtsXzveIvaYTPck",
-    authDomain: "cdn-escuelard.firebaseapp.com",
-    projectId: "cdn-escuelard",
-    storageBucket: "cdn-escuelard.appspot.com",
-    messagingSenderId: "996094148222",
-    appId: "1:996094148222:web:6987e0612e83f05c8ee22f",
-  };
-
-  firebase.initializeApp(firebaseConfig);
-
   var id_sesion = $("#datos_js").attr("id_sesion");
   var storageRef = firebase
     .storage()

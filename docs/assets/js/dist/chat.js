@@ -1434,7 +1434,7 @@ $(document).ready(function () {
                           mensaje = mensaje.replaceAll('%20', ' ');
                           mensaje = mensaje.replaceAll('&nbsp;', ' ');
                           mensaje = MsjImg(mensaje);
-                          mensaje = MsjVid(mensaje);
+                          mensaje = MsjYouTube(mensaje);
                           mensaje = MsjLink(mensaje, nle);
 
                           if (hacetiempo[1] < 5) {
@@ -1724,7 +1724,7 @@ $(document).ready(function () {
 
                     }
 
-                    function MsjVid(msj){
+                    function MsjYouTube(msj){
      
                       msj = msj.replace('https://www.youtu.be','https://youtube.com');
                       msj = msj.replace('https://www.youtube.com','https://youtube.com');
@@ -1739,7 +1739,7 @@ $(document).ready(function () {
                         const yt = ytext.match(/\bhttps?:\/\/youtube\.com\S+/gi);
                         if(yt != null && yt[0].indexOf("https://youtube.com") > -1) {
                         var vyt = YouTubeID(yt[0]);
-                        msj = msj.replace(yt[0], '<div class="vidamplia d-inline-block border m-1 border-secondary" vyt="'+vyt+'"><img src="https://img.youtube.com/vi/' + vyt + '/mqdefault.jpg" alt="Img Chat" /><span class="VerVideo" rel="tooltip" title="Click para ver"></span></div>');
+                        msj = msj.replace(yt[0], '<div class="ytamplia d-inline-block border m-1 border-secondary" vyt="'+vyt+'"><img src="https://img.youtube.com/vi/' + vyt + '/mqdefault.jpg" alt="Img Chat" /><span class="VerVideo" rel="tooltip" title="Click para ver"></span></div>');
                         }
                       }
 
@@ -1765,14 +1765,12 @@ $(document).ready(function () {
 
                         }
 
-                       
-
                         if(link.image == false){
                           //var linkimage = '<div><img class="rounded" src="data:image/png;base64,'+link.image+'" alt="Img Chat" /></div>';
                           var linkimage = '';
                         }else{
 
-                          var linkimage = '<div><img class="rounded" src="'+link.image+'" alt="Img Chat" /></div>';
+                          var linkimage = '<div><a href="' + url + '" target="_blank"><img class="rounded" src="'+link.image+'" alt="Img Chat" /></a></div>';
 
                         }
 
@@ -1795,7 +1793,7 @@ $(document).ready(function () {
                      var img = $(this).html();
                      
                      $('#ImgVideoAmplia').html(img);
-                     $('#ImgVideoAmplia').show();  
+                     $('#ImgVideoAmplia').show();
                     
                     })
 

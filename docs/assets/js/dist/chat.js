@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
    const firebaseConfig = {
     apiKey: "AIzaSyBXwL57msS6Guf2LoOlVYSAR5Do1-vHsV4",
     authDomain: "chat.escuelard.edu.do",
@@ -1764,7 +1765,18 @@ $(document).ready(function () {
 
                         }
 
-                        var linkdata = ' <div class="img-link"><div class="rounded"><img class="rounded" src="'+link.image+'" alt="Img Chat" /><div style="font-size: 1rem" class="'+cne+'font-weight-bold mt-1">'+link.title+'</div><div style="font-size: 0.7rem" class="text-secondary mt-1">'+link.description+'</div><div style="font-size: 0.7rem;color: lightgray" class="mt-1">'+link.name+'</div></div><div style="font-size: 0.7rem" class="mt-1"><a href="' + url + '" target="_blank" class="text-primary font-weight-bold">' + url + '</a></div></div>';
+                       
+
+                        if(link.image == false){
+                          //var linkimage = '<div><img class="rounded" src="data:image/png;base64,'+link.image+'" alt="Img Chat" /></div>';
+                          var linkimage = '';
+                        }else{
+
+                          var linkimage = '<div><img class="rounded" src="'+link.image+'" alt="Img Chat" /></div>';
+
+                        }
+
+                        var linkdata = ' <div class="img-link"><div class="rounded">'+linkimage+'<div style="font-size: 1rem" class="'+cne+'font-weight-bold mt-1">'+link.title+'</div><div style="font-size: 0.7rem" class="text-secondary mt-1">'+link.description+'</div><div style="font-size: 0.7rem;color: lightgray" class="mt-1">'+link.name+'</div></div><div style="font-size: 0.7rem" class="mt-1"><a href="' + url + '" target="_blank" class="text-primary font-weight-bold">' + url + '</a></div></div>';
 
                       }else{
                         var linkdata = ' <a href="' + url + '" target="_blank" class="text-primary font-weight-bold">' + url + '</a>';

@@ -108,7 +108,7 @@ function error(error){
     return;
 }
 
-function load(e=0, d=0){
+function loadCam(e=0, d=0){
 	
 	if(isCanvasSupported() && window.File && window.FileReader){
 		document.cookie = 'deviceqr=' + e;

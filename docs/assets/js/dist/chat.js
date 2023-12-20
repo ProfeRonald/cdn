@@ -1,12 +1,5 @@
 $(document).ready(function () {
- 
-//  $.ajaxSetup({async:false});
-const link = $.getJSON('https://link-previews.stephanbogner.de/api?url=http://web.escuelard.com/');
-//const link = '{"fileName":"2023-12-20-Escuelard.com-Proyecto_escuelaRD.png","url":"http://web.escuelard.com/","name":"Escuelard.com","title":"Proyecto escuelaRD","description":"Proyecto escuelaRD - Herramienta de manejo y publicación de calificaciones escolares según el modelo de la República Dominicana","image":false}';
-//console.log(JSON.parse(link));
-console.log(link);
-
-  const firebaseConfig = {
+   const firebaseConfig = {
     apiKey: "AIzaSyBXwL57msS6Guf2LoOlVYSAR5Do1-vHsV4",
     authDomain: "chat.escuelard.edu.do",
     databaseURL: "https://chat-escuelard-default-rtdb.firebaseio.com",
@@ -1760,10 +1753,9 @@ console.log(link);
                         url = url.trim();
 
                         $.ajaxSetup({async:false});
-                        const link = $.getJSON('https://link-previews.stephanbogner.de/api?url=http://web.escuelard.com/');
-                        console.log(link);
-                        if(link != undefined){
-                        console.log(link);
+                        const link = $.getJSON('up.php?op=link&link=' + url).responseJSON;
+                        if(link != undefined && link.title != ''){
+                          
                         if(ne > 0){
                           var cne = 'text-white ';
                         }else{

@@ -1634,10 +1634,6 @@ margin-left: -4px;
   background-color: transparent;
 }
 
-#chaterd .responder_chat:hover {
-  cursor: pointer;
-  color: gray;
-}
 
 #chaterd #chat_formato {
   display: none;
@@ -1681,13 +1677,6 @@ margin-left: -4px;
   color: white;
 }
 
-#chaterd #responder_chat {
-  font-size: 0.6rem;
-  border-radius: 15px 15px 15px 15px !important;
-  background-color: rgba(0, 0, 0, 0.3) !important;
-  color: lightgray;
-}
-
 #chaterd .respuesta_chat {
   font-size: 0.6rem;
   border-radius: 15px 15px 15px 15px !important;
@@ -1718,6 +1707,7 @@ margin-left: -4px;
   bottom: 0rem;
   background-color: rgba(0, 0, 0, 0.5);
 }
+
 #chaterd #chatemot {
   background-color: #86a8e7;
   font-size: 20px;
@@ -1727,21 +1717,18 @@ margin-left: -4px;
   position: absolute;
   right: 10px;
   top: 50px;
+  font-size: 0.9rem;
+  color: #ffffff;
 }
 
-#chaterd #btn_salir {
+#chaterd .btn_fullsalir {
   position: absolute;
   right: 5px;
   top: 10px;
 }
 
-#chaterd .fecha_salir {
-  font-size: 0.8rem;
-}
-
-#chaterd #btn_salir {
+#chaterd .btn_fullsalir {
   color: white;
-  cursor: pointer;
   font-size: 20px;
 }
 
@@ -1750,6 +1737,14 @@ margin-left: -4px;
   position: fixed;
   right: 8%;
   bottom: 10%;
+}
+
+#chaterd #btn_salir, #chaterd #mover_chat {
+  cursor: pointer;
+}
+
+#chaterd #btn_full {
+  cursor: pointer;
 }
 
 #chaterd .card {
@@ -2340,4 +2335,89 @@ margin-left: -4px;
 
 .user-area .dropdown-toggle.offline:before {
   background-color: #c23616 !important;
+}
+
+
+#ImgVideoAmplia {
+  margin: 0;
+  padding: 0;
+  z-index: 9999;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  right: 0rem;
+  bottom: 0rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+#chaterd .vidamplia{
+  position: relative;
+}
+
+#chaterd .imgamplia{
+  width: 180px;
+  height: 180px;
+  overflow: hidden;
+}
+
+#chaterd .img-link{
+  width: 220px;
+}
+
+.img-link img{
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+
+#chaterd .imgamplia:hover{
+  cursor: pointer;
+}
+#chaterd .VerVideo {
+  background: rgba(0, 0, 0, 0.5);
+  display: inline-block;
+  padding: 25px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+}
+
+#chaterd .VerVideo:after {
+  content: "";
+  display: block;
+  position: relative;
+  left: 2px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 10px 0 10px 20px;
+  border-color: transparent transparent transparent white;
+}
+
+#chaterd .VerVideo:hover {
+  border-width: 15px 0 15px 30px;
+  background: blue;
+  cursor: pointer;
+}
+
+#chaterd .responder_chat {
+  margin-top: 1%;
+  height: 23px;
+  z-index: 1;
+  cursor: pointer;
+  background-color:rgba(0,0,0,0.4);
+  visibility: visible;
+}
+
+
+#chaterd .no-responder_chat {
+  margin-top: 1%;
+  height: 23px;
+  visibility: hidden;
 }

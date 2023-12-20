@@ -1,5 +1,11 @@
 $(document).ready(function () {
-  
+ 
+//  $.ajaxSetup({async:false});
+const link = $.getJSON('https://link-previews.stephanbogner.de/api?url=http://web.escuelard.com/');
+//const link = '{"fileName":"2023-12-20-Escuelard.com-Proyecto_escuelaRD.png","url":"http://web.escuelard.com/","name":"Escuelard.com","title":"Proyecto escuelaRD","description":"Proyecto escuelaRD - Herramienta de manejo y publicación de calificaciones escolares según el modelo de la República Dominicana","image":false}';
+//console.log(JSON.parse(link));
+console.log(link);
+
   const firebaseConfig = {
     apiKey: "AIzaSyBXwL57msS6Guf2LoOlVYSAR5Do1-vHsV4",
     authDomain: "chat.escuelard.edu.do",
@@ -26,14 +32,26 @@ $(document).ready(function () {
 
           $(document).on("click", "#btnchat", function () {
             
-            var lventanachat = Number($("#ventanachat").length);
+           // var lventanachat = Number($("#ventanachat").length);
 
-            if (lventanachat > 0) {
+            var lventanachat = Number($("#ventanachat").attr('lventanachat'));
+
+            if (lventanachat == 1) {
+
               $("#ventanachat").hide("slow");
-              $("#ventanachat").remove();
+             // $("#ventanachat").remove();
               $("body").removeClass("modal-open");
-            } else {
+              $("#ventanachat").attr('lventanachat', 2);
+              
+            } else if(lventanachat == 2) {
 
+              $("body").addClass("modal-open");
+              $("#ventanachat").show("slow");
+             // $("#ventanachat").remove();
+              $("#ventanachat").attr('lventanachat', 1);
+
+            }else{
+            
               var chatVentana = $(this);
               var curso = $(this).attr("curso");
               var id_grupo = $("#datos_js").attr("id_grupo");
@@ -47,6 +65,7 @@ $(document).ready(function () {
                   curso: curso,
                 },
               }).done(function (chat) {
+        
                 var id_sesion = $("#datos_js").attr("id_sesion");
 
                 if (id_sesion != undefined) {
@@ -62,6 +81,8 @@ $(document).ready(function () {
                     id_usuario = "y-" + id_sesion;
                   } else if (quien == "coordinador") {
                     id_usuario = "c-" + id_sesion;
+                  } else if (quien == "registro") {
+                    id_usuario = "r-" + id_sesion;
                   } else if (quien == "profesor") {
                     id_usuario = "p-" + id_sesion;
                   } else if (quien == "estudiante") {
@@ -72,13 +93,13 @@ $(document).ready(function () {
                   $("#enlinea").attr('usuario', id_usuario);
 
                   if (id_grupo != undefined && id_usuario != undefined) {
-                    window.addEventListener(
+                    /*window.addEventListener(
                       "contextmenu",
                       function (e) {
                         e.preventDefault();
                       },
                       false
-                    );
+                    );*/
 
                     var escuela_sesion = $("#datos_js").attr("escuela_sesion");
                     var foto_sesion = $("#datos_js").attr("foto_sesion");
@@ -268,9 +289,8 @@ $(document).ready(function () {
 
                     function MarcarLeido() {
                       $(".noleido").each(function () {
-                        var ta = Number($(this).position().top);
-
-                        if (ta > 9 && ta < 209) {
+                        var ta = Number($(this).parent().position().top);
+                        if (ta > -3 && ta < 209) {
                           var key = $(this).attr("id");
                           firebase
                             .database()
@@ -320,6 +340,10 @@ $(document).ready(function () {
                                 }else{
                                var estado = 'En l&iacute;nea';
                               var estado_icon = '';
+                              }
+
+                              if(persona.key == id_usuario) {
+                              nombre = 'Yo';
                               }
 
                               if (persona.val().quien == "estudiante") {
@@ -470,6 +494,7 @@ $(document).ready(function () {
                         "-ms-touch-action": "none",
                         "touch-action": "none",
                       });
+                      $("#mover_chat").removeClass('d-inline-block');
                       $(".chaterd_mover").draggable({
                         droptarget: "body",
                         drop: function (evt, droptarget) {
@@ -478,12 +503,69 @@ $(document).ready(function () {
                             "-ms-touch-action": "unset",
                             "touch-action": "unset",
                           });
+                          $("#mover_chat").addClass('d-inline-block');
                           $("#mover_chat").show();
                           $(this).draggable("destroy");
                         },
                       });
 
                       $(this).hide();
+                    });
+
+                    function FullScreen(){
+                      var requestMethod = document.body.requestFullScreen || document.body.webkitRequestFullScreen || document.body.mozRequestFullScreen || document.body.msRequestFullScreen;
+                          if(requestMethod){
+                            requestMethod.call(document.body);
+                          }else if (typeof window.ActiveXObject !== "undefined"){
+                            var wscript = new ActiveXObject("WScript.Shell");
+                            if(wscript !== null){
+                              wscript.SendKeys("{F11}");
+                              $("#btnchat").hide();
+                            }
+                          }
+                    }
+
+                    function SalirFullScreen(){
+                      if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                      } else if (document.webkitExitFullscreen) {
+                        document.webkitExitFullscreen();
+                      } else if (document.msExitFullscreen) {
+                        document.msExitFullscreen();
+                      }
+                      $("#btnchat").show();
+                    }
+
+                    $(document).on('click', '#btn_full', function () {
+                    
+
+                        if($(this).attr('transform') == 'matrix(1, 0, 0, 1, 0, 0)'){
+
+                          $(this).attr('transform', 'matrix(-1, 0, 0, -1, 0, 0)');
+                          $('#chaterd').css({'right': '0rem', 'bottom': '0rem', 'left': '0rem', 'top': '0rem', 'height': '100vh'});
+                          $('#chaterd .card').css({'height': '100vh'});
+                          $('#chaterd').removeClass("col-lg-8");
+                          $('#chaterd').addClass("col-lg-12");
+                          $('#mover_chat').hide();
+
+                          FullScreen();
+                          $('#ImgVideoAmplia').attr('full', 0);
+
+                        }else{
+
+                          $(this).attr('transform', 'matrix(1, 0, 0, 1, 0, 0)');
+                          $('#chaterd').css({'right': 'unset', 'left': 'unset', 'bottom': 'unset', 'top': 'unset'});
+                          $('#chaterd').css({'right': '8%', 'bottom': '23%', 'height': '380px'});
+                          $('#chaterd .card').css({'height': '430px'});
+                          $('#chaterd').removeClass("col-lg-12");
+                          $('#chaterd').addClass("col-lg-8");
+                          $('#mover_chat').show();
+
+                          SalirFullScreen();
+                          $('#ImgVideoAmplia').attr('full', 1);
+                          
+                        }
+
                     });
 
                     function HaceTiempo(fecha) {
@@ -1178,6 +1260,8 @@ $(document).ready(function () {
                         $("#focuschat").attr("focus", 2);
                       }
 
+                      $("#ventanachat").attr('lventanachat', 2);
+
                       $("#chats").attr("f", 2);
 
                       if (nuevos > 0) {
@@ -1231,7 +1315,7 @@ $(document).ready(function () {
                         msj
                           .parent()
                           .find(".no-responder_chat")
-                          .attr("class", "responder_chat");
+                          .attr("class", "responder_chat mx-1 rounded-circle px-1");
                       } else {
                         msj.parent().css({ filter: "grayscale(100%)" });
                         msj
@@ -1341,7 +1425,23 @@ $(document).ready(function () {
                         var mensaje = msj.mensaje.substring(0, 1500);
 
                         if (mensaje.length > 0) {
+
                           var hacetiempo = HaceTiempo(msj.marca_de_tiempo);
+
+                          if(mensaje.substr(0, 4) == 'http'){
+                            mensaje = ' ' + mensaje;
+                          }
+
+                          datos_u = $(".u-lector-" + msj.usuario);
+                            var nombre = datos_u.find(".user_info span").html();
+                            var foto = datos_u.find("img").attr("src");
+                            var nle = Number(datos_u.attr("nle"));
+
+                          mensaje = mensaje.replaceAll('%20', ' ');
+                          mensaje = mensaje.replaceAll('&nbsp;', ' ');
+                          mensaje = MsjImg(mensaje);
+                          mensaje = MsjVid(mensaje);
+                          mensaje = MsjLink(mensaje, nle);
 
                           if (hacetiempo[1] < 5) {
                             var elm = "";
@@ -1395,10 +1495,7 @@ $(document).ready(function () {
                                 '" data-container="#chats" data-html="true" rel="tooltip" title="Click para eliminar" class="elmchat fa fa-trash"></i>';
                             }
 
-                            datos_u = $(".u-lector-" + msj.usuario);
-                            var nombre = datos_u.find(".user_info span").html();
-                            var foto = datos_u.find("img").attr("src");
-                            var nle = Number(datos_u.attr("nle"));
+                            
 
                             var msj_mensaje = "";
 
@@ -1423,13 +1520,14 @@ $(document).ready(function () {
                               var respuestahtml = "";
 
                               if (msj.respuesta != "") {
-                                respuesta = LaTeXtoMath(msj.respuesta, "white");
+                                var respuesta = LaTeXtoMath(msj.respuesta, "white");
                                 respuesta = FormatoMsj(respuesta);
                                 var nombre_respuesta = $(
                                   ".u-lector-" + msj.usuario_respuesta
                                 )
                                   .find(".user_info span")
                                   .html();
+
                                 respuestahtml =
                                   '<div class="px-2 respuesta_chat"><strong class="d-block" style="color: black">' +
                                   nombre_respuesta +
@@ -1449,23 +1547,22 @@ $(document).ready(function () {
                               math_msj = LaTeXtoMath(math_msj);
                               math_msj = FormatoMsj(math_msj);
 
+                              msj_mensaje = math_msj;
+
+                              var responder_chat = '';
+                          
                               if (msjresponder == 1) {
-                                msj_mensaje =
-                                  '<span data-container="#chats" rel="tooltip" title="Click para responder" usuario="' +
-                                  msj.usuario +
-                                  '" color="' +
-                                  colores[nle] +
-                                  '" key="' +
-                                  msjs.key +
-                                  '" class="responder_chat">' +
-                                  math_msj +
-                                  '</span><span style="display:none" class="responder_chat_math" id="math' +
-                                  msjs.key +
-                                  '">' +
-                                  mensaje +
-                                  "</span>";
-                              } else {
-                                msj_mensaje = math_msj;
+                                responder_chat = '<div class="responder_chat mx-1 rounded-circle px-1" style="visibility:hidden" data-container="#chats" rel="tooltip" title="Click para responder" usuario="' +
+                                msj.usuario +
+                                '" color="' +
+                                colores[nle] +
+                                '" key="' +
+                                msjs.key +
+                                '"><i class="fa fa-reply text-white"></i></div><span style="display:none" class="responder_chat_math" id="math' +
+                                msjs.key +
+                                '">' +
+                                mensaje +
+                                '</span>';
                               }
 
                               n[i] = msj.usuario;
@@ -1516,7 +1613,8 @@ $(document).ready(function () {
                                   msj.lectores == 0 ||
                                   msj.lectores == "")
                               ) {
-                                var noleido = " noleido";
+                                
+                                var noleido = ' class="noleido"';
 
                                 $("#audio_msj_chat").get(0).play();
 
@@ -1558,9 +1656,9 @@ $(document).ready(function () {
                                   msjeliminado +
                                   '"><a href="#" id="' +
                                   msjs.key +
-                                  '" class="' +
+                                  '"' +
                                   noleido +
-                                  '"></a><div class="img_cont_msg"><img data-container="#chats" rel="tooltip" title="' +
+                                  '></a><div class="img_cont_msg"><img data-container="#chats" rel="tooltip" title="' +
                                   nombre +
                                   '" src="' +
                                   foto +
@@ -1576,7 +1674,7 @@ $(document).ready(function () {
                                   '<br /><span class="msg_time" style="word-wrap: nowrap;">Hace ' +
                                   hacetiempo[0] +
                                   elm +
-                                  "</span></div></div>";
+                                  '</span></div>'+responder_chat+'</div>';
                               } else {
                                 msjchathtml +=
                                   '<div class="chat-msj d-flex justify-content-end mb-4" lado="der" usuario="' +
@@ -1585,9 +1683,9 @@ $(document).ready(function () {
                                   msjeliminado +
                                   '"><a href="#" id="' +
                                   msjs.key +
-                                  '" class="' +
+                                  '"' +
                                   noleido +
-                                  '"></a><div style="background-color:' +
+                                  '></a>'+responder_chat+'<div style="background-color:' +
                                   colores[nle] +
                                   ";white-space: normal;word-wrap: break-word;min-width: 110px;" +
                                   msjeliminado +
@@ -1612,6 +1710,112 @@ $(document).ready(function () {
 
                       return Array(msjchathtml, nuevo);
                     }
+
+                    function MsjImg(msj){
+
+                      msj = msj.replace(/(https?:\/\/\S+\.(jpg|png|gif))/, '<div class="imgamplia" rel="tooltip" title="Click para ampliar"><img src="$1" alt="Img Chat" /></div>');
+
+                      return msj;
+                    }
+
+                    function YouTubeID(url) {
+                      const regExp =
+                        /^.*(youtube\.com\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+                    
+                      const match = url.match(regExp);
+                    
+                      if (match && match[2].length === 11) {
+                        return match[2];
+                      }
+
+                    }
+
+                    function MsjVid(msj){
+     
+                      msj = msj.replace('https://www.youtu.be','https://youtube.com');
+                      msj = msj.replace('https://www.youtube.com','https://youtube.com');
+                      msj = msj.replace('https://youtu.be','https://youtube.com');
+             
+                    if (msj.indexOf("https://youtube.com") > -1) {
+                     
+                      var ss = msj.split('https://youtube.com');
+
+                      for (let i = 0; i < ss.length; i++) {
+                        var ytext = 'https://youtube.com' + ss[i];
+                        const yt = ytext.match(/\bhttps?:\/\/youtube\.com\S+/gi);
+                        if(yt != null && yt[0].indexOf("https://youtube.com") > -1) {
+                        var vyt = YouTubeID(yt[0]);
+                        msj = msj.replace(yt[0], '<div class="vidamplia d-inline-block border m-1 border-secondary" vyt="'+vyt+'"><img src="https://img.youtube.com/vi/' + vyt + '/mqdefault.jpg" alt="Img Chat" /><span class="VerVideo" rel="tooltip" title="Click para ver"></span></div>');
+                        }
+                      }
+
+                    }
+
+                      return msj;
+                    }
+
+                    function MsjLink(msj, ne) {
+                      var urlRegex = /([^src=\"])(https?:\/\/[^\s]+)/g;
+                      return msj.replace(urlRegex, function(url) {
+                        url = url.trim();
+
+                        $.ajaxSetup({async:false});
+                        const link = $.getJSON('https://link-previews.stephanbogner.de/api?url=http://web.escuelard.com/');
+                        console.log(link);
+                        if(link != undefined){
+                        console.log(link);
+                        if(ne > 0){
+                          var cne = 'text-white ';
+                        }else{
+
+                          var cne = 'text-dark ';
+
+                        }
+
+                        var linkdata = ' <div class="img-link"><div class="rounded"><img class="rounded" src="'+link.image+'" alt="Img Chat" /><div style="font-size: 1rem" class="'+cne+'font-weight-bold mt-1">'+link.title+'</div><div style="font-size: 0.7rem" class="text-secondary mt-1">'+link.description+'</div><div style="font-size: 0.7rem;color: lightgray" class="mt-1">'+link.name+'</div></div><div style="font-size: 0.7rem" class="mt-1"><a href="' + url + '" target="_blank" class="text-primary font-weight-bold">' + url + '</a></div></div>';
+
+                      }else{
+                        var linkdata = ' <a href="' + url + '" target="_blank" class="text-primary font-weight-bold">' + url + '</a>';
+                        
+                      }
+
+                          return linkdata;
+                          
+                      });
+                  }
+
+                    $(document).on("click", ".imgamplia", function () {
+                      
+                     FullScreen();
+
+                     var img = $(this).html();
+                     
+                     $('#ImgVideoAmplia').html(img);
+                     $('#ImgVideoAmplia').show();  
+                    
+                    })
+
+                    $(document).on("click", ".VerVideo", function () {
+
+                      FullScreen();
+
+                      var vyt = $(this).parent().attr('vyt');
+
+                      var iframe = '<iframe width="840" height="472" src="https://youtube.com/embed/'+vyt+'?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+                      
+                      $('#ImgVideoAmplia').html(iframe);
+                      $('#ImgVideoAmplia').show();
+                     
+                     })
+
+                    $(document).on("click", "#ImgVideoAmplia", function () {
+
+                      $(this).text('');
+                      $(this).hide();
+                        if(Number($(this).attr('full')) == 1){
+                      SalirFullScreen();
+                        }
+                     })
 
                     function LaTeXtoMath(latex, color = "black") {
                       latex = latex.replace(
@@ -1644,6 +1848,21 @@ $(document).ready(function () {
                       }, 1000);
                     });
 
+                    $(document).on("mouseenter", ".msj_opcs", function () {
+                      $(this).parent().find('.responder_chat').css({'visibility':'visible'});
+                    })
+
+                    $(document).on("mouseleave", ".msj_opcs", function () {
+                      var ths = $(this);
+                      setTimeout(function () {
+                        ths.parent().find('.responder_chat').css({'visibility':'hidden'});
+                      }, 1500);
+                      
+                    })
+
+                     // $( selector ).on( "mouseenter", handlerIn ).on( "mouseleave", handlerOut );
+
+
                     $(document).on("click", ".responder_chat", function () {
                       var usuario = $(this).attr("usuario");
                       $("#usuario_respuesta").val(usuario);
@@ -1656,20 +1875,45 @@ $(document).ready(function () {
 
                       var mensaje = $("#math" + key).text();
 
-                      if (mensaje.length > 100) {
-                        mensaje = substringMath(mensaje);
+                      var sub = 100;
+
+                      if (mensaje.indexOf("https://") > -1) {
+                        var https = mensaje.split('https://')[1];
+                        if (https.indexOf(".gif") > -1) {
+                          sub = https.split('.gif')[0].length + sub;
+                        }
+                        if (https.indexOf(".png") > -1) {
+                          sub = https.split('.png')[0].length + sub;
+                        }
+                        if (https.indexOf(".jpg") > -1) {
+                          sub = https.split('.jpg')[0].length + sub;
+                        }
+                      }
+
+                      if (mensaje.length > sub) {
+                        mensaje = substringChat(mensaje, sub);
                       }
 
                       mensaje = mensaje.split("\n").join("<br />");
+
+                      var msjhtml = $("#math" + key).html();
+
+                      if (msjhtml.indexOf("<img") > -1) {
+
+                      var img = $(msjhtml).find('img:first');
+
+                      if(img != undefined){
+                        mensaje = '<div class="row"><div class="col-3"><img src="' + img.attr('src') + '" alt="Img Chat" style="max-width: 100px" /></div><div class="col-9">' + mensaje + '</div></div>';
+                      }
+                      
+                      }
 
                       $("#respondiendo_chat").html(
                         '<strong class="d-block float-left" style="color:' +
                           color +
                           '">' +
                           nombre_respuesta +
-                          ':</strong><div id="btnresp" class="fa fa-times float-right"></div><div class="clearfix"></div><div id="respuesta_chat">' +
-                          mensaje +
-                          "</div>"
+                          ':</strong><div id="btnresp" class="fa fa-times float-right"></div><div class="clearfix"></div><div id="respuesta_chat">' + mensaje + '</div>'
                       );
                       $("#respondiendo_chat").css({
                         "border-left": "12px solid " + color,
@@ -1697,9 +1941,9 @@ $(document).ready(function () {
                       $("#chat_mensaje").focus();
                     });
 
-                    function substringMath(msj) {
+                    function substringChat(msj, sub) {
                       if (msj.indexOf("$$") < 0 && msj.indexOf("$") < 0) {
-                        msj = msj.substring(0, 100);
+                        msj = msj.substring(0, sub);
                       } else {
                         if (msj.indexOf("$$") > -1) {
                           msj = substringMath2(msj);
@@ -1707,10 +1951,11 @@ $(document).ready(function () {
                           msj = substringMath1(msj);
                         }
                       }
+
                       return msj;
                     }
 
-                    function substringMath2(mensaje) {
+                    function substringMath2(mensaje, sub) {
                       var msg = "";
                       msg = mensaje.split("$$");
                       var l = 0;
@@ -1726,7 +1971,7 @@ $(document).ready(function () {
                           ms[i] = msg[i];
                         }
 
-                        if (l > 99) {
+                        if (l >= sub) {
                           break;
                         }
                       }
@@ -1734,7 +1979,7 @@ $(document).ready(function () {
                       return ms.join("$$");
                     }
 
-                    function substringMath1(mensaje) {
+                    function substringMath1(mensaje, sub) {
                       var msg = "";
                       msg = mensaje.split("$");
                       var l = 0;
@@ -1746,7 +1991,7 @@ $(document).ready(function () {
 
                         ms[i] = msg[i];
 
-                        if (l > 99) {
+                        if (l >= sub) {
                           break;
                         }
                       }
@@ -1759,6 +2004,7 @@ $(document).ready(function () {
                       UltimaConexion.set(firebase.database.ServerValue.TIMESTAMP);
                       conectado.set(0);
 
+                      SalirFullScreen();
                       $("#btnchat").remove();
 
                       firebase.auth().signOut().then(() => {});
@@ -1807,4 +2053,5 @@ $(document).ready(function () {
           .catch((error) => {});
       }
     });
+
 });

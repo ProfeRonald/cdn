@@ -228,7 +228,6 @@ $(document).ready(function () {
 			$('#ind-' + a + '-' + col + '-' + per).text(ind);
 			var rp = Number(parseFloat(($('#' + a + '-' + col + '-' + per + '-rp').val() / 100) * (100 - ind)).toFixed(0));
 			$('#' + a + '-' + col + '-' + per + '-rp-iper').text(ind + rp);
-			RevaluaRP(a + '-' + col + '-' + per + '-rp');
 		}
 
 	}
@@ -259,7 +258,7 @@ $(document).ready(function () {
 						year_2: year_2,
 					},
 				}).done(function (e) {
-					//console.log(e);
+					console.log(e);
 					if (e["exito"] == 1) {
 					var color = "#2ECC71";
 					var ind = Number($('#ind-' + id[0] + '-' + id[1] + '-' + id[2]).text());
@@ -736,7 +735,7 @@ $(document).ready(function () {
 					id_grupo: id_grupo,
 				},
 			}).done(function (e) {
-				//console.log(e);
+				console.log(e);
 				if (e["exito"] == 1 || e["exito"] == 2) {
 					var color = "#2ECC71";
 					if($('#a'+id[1]).attr('tipo') == 'i'){
@@ -787,20 +786,9 @@ $(document).ready(function () {
 					"background-color": "#FF7B5A",
 					color: "white",
 					"font-weight": "bold",
-					"font-size": "2.5rem",
-					"width": "80px",
-					"height": "80px"
 				});
-				
 			} else {
 				$("#" + id_nota).removeAttr("style");
-				$("#" + id_nota).css({
-					
-					"font-size": "2.5rem",
-					"width": "80px",
-					"height": "80px"
-				});
-				
 			}
 		}
 	}
@@ -809,11 +797,11 @@ function RevaluaRP(id_nota) {
 
 		var nota = Number($("#" + id_nota).val());
 		var permiso = $("#" + id_nota).attr("op");
-		var notail = Number($('#ind-'+id_nota.substring(0, id_nota.length - 3)).text());
+		var notap = Number($('#'+id_nota+'-iper').text());
 	  
 		$("#" + id_nota).prop("readonly", false);
 		$("#" + id_nota).removeAttr("disabled");
-		$("#" + id_nota).prop("type", "text");
+		 $("#" + id_nota).prop("type", "text");
 	  
 		if (permiso == 1) {
 		  $("#" + id_nota).removeAttr("style");
@@ -825,7 +813,7 @@ function RevaluaRP(id_nota) {
 		  });
 		  $("#" + id_nota).prop("readonly", true);
 		} else {
-		  if (notail == '' || notail == 0 || notail >= ponderacion_academica) {
+		  if (notap == '' || notap == 0 || notap >= ponderacion_academica) {
 			$("#" + id_nota).prop("readonly", true);
 			$("#" + id_nota).removeAttr("style");
 			$("#" + id_nota).css({'background-color':'inherit','color':'transparent','border':'1px solid #ccc'});
@@ -846,7 +834,6 @@ function RevaluaRP(id_nota) {
 		}
 	  
 	  }
-	  
 	  $(document).on(
 		"keyup change",
 		".CalificacionRP",
@@ -880,174 +867,309 @@ function SumaA(a){
 
 	}
 
-	
 	function RevaluaAsignatura(a) {
 	
 		var pasis = Number($('#pasis-' + a).text());
 		var cf = Number($('#pcp-' + a).text());
 		var estado;
+		if(cf >= ponderacion_academica && pasis >= ponderacion_asistencia){		
+
+		estado = "Aprobada(G)";
+		$('#pfs-' + a).closest('tr').hide();
+
+		$('#cpc-' + a).closest('tr').hide();
+
+		$('#cpex-' + a).closest('tr').hide();
+
+		$('#total-' + a).closest('tr').hide();
 		
-		if(cf > 0){
+		$('#op1-' + a).closest('tr').hide();
+
+	} else {
 		
-		if(pasis < ponderacion_asistencia){
-			$('#pfs-' + a).closest('tr').hide();
 
-			$('#cpc-' + a).closest('tr').hide();
+		$('#pfs-' + a).closest('tr').show();
+		$('#cpc-' + a).closest('tr').show();
+		$('#total-' + a).closest('tr').show();
+		
+		var ac = $('#c-' + a).val();
+
+		if(ac == 'A'){
+			$('#cpc-' + a).hide();
+			$('#cpc-' + a + '-3').text('AUS');
+			var cc = 0;
+		}else{
+			$('#cpc-' + a).show();
+			$('#cpc-' + a + '-3').text('');
+		var ccf = Number(parseFloat(cf / 2).toFixed(0));
+		var ccpc = Number(parseFloat($('#cpc-' + a).val() / 2).toFixed(0));
+		var cc = ccf + ccpc;
+		}
+
+		$('#total-' + a).text(cc);
+		if(Number(cc) >= ponderacion_academica){
+		
+		estado = "Aprobada(C)";
+
+		$('#cpc-' + a).show();
+		$('#cpex-' + a).closest('tr').hide();
+		$('#op1-' + a).closest('tr').hide();
+		
+		}else{
+
+			var ae = $('#e-' + a).val();
 	
-			$('#cpex-' + a).closest('tr').hide();
-	
-			$('#total-' + a).closest('tr').hide();
-			
-			$('#op1-' + a).closest('tr').hide();
-				  
-			$('#total-' + a).text(cf);
-		  
-			estado = "Reprobada(A)";
-
-					  
-					}else if (cf >= ponderacion_academica) {
-						
-
-			$('#pfs-' + a).closest('tr').hide();
-			
-			$('#cpc-' + a).closest('tr').hide();
-	
-			$('#cpex-' + a).closest('tr').hide();
-	
-			$('#total-' + a).closest('tr').hide();
-			
-			$('#op1-' + a).closest('tr').hide();
-
-						estado = "Aprobada(G)";
-						
-					  }else{
-
-						
-
-						if($('#c-' + a).val() == 'A'){
-						
-						$('#pfs-' + a).closest('tr').show();
-						$('#cpc-' + a).closest('tr').show();
-						$('#cpex-' + a).closest('tr').show();
-						$('#op1-' + a).closest('tr').hide();
-						$('#total-' + a).closest('tr').show();
-
-
-						$('#cpc-' + a).hide();
-						$('#cpc-' + a + '-3').text('AUS');
-						var cc = Number(parseFloat(cf / 2).toFixed(0));
-
-						}else{
-						
-						$('#cpc-' + a).show();
-						$('#cpc-' + a + '-3').text('');
-						var cc = Number(parseFloat(cf / 2).toFixed(0)) + Number(parseFloat($('#cpc-' + a).val() / 2).toFixed(0));
-						
-						}
-						
-						$('#total-' + a).text(cc);
-
-						if(Number(cc) >= ponderacion_academica){
-
-							$('#pfs-' + a).closest('tr').show();
-							$('#cpc-' + a).closest('tr').show();
-							$('#cpex-' + a).closest('tr').hide();
-							$('#op1-' + a).closest('tr').hide();
-							$('#total-' + a).closest('tr').show();
-						
-						estado = "Aprobada(C)";
-				
-						}else{
-
-							
-	
-		if($('#e-' + a).val() == 'A'){
-			
-			$('#pfs-' + a).closest('tr').show();
-			$('#cpc-' + a).closest('tr').show();
-			$('#cpex-' + a).closest('tr').show();
-			$('#op1-' + a).closest('tr').show();
-			$('#total-' + a).closest('tr').show();
-
+		if(ae == 'A'){
 			$('#cpex-' + a).hide();
 			$('#cpex-' + a + '-3').text('AUS');
-			var cex = Number(parseFloat(cf * 0.3).toFixed(0));
+			var cex = 0;
 		}else{
 			$('#cpex-' + a).show();
 			$('#cpex-' + a + '-3').text('');
-			var cex = Number(parseFloat(cf * 0.3).toFixed(0)) + Number(parseFloat($('#cpex-' + a).val() * 0.7).toFixed(0));
+			var tcf = Number(parseFloat(cf * 0.3).toFixed(0));
+			var scpex = Number(parseFloat($('#cpex-' + a).val() * 0.7).toFixed(0));
+			var cex = tcf + scpex;
 		}
 
 		$('#total-' + a).text(cex);
-		
 			if(Number(cex) >= ponderacion_academica){
-
-				$('#pfs-' + a).closest('tr').show();
-				$('#cpc-' + a).closest('tr').show();
-				$('#cpex-' + a).closest('tr').show();
-				$('#op1-' + a).closest('tr').hide();
-				$('#total-' + a).closest('tr').show();
 				
 			estado = "Aprobada(E)";
+			
+			$('#cpex-' + a).closest('tr').show();
+			$('#op1-' + a).closest('tr').hide();
 
 			}else{
-
-					$('#pfs-' + a).closest('tr').show();
-					$('#cpc-' + a).closest('tr').show();
-					$('#cpex-' + a).closest('tr').show();
-					$('#op1-' + a).closest('tr').show();
-					$('#total-' + a).closest('tr').show();
-
-				if($('#o1-' + a).val() == 'A'){
-			$('#op1-' + a).hide();
-			$('#op1-' + a + '-3').text('AUS');
-			var cef = cf;
-
-				}else{
-
-					$('#op1-' + a).show();
-					$('#op1-' + a + '-3').text('');
-					var cef = Number(parseFloat(cf + ($('#op1-' + a).val() / 100) * (100 - cf)).toFixed(0));
-
-				}
-					
-					$('#total-' + a).text(cef);
-
-						if(Number(cef) >= ponderacion_academica){
-
-							estado = "Aprobada(O)";
-								
-							}else{
-								
-									estado = "Reprobada";
-							}
-
+				$('#cpex-' + a).closest('tr').show();
+				$('#op1-' + a).closest('tr').show();
+			
 				
+			var op1 = $('#o1-' + a).val();
 
+	
+		if(op1 == 'A'){
 
-
+	$('#op1-' + a).hide();
+	$('#op1-' + a + '-3').text('AUS');
+	$('#total-' + a).text(cf);
+		}else{		
+			$('#op1-' + a).show();
+			$('#op1-' + a + '-3').text('');
+			var op1 = $('#op1-' + a).val();
+			var ccfl = Number(parseFloat(cf + (op1 / 100) * (100 - cf)).toFixed(0));
+		}
+			
+			$('#total-' + a).text(ccfl);
+				if(Number(ccfl) >= ponderacion_academica){
+					estado = "Aprobada(O)";
+						
+					}else{
+						if(pasis < ponderacion_asistencia){
+							estado = "Reprobada(A)";
+							}else{
+							estado = "Reprobada";	
+							}
+					}
+					
 			}
 
-							
-						}
+		}
 
+	}
 
-
-
-					  }
-
-		if(fechaextraordinario == 1){
+if(fechaextraordinario == 1){
 	if (estado == "Reprobada" || estado == "Reprobada(A)") {
 		$('#a' + a + ' small').html(' - <span class="text-danger">&iexcl;' + estado + '!</span>');
 	} else if(estado != undefined){
 		$('#a' + a + ' small').html(' - <span class="text-info">&iexcl;' + estado + '!</span>');
 	}
 
-	}
-		
-		}
+}
 
 }
+
+	function RevaluaAsignatura2(a) {
+/*
+		periodos_escuela = periodos_escuela.split(',');
+		var prs = Array();
+		var tprs = Array();
+
+		$.each(periodos_escuela, function (n, i) {
+			prs[i] = 0;
+			tprs[i] = 0;
+		});
+
+		$(".ind" + a).each(function (a, c) {
+			var p = c.id.split('-')[2];
+			prs[p] += Number($(this).val());
+			tprs[p] += 1;
+		});
+
+		//	prs.shift();
+		var pcp = 0;
+		$.each(periodos_escuela, function (j, r) {
+			var per = Number(parseFloat(prs[r] / tprs[r]).toFixed(0));
+
+			if (!isNaN(per)) {
+				pcp += per;
+				$('#iper-' + r + '-' + a).text(per);
+			}
+		});
+
+		pcp = Number(parseFloat(pcp / periodos_escuela.length).toFixed(0));
+
+		$('#pcp-' + a).text(pcp);
+
+*/
+		
+
+		
+
+		var arep = 0;
+		var estado;
+
+		if (paa == 0) {
+			estado = "Pendiente";
+			arep = 1;
+			console.log('1');
+		} else if (paa > 0 && paa < ponderacion_asistencia) {
+			estado = "Reprobada";
+			arep = 1;
+			console.log('2');
+		} else {
+			arep = 0;
+			console.log('3');
+		}
+
+		arep = Number(arep);
+
+		var cpc = '';
+		var ccpc = '';
+		var cc = '';
+		var tpcp = '';
+		var cpcp = '';
+		var cpex = '';
+		var scpex = '';
+		var cex = '';
+		if (pcp > 0 && pcp >= ponderacion_academica && arep == 0) {
+			console.log('5');
+			estado = "Aprobada";
+			$('#cpc-' + a).closest('tr').hide();
+			$('#cpex-' + a).closest('tr').hide();
+			$('#total-' + a).closest('tr').hide();
+			$('#op1-' + a).closest('tr').hide();
+		} else if ((pcp > 0 && pcp < ponderacion_academica) || arep == 1) {
+			$('#cpc-' + a).closest('tr').show();
+			cpcp = Number(parseFloat(pcp / 2).toFixed(0));
+			if (arep == 0) {
+				cpc = "AUS";
+				ccpc = "AUS";
+				cc = cpcp;
+				tpcp = Number(parseFloat(pcp * 0.3).toFixed(0));
+				cpex = "AUS";
+				scpex = "AUS";
+				cex = tpcp;
+				$('#cpc-' + a).hide();
+				$('#cpc-' + a + '-3').text(cpc);
+				$('#cpex-' + a).hide();
+				$('#cpex-' + a + '-3').text(cpex);
+				$('#total-' + a).text(cex);
+				$('#cpc-' + a).closest('tr').show();
+				$('#cpex-' + a).closest('tr').show();
+				$('#total-' + a).closest('tr').show();
+				$('#op1-' + a).closest('tr').show();
+			} else if (arep == 1) {
+				estado = "Reprobada";
+				console.log('8-' + arep);
+			}
+
+			var ex = 1;
+
+			var ac = $('#c-' + a).val();
+			var ae = $('#e-' + a).val();
+
+			var cpc = $('#cpc-' + a).val();
+			var cpex = $('#cpex-' + a).val();
+
+			if ((ac == "P" || ac == "T") && cpc > 0
+			) {
+
+				ccpc = Number(parseFloat(cpc / 2).toFixed(0));
+				cc = cpcp + ccpc;
+				if (cc >= ponderacion_academica) {
+					estado = "Aprobada";
+					tpcp = cpex = scpex = cex = tpcp = "";
+					ex = 0;
+					$('#cpc-' + a).show();
+					$('#cpc-' + a + '-3').text('');
+					$('#cpc-' + a).closest('tr').show();
+					$('#cpex-' + a).closest('tr').hide();
+					$('#total-' + a).closest('tr').show();
+					$('#op1-' + a).closest('tr').hide();
+				} else {
+					$('#cpc-' + a).show();
+					$('#cpc-' + a + '-3').text('');
+					$('#cpc-' + a).closest('tr').show();
+					$('#cpex-' + a).closest('tr').show();
+					$('#total-' + a).closest('tr').show();
+					$('#op1-' + a).closest('tr').hide();
+				}
+				$('#total-' + a).text(cc);
+			}
+
+			if (
+				ex == 1 &&
+				(ae == "P" || ae == "T") && cpex > 0
+			) {
+
+				scpex = Number(parseFloat(cpex * 0.7).toFixed(0));
+				cex = tpcp + scpex;
+				if (cex >= ponderacion_academica) {
+					estado = "Aprobada";
+					$('#cpex-' + a).show();
+					$('#cpex-' + a + '-3').text('');
+					$('#cpc-' + a).closest('tr').show();
+					$('#cpex-' + a).closest('tr').show();
+					$('#total-' + a).closest('tr').show();
+					$('#op1-' + a).closest('tr').hide();
+				} else {
+					estado = "Reprobada";
+					$('#cpex-' + a).show();
+					$('#cpex-' + a + '-3').text('');
+					$('#cpc-' + a).closest('tr').show();
+					$('#cpex-' + a).closest('tr').show();
+					$('#total-' + a).closest('tr').show();
+					$('#op1-' + a).closest('tr').hide();
+				}
+				$('#total-' + a).text(cex);
+			} else if (ex == 1) {
+				console.log(ae);
+				if (ae == "P" || ae == "T") {
+					$('#cpex-' + a).show();
+					$('#cpex-' + a + '-3').text('');
+					$('#cpc-' + a).closest('tr').show();
+					$('#cpex-' + a).closest('tr').show();
+					$('#total-' + a).closest('tr').show();
+					$('#op1-' + a).closest('tr').hide();
+				}
+
+				estado = "Reprobada";
+			}
+		}
+		if (estado == "Reprobada") {
+			var op1 = Number($('#op1-' + a).val());
+			if (op1 < ponderacion_academica) {
+				$('#op1-' + a).closest('tr').show();
+			} else {
+				$('#op1-' + a).closest('tr').show();
+			}
+
+			$('#a' + a + ' small').html(' - <span class="text-danger">&iexcl;' + estado + '!</span>');
+		} else {
+			$('#a' + a + ' small').html(' - <span class="text-info">&iexcl;' + estado + '!</span>');
+		}
+	}
+
 
 	function RevaluaRA(idc) {
 
@@ -1057,33 +1179,27 @@ function SumaA(a){
 		var ra1 = id[0] + '-' + id[1] + '-1';
 		var ra2 = id[0] + '-' + id[1] + '-2';
 		var ra3 = id[0] + '-' + id[1] + '-3';
-		var ra4 = id[0] + '-' + id[1] + '-4';
 
 		$('#' + ra1).prop('readonly', true);
 		$('#' + ra2).prop('readonly', true);
 		$('#' + ra3).prop('readonly', true);
-		$('#' + ra4).prop('readonly', true);
 		$('#' + ra1).css({ 'background-color': 'inherit', 'color': 'transparent', 'border': '1px solid #ccc' });
 		$('#' + ra2).css({ 'background-color': 'inherit', 'color': 'transparent', 'border': '1px solid #ccc' });
 		$('#' + ra3).css({ 'background-color': 'inherit', 'color': 'transparent', 'border': '1px solid #ccc' });
-		$('#' + ra4).css({ 'background-color': 'inherit', 'color': 'transparent', 'border': '1px solid #ccc' });
 
 		if (pra > 0) {
 
 			$('#' + ra1).prop('readonly', false);
 			$('#' + ra2).prop('readonly', false);
 			$('#' + ra3).prop('readonly', false);
-			$('#' + ra4).prop('readonly', false);
 			$('#' + ra1).removeAttr('style');
 			$('#' + ra2).removeAttr('style');
 			$('#' + ra3).removeAttr('style');
-			$('#' + ra4).removeAttr('style');
 
 
 			var ra_1 = Number($('#' + ra1).val());
 			var ra_2 = Number($('#' + ra2).val());
 			var ra_3 = Number($('#' + ra3).val());
-			var ra_4 = Number($('#' + ra4).val());
 			var ra_v = Number($('#' + idc).val());
 
 			var spra = ponderacion_tecnica * pra;
@@ -1097,10 +1213,8 @@ function SumaA(a){
 			if (ra_1 >= spra || ra_1 == 0 || ra_1 == '') {
 				$('#' + ra2).prop('readonly', true);
 				$('#' + ra3).prop('readonly', true);
-				$('#' + ra4).prop('readonly', true);
 				$('#' + ra2).css({ 'background-color': 'inherit', 'color': 'transparent', 'border': '1px solid #ccc' });
 				$('#' + ra3).css({ 'background-color': 'inherit', 'color': 'transparent', 'border': '1px solid #ccc' });
-				$('#' + ra4).css({ 'background-color': 'inherit', 'color': 'transparent', 'border': '1px solid #ccc' });
 			} else {
 				$('#' + ra2).removeAttr('style');
 				$('#' + ra2).prop('readonly', false);
@@ -1111,32 +1225,14 @@ function SumaA(a){
 				}
 				if (ra_2 >= spra || ra_2 == 0 || ra_2 == '') {
 					$('#' + ra3).prop('readonly', true);
-					$('#' + ra4).prop('readonly', true);
 					$('#' + ra3).css({ 'background-color': 'inherit', 'color': 'transparent', 'border': '1px solid #ccc' });
-					$('#' + ra4).css({ 'background-color': 'inherit', 'color': 'transparent', 'border': '1px solid #ccc' });
 				} else {
 					$('#' + ra3).removeAttr('style');
-					$('#' + ra3).prop('readonly', false);
 					if ((ra_3 < spra || ra_3 > pra) && ra_3 != 0 && ra_3 != '') {
 						$('#' + ra3).css({ 'background-color': '#ff7b5a', 'color': 'white', 'font-weight': 'bold' });
-					}else{
-						$('#' + ra3).prop('readonly', false);
+						$('#' + ra2).prop('readonly', false);
 					}
-
-					if (ra_3 >= spra || ra_3 == 0 || ra_3 == '') {
-						$('#' + ra4).prop('readonly', true);
-						$('#' + ra4).css({ 'background-color': 'inherit', 'color': 'transparent', 'border': '1px solid #ccc' });
-					} else {
-						$('#' + ra4).removeAttr('style');
-						$('#' + ra4).prop('readonly', false);
-						if ((ra_4 < spra || ra_4 > pra) && ra_4 != 0 && ra_4 != '') {
-							$('#' + ra4).css({ 'background-color': '#ff7b5a', 'color': 'white', 'font-weight': 'bold' });
-						}else{
-							$('#' + ra4).prop('readonly', false);
-						}
-						
-					}
-					
+					$('#' + ra3).prop('readonly', false);
 				}
 			}
 
@@ -1164,14 +1260,6 @@ function SumaA(a){
 				$('#' + ra3).prop("readonly", true);
 			}
 
-			var op4 = $('#' + ra4).attr('op');
-
-			if (op4 == 1) {
-				$('#' + ra4).removeAttr('style');
-				$('#' + ra4).css({ 'background-color': 'inherit', 'color': 'black', 'font-weight': 'bold', 'border': '0px' });
-				$('#' + ra4).prop("readonly", true);
-			}
-
 		}
 
 		RevaluaModulo(id[0]);
@@ -1196,55 +1284,35 @@ function SumaA(a){
 
 
 		var sras = 0;
-		var ttra = 0;
-		var tpra = 0;
 		$(".ra" + m).each(function (a, c) {
 			var idc = c.id.split('-');
 			var ra_1 = Number($('#' + idc[0] + '-' + idc[1] + '-1').val());
 			var ra_2 = Number($('#' + idc[0] + '-' + idc[1] + '-2').val());
 			var ra_3 = Number($('#' + idc[0] + '-' + idc[1] + '-3').val());
-			var ra_4 = Number($('#' + idc[0] + '-' + idc[1] + '-4').val());
-			var ras = [ra_1, ra_2, ra_3, ra_4];
-			
+			var ras = [ra_1, ra_2, ra_3];
 			var tras = Math.max(...ras);
-			var pra = Number($('#pra-' + idc[0] + '-' + idc[1]).val());
-			tpra += pra;
-
-				if(tras >= (pra * ponderacion_tecnica)) {
 			sras += tras;
-			$('#pra-' + idc[0] + '-' + idc[1]).parent().css({'background-color':'#333'});
-				}else{
-			$('#pra-' + idc[0] + '-' + idc[1]).parent().css({'background-color':'#FF7B5A'});
-			ttra++;
-				}
 		});
 
-		total = Number(parseFloat(sras).toFixed(0));
+		var tpra = Number($('#tpra-' + m).val());
+
+		var total = (sras / tpra * 100);
+		total = Number(parseFloat(total).toFixed(0));
 
 		if (total < (ponderacion_tecnica * 100)) {
-				if(fechaextraordinario == 1){
 			$('#a' + m + ' small').html(' - <span class="text-danger">&iexcl;Reprobado!</span>');
-				}else{
-			$('#a' + m + ' small').html(' - <span class="text-danger">&iexcl;Pendiente!</span>');	
-				}
-		} else if(tpra == 100 & total > 0 && total >= (ponderacion_tecnica * 100)){
+		} else {
 
 			if(paa < ponderacion_asistencia){
 
 			$('#a' + m + ' small').html(' - <span class="text-danger">&iexcl;Reprobado (A)!</span>');		
 				
-		}else if(ttra > 0){
-			$('#a' + m + ' small').html(' - <span class="text-danger">&iexcl;Pendiente!</span>');	
-		  }else{
+			}else{
 
 			$('#a' + m + ' small').html(' - <span class="text-info">&iexcl;Aprobado!</span>');
 
 			}
 		
-		}else{
-
-			$('#a' + m + ' small').html(' - <span class="text-danger">&iexcl;Pendiente!</span>');	
-			
 		}
 
 		$('#total-' + m).text(total);

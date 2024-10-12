@@ -63,8 +63,6 @@ $( window ).on( "load", function() {
 			},6);
 });
 
-if($('#TablaAescolar').length > 0){
-
 $('#TablaAescolar').DataTable({
     "responsive": true,
     "columnDefs": [ {
@@ -88,8 +86,6 @@ $(document).on(
     }
   );
 
-}
-
   var basec = false;
 	$(document).on('click', '#asec', function () {
 		if(basec == false){
@@ -108,25 +104,5 @@ $(document).on(
 	$("#faescolar").submit();
 		}
 });
-
-$(document).on('click', '#condfinal', function () {
-  
- if($('.sel-grp').filter(':checked').length > 0){
-  
-  $( "#condfinalForm" ).trigger( "submit" );
-
-  setTimeout(function(){
-    $('#CondicionFinal').modal('hide');
-			},2000);
-
-    }else{
-      $('#text-submit').show('slow');
-      setTimeout(function(){
-        $('#text-submit').hide('slow');	 
-          },2000);
-    }
-
-});
-
 
 });

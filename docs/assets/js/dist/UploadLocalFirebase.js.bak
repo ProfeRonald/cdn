@@ -94,7 +94,8 @@ $(".input_file_foto").change(function () {
 
 				  }else{
 				  
-				 var subirimagen = firebase.storage().ref().child(FotoGrupo).putString(dataurl, 'data_url');
+				 
+				  var subirimagen = firebase.storage().ref().child(FotoGrupo).putString(dataurl, 'data_url');
 				 
 				  subirimagen.on(firebase.storage.TaskEvent.STATE_CHANGED,
 				function(snapshot) {
@@ -112,6 +113,7 @@ $(".input_file_foto").change(function () {
 				  }
 				}, function(error) {
 			  
+				
 				switch (error.code) {
 				  case 'storage/unauthorized':
 					   $('#mensaje_uploading').html('<div class="text-danger">No se pudo cargar la imagen, intente de nuevo</div>');

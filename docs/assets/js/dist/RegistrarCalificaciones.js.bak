@@ -254,27 +254,6 @@ $(document).on('click', '.ordenarGrupo', function () {
 
   });
 
-  var tgrados = {};
-  var testudiantes = new Array();
-  $("#gruposc .ordenGrupo").each(function(){
-    if(tgrados[$(this).attr('grado')] == undefined){
-      tgrados[$(this).attr('grado')] = 0;
-    }
-    if(testudiantes[$(this).attr('grado')] == undefined){
-      testudiantes[$(this).attr('grado')] = 0;
-    }
-    tgrados[$(this).attr('grado')] += 1;
-    testudiantes[$(this).attr('grado')] += Number($(this).attr('estudiantes'));
-  });
-
-var trhtml = '';
- 
-$.each(tgrados, function (grado, cantidad) {
-  trhtml += '<tr><td class="text-center">'+grado+'</td><td class="text-center">'+cantidad+'</td><td class="text-center">'+testudiantes[grado]+'</td></tr>';
-});
-
-$('#tbody-grupos').html(trhtml);
-
 });
 
 var fecha = new Date();
@@ -394,7 +373,7 @@ fondo.css({"background-image":""});
 })
 
 
-if(local != 1){
+if(local == 1){
 
 function SubirFotoPersonalLogoBanner(dataurl, cmini=0, imgtype='image/jpeg'){
   var idg = $('#datos_js').attr('idg');

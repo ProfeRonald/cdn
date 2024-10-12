@@ -316,7 +316,7 @@ mark {
   background: #f6ddcc;
 }
 
-.listaTablaCSS table td {
+.listapersonal table td {
   padding: 0.2rem;
 }
 
@@ -1771,9 +1771,8 @@ margin-left: -4px;
   overflow-y: auto;
   white-space: nowrap;
 }
-#chaterd .chats-msjs {
+#chaterd .msg_card_body {
   overflow-y: auto;
-  overflow-x: hidden;
 }
 #chaterd .card-header {
   border-radius: 15px 15px 0 0 !important;
@@ -2361,7 +2360,7 @@ margin-left: -4px;
 
 #chaterd .imgamplia{
   width: 180px;
-  max-height: 180px;
+  height: 180px;
   overflow: hidden;
 }
 
@@ -2403,10 +2402,7 @@ margin-left: -4px;
 
 #chaterd .VerVideo:hover {
   border-width: 15px 0 15px 30px;
-  background-color: rgba(0, 0, 0, 0.4) !important;
-  background: #7f7fd5;
-  background: -webkit-linear-gradient(to right, #91eae4, #86a8e7, #7f7fd5);
-  background: linear-gradient(to right, #91eae4, #86a8e7, #7f7fd5);
+  background: blue;
   cursor: pointer;
 }
 
@@ -2424,68 +2420,4 @@ margin-left: -4px;
   margin-top: 1%;
   height: 23px;
   visibility: hidden;
-}
-
-.contenedor-ruleta{
-	padding: 6px;
-	width: 980px;
-	max-width: calc(100% - 20px);
-	margin: auto;
-	margin-top: -20px;
-  margin-left: -11px;
-	color: #fff;
-	font-family: sans-serif;
-}
-.estudiantes-ruleta{
-	margin-top: 20px;
-	text-align: center;
-	margin: auto;
-	position: relative;
-}
-#ruleta-ruleta{
-	margin-top: 10px;
-	position: relative;
-	z-index: 1;
-}
-
-.apuntador-ruleta{
-	position: absolute;
-	clip-path: polygon(0 10px,60px 0,60px 20px);
-	background: black;
-	width: 50px;
-	height: 40px;
-	top: 48%;
-	right: 18%;
-	z-index: 10;
-	box-shadow: 0 0 3px #33333399;
-}
-
-.button-ruleta {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	z-index: 10; 
-	width: 84px;
-	height: 84px;
-	border-radius: 50%;
-	background-color: #bf780f;
-	color: white;
-	border: none;
-	font-size: 12px;
-	cursor: pointer;
-	padding: 10px 20px;
-	border-style: none;
-	margin-top: 10px;
-}
-
-.button-ruleta:active {
-	background-color: #218838;
-}
-
-.recargar-lista{
-position: absolute;
-top: 32px;
-right: 182px;
-
 }

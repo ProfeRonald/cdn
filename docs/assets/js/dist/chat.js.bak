@@ -349,9 +349,7 @@ $(document).ready(function () {
                                     Number(persona.val().nle) +
                                     '" style="height: 45px;"><div class="img_cont"><img src="' +
                                     urlimgs +
-                                    '/fotos/foto.jpg" alt="' +
-                                    nombre +
-                                    '" data-container="#contactos" rel="tooltip" data-html="true" title="Desde hace ' +
+                                    '/fotos/foto.jpg" data-container="#contactos" rel="tooltip" data-html="true" title="Desde hace ' +
                                     HaceTiempo(
                                       persona.val().UltimaConexion
                                     )[0] +
@@ -371,9 +369,7 @@ $(document).ready(function () {
                                     persona.val().nle +
                                     '" style="height: 45px;"><div class="img_cont"><img src="' +
                                     urlimgs +
-                                    '/fotos/foto.jpg" alt="' +
-                                    nombre +
-                                    '" data-container="#contactos" rel="tooltip" data-html="true" title="&Uacute;ltima conexi&oacute;n hace ' +
+                                    '/fotos/foto.jpg" data-container="#contactos" rel="tooltip" data-html="true" title="&Uacute;ltima conexi&oacute;n hace ' +
                                     HaceTiempo(
                                       persona.val().UltimaConexion
                                     )[0] +
@@ -399,9 +395,7 @@ $(document).ready(function () {
                                     )[0] +
                                     '" src="' +
                                     urlimgs +
-                                    '/fotos/foto.jpg" alt="' +
-                                    nombre +
-                                    '" class="rounded-circle user_img fotomsj-' +
+                                    '/fotos/foto.jpg" class="rounded-circle user_img fotomsj-' +
                                     persona.key +
                                     '"><span class="online_icon'+estado_icon+'"></span></div><div class="pl-1 user_info"><span>' +
                                     nombre +
@@ -421,9 +415,7 @@ $(document).ready(function () {
                                     )[0] +
                                     '" src="' +
                                     urlimgs +
-                                    '/fotos/foto.jpg" alt="' +
-                                    nombre +
-                                    '" class="rounded-circle user_img fotomsj-' +
+                                    '/fotos/foto.jpg" class="rounded-circle user_img fotomsj-' +
                                     persona.key +
                                     '"><span class="online_icon offline"></span></div><div class="user_info"><span>' +
                                     nombre +
@@ -518,7 +510,6 @@ $(document).ready(function () {
                       var requestMethod = document.body.requestFullScreen || document.body.webkitRequestFullScreen || document.body.mozRequestFullScreen || document.body.msRequestFullScreen;
                           if(requestMethod){
                             requestMethod.call(document.body);
-                            $("#btnchat").hide();
                           }else if (typeof window.ActiveXObject !== "undefined"){
                             var wscript = new ActiveXObject("WScript.Shell");
                             if(wscript !== null){
@@ -834,9 +825,8 @@ $(document).ready(function () {
                       "keyup change",
                       "#chat_mensaje",
                       function () {
-                        
                         var val = $(this).text();
-                        
+
                         if (event.ctrlKey || event.shiftKey) {
                           if (event.keyCode === 73) {
                             $("#emojibtn").trigger("click");
@@ -1045,9 +1035,7 @@ $(document).ready(function () {
                           /<(?<=<)(.*?)(?=>)>/g,
                           ""
                         );
-                        chat_mensaje = $.parseHTML(chat_mensaje);
-                        chat_mensaje = $(chat_mensaje).text();
-                        chat_mensaje = chat_mensaje.substring(0, 1500); 
+                        chat_mensaje = chat_mensaje.substring(0, 1500);
 
                         var respuesta_chat = $("#respuesta_chat").html();
 
@@ -1072,15 +1060,6 @@ $(document).ready(function () {
                         chat_mensaje = chat_mensaje.split("\n");
                         chat_mensaje = chat_mensaje.filter((e) => e);
                         chat_mensaje = chat_mensaje.join("\n");
-
-                        if(chat_mensaje.substr(0, 4) == 'http'){
-                          chat_mensaje = ' ' + chat_mensaje;
-                        }
-                        chat_mensaje = chat_mensaje.replaceAll('%20', ' ');
-                        chat_mensaje = chat_mensaje.replaceAll('&nbsp;', ' ');
-                        chat_mensaje = MsjImg(chat_mensaje);
-                        chat_mensaje = MsjYouTube(chat_mensaje);
-                        chat_mensaje = MsjLink(chat_mensaje, nle);
 
                         firebase
                           .database()
@@ -1220,7 +1199,7 @@ $(document).ready(function () {
                           $("#key-" + msjs.key).text() == ""
                         ) {
                           $("#key-" + msjs.key).html(
-                            '<i class="verlectores fa fa-check d-block m-0 p-0 text-primary" aria-hidden="true" style="font-size: 0.7rem;cursor:pointer;" data-container="#chats" rel="tooltip" title="Mensaje le&iacute;do" data-toggle="modal" data-target="#msjs-lectores" key="' +
+                            '<i class="verlectores fa fa-check d-block m-0 p-0 text-right text-primary" aria-hidden="true" style="font-size: 0.7rem;cursor:pointer" data-container="#chats" rel="tooltip" title="Mensaje le&iacute;do" data-toggle="modal" data-target="#msjs-lectores" key="' +
                               msjs.key +
                               '" ent="' +
                               msjs.val().marca_de_tiempo +
@@ -1263,10 +1242,8 @@ $(document).ready(function () {
                       });
 
                       $("#focuschat").before(msjhtml);
-                      
+
                       if ($("#focuschat").attr("focus") == 3) {
-                        $('#chats-refresh').remove();
-                        $('.boton_abajo').show();
                         if ($("#aviso_nuevos").length > 0) {
                           $("#aviso_nuevos").focus();
                           $("#chat_mensaje").focus();
@@ -1382,7 +1359,7 @@ $(document).ready(function () {
 
                     function ListarUltimoMsj() {
                       $("#chats").html(
-                        '<div id="chats-refresh" class="text-center" style="font-size:1rem"><i class="fa fa-refresh rotar" aria-hidden="true" style="font-size:2rem"></i> Cargando mensjaes...</div><a href="#" id="focuschat" focus="3"></a><div class="text-right" id="boton_abajo" style="display:block" resp=""><span id="abajo_nuevos_msjs" class="bg-success text-white" style="display:none;"></span><div class="boton_abajo text-right" style="display:none;"><i class="fa fa-angle-double-down border fa-2x"></i></div></div>'
+                        '<a href="#" id="focuschat" focus="3"></a><div class="text-right" id="boton_abajo" style="display:block" resp=""><span id="abajo_nuevos_msjs" class="bg-success text-white" style="display:none;"></span><div class="boton_abajo text-right"><i class="fa fa-angle-double-down border fa-2x"></i></div></div>'
                       );
                       firebase
                         .database()
@@ -1445,19 +1422,20 @@ $(document).ready(function () {
 
                           var hacetiempo = HaceTiempo(msj.marca_de_tiempo);
 
+                          if(mensaje.substr(0, 4) == 'http'){
+                            mensaje = ' ' + mensaje;
+                          }
+
                           datos_u = $(".u-lector-" + msj.usuario);
                             var nombre = datos_u.find(".user_info span").html();
                             var foto = datos_u.find("img").attr("src");
                             var nle = Number(datos_u.attr("nle"));
 
-                          //if(mensaje.substr(0, 4) == 'http'){
-                          //  mensaje = ' ' + mensaje;
-                          //}
-                          //mensaje = mensaje.replaceAll('%20', ' ');
-                          //mensaje = mensaje.replaceAll('&nbsp;', ' ');
-                          //mensaje = MsjImg(mensaje);
-                          //mensaje = MsjYouTube(mensaje);
-                          //mensaje = MsjLink(mensaje, nle);
+                          mensaje = mensaje.replaceAll('%20', ' ');
+                          mensaje = mensaje.replaceAll('&nbsp;', ' ');
+                          mensaje = MsjImg(mensaje);
+                          mensaje = MsjYouTube(mensaje);
+                          mensaje = MsjLink(mensaje, nle);
 
                           if (hacetiempo[1] < 5) {
                             var elm = "";
@@ -1645,19 +1623,19 @@ $(document).ready(function () {
                               ) {
                                 msj_mensaje =
                                   msj_mensaje +
-                                  '<div id="key-' +
+                                  '<span id="key-' +
                                   msjs.key +
-                                  '" class="m-0 p-0 " style="position:absolute;right:15px"><i class="verlectores fa fa-check d-block m-0 p-0 text-primary" aria-hidden="true" style="font-size: 0.7rem;cursor:pointer" data-container="#chats" rel="tooltip" title="Mensaje le&iacute;do" data-toggle="modal" data-target="#msjs-lectores" key="' +
+                                  '"><i class="verlectores fa fa-check d-block m-0 p-0 text-right text-primary" aria-hidden="true" style="font-size: 0.7rem;cursor:pointer" data-container="#chats" rel="tooltip" title="Mensaje le&iacute;do" data-toggle="modal" data-target="#msjs-lectores" key="' +
                                   msjs.key +
                                   '" ent="' +
                                   msj.marca_de_tiempo +
-                                  '" ></i></div>';
+                                  '" ></i><span>';
                               } else {
                                 msj_mensaje =
                                   msj_mensaje +
-                                  '<div id="key-' +
+                                  '<span id="key-' +
                                   msjs.key +
-                                  '" class="m-0 p-0 " style="position:absolute;right:15px"></div>';
+                                  '"></span>';
                               }
 
                               if (f == 1) {
@@ -1678,8 +1656,6 @@ $(document).ready(function () {
                                   nombre +
                                   '" src="' +
                                   foto +
-                                  '" alt="' +
-                                  nombre +
                                   '" style="min-width: 33px;" class="fotschat rounded-circle user_img_msg fotomsj-' +
                                   msj.usuario +
                                   '" /></div><div style="background-color:' +
@@ -1717,8 +1693,6 @@ $(document).ready(function () {
                                   nombre +
                                   '" src="' +
                                   foto +
-                                  '" alt="' +
-                                  nombre +
                                   '" style="min-width: 33px;" class="fotschat rounded-circle user_img_msg fotomsj-' +
                                   msj.usuario +
                                   '"></div></div>';
@@ -1765,7 +1739,7 @@ $(document).ready(function () {
                         const yt = ytext.match(/\bhttps?:\/\/youtube\.com\S+/gi);
                         if(yt != null && yt[0].indexOf("https://youtube.com") > -1) {
                         var vyt = YouTubeID(yt[0]);
-                        msj = msj.replace(yt[0], '<div class="ytamplia d-inline-block border m-1 border-secondary" vyt="'+vyt+'"><img src="https://img.youtube.com/vi/' + vyt + '/mqdefault.jpg" alt="Img YouTube" /><span class="VerVideo" rel="tooltip" title="Click para ver"></span></div>');
+                        msj = msj.replace(yt[0], '<div class="ytamplia d-inline-block border m-1 border-secondary" vyt="'+vyt+'"><img src="https://img.youtube.com/vi/' + vyt + '/mqdefault.jpg" alt="Img Chat" /><span class="VerVideo" rel="tooltip" title="Click para ver"></span></div>');
                         }
                       }
 
@@ -1792,6 +1766,7 @@ $(document).ready(function () {
                         }
 
                         if(link.image == false){
+                          //var linkimage = '<div><img class="rounded" src="data:image/png;base64,'+link.image+'" alt="Img Chat" /></div>';
                           var linkimage = '';
                         }else{
 
@@ -1926,7 +1901,7 @@ $(document).ready(function () {
                       var msjhtml = $("#math" + key).html();
 
                       if (msjhtml.indexOf("<img") > -1) {
-                      
+
                       var img = $(msjhtml).find('img:first');
 
                       if(img != undefined){

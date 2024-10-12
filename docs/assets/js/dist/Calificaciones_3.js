@@ -249,6 +249,7 @@ function RevaluaILFinal(id_estudiante) {
     var cpc = $("#cpc" + id_estudiante).val();
     var ccpc = Number(cpc / 2);
     var cc = Number(cpcp) + Number(ccpc);
+    cc = cc.toFixed(0);
     $("#cc" + id_estudiante).text(cc);
 
     if (Number(cc) >= ponderacion_academica) {
@@ -559,6 +560,7 @@ window.RevaluaRP = function (id_nota) {
   window.SumaPCs = function () {
     var tpers = Number($("#columnas_me").attr("tper"));
     var pcs = new Array();
+    var psgs = new Array();
 
     $.each(
       $(".SumaCompetencia"),
@@ -566,8 +568,10 @@ window.RevaluaRP = function (id_nota) {
         var ide = $(this).closest("tr").attr("ide");
         for (col=1; col < grupos_competencias + 1; col++) { 
           pcs[col] = 0;
+          psgs[col] = 0;
         }
         var npcs = new Array();
+        
          for (col=1; col < grupos_competencias + 1; col++) { 
         for (p=1; p < tpers + 1; p++) {
           var data_content = Number($('#comp-' + ide + '-' + col + '-' + p + '-rp').attr('data-content'));
@@ -577,14 +581,29 @@ window.RevaluaRP = function (id_nota) {
           }else{
             npcs[col] = 0;
           }
+         
+          if(Number($('#comp-' + ide + '-' + col + '-' + p).text()) > 0){
+            psgs[col] += 1;
           }
+
+          }
+          
         }
 
+       // if(psgs == grupos_competencias){
+//console.log(psgs +'------'+grupos_competencias);
         var comps = '';
         var cf = 0;
         var pc = new Array();
+        var gscs = 0;
         for (col=1; col < grupos_competencias + 1; col++) {
+        if(psgs[col] == tperiodos_escuela){
         pc[col] = Number(parseFloat(pcs[col] / tperiodos_escuela).toFixed(1));
+       
+        if(pc[col] > 0){
+          gscs++;
+        }
+
         cf += pc[col];
 
              if(pc[col] == 0){
@@ -595,8 +614,14 @@ window.RevaluaRP = function (id_nota) {
             //  if(npcs[col] <= 0){
               $('#pc'+ col + '-' + ide).text(pc[col]); 
             //  }
+
+            
+
+        }
         }
         
+        if(gscs == grupos_competencias){
+
         var cf = Number(parseFloat(cf / grupos_competencias).toFixed(0));
 
           if(comps != ''){
@@ -622,6 +647,8 @@ window.RevaluaRP = function (id_nota) {
 
           $('#cf-'+ide).text(cf);
 
+       }
+
       });
 
 
@@ -632,6 +659,10 @@ window.RevaluaRP = function (id_nota) {
 function RevaluaIL(id_nota) {
   var nota = Number($("#" + id_nota).val());
   var permiso = $("#" + id_nota).attr("op");
+
+  var width = $("#" + id_nota).css("width");
+  var height = $("#" + id_nota).css("height");
+  var font_size = $("#" + id_nota).css("font-size");
 
   if (permiso == 1) {
     $("#" + id_nota).removeAttr("style");
@@ -651,9 +682,17 @@ function RevaluaIL(id_nota) {
         "font-weight": "bold",
       });
     } else {
-      $("#" + id_nota).removeAttr("style");
+     $("#" + id_nota).removeAttr("style");
     }
   }
+
+  $("#" + id_nota).css({
+    "width": width,
+    "height": height,
+    "font-size": font_size
+  });
+
+
 }
 
 $(document).on("click", ".indtop", function () {

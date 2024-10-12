@@ -1,5 +1,5 @@
 
-var urlimgs = $("#datos_js").attr("urlimgs");
+var urlcdn = $("#datos_js").attr("urlcdn");
 
 function imagenSubida(iurl, cmini=0, empty=0) {
     if(cmini == 2){
@@ -66,28 +66,27 @@ function SubirFotoPersonalLogoBanner(dataurl, cmini=0, imgtype='image/jpeg'){
 }
 
 if (sqlq == 1) {
-  var ruta = 'fotos/directores/foto_'+idq+'.jpg';
+  var ruta = 'imagenes/fotos/directores/foto_'+idq+'.jpg';
 } else if (sqlq == 2) {
-  var ruta = 'logos/otros/logo_'+idq+'.png';
+  var ruta = 'imagenes/logos/otros/logo_'+idq+'.png';
 } else if (sqlq == 3) {
-  var ruta = 'banners/banner_'+idq+'.png';
+  var ruta = 'imagenes/banners/banner_'+idq+'.png';
 } else {
-  var ruta = 'fotos/personal/foto_'+idq+'.jpg';
+  var ruta = 'imagenes/fotos/personal/foto_'+idq+'.jpg';
 }
 
   $.ajax({
     method: "POST",
     url: "up.php?op=FotoPersonal",
     data: {
-      ruta: ruta,
+      ruta: 'cdn/public/' + ruta,
       dataurl: dataurl,
       imgtype: imgtype
     }
   })
     .done(function (e) {
-      console.log(e);
       if(e == 1){
-        imagenSubida(urlimgs + '/' + ruta, cmini);
+        imagenSubida(urlcdn + '/' + ruta, cmini);
         $('#mensaje_uploading').html('<div class="text-success"> ¡La imagen se ha subido con éxito!</div>');
 					setTimeout(function(){
 					$('#mensaje_uploading').hide('slow');

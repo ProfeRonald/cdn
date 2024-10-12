@@ -7,7 +7,7 @@ $(document).ready(function () {
   var urlimgs = $("#datos_js").attr("urlimgs");
   var aarch = Number($("#datos_js").attr("aarch"));
   var target = Number($("#datos_js").attr("target"));
-  var asistencia_local = Number($("#datos_js").attr("asistencia_local"));
+  var local = Number($("#datos_js").attr("local"));
   var taa = Number($("#datos_js").attr("taa"));
   
   var idlp = Number(document.cookie.replace(
@@ -95,21 +95,12 @@ $(document).ready(function () {
       );
     }
   });
-  $(document).on(
-    "click",
-    "#cerrar-fotoest",
-    function () {
-      $("#foto_est").attr('show', 0);
-      $("#foto_est").hide();
-    });
-  
+
   $(document).on(
     "focus click",
     ".CalificacionesIL, .CalificacionesRP, .CalificacionesILFinales, .CalificacionesRA, .CalificacionesFCT, .Asistencias, .AsistenciasILFinales",
     function () {
       $("#datos_js").attr("reserva", $(this).val());
-
-      if($("#foto_est").attr('show') == 1){
 
       var tr = $(this).closest("tr");
       var es_foto = tr.find("img:first").attr("src");
@@ -124,17 +115,31 @@ $(document).ready(function () {
         .next()
         .next()
         .text();
-        var imgtop = $("#foto_est").css('top');
-        if(imgtop == '1018.68px' || imgtop == 'auto'){
-          imgtop = '140px';
-        }
-        $("#foto_est img").attr('src', es_foto);
-        $("#foto_est span").html(es_nombre + ' ' + es_apellido + ', #' + es_numero);
-        $("#foto_est").css({ position: "fixed", top: imgtop});
-        
-          $("#foto_est").show();
-        }
-        
+      $("#foto_est div").html(
+        '<img style="border-radius: 10%;width:70px;height:70px;" src="' +
+        es_foto +
+        '"/> <a style="background-color: white;" class="border rounded p-2 ml-2" href="' +
+        urlerd +
+        "/index.php?sec=CalificacionEstudiante&id=" +
+        tr.attr("ide") +
+        '"' + target + '>' +
+        es_nombre +
+        " " +
+        es_apellido +
+        ", #" +
+        es_numero +
+        "</a>"
+      );
+      $("#foto_est div").css({ position: "fixed", "z-index": "2120", top: "0" });
+      var fondo = $("#foto_est img").css({ border: "1px solid #2ECC71" }).show();
+      setTimeout(function () {
+        fondo.css({ border: "1px solid black" });
+      }, 500);
+      for (i = 0; i < 1; i++) {
+        $("#foto_est img").fadeTo("slow", 0.5).fadeTo("slow", 1.0);
+      }
+      tr.css({ backgroundColor: "#F8CDAF" });
+      $("[idc=c" + tr.attr("ide") + "]").css({ backgroundColor: "#F8CDAF" });
     }
   );
 
@@ -231,41 +236,56 @@ $(document).ready(function () {
     var mes = $(this).attr("id").split("-")[1];
     var input = $(this);
     if (asistencia != reserva) {
-      AsistenciasDias(asistencia, mes, input);
+      $.ajax({
+        method: "POST",
+        url: "up.php?op=AsistenciasDias",
+        dataType: "json",
+        data: {
+          asistencia: asistencia,
+          mes: mes,
+          id_asignaturamf: id_asignaturamf,
+          id_grupo: id_grupo,
+        },
+      }).done(function (e) {
+        console.log(e);
+        if (e["exito"] == 1) {
+          var color = "#2ECC71";
+          PorcientoAsistenciasMes(mes);
+        } else {
+          var color = "red";
+        }
+
+        var fondo = $(input).css({ backgroundColor: color }).show();
+        setTimeout(function () {
+          fondo.css({ backgroundColor: "", color: "white" });
+        }, 1500);
+        for (h = 0; h < 2; h++) {
+          $(input).fadeTo("slow", 0.5).fadeTo("slow", 1.0);
+        }
+      });
     }
   });
 
-  function AsistenciasDias(asistencia, mes, input){
-    
-  $.ajax({
-    method: "POST",
-    url: "up.php?op=AsistenciasDias",
-    dataType: "json",
-    data: {
-      asistencia: asistencia,
-      mes: mes,
-      id_asignaturamf: id_asignaturamf,
-      id_grupo: id_grupo,
-    },
-  }).done(function (e) {
-    //console.log(e);
-    if (e["exito"] == 1) {
-      var color = "#2ECC71";
-      PorcientoAsistenciasMes(mes);
-    } else {
-      var color = "red";
-    }
-
-    var fondo = $(input).css({ backgroundColor: color }).show();
-    setTimeout(function () {
-      fondo.css({ backgroundColor: "", color: "white" });
-    }, 1500);
-    for (h = 0; h < 2; h++) {
-      $(input).fadeTo("slow", 0.5).fadeTo("slow", 1.0);
-    }
+  $(document).on("mousedown", "#foto_est", function (e) {
+    var dr = $(this).addClass("drag").css("cursor", "move");
+    height = dr.outerHeight();
+    width = dr.outerWidth();
+    (ypos = dr.offset().top + height - e.pageY),
+      (xpos = dr.offset().left + width - e.pageX);
+    $(document.body)
+      .on("mousemove", function (e) {
+        var itop = e.pageY + ypos - height;
+        var ileft = e.pageX + xpos - width;
+        if (dr.hasClass("drag")) {
+          dr.offset({ top: itop, left: ileft });
+        }
+      })
+      .on("mouseup", function (e) {
+        dr.removeClass("drag");
+      });
   });
 
-}
+
   $(document).on("blur change", ".Asistencias, .AsistenciasILFinales", function () {
     var reserva = $("#datos_js").attr("reserva");
     var asistencia = $(this).val();
@@ -275,7 +295,7 @@ $(document).ready(function () {
     var id_estudiante = id[0];
     var mes = id[1];
     var diames = $('#mes-' + mes).val();
-    //console.log(diames);
+    console.log(diames);
     var input = $(this);
     if (asistencia != reserva || $('#bactasis').attr('act') == 1) {
       $.ajax({
@@ -292,7 +312,7 @@ $(document).ready(function () {
           id_grupo: id_grupo,
         },
       }).done(function (e) {
-        //console.log(e);
+        console.log(e);
         if (e["exito"] == 1 || e["exito"] == 2) {
           var color = "#2ECC71";
           if (e["exito"] == 1) {
@@ -424,73 +444,28 @@ $(document).ready(function () {
     
     setTimeout(function () {
 
-    var calhtml = '<di class="row text-center" style="cursor:pointer">';
+    var calhtml = '<div class="row" style="position;relative;margin-bottom:-40px;;margin-left:-140px;width:225px;cursor:pointer;font-size:1.5rem;">';
 
-   calhtml += '<div id="sizecal" class="p-2 font-weight-bold d-none d-md-inline-block mr-3" por="100" style="font-size:1.3rem">100%</div>';
+  // calhtml += '<div id="sizecal" class="mt-2 font-weight-bold d-none d-md-inline-block mr-3" style="font-size:1rem" por="100">100%</div>';
 
-    calhtml += '<div class="sizecal d-none d-md-inline-block mr-3" size="r"><img src="'+urlimgs+'/reducir_fuente.png" rel="tooltip" title="Disminuir tama&ntilde;o" class="border mt-2" style="width:25px;cursor:pointer;"></div>';
+  //  calhtml += '<div class="sizecal border d-none d-md-inline-block mr-3" size="r"><img src="'+urlimgs+'/reducir_fuente.png" rel="tooltip" title="Disminuir tama&ntilde;o" style="cursor:pointer;"></div>';
 
-    calhtml += '<div class="sizecal d-none d-md-inline-block mr-3" size="a"><img src="'+urlimgs+'/aumentar_fuente.png" rel="tooltip" title="Aumentar tama&ntilde;o" class="border mt-2" style="width:25px;cursor:pointer;"></div>';
-          
-  if(taa == 1){
+   // calhtml += '<div class="sizecal border d-none d-md-inline-block mr-3" size="a"><img src="'+urlimgs+'/aumentar_fuente.png" rel="tooltip" title="Aumentar tama&ntilde;o" style="cursor:pointer;"></div>';
     
-      calhtml += '<div class="d-inline-block mr-3" data-toggle="modal" data-target="#FiltroSituacion"><i rel="tooltip" title="Filtrar por Situaci&oacute;n del estudiante" class="fa fa-filter" aria-hidden="true"></i></div>';
+    calhtml += '<div id="calcal" class="d-none d-md-inline-block mr-3"><i rel="tooltip" title="Calculadora" class="fa fa-calculator" aria-hidden="true" style="cursor:pointer;"></i></div>';
+    
+  if(taa == 2){
+    
+      calhtml += '<div id="cargar-asisencias" class="d-inline-block mr-3"><i rel="tooltip" title="Cargar toda la asistencia de archivo" class="fa fa-check-circle-o" aria-hidden="true"></i></div>';   
   }
 
       calhtml += '</div>';
 
-    $('#TablaCalificaciones_length').parent().attr('class', 'col-sm-12 col-md-4');
-    $('#TablaCalificaciones_length').parent().after('<div class="col-sm-12 col-md-3">' + calhtml + '</div>');
-    $('#TablaCalificaciones_filter').parent().attr('class', 'col-sm-12 col-md-5');
-    
+    $('#TablaCalificaciones_filter').prepend(calhtml);
 
    
     }, 1000);
 
-
-  })
-
-  $(document).on('click', '.filtro-situacion', function () {
-   
-    $("#TablaCalificaciones_length select[name=TablaCalificaciones_length]").val("-1");
-    $("#TablaCalificaciones_length select[name=TablaCalificaciones_length]").change();
-
-    var filtro_val = $(this).val();
-    var filtro = $(this).prop("checked");
-
-    setTimeout(function () {
-
-    if(filtro == true){
-      $('.' + filtro_val).each(function () {
-        $(this).parent().parent().hide();
-        $(".DTFC_Cloned tr[ide*='" + $(this).parent().parent().attr('ide') + "']" ).hide();
-      })
-
-      }else{
-      $('.' + filtro_val).each(function () {
-      $(this).parent().parent().show();
-      $(".DTFC_Cloned tr[ide*='" + $(this).parent().parent().attr('ide') + "']" ).show();
-    })
-      }
-
-    $("#TablaCalificaciones_length select[name=TablaCalificaciones_length]").val("-1");
-    $("#TablaCalificaciones_length select[name=TablaCalificaciones_length]").change();
-    
-    var checks = 0;
-
-    $('.filtro-situacion').each(function () {
-      if($(this).prop("checked") == true){
-        checks++;
-      }
-    })
-
-    if(checks > 0){
-      $('#TablaCalificaciones_info').parent().parent().hide();
-    }else{
-      $('#TablaCalificaciones_info').parent().parent().show();
-    }
-
-      }, 500);
 
   })
 
@@ -505,42 +480,33 @@ $(document).ready(function () {
     $('#sizecal').attr('por', por - 10);
     $('#sizecal').text((por - 10) + '%');
   }
-  
+
   var por = Number($('#sizecal').attr('por'));
  $('#TablaCalificaciones tbody td').css({'font-size':'' + por*60/10000 + 'rem'});
  $('#TablaCalificaciones_wrapper tbody td').css({'font-size':'' + por*60/10000 + 'rem'});
  $('#TablaCalificaciones_wrapper tbody td .foto-estudiantep').css({'width':'' + por + '%', 'height':'' + por + '%'});
  $('#TablaCalificaciones_wrapper tbody td .foto-estudiantep').parent().css({'width':'' + por/4 + 'px'});
  $('#TablaCalificaciones tbody td .foto-estudiantep').parent().css({'width':'' + por/4 + 'px'});
- $('#TablaCalificaciones tbody td input').css({'width':'' + por*0.36 + 'px', 'height':'' + por*0.28 + 'px', 'font-size':'' + por*60/6000 + 'rem'});
- $('#TablaCalificaciones tbody td select').css({'width':'' + por*0.68 + 'px', 'height':'' + por*0.38 + 'px', 'font-size':'' + por*60/8000 + 'rem'});
  $('.fototh').css({'min-width':'' + por/4 + 'px'});
  $('.nombre1th').css({'min-width':'' + por/3 + 'px'});
- $("select[name=TablaCalificaciones_length]").change();
-
- $('#TablaCalificaciones thead th').css({'font-size':'' + por*60/10000 + 'rem'});
- $('#TablaCalificaciones_wrapper thead th').css({'font-size':'' + por*60/10000 + 'rem'});
- $('#TablaCalificaciones thead th input').css({'width':'' + por*0.36 + 'px', 'height':'' + por*0.28 + 'px', 'font-size':'' + por*60/6000 + 'rem'});
- $('#TablaCalificaciones_wrapper thead th input').css({'width':'' + por*0.36 + 'px', 'height':'' + por*0.28 + 'px', 'font-size':'' + por*60/6000 + 'rem'});
- $('#TablaCalificaciones thead th .AsistenciasILFechaFinales').css({'width':'' + por*0.73 + 'px', 'height':'' + por*0.38 + 'px', 'font-size':'' + por*60/6000 + 'rem'});
- $('#TablaCalificaciones_wrapper thead th .AsistenciasILFechaFinales').css({'width':'' + por*0.72 + 'px', 'height':'' + por*0.38 + 'px', 'font-size':'' + por*60/6000 + 'rem'});
-
- $(".sizecal[size=a] img").show();
-  if($('#sizecal').text() == '300%'){
-    $(".sizecal[size=a] img").hide();
-  }
-
-  $(".sizecal[size=r] img").show();
-  if($('#sizecal').text() == '10%'){
-    $(".sizecal[size=r] img").hide();
-  }
+ 
   
   })
 
 
-  $(document).on('click', '#cerrcal', function () {
+  $(document).on('click', '#calcal, #cerrcal', function () {
 
     $("#dragit-contained").toggle("slow");
+
+  });
+
+  $(document).on('click', '#cargar-asisencias', function () {
+
+    if (!confirm("Si desea hacerlo sólo para un mes específico, pulsa \"Cancelar\" y luego haga click sobre el nombre del mes. Tome en cuenta que, al darle a \"Confirmar\", reemplazará cualquier otra asistencia que haya puesto manual y se cargará todo desde la hoja de asistencia.")) {
+      return false;
+    }
+
+    $('.Asistencias').trigger('blur');
 
   });
 
@@ -562,8 +528,8 @@ $(document).ready(function () {
     });
   });
 
-  $(document).on('click', '.val', function (e) {
-      
+  $(function () {
+    $(".val").click(function (e) {
       e.preventDefault();
       var span = $(this).attr("data");
       $(".screen").append(span);
@@ -571,7 +537,7 @@ $(document).ready(function () {
       return false;
     });
 
-      $(document).on('click', '.equal', function (e) {
+    $(".equal").click(function () {
       $(".outcome").val(eval($(".outcome").val()));
       var rdo = eval($(".outcome").val());
       if (rdo == 'Infinity') { rdo = '&infin;'; }
@@ -579,19 +545,59 @@ $(document).ready(function () {
       $(".screen").html(rdo);
     });
 
-      $(document).on('click', '.clear', function (e) {
+    $(".clear").click(function () {
       $(".outcome").val("");
       $(".screen").html("");
     });
 
-      $(document).on('click', '.min', function (e) {
+    $(".min").click(function () {
       $(".cal").stop().animate({ width: "0px", height: "0px", marginLeft: "700px", marginTop: "1000px" }, 500);
       setTimeout(function () { $(".cal").css("display", "none") }, 600);
     });
 
-    $(document).on('click', '.close', function (e) {
+    $(".close").click(function () {
       $(".cal").css("display", "none");
     })
+  })
+
+  $(document).on('click', '#vficha', function () {
+    var ta = $(this).attr("ta");
+    var t = $(this).attr("t");
+    var clic = $(this).attr('click');
+    $('#casi').html('');
+       
+    if (clic == "no") {
+
+      if (t == 2) {
+        $('#casi').html('<img src="' + urlimgs + '/asistencia.jpg" />');
+      } else {
+        if (ta == 0) {
+          $('#casi').html('<img src="' + urlimgs + '/indicadores.jpg" />');
+        } else {
+
+          if (ta == 1) {
+            $('#casi').html('<img src="' + urlimgs + '/ficha_ra1.jpg" /><br /><img src="' + urlimgs + '/ficha_ra2.jpg" /><br /><img src="' + urlimgs + '/ficha_ra3.jpg" />');
+          } else {
+            $('#casi').html('<img src="' + urlimgs + '/ficha_fct1.jpg" /><br /><img src="' + urlimgs + '/ficha_fct2.jpg" />');
+          }
+
+        }
+
+      }
+
+
+      $('#casi').css({ 'position': 'absolute', 'border': '2px solid #ccc', 'z-index': '400' });
+      $("#casi").show("slow");
+
+      $(this).attr('click', 'si');
+      $(this).text("Ocultar ficha");
+    } else if (clic == "si") {
+      $("#casi").hide("slow");
+      $(this).attr('click', 'no');
+      $(this).text("Ver ficha");
+    }
+
+  });
 
   $(document).on('click', '#activar_asistencia', function () {
 
@@ -623,7 +629,7 @@ $(document).ready(function () {
             data: $("#form_asis").serialize()
           })
             .done(function (as) {
-              //console.log(as);
+              console.log(as);
               $('#msj_asistencia').html(as['msj']);
               if (as['si'] == 1) {
                 $('#activar_asistencia').hide('slow');
@@ -693,7 +699,7 @@ $(document).ready(function () {
       data: $("#formasis").serialize()
     })
       .done(function (ias) {
-        //console.log(ias);
+        console.log(ias);
         $('#msjasistencia').html(ias['msj']);
         if (ias['si'] == 2) {
           $('#insertar_asistencia i').text(' Pulse de nuevo para registrar la asistencia');
@@ -715,9 +721,9 @@ $(document).ready(function () {
       })
 
       .fail(function (a,b,c) {
-        /*console.log(a);
+        console.log(a);
         console.log(b);
-        console.log(c);*/
+        console.log(c);
       })
 
   });
@@ -768,63 +774,6 @@ $(document).ready(function () {
 
       })
   });
-  
-  $(document).on('change', '#dia_asistencia', function () {
-    $('.basis').children('.bestado').val('P');
-    $('.basis').attr('estado', 'P');
-    $('.basis').children('.bestado').attr('class', 'btn btn-xl btn-primary fa fa-4x bestado');
-    ImportarDiaAsistencia ();
-  });
-  
- function ImportarDiaAsistencia () {
-  $('#insertar_asistencia i').text(' Registrar');
-  var dia = $('#dia_asistencia').val();
-  var archivoxlsx = $('#archivoxlsx').val();
-
-  $.ajax({
-    method: "POST",
-    url: "sesion.php?op=ImportarDiaAsistencia",
-    dataType: 'json',
-    data: {
-      op: "ImportarDiaAsistencia",
-      sec: "ImportarDiaAsistencia",
-      dia: dia,
-      archivoxlsx: archivoxlsx
-    }
-  })
-    .done(function (ides) {
-      console.log(Object.values(ides)[0]);
-     if(Object.values(ides)[0] != null){
-      $.each(ides, function (id, estado) {
-        if (id != 0 && estado != '') {
-
-      $('#ea_' + id).children('.bestado').val(estado);
-      $('#ea_' + id).attr('estado', estado);
-          
-    if (estado == 'P') {
-      $('#ea_' + id).children('.bestado').attr('class', 'btn btn-xl btn-primary fa fa-4x bestado');
-    }
-
-    if (estado == 'A') {
-      $('#ea_' + id).children('.bestado').attr('class', 'btn btn-xl btn-danger fa fa-4x bestado');
-    }
-
-    if (estado == 'E') {
-      $('#ea_' + id).children('.bestado').attr('class', 'btn btn-xl btn-info fa fa-4x bestado');
-    }
-
-    if (estado == 'T') {
-      $('#ea_' + id).children('.bestado').attr('class', 'btn btn-xl btn-warning fa fa-4x bestado');
-    }
-
-    $('#ea_' + id).children('.estado').val(estado);
-
-        }
-      })
-      $('#insertar_asistencia i').text(' Actualizar asistencia');
-    }
-    });
-  }
 
   $(document).on('click', '#bactasis', function () {
 
@@ -900,12 +849,10 @@ $(document).ready(function () {
 
 
   $(document).on('click', '#activar-asistencia', function () {
-    if (aarch == 0 && asistencia_local != 1) {
+    if (aarch == 0 && local != 1) {
       setTimeout(function () {
         $('#activar_asistencia').trigger('click');
       }, 1500);
-    }else{
-      ImportarDiaAsistencia();
     }
   });
 
@@ -1160,7 +1107,7 @@ $(document).ready(function () {
     $('body').addClass('modal-open');
 
   })
-/*
+
   $(window).scroll(function () {
     var display = $('#slidecontainer').attr('display');
     if(display == 1){
@@ -1175,7 +1122,7 @@ $(document).ready(function () {
       $('#slidecontainer').hide();
     }
   }
-	});*/
+	});
 
 
   $(window).on("load", function () {
@@ -1193,275 +1140,4 @@ $(document).ready(function () {
     $('#slidecontainer').hide('slow');
   });
 
-  
-  $(document).on('click', '.iconHerramienta', function () {
-
-    var herr = $(this).attr('herramienta');
-    
-    if(herr == 'HAsistencias'){
-
-    if (!confirm("Si desea hacerlo sólo para un mes específico, pulsa \"Cancelar\" y luego haga click sobre el nombre del mes. Tome en cuenta que, al darle a \"Confirmar\", reemplazará cualquier otra asistencia que haya puesto manual y se cargará todo desde la hoja de asistencia.")) {
-      return false;
-    }
-
-    $('.Asistencias').trigger('blur');
-    $('.dataTables_scrollHeadInner .AsistenciasDias:input').each(function () {
-    var asistencia = $(this).val();
-    var mes = $(this).attr("id").split("-")[1];
-    var input = $(this);
-    AsistenciasDias(asistencia, mes, input);
-    $('#herramientasModal').modal('hide');
-    });
-
-  }else{
-    
-    var titulo_asignaturamf = $("#datos_js").attr("titulo_asignaturamf");
-    var titulo_grupo = $("#datos_js").attr("titulo_grupo");
-    var listaruleta = $("#teps").attr("lista_ruleta");
-    var incluir_grado = 0;
-    var grado_grupo = '';
-
-      if(herr == 'HDestacados'){
-    
-    var year_1 = Number($("#datos_js").attr("year_1"));
-    var year_2 = Number($("#datos_js").attr("year_2"));
-    var lmeritorio = Number($("#datos_js").attr("lmeritorio"));
-    var cmeritorios = Number($("#datos_js").attr("cmeritorios"));
-    var tperiodos_escuela = Number($("#datos_js").attr("tperiodos_escuela"));
-    var grado_grupo = $("#datos_js").attr("grado_grupo");
-    
-    if($('#incluir-grado').prop("checked") && $('#incluir-grado').attr("incluir-grado") == 0){
-      incluir_grado = 1;
-    }else{
-      incluir_grado = 0;
-    }
-    
-      $('#destacadosModal').modal('hide');
-
-      $('#incluir-grado').attr("incluir-grado", incluir_grado);
-
-     }
-
-   
-    
-    $.ajax({
-      method: "POST",
-      url: "up.php?op=" + herr,
-      data: {titulo_asignaturamf: titulo_asignaturamf, listaruleta: listaruleta, titulo_grupo: titulo_grupo, id_asignaturamf: id_asignaturamf, id_grupo: id_grupo, year_1: year_1, year_2: year_2, lmeritorio: lmeritorio, cmeritorios: cmeritorios, tperiodos_escuela: tperiodos_escuela, id_asignaturamf: id_asignaturamf, incluir_grado: incluir_grado, grado_grupo: grado_grupo}
-    })
-      .done(function (cont) {
-        
-       $('#contenidoHerraminetas').html(cont);
-       $('#herramientasModal').modal('hide');
-
-       if(herr == 'HDestacados'){
-        if(cont != ''){
-          $('#destacadosModal').modal('show');
-          $('#HDestacados').show();
-        }else{
-          $('#HDestacados').hide();
-        }
-       }
-
-        if(herr == 'HCalculadora'){
-          $("#dragit-contained").toggle("slow");
-        }
-
-        if(herr == 'HRuleta'){
-          $('#ruletaModal').modal('show');
-
-          function listaActualizadaRuleta()
-          {
-
-         if($('#eliminar-ruleta').prop("checked")){
-            
-           var lista_ruleta = $('#' + $("#teps").attr("tipo_ruleta")).val().replace($('#resultado-ruleta').text(), "");
-          
-          }else{
-            var lista_ruleta = $('#' + $("#teps").attr("tipo_ruleta")).val();
-          }
-           
-          var lista = lista_ruleta.split(/\r?\n/).filter(function(elista) {
-            return elista.trim() !== '';
-          });
-
-          if(lista.length < 2){
-            $('.button-ruleta').hide();
-          }else{
-            $('.button-ruleta').show();
-          }
-
-          $('#opcs-ruleta').text(lista.length + ' opciones');
-
-          $('#' + $("#teps").attr("tipo_ruleta")).val(lista.join('\n'));
-          
-          document.cookie = $("#teps").attr("tipo_ruleta") + '=' + lista.join('-');
-          return lista;
-          }
-
-    let canvas = $("#ruleta-ruleta")[0];
-		let context = canvas.getContext("2d");
-		let center = canvas.width / 2;
-		let pos_ini = 0;
-		let speed = 30;
-		let deceleration = 0.99;
-		let movement;
-		let clic = 0;
-		let lastAspa = -1;
-		
-		const sonidoruleta = $("#sonido-ruleta")[0];
-		const sonidoapuntador = $("#sonido-apuntador")[0];
-
-    const voz = new SpeechSynthesisUtterance();
-		voz.lang = 'es-DO';
-
-    var val_ruleta = $('#' + $("#teps").attr("tipo_ruleta")).val();
-
-    $(document).on('click', '.blur_ruleta', function () {
-      val_ruleta = $(this).val();
-    });
-
-    $(document).on('blur', '.blur_ruleta', function () {
-      if(val_ruleta != $(this).val()){
-   drawRoulette();
-      }
-
-  });
-
-    $(document).on('click', '.ops-ruleta', function () {
-
-     $("#teps").attr("tipo_ruleta", 'tipo_ruleta-' + id_grupo + '-' + id_asignaturamf + '-' + $(this).attr("tipo"));
-     drawRoulette();
-  
-    });
-
-    $(document).on('click', '.recargar-lista', function () {
-
-      document.cookie = $("#teps").attr("tipo_ruleta") + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT';
-      $('#' + $("#teps").attr("tipo_ruleta")).val($("#teps").attr("lista_ruleta").split('-').join('\n'));
-      drawRoulette();
-  
-    });
-
-		function drawRoulette() {
-			context.beginPath();
-			context.moveTo(center, center);
-			context.arc(center, center, center, 0, 2 * Math.PI);
-			context.lineTo(center, center);
-			context.fillStyle = '#33333333';
-			context.fill();
-
-			context.beginPath();
-			context.moveTo(center, center);
-			context.arc(center, center, center - 10, 0, 2 * Math.PI);
-			context.lineTo(center, center);
-			context.fillStyle = 'black';
-			context.fill();
-
-      var lista_ruleta = listaActualizadaRuleta();
-
-			for (let i = 0; i < lista_ruleta.length; i++) {
-				context.beginPath();
-				context.moveTo(center, center);
-				context.arc(center, center, center - 20, i * 2 * Math.PI / lista_ruleta.length, (i + 1) * 2 * Math.PI / lista_ruleta.length);
-				context.lineTo(center, center);
-				context.fillStyle = random_color();
-				context.fill();
-
-				context.save();
-				context.translate(center, center);
-				context.rotate(3 * 2 * Math.PI / (5 * lista_ruleta.length) + i * 2 * Math.PI / lista_ruleta.length);
-				context.translate(-center, -center);
-				context.font = "10px Arial";
-				context.textAlign = "right";
-				context.fillStyle = "white";
-				context.fillText(lista_ruleta[i], canvas.width - 30, center);
-				context.restore();
-			}
-		}
-
-		function reproducirSonido() {
-      var lista_ruleta = listaActualizadaRuleta();
-			let anguloActual = (pos_ini % 360);
-			let aspaActual = Math.floor((anguloActual / 360) * lista_ruleta.length);
-
-			if (aspaActual !== lastAspa) {
-				sonidoruleta.play(); 
-				lastAspa = aspaActual;
-			}
-		}
-
-		function sortear() {
-      drawRoulette();
-      $("#resultado-ruleta").parent().hide();
-			let girando = $("#estado-ruleta").attr('girando');
-			if (girando == 1) {
-				speed = 0.01;
-			}
-
-			if (clic == 0) {
-				movement = setInterval(function () {
-					pos_ini += speed;
-					$("#ruleta-ruleta").css('transform', 'rotate(' + pos_ini + 'deg)');
-					speed *= deceleration; 
-					
-					reproducirSonido(); 
-
-					if (speed <= 0.1) {
-						sonidoapuntador.play(); 
-						clearInterval(movement);
-						speed = 30; 
-						clic = 0;
-            var lista_ruleta = listaActualizadaRuleta();
-						let angulo_final = (pos_ini % 360) * (Math.PI / 180);
-						let indice_estudiante = Math.floor((2 * Math.PI - angulo_final) / (2 * Math.PI / lista_ruleta.length)) % lista_ruleta.length;
-						let estudiante_ruleta = lista_ruleta[indice_estudiante];
-						voz.text = estudiante_ruleta.replace("#", "número");
-  						window.speechSynthesis.speak(voz);
-  						voz.onend = function (event) {
- 						 window.speechSynthesis.cancel(); 
-  						}
-						$("#resultado-ruleta").text(estudiante_ruleta);
-            $("#resultado-ruleta").parent().show('slow');
-						$("#estado-ruleta").text("Girar").attr('girando', 0);
-					} else {
-						$("#estado-ruleta").text("Detener").attr('girando', 1);
-					}
-				}, 20);
-				clic = 1;
-			}
-		}
-
-		function random_color() {
-			let ar_digit = ['2', '3', '4', '5', '6', '7', '8', '9'];
-			let color = '';
-			let i = 0;
-			while (i < 6) {
-				let pos = Math.round(Math.random() * (ar_digit.length - 1));
-				color += ar_digit[pos];
-				i++;
-			}
-			return '#' + color;
-		}
-
-		drawRoulette();
-
-		$("#estado-ruleta").on('click', function() {
-			sortear();
-		});
-          
-        }
-        
-      })
-
-      .fail(function (a,b,c) {
-        console.log(a);
-        console.log(b);
-        console.log(c);
-      })
-
-    }
-
-  });
-  
 });

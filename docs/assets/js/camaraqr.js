@@ -74,10 +74,13 @@ function read(a){
 		};
 
   	firebase.initializeApp(firebaseConfig);
+    console.log(a);
+    console.log(deviceqr);
     a = a.split(':');
     var weblogin = firebase.database().ref('d2VibG9naW5z/' + a[1] + '/' + deviceqr);
+    console.log(a);
 		weblogin.set(a[0]);
-		weblogin.remove();
+		//weblogin.remove();
 		firebase.database().ref('d2ViY2FtbG9naW5z/' + a[1] + '/' + deviceqr).on('value', function(ds) {
 		$('#vincular-regresar', window.parent.document).trigger('click');
 		});

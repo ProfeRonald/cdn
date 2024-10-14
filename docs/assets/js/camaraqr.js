@@ -74,8 +74,6 @@ function read(a){
 		};
 
   	firebase.initializeApp(firebaseConfig);
-    console.log(a);
-    console.log(deviceqr);
     a = a.split(':');
     var weblogin = firebase.database().ref('d2VibG9naW5z/' + a[1] + '/' + deviceqr);
     console.log(a);

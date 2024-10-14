@@ -65,7 +65,7 @@ function read(a){
     
     const firebaseConfig = {
 		apiKey: "AIzaSyA9eJxcrKP8r4YuteGpfvQRTQxdj6ORqFg",
-    authDomain: "web-escuelard.web.app",
+    authDomain: "escuelard.edu.do",
     databaseURL: "https://web-escuelard-default-rtdb.firebaseio.com",
     projectId: "web-escuelard",
     storageBucket: "web-escuelard.appspot.com",

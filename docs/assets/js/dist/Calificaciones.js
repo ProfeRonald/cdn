@@ -793,7 +793,7 @@ $(document).ready(function () {
     }
   })
     .done(function (ides) {
-      console.log(Object.values(ides)[0]);
+      console.log(ides);
      if(Object.values(ides)[0] != null){
       $.each(ides, function (id, estado) {
         if (id != 0 && estado != '') {

@@ -796,7 +796,7 @@ $(document).ready(function () {
       console.log(ides);
       if(ides == null || ides['e'] == 1){
         $('#msjasistencia').html(ides['data']);
-      }else{
+      }else if(ides['data'] != null){
       $.each(ides['data'], function (id, estado) {
         if (id != 0 && (estado == 'P' || estado == 'A' || estado == 'E' || estado == 'T')) {
 

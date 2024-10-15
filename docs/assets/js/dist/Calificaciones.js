@@ -798,7 +798,7 @@ $(document).ready(function () {
         $('#msjasistencia').html(ides['data']);
       }else{
       $.each(ides['data'], function (id, estado) {
-        if (id != 0 && estado != '') {
+        if (id != 0 && (estado == 'P' || estado == 'A' || estado == 'E' || estado == 'T')) {
 
       $('#ea_' + id).children('.bestado').val(estado);
       $('#ea_' + id).attr('estado', estado);

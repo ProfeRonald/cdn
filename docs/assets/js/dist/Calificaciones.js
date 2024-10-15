@@ -793,11 +793,11 @@ $(document).ready(function () {
     }
   })
     .done(function (ides) {
-      console.log(Object.values(ides)[0]);
-      if(ides[0] == 'e'){
-        $('#msjasistencia').html(ides[1]);
-      }else if(Object.values(ides[1])[0] != null){
-      $.each(ides[1], function (id, estado) {
+      console.log(ides);
+      if(ides['e'] == 1){
+        $('#msjasistencia').html(ides['data']);
+      }else{
+      $.each(ides['data'], function (id, estado) {
         if (id != 0 && estado != '') {
 
       $('#ea_' + id).children('.bestado').val(estado);

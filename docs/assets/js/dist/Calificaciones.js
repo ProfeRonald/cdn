@@ -780,7 +780,6 @@ $(document).ready(function () {
   $('#insertar_asistencia i').text(' Registrar');
   var dia = $('#dia_asistencia').val();
   var archivoxlsx = $('#archivoxlsx').val();
-  console.log('aaaa');
   $.ajax({
     method: "POST",
     url: "sesion.php?op=ImportarDiaAsistencia",
@@ -797,6 +796,7 @@ $(document).ready(function () {
       if(ides != null && ides['data'] != null && ides['e'] == 1){
         $('#msjasistencia').html(ides['data']);
       }else if(ides != null && ides['data'] != null){
+        var a = 0;
       $.each(ides['data'], function (id, estado) {
         if (id != 0 && (estado == 'P' || estado == 'A' || estado == 'E' || estado == 'T')) {
 
@@ -820,10 +820,12 @@ $(document).ready(function () {
     }
 
     $('#ea_' + id).children('.estado').val(estado);
-
+      a++;
         }
       })
+      if(a > 0){
       $('#insertar_asistencia i').text(' Actualizar asistencia');
+      }
     }
     });
   }

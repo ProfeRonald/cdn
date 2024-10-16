@@ -742,7 +742,7 @@ $(document).ready(function () {
       }
     })
       .done(function (ides) {
-       // console.log(ides);
+        console.log(ides);
         if (ides['error'] != '' && ides['error'] != undefined) {
           $('#msj_asistencia_mes').html(ides['error']);
         } else {
@@ -757,7 +757,7 @@ $(document).ready(function () {
           $('#diast').text(ri);
           $.each(ides, function (id, easis) {
             if (id != 0) {
-              $('#e_' + id).html('<input maxlength="2" size="2" class="AsistenciasLocalGG Asistencias fa-2x"" id="'+id+'-'+ mes +'" type="text" id_asistencia="" value="' + easis + '" autocomplete="off">');
+              $('#e_' + id).html('<input maxlength="2" size="2" class="AsistenciasLocalGG Asistencias fa-2x"" id="'+id+'-'+ mes +'" type="text" id_asistencia="" value="' + easis + '" autocomplete="off" />');
             }
           })
 
@@ -780,7 +780,7 @@ $(document).ready(function () {
   $('#insertar_asistencia i').text(' Registrar');
   var dia = $('#dia_asistencia').val();
   var archivoxlsx = $('#archivoxlsx').val();
-
+  console.log('aaaa');
   $.ajax({
     method: "POST",
     url: "sesion.php?op=ImportarDiaAsistencia",

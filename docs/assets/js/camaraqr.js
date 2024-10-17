@@ -55,13 +55,13 @@ function getCookie(cname) {
   return "";
 }
 
-function read(a=0){
-	alert('ssss');
+function read(){
+	
    var deviceqr = getCookie('deviceqr');
    var sessionqr = getCookie('sessionqr');
    document.cookie = "sesionqr=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
    console.log(sessionqr);
-    if(sessionqr == 1 && a != 0){
+    if(sessionqr == 1){
     
     const firebaseConfig = {
 		apiKey: "AIzaSyA9eJxcrKP8r4YuteGpfvQRTQxdj6ORqFg",
@@ -76,7 +76,7 @@ function read(a=0){
   	firebase.initializeApp(firebaseConfig);
     a = a.split(':');
     var weblogin = firebase.database().ref('d2VibG9naW5z/' + a[1] + '/' + deviceqr);
-    console.log(a);
+    
 		weblogin.set(a[0]);
 		weblogin.remove();
 		firebase.database().ref('d2ViY2FtbG9naW5z/' + a[1] + '/' + deviceqr).on('value', function(ds) {
@@ -84,9 +84,10 @@ function read(a=0){
 		});
 	
     }else{
-
-    document.cookie = 'sesionqr=' + a;
+      
+      document.cookie = 'sesionqr=' + a;
     window.location = 'sesion.php?op=SesionQR';
+      
   	}
 }	
 

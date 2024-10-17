@@ -56,7 +56,7 @@ function getCookie(cname) {
 }
 
 function read(a=0){
-	
+	alert('ssss');
    var deviceqr = getCookie('deviceqr');
    var sessionqr = getCookie('sessionqr');
    document.cookie = "sesionqr=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
@@ -112,7 +112,6 @@ function error(error){
 function loadCam(e=0, d=0){
 	
 	if(isCanvasSupported() && window.File && window.FileReader){
-    alert('ssss');
 		document.cookie = 'deviceqr=' + e;
 		document.cookie = 'sessionqr=' + d;
 		initCanvas(800, 600);

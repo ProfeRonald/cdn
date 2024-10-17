@@ -15,7 +15,7 @@ function initCanvas(w,h){
     gCanvas.style.height = h + "px";
     gCanvas.width = w;
     gCanvas.height = h;
-    gCtx = gCanvas.getContext("2d");
+    gCtx = gCanvas.getContext("2d", { willReadFrequently: true });
     gCtx.clearRect(0, 0, w, h);
 }
 
@@ -55,13 +55,13 @@ function getCookie(cname) {
   return "";
 }
 
-function read(a){
+function read(a=0){
 	
    var deviceqr = getCookie('deviceqr');
    var sessionqr = getCookie('sessionqr');
    document.cookie = "sesionqr=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    
-    if(sessionqr == 1){
+   console.log(sessionqr);
+    if(sessionqr == 1 && a != 0){
     
     const firebaseConfig = {
 		apiKey: "AIzaSyA9eJxcrKP8r4YuteGpfvQRTQxdj6ORqFg",
@@ -92,7 +92,7 @@ function read(a){
 
 function isCanvasSupported(){
   var elem = document.createElement('canvas');
-  return !!(elem.getContext && elem.getContext('2d'));
+  return !!(elem.getContext && elem.getContext('2d', { willReadFrequently: true }));
 }
 
 function success(stream){

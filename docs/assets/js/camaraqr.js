@@ -112,6 +112,7 @@ function error(error){
 function loadCam(e=0, d=0){
 	
 	if(isCanvasSupported() && window.File && window.FileReader){
+    alert('ssss');
 		document.cookie = 'deviceqr=' + e;
 		document.cookie = 'sessionqr=' + d;
 		initCanvas(800, 600);

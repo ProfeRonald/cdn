@@ -55,13 +55,13 @@ function getCookie(cname) {
   return "";
 }
 
-function read(){
+function read(a){
 	
    var deviceqr = getCookie('deviceqr');
    var sessionqr = getCookie('sessionqr');
    document.cookie = "sesionqr=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
    console.log(sessionqr);
-    if(sessionqr == 1){
+    if(sessionqr == 1 && a != ''){
     
     const firebaseConfig = {
 		apiKey: "AIzaSyA9eJxcrKP8r4YuteGpfvQRTQxdj6ORqFg",
@@ -83,13 +83,12 @@ function read(){
 		$('#vincular-regresar', window.parent.document).trigger('click');
 		});
 	
-    }else{
-      
+    }else if(a != ''){
+     // $('head').append('<meta http-equiv="refresh" content="5; url=http://localhost/Dropbox/adecuacion/sesion.php?op=SesionQR" />');
       document.cookie = 'sesionqr=' + a;
-    window.location = 'sesion.php?op=SesionQR';
-      
+      window.location = 'http://localhost/Dropbox/adecuacion/sesion.php?op=SesionQR';
   	}
-}	
+}
 
 function isCanvasSupported(){
   var elem = document.createElement('canvas');

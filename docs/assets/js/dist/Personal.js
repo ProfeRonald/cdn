@@ -36,3 +36,12 @@ $(document).ready(function() {
       document.cookie = "idples=" + idpl;
     }
   );
+
+  web
+                        .database()
+                        .ref(
+                          "sesiones/" + escuela_sesion + "/usuarios/" + quien + "/" + user.uid)
+                        .on("value", (enlinea) => {
+
+                          
+                        });

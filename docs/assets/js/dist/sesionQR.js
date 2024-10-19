@@ -18,8 +18,6 @@ $(document).on('click', '#vincular-device-link', function () {
                   $('[data-toggle="popover"]').popover()
     })
     
-    var urlcdn = $("#index_js").attr("urlcdn");
-    
     $(document).on('click', '#message', function () {
         
     $.getScript(urlcdn + "/assets/js/dist/Reclamos.js", function() {});

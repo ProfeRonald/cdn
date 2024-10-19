@@ -19,6 +19,8 @@ var escuela_sesion = $("#index_js").attr("escuela_sesion");
 
 var quien = $("#index_js").attr("quien");
 
+var webPersonal = web.database().ref("sesiones/" + escuela_sesion + "/usuarios/");
+
 web
     .auth()
     .signInWithEmailAndPassword(correo_sesion, clave_sesion)

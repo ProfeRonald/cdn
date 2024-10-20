@@ -2489,3 +2489,7 @@ top: 32px;
 right: 182px;
 
 }
+
+img{
+  pointer-events: none;
+}

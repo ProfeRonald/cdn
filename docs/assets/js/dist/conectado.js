@@ -18,6 +18,8 @@ var escuela_sesion = $("#index_js").attr("escuela_sesion");
 
 var quien = $("#index_js").attr("quien");
 
+var id_sesion = $("#index_js").attr("id_sesion");
+
 web
     .auth()
     .signInWithEmailAndPassword(correo_sesion, clave_sesion)
@@ -27,9 +29,10 @@ web
 
 var UltimaConexion = web.database().ref("sesiones/" + escuela_sesion + "/usuarios/" + quien + "/" + user.uid + "/UltimaConexion");
 var conectado = web.database().ref("sesiones/" + escuela_sesion + "/usuarios/" + quien + "/" + user.uid + "/conectado");
+var enlineaPersonal = web.database().ref("enlinea/" + escuela_sesion + "/conectados/" + quien + "-" + id_sesion);
 var visible = web.database().ref("sesiones/" + escuela_sesion + "/usuarios/" + quien + "/" + user.uid + "/visible");
 
-$("#enlinea").on("click",function(){
+$(document).on("click", "#enlinea", function () {
 	var enlinea = $(this).attr('visible');
 	if(enlinea == 1){
 		visible.set(2);
@@ -40,27 +43,31 @@ $("#enlinea").on("click",function(){
 })
 
 web.database().ref(".info/connected").on("value", function (data) {
+  console.log(data.val());
 	if (data.val()) {
 		conectado.onDisconnect().set(0);
+    enlineaPersonal.onDisconnect().set(0);
 		conectado.set(1);
 		UltimaConexion.onDisconnect().set(firebase.database.ServerValue.TIMESTAMP);
 	}
 });
-
 
 web
                         .database()
                         .ref(
                           "sesiones/" + escuela_sesion + "/usuarios/" + quien + "/" + user.uid)
                         .on("value", (enlinea) => {
+                          
 						if(enlinea.val().conectado == 1 && enlinea.val().visible != 2){
 							$('#enlinea').html('<i class="fa fa-eye"></i>Visible');
 							$('#enlinea').attr('visible', '1');
+              enlineaPersonal.set(1);
 							$('#fotses').parent().attr('class', 'dropdown-toggle active');
 						}else{
 							$('#enlinea').html('<i class="fa fa-eye-slash"></i>No visible');
 							$('#enlinea').removeAttr('visible');
 							$('#fotses').parent().attr('class', 'dropdown-toggle noactive');
+              enlineaPersonal.set(0);
 						}
 
 						if(enlinea.val().visible == 1){
@@ -88,25 +95,44 @@ web
       }
     });
 
-	
-$("#cerrarSesion").on("click",function(){
-			
+    
+    $('.personal-conectados').css({'border': '2px solid transparent'});
+    $('.personal-conectados').removeAttr('rel');
+    $('.personal-conectados').removeAttr('title');
+    $('.personal-conectados-grid').css({'border': '5px solid rgba(255, 255, 255, 0.3)'});
+    $('.personal-conectados-grid').removeAttr('rel');
+    $('.personal-conectados-grid').removeAttr('title');
+    
+        web.database().ref("enlinea/" + escuela_sesion + "/conectados").on("value", (enlineas) => {
+            enlineas.forEach(function (online) {
+                if(online.val() == 1){
+                $('#personal-' + online.key).css({'border': '2px solid #4cd137'});
+                $('#personal-' + online.key).attr('rel', 'tooltip');
+                $('#personal-' + online.key).attr('title', 'Conectado');
+                $('#personal-grid-' + online.key).css({'border': '5px solid #4cd137'});
+                $('#personal-grid-' + online.key).attr('rel', 'tooltip');
+                $('#personal-grid-' + online.key).attr('title', 'Conectado');
+                }else{
+                    $('#personal-' + online.key).css({'border': '2px solid transparent'});
+                    $('#personal-' + online.key).removeAttr('rel');
+                    $('#personal-' + online.key).removeAttr('title');
+                    $('.personal-conectados-grid').css({'border': '5px solid rgba(255, 255, 255, 0.3)'});
+                    $('.personal-conectados-grid').removeAttr('rel');
+                    $('.personal-conectados-grid').removeAttr('title');
+                }
+            })
+        })
+
+$(document).on("click", "#cerrarSesion", function () {
+  enlineaPersonal.set(0);
 	UltimaConexion.set(
                         firebase.database.ServerValue.TIMESTAMP
                       );
                       conectado.set(0);
-
+  
                       web
                         .auth()
                         .signOut()
                         .then(() => {});
 			
 			});
-
-            web
-            .database()
-            .ref(
-              "sesiones/" + escuela_sesion + "/usuarios")
-            .on("value", (enlinea) => {
-                console.log(enlinea);
-            })

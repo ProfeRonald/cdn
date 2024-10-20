@@ -102,8 +102,8 @@ web
     $('.personal-conectados-grid').css({'border': '5px solid rgba(255, 255, 255, 0.3)'});
     $('.personal-conectados-grid').parent().removeAttr('rel');
     $('.personal-conectados-grid').parent().removeAttr('title');
-    $('.personal-conectados-grupo').css({'background-color': '#ffffff'});
-    $('.estudiantes-conectados-grupo').parent().css({'background-color': '#ffffff'});
+    $('.personal-conectados-grupo').css({'border-color': '#ffffff'});
+    $('.estudiantes-conectados-grupo').css({'border-color': '#ffffff'});
     $('.estudiantes-conectados-grupo').parent().removeAttr('rel');
     $('.estudiantes-conectados-grupo').parent().removeAttr('title');
     
@@ -116,8 +116,8 @@ web
                 $('#personal-conectados-grid-' + online.key).css({'border': '5px solid #4cd137'});
                 $('#personal-conectados-grid-' + online.key).parent().attr('rel', 'tooltip');
                 $('#personal-conectados-grid-' + online.key).parent().attr('title', 'Conectado');
-                $('#personal-conectados-grupo-' + online.key).parent().css({'background-color': '#4cd137'});
-                $('#estudiantes-conectados-grupo-' + online.key).parent().css({'background-color': '#4cd137'});
+                $('#personal-conectados-grupo-' + online.key).css({'border-color': '#4cd137'});
+                $('#estudiantes-conectados-grupo-' + online.key).css({'border-color': '#4cd137'});
                 $('#estudiantes-conectados-grupo-' + online.key).parent().attr('rel', 'tooltip');
                 $('#estudiantes-conectados-grupo-' + online.key).parent().attr('title', 'Conectado');
                 }else{
@@ -127,8 +127,8 @@ web
                     $('#personal-conectados-grid-' + online.key).css({'border': '5px solid rgba(255, 255, 255, 0.3)'});
                     $('#personal-conectados-grid-' + online.key).parent().removeAttr('rel');
                     $('#personal-conectados-grid-' + online.key).parent().removeAttr('title');
-                    $('#personal-conectados-grupo-' + online.key).parent().css({'background-color': '#ffffff'});
-                    $('#estudiantes-conectados-grupo-' + online.key).parent().css({'background-color': '#ffffff'});
+                    $('#personal-conectados-grupo-' + online.key).css({'border-color': '#ffffff'});
+                    $('#estudiantes-conectados-grupo-' + online.key).css({'border-color': '#ffffff'});
                     $('#estudiantes-conectados-grupo-' + online.key).parent().removeAttr('rel');
                     $('#estudiantes-conectados-grupo-' + online.key).parent().removeAttr('title');
                 }

@@ -104,6 +104,8 @@ web
     $('.personal-conectados-grid').parent().removeAttr('title');
     $('.personal-conectados-grupo').css({'background-color': '#ffffff'});
     $('.estudiantes-conectados-grupo').parent().css({'background-color': '#ffffff'});
+    $('.estudiantes-conectados-grupo').parent().removeAttr('rel');
+    $('.estudiantes-conectados-grupo').parent().removeAttr('title');
     
         web.database().ref("enlinea/" + escuela_sesion + "/conectados").on("value", (enlineas) => {
             enlineas.forEach(function (online) {
@@ -116,6 +118,8 @@ web
                 $('#personal-conectados-grid-' + online.key).parent().attr('title', 'Conectado');
                 $('#personal-conectados-grupo-' + online.key).parent().css({'background-color': '#4cd137'});
                 $('#estudiantes-conectados-grupo-' + online.key).parent().css({'background-color': '#4cd137'});
+                $('#estudiantes-conectados-grupo-' + online.key).parent().attr('rel', 'tooltip');
+                $('#estudiantes-conectados-grupo-' + online.key).parent().attr('title', 'Conectado');
                 }else{
                     $('#personal-conectados-' + online.key).css({'border': '2px solid transparent'});
                     $('#personal-conectados-' + online.key).removeAttr('rel');

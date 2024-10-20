@@ -129,6 +129,8 @@ web
                     $('#personal-conectados-grid-' + online.key).parent().removeAttr('title');
                     $('#personal-conectados-grupo-' + online.key).parent().css({'background-color': '#ffffff'});
                     $('#estudiantes-conectados-grupo-' + online.key).parent().css({'background-color': '#ffffff'});
+                    $('#estudiantes-conectados-grupo-' + online.key).parent().removeAttr('rel');
+                    $('#estudiantes-conectados-grupo-' + online.key).parent().removeAttr('title');
                 }
             })
         })

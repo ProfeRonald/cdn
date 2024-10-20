@@ -116,9 +116,9 @@ web
                     $('#personal-' + online.key).css({'border': '2px solid transparent'});
                     $('#personal-' + online.key).removeAttr('rel');
                     $('#personal-' + online.key).removeAttr('title');
-                    $('#personal-' + online.key).css({'border': '5px solid rgba(255, 255, 255, 0.3)'});
-                    $('#personal-' + online.key).removeAttr('rel');
-                    $('#personal-' + online.key).removeAttr('title');
+                    $('#personal-grid-' + online.key).css({'border': '5px solid rgba(255, 255, 255, 0.3)'});
+                    $('#personal-grid-' + online.key).removeAttr('rel');
+                    $('#personal-grid-' + online.key).removeAttr('title');
                 }
             })
         })

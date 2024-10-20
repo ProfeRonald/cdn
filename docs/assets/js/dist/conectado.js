@@ -100,8 +100,8 @@ web
     $('.personal-conectados').removeAttr('rel');
     $('.personal-conectados').removeAttr('title');
     $('.personal-conectados-grid').css({'border': '5px solid rgba(255, 255, 255, 0.3)'});
-    $('.personal-conectados-grid').removeAttr('rel');
-    $('.personal-conectados-grid').removeAttr('title');
+    $('.personal-conectados-grid').parent().removeAttr('rel');
+    $('.personal-conectados-grid').parent().removeAttr('title');
     
         web.database().ref("enlinea/" + escuela_sesion + "/conectados").on("value", (enlineas) => {
             enlineas.forEach(function (online) {
@@ -110,15 +110,15 @@ web
                 $('#personal-' + online.key).attr('rel', 'tooltip');
                 $('#personal-' + online.key).attr('title', 'Conectado');
                 $('#personal-grid-' + online.key).css({'border': '5px solid #4cd137'});
-                $('#personal-grid-' + online.key).attr('rel', 'tooltip');
-                $('#personal-grid-' + online.key).attr('title', 'Conectado');
+                $('#personal-grid-' + online.key).parent().attr('rel', 'tooltip');
+                $('#personal-grid-' + online.key).parent().attr('title', 'Conectado');
                 }else{
                     $('#personal-' + online.key).css({'border': '2px solid transparent'});
                     $('#personal-' + online.key).removeAttr('rel');
                     $('#personal-' + online.key).removeAttr('title');
                     $('#personal-grid-' + online.key).css({'border': '5px solid rgba(255, 255, 255, 0.3)'});
-                    $('#personal-grid-' + online.key).removeAttr('rel');
-                    $('#personal-grid-' + online.key).removeAttr('title');
+                    $('#personal-grid-' + online.key).parent().removeAttr('rel');
+                    $('#personal-grid-' + online.key).parent().removeAttr('title');
                 }
             })
         })

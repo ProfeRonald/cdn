@@ -102,23 +102,29 @@ web
     $('.personal-conectados-grid').css({'border': '5px solid rgba(255, 255, 255, 0.3)'});
     $('.personal-conectados-grid').parent().removeAttr('rel');
     $('.personal-conectados-grid').parent().removeAttr('title');
+    $('.personal-conectados-grupo').css({'background-color': '#ffffff'});
+    $('.estudiantes-conectados-grupo').parent().css({'background-color': '#ffffff'});
     
         web.database().ref("enlinea/" + escuela_sesion + "/conectados").on("value", (enlineas) => {
             enlineas.forEach(function (online) {
                 if(online.val() == 1){
-                $('#personal-' + online.key).css({'border': '2px solid #4cd137'});
-                $('#personal-' + online.key).attr('rel', 'tooltip');
-                $('#personal-' + online.key).attr('title', 'Conectado');
-                $('#personal-grid-' + online.key).css({'border': '5px solid #4cd137'});
-                $('#personal-grid-' + online.key).parent().attr('rel', 'tooltip');
-                $('#personal-grid-' + online.key).parent().attr('title', 'Conectado');
+                $('#personal-conectados-' + online.key).css({'border': '2px solid #4cd137'});
+                $('#personal-conectados-' + online.key).attr('rel', 'tooltip');
+                $('#personal-conectados-' + online.key).attr('title', 'Conectado');
+                $('#personal-conectados-grid-' + online.key).css({'border': '5px solid #4cd137'});
+                $('#personal-conectados-grid-' + online.key).parent().attr('rel', 'tooltip');
+                $('#personal-conectados-grid-' + online.key).parent().attr('title', 'Conectado');
+                $('#personal-conectados-grupo-' + online.key).parent().css({'background-color': '#4cd137'});
+                $('#estudiantes-conectados-grupo-' + online.key).parent().css({'background-color': '#4cd137'});
                 }else{
-                    $('#personal-' + online.key).css({'border': '2px solid transparent'});
-                    $('#personal-' + online.key).removeAttr('rel');
-                    $('#personal-' + online.key).removeAttr('title');
-                    $('#personal-grid-' + online.key).css({'border': '5px solid rgba(255, 255, 255, 0.3)'});
-                    $('#personal-grid-' + online.key).parent().removeAttr('rel');
-                    $('#personal-grid-' + online.key).parent().removeAttr('title');
+                    $('#personal-conectados-' + online.key).css({'border': '2px solid transparent'});
+                    $('#personal-conectados-' + online.key).removeAttr('rel');
+                    $('#personal-conectados-' + online.key).removeAttr('title');
+                    $('#personal-conectados-grid-' + online.key).css({'border': '5px solid rgba(255, 255, 255, 0.3)'});
+                    $('#personal-conectados-grid-' + online.key).parent().removeAttr('rel');
+                    $('#personal-conectados-grid-' + online.key).parent().removeAttr('title');
+                    $('#personal-conectados-grupo-' + online.key).parent().css({'background-color': '#ffffff'});
+                    $('#estudiantes-conectados-grupo-' + online.key).parent().css({'background-color': '#ffffff'});
                 }
             })
         })

@@ -60,7 +60,7 @@ function read(a){
    var deviceqr = getCookie('deviceqr');
    var sessionqr = getCookie('sessionqr');
    document.cookie = "sesionqr=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-   console.log(sessionqr);
+   
     if(sessionqr == 1 && a != ''){
     
     const firebaseConfig = {

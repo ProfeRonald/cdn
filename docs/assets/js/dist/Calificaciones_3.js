@@ -96,7 +96,7 @@ $(document).on("blur", ".CalificacionesIL", function () {
         year_2: year_2,
       },
     }).done(function (e) {
-      //console.log(e);
+      
       if (e["exito"] == 1) {
         var color = "#2ECC71";
         input.parent().attr('notap', nota);
@@ -131,7 +131,7 @@ $(document).on("blur", ".CalificacionesILFinales", function () {
   var tipo_nota = $(this).attr("name");
   var pra = 100;
   var input = $(this);
-  console.log(nota+' - '+reserva);
+ 
   if (nota != reserva) {
     $.ajax({
       method: "POST",
@@ -149,7 +149,7 @@ $(document).on("blur", ".CalificacionesILFinales", function () {
         year_2: year_2,
       },
     }).done(function (e) {
-      console.log(e);
+    
       if (e["exito"] == 1) {
         var color = "#2ECC71";
       } else {
@@ -342,7 +342,7 @@ $(document).on("blur", ".CalificacionesRP", function () {
         year_2: year_2,
       },
     }).done(function (e) {
-      console.log(e['aa']);
+      
       if (e["exito"] == 1) {
         var color = "#2ECC71";
         SumaPCs();

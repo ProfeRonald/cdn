@@ -34,7 +34,7 @@ $(document).on('blur', '.CalificacionesRAPra', function () {
                   }
                     })
                   .done(function(e){
-                    console.log(e);
+                    
                     if (e["exito"] == 1) {
                         var color = "#2ECC71";
                         $('.CalificacionesRA').trigger('change');
@@ -65,7 +65,7 @@ $(document).on('blur', '.CalificacionesRAPra', function () {
               sel.change();
 
                 $.each($(".celdas-" + ra), function (i, input) {
-                    console.log($(this).closest("tr").attr("ide"));
+                   
                     $(this).html(
                       '<input class="CalificacionesRA" maxlength="2" size="2" id="' + $(this).closest("tr").attr("ide") + '-' + ra + '-1" value="" autocomplete="off"> - <input class="CalificacionesRA" maxlength="2" size="2" id="' + $(this).closest("tr").attr("ide") + '-' + ra + '-2" value="" autocomplete="off"> - <input class="CalificacionesRA" maxlength="2" size="2" id="' + $(this).closest("tr").attr("ide") + '-' + ra + '-3" value="" autocomplete="off"> - <input class="CalificacionesRA" maxlength="2" size="2" id="' + $(this).closest("tr").attr("ide") + '-' + ra + '-4" value="" autocomplete="off">'
                     );

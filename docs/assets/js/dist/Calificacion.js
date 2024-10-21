@@ -173,7 +173,7 @@ $(document).ready(function () {
 					year_2: year_2,
 				},
 			}).done(function (e) {
-				console.log(e);
+				
 				if (e["exito"] == 1) {
 					var color = "#2ECC71";
 					RevaluaAsignatura(id[1]);
@@ -259,7 +259,7 @@ $(document).ready(function () {
 						year_2: year_2,
 					},
 				}).done(function (e) {
-					//console.log(e);
+					
 					if (e["exito"] == 1) {
 					var color = "#2ECC71";
 					var ind = Number($('#ind-' + id[0] + '-' + id[1] + '-' + id[2]).text());
@@ -311,7 +311,7 @@ $(document).ready(function () {
 					year_2: year_2,
 				},
 			}).done(function (e) {
-				console.log(e);
+			
 				if (e["exito"] == 1) {
 					var color = "#2ECC71";
 					var col = input.attr("class").split('-')[2];
@@ -577,7 +577,6 @@ $(document).ready(function () {
 
 					$.each(comps, function (c, comp) {
 					var cp = comp.split('-');
-					console.log(comp);
 					SumaPs (cp[1], cp[2], cp[3]);
 					})
 			
@@ -721,7 +720,6 @@ $(document).ready(function () {
 		id = id.split("-");
 		var mes = id[0];
 		var input = $(this);
-		console.log(asistencia +'-'+ reserva);
 		if (asistencia != reserva) {
 			$.ajax({
 				method: "POST",
@@ -736,7 +734,7 @@ $(document).ready(function () {
 					id_grupo: id_grupo,
 				},
 			}).done(function (e) {
-				//console.log(e);
+				
 				if (e["exito"] == 1 || e["exito"] == 2) {
 					var color = "#2ECC71";
 					if($('#a'+id[1]).attr('tipo') == 'i'){
@@ -1437,7 +1435,6 @@ var op3 = $('#'+ra3).attr('op');
 
 		});
 
-		//console.log(subtotal);
 		$('#subtotal-' + id[0]).text(subtotal);
 
 		var tra = Number(parseFloat(subtotal / tras).toFixed(1));

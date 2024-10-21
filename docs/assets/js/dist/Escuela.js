@@ -143,5 +143,5 @@ $(document).on('click', '.periodo', function () {
 		}else{
 		  $('#nav-tab-cont').show('slow');		
 		}
-		console.log(prds);
+		
 });

@@ -175,7 +175,7 @@ $(document).on('click', '#guardarae', function () {
     }
   })
     .done(function (u) {
-      console.log(u);
+      
       $('#cargar_razon').html('<div style="text-align:center;font-size:20pt"><i class="fa fa-refresh rotar" aria-hidden="true"></i></div>');
       if (u == 1) {
         $('#raz' + est).val(re);
@@ -420,7 +420,7 @@ function SubirFotoEst(ruta, dataurl, ide, urlimgs, cam=0){
     }
   })
     .done(function (e) {
-      console.log(e);
+     
       if(e == 1){
       $('#mensaje_uploading').html('<span class="text-primary">&iexcl;Foto cargada!</span>');
       var srcfoto = urlimgs + '/fotos/estudiantes/foto_' + ide + '.jpg?v=' + `${new Date().getTime()}`;

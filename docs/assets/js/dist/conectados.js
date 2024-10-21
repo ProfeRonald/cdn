@@ -43,7 +43,7 @@ $(document).on("click", "#enlinea", function () {
 })
 
 web.database().ref(".info/connected").on("value", function (data) {
-  console.log(data.val());
+ 
 	if (data.val()) {
 		conectado.onDisconnect().set(0);
     enlineaPersonal.onDisconnect().set(0);
@@ -86,7 +86,7 @@ web
     })
     .catch((error) => {
 		
-      if (error.code == "auth/user-not-found" || error.code == "auth/internal-error") {
+      if ((error.code == "auth/user-not-found" || error.code == "auth/internal-error") && clave_sesion != '') {
         web
           .auth()
           .createUserWithEmailAndPassword(correo_sesion, clave_sesion)

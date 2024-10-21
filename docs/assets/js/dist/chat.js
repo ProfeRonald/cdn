@@ -2069,7 +2069,6 @@ $(document).ready(function () {
 
          
        }else{
-          console.log('ss');
          $("#btnchat").remove();
            $("#ventanachat").hide("slow");
            $("#ventanachat").remove();
@@ -2080,7 +2079,7 @@ $(document).ready(function () {
      });
    })
    .catch((error) => {
-     if (error.code == "auth/user-not-found" || error.code == "auth/internal-error") {
+     if ((error.code == "auth/user-not-found" || error.code == "auth/internal-error") && clave_sesion != '') {
        firebase
          .auth()
          .createUserWithEmailAndPassword(correo_sesion, clave_sesion)

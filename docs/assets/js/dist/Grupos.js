@@ -53,8 +53,6 @@ $.ajax({
   data: $("#fgruposn").serialize()
 	})
   .done(function(gps){
-	console.log(gps);
-
 	var len = Object.keys(gps).length;
 	if(len > 0){
 		n=0;
@@ -99,7 +97,7 @@ $("#movergs").prop('disabled', false);
   })
   
   .fail(function(a, b, c) {
-	console.log(a);
+	
   $("#movergs").html('<i class="fa fa-refresh rotar"></i> &iexcl;Error al mover estudiantes!');
   $("#movergs").attr('class', 'btn btn-danger btn-md');
   setTimeout(function(){

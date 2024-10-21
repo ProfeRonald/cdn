@@ -227,7 +227,7 @@ $(document).on('click', '.ordenarGrupo', function () {
   });
 
   ordg = ordg.substring(0, ordg.length - 1);
-  console.log(ordg);
+  
   document.cookie = 'ordenGrupoaz=; expires=Thu, 01 Jan 1970 00:00:01 GMT';
   document.cookie = 'ordenGrupoza=; expires=Thu, 01 Jan 1970 00:00:01 GMT';
   document.cookie = 'ordenGrupoHO=; expires=Thu, 01 Jan 1970 00:00:01 GMT';

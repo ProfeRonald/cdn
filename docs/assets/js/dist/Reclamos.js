@@ -71,7 +71,7 @@ $(document).on('click', '#elical', function () {
   data: $("#fcale").serialize()
 	})
   .done(function(del){
-  	console.log(del);
+  	
   	if(del['u'] == 1){
 	setTimeout(function(){$('#idbcerrar').trigger("click");},2500);
   $("#aelirec").html('<div class="my-3 text-center" style="font-size:2rem;color:#D65D0A;">Calificaci&oacute;n eliminada<br /><i class="fa fa-check" aria-hidden="true"></i></div>');

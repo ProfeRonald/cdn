@@ -85,7 +85,7 @@ if (sqlq == 1) {
     }
   })
     .done(function (e) {
-      console.log(e);
+      
       if(e == 1){
         imagenSubida(urlimgs + '/' + ruta, cmini);
         $('#mensaje_uploading').html('<div class="text-success"> ¡La imagen se ha subido con éxito!</div>');

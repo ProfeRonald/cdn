@@ -56,7 +56,6 @@
       data: $("#fpev").serialize()
         })
       .done(function(ac){
-      console.log(ac);
           $('#actividadp').html(ac);
           $('#bceract').trigger('click');
           $('#pactividad').hide('slow');

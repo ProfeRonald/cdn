@@ -248,7 +248,7 @@ $(document).ready(function () {
       id_grupo: id_grupo,
     },
   }).done(function (e) {
-    //console.log(e);
+    
     if (e["exito"] == 1) {
       var color = "#2ECC71";
       PorcientoAsistenciasMes(mes);
@@ -275,7 +275,7 @@ $(document).ready(function () {
     var id_estudiante = id[0];
     var mes = id[1];
     var diames = $('#mes-' + mes).val();
-    //console.log(diames);
+   
     var input = $(this);
     if (asistencia != reserva || $('#bactasis').attr('act') == 1) {
       $.ajax({
@@ -292,7 +292,7 @@ $(document).ready(function () {
           id_grupo: id_grupo,
         },
       }).done(function (e) {
-        //console.log(e);
+        
         if (e["exito"] == 1 || e["exito"] == 2) {
           var color = "#2ECC71";
           if (e["exito"] == 1) {
@@ -623,7 +623,7 @@ $(document).ready(function () {
             data: $("#form_asis").serialize()
           })
             .done(function (as) {
-              //console.log(as);
+              
               $('#msj_asistencia').html(as['msj']);
               if (as['si'] == 1) {
                 $('#activar_asistencia').hide('slow');
@@ -693,7 +693,7 @@ $(document).ready(function () {
       data: $("#formasis").serialize()
     })
       .done(function (ias) {
-        //console.log(ias);
+        
         $('#msjasistencia').html(ias['msj']);
         if (ias['si'] == 2) {
           $('#insertar_asistencia i').text(' Pulse de nuevo para registrar la asistencia');
@@ -715,9 +715,7 @@ $(document).ready(function () {
       })
 
       .fail(function (a,b,c) {
-        /*console.log(a);
-        console.log(b);
-        console.log(c);*/
+        
       })
 
   });
@@ -742,7 +740,7 @@ $(document).ready(function () {
       }
     })
       .done(function (ides) {
-        console.log(ides);
+       
         if (ides['error'] != '' && ides['error'] != undefined) {
           $('#msj_asistencia_mes').html(ides['error']);
         } else {
@@ -792,7 +790,7 @@ $(document).ready(function () {
     }
   })
     .done(function (ides) {
-      console.log(ides);
+      
       if(ides != null && ides['data'] != null && ides['e'] == 1){
         $('#msjasistencia').html(ides['data']);
       }else if(ides != null && ides['data'] != null){
@@ -1459,9 +1457,7 @@ $(document).ready(function () {
       })
 
       .fail(function (a,b,c) {
-        console.log(a);
-        console.log(b);
-        console.log(c);
+       
       })
 
     }

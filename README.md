@@ -1,1 +1,1 @@
-#cdnfiles
+#filescdn

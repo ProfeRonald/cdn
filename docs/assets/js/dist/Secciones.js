@@ -5,6 +5,7 @@ $(document).ready(function () {
   var urlerd = $("#datos_js").attr("urlerd");
   var urlimgs = $("#datos_js").attr("urlimgs");
   var movilagent = $("#datos_js").attr("movilagent");
+  var imagenes_local = $("#datos_js").attr("imagenes_local");
  
 
 var idlp = Number(document.cookie.replace(
@@ -250,7 +251,12 @@ $(document).on('click', '.foto-estudiante', function () {
 
 $(document).on('click', '#tomar_cam_mini', function () {
     Webcam.snap( function(dataurl) {
-      SubirFotoEst(ruta, dataurl, ide, urlimgs, 1);
+      
+      if(imagenes_local == 1){
+          SubirFotoEstLocal(ruta, dataurl, ide, urlimgs, 1);
+         }else{
+          SubirFotoEstFB(dataurl, ide);
+         }
         
     });
 
@@ -340,7 +346,7 @@ $(document).on('click', '#pen-fotoest', function () {
       resizer = window.pica({ features: opts });
       }
       
-      function canvaFotoGrupo() {
+      function canvaFotoEst() {
       var src, ctx;
       
       src = $('#foto_canvas_original')[0];
@@ -351,7 +357,7 @@ $(document).on('click', '#pen-fotoest', function () {
       ctx.drawImage(img, 0, 0);
       }
       
-      var RedimensionarFotoGrupo = _.debounce(function () {
+      var RedimensionarFotoEst = _.debounce(function () {
       var dst, ctx, width;
        
       dst = $('#foto_canvas_mini')[0];
@@ -375,7 +381,11 @@ $(document).on('click', '#pen-fotoest', function () {
                    
        var dataurl = offScreenCanvas.toDataURL(mime_type_img, 1.0);
 
-       SubirFotoEst(ruta, dataurl, ide, urlimgs);
+       if(imagenes_local == 1){
+       SubirFotoEstLocal(ruta, dataurl, ide, urlimgs);
+      }else{
+       SubirFotoEstFB(dataurl, ide);
+      }
         
       }) 	
       
@@ -400,13 +410,13 @@ $(document).on('click', '#pen-fotoest', function () {
     
     img.src = window.URL.createObjectURL(files[0]);
     img.onload = function () {
-    canvaFotoGrupo();
-    RedimensionarFotoGrupo();
+    canvaFotoEst();
+    RedimensionarFotoEst();
     };
 
   });
 
-function SubirFotoEst(ruta, dataurl, ide, urlimgs, cam=0){
+function SubirFotoEstLocal(ruta, dataurl, ide, urlimgs, cam=0){
   var idest = $('#cerrarfoto').attr('ide');
   if(ide == idest){
   $.ajax({
@@ -451,7 +461,71 @@ $(document).on('click', '#cerrarde', function () {
 
 })
 
+function SubirFotoEstFB(dataurl, ide){
 
+var subirimagen = firebase.storage().ref().child('fotos/estudiantes/foto_' + ide + '.jpg').putString(dataurl, 'data_url');
+       
+subirimagen.on(firebase.storage.TaskEvent.STATE_CHANGED,
+function(snapshot) {
+
+var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+var progress = Math.round(progress);
+$('#barra_upload').html('<div class="progress-bar rounded progress-bar-striped d-block bg-info progress-bar-animated" role="progressbar" style="width: ' + progress + '%;font-weight:bold;font-size:15pt" aria-valuenow="' + progress + '" aria-valuemin="0" aria-valuemax="100">' + progress + '%</div>');
+switch (snapshot.state) {
+  case firebase.storage.TaskState.PAUSED:
+    console.log('Pausar subida');
+    break;
+  case firebase.storage.TaskState.RUNNING:
+    $('#mensaje_uploading').html('<div class="text-info"><i class="fa fa-refresh rotar"></i> Subiendo imagen...</div>');
+    break;
+}
+}, function(error) {
+
+switch (error.code) {
+case 'storage/unauthorized':
+     $('#mensaje_uploading').html('<div class="text-danger">No se pudo cargar la imagen, intente de nuevo</div>');
+  break;
+case 'storage/canceled':
+  $('#mensaje_uploading').html('<div class="text-danger">No se pudo cargar la imagen, intente de nuevo</div>');
+  break;
+
+case 'storage/unknown':
+  $('#mensaje_uploading').html('<div class="text-danger">No se pudo cargar la imagen, intente de nuevo</div>');
+  break;
+}
+}, function() {
+
+subirimagen.snapshot.ref.getDownloadURL().then(function(urlFoto) {
+  
+  var idest = $('#cerrarfoto').attr('ide');
+  if(ide == idest){
+  $.ajax({
+    method: "POST",
+    url: "up.php?op=ActualizarFoto",
+    data:{urlfoto: urlFoto, sqlq: 4, idq:  ide}
+  })
+    .done(function (e) {
+      if(e == 1){
+      $('#img'+ide).attr('src', urlFoto);
+      $('#foto_mini').css('background-image', 'url(' + urlFoto + ')');
+      $('#mensaje_uploading').html('<div class="text-success"> ¡La imagen se ha subido con éxito!</div>');
+      setTimeout(function(){
+        $('#barra_upload').hide('slow');
+        $('#mensaje_uploading').hide('slow');
+        },5000);
+      }else{
+        $('#mensaje_uploading').html('<span class="text-danger">Error al cargar, intente de nuevo</span>');   
+      }
+    })
+
+  }
+
+  
+
+});
+
+});
+}
 
 $(document).on('click', '.elimest', function () {
 

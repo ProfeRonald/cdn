@@ -67,7 +67,7 @@ $(document).ready(function () {
                  var quien = $("#datos_js").attr("quien");
                  var id_usuario;
                  var nle = 0;
-
+                 
                  if (quien == "director") {
                    id_usuario = "d-" + id_sesion;
                  } else if (quien == "secretario") {
@@ -82,9 +82,10 @@ $(document).ready(function () {
                    id_usuario = "p-" + id_sesion;
                  } else if (quien == "estudiante") {
                    id_usuario = "e-" + id_sesion;
-                   nle = Number($("#chate" + id_sesion).attr("nle"));
+                   nle = Number($("#estudiantes-conectados-grupo-estudiante-" + id_sesion).attr("nle"));
+                   
                  }
-
+                 
                  $("#enlinea").attr('usuario', id_usuario);
 
                  if (id_grupo != undefined && id_usuario != undefined) {
@@ -345,7 +346,7 @@ $(document).ready(function () {
                                if (persona.val().conectado == 1 || persona.val().conectado == 2) {
                                 var hacetiempo = HaceTiempo(persona.val().UltimaConexion)[0];
                                 var desde = nombre;
-                                if(hacetiempo != NaN){
+                                if(hacetiempo.substring(0, 3) != NaN && hacetiempo.substring(0, 3) != 'NaN'){
                                   desde = 'Desde hace ' + hacetiempo;
                                 }
                                  econectados +=
@@ -391,15 +392,19 @@ $(document).ready(function () {
                                }
                              } else{
                                if (persona.val().conectado == 1 || persona.val().conectado == 2) {
+                               var hacetiempo = HaceTiempo(persona.val().UltimaConexion)[0];
+                                var desde = nombre;
+                                if(hacetiempo.substring(0, 3) != NaN && hacetiempo.substring(0, 3) != 'NaN'){
+                                  desde = 'Desde hace ' + hacetiempo;
+                                }
+                                
                                  conectados +=
                                    '<li class="active pl-2 mb-1 pt-1 pb-0"'+display+'><div class="u-lector-' +
                                    persona.key +
                                    ' d-flex bd-highlight" nle="' +
                                    persona.val().nle +
-                                   '" style="height: 45px;"><div class="img_cont"><img data-container="#contactos" rel="tooltip" title="Desde hace ' +
-                                   HaceTiempo(
-                                     persona.val().UltimaConexion
-                                   )[0] +
+                                   '" style="height: 45px;"><div class="img_cont"><img data-container="#contactos" rel="tooltip" title="' +
+                                   desde +
                                    '" src="' +
                                    urlimgs +
                                    '/fotos/foto.jpg" alt="' +

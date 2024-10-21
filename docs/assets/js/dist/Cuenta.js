@@ -1,4 +1,4 @@
-var cdnfiles = $("#datos_js").attr("cdnfiles");
+var filescdn = $("#datos_js").attr("filescdn");
   
 $(document).on('click', '#menuToggle', function () {	
     var mwtn = $(".open").length;
@@ -52,7 +52,7 @@ scrollCollapse: verdadero_f,
     "scrollY": verdadero_f,
     "bAutoWidth": verdadero_f,	
 "language": {
-    url: cdnfiles + "/assets/js/lib/data-table/spanishAsignaturas.json",
+    url: filescdn + "/assets/js/lib/data-table/spanishAsignaturas.json",
 },
 "iDisplayLength":	-1,
 

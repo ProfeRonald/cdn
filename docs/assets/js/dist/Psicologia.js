@@ -1,7 +1,7 @@
 
 $(document).ready(function() {
 
-    var cdnfiles = $("#datos_js").attr("cdnfiles");
+    var filescdn = $("#datos_js").attr("filescdn");
 
 var idlp = Number(document.cookie.replace(
     /(?:(?:^|.*;\s*)idples\s*\=\s*([^;]*).*$)|^.*$/,
@@ -25,7 +25,7 @@ var idlp = Number(document.cookie.replace(
           "bFilter": true,
           "paging": true,
       "language": {
-        url: cdnfiles + "/assets/js/lib/data-table/SpanishGrupo.json"
+        url: filescdn + "/assets/js/lib/data-table/SpanishGrupo.json"
       },
       "lengthMenu":		[[5, 7, 10, 15, 20, 25, 50, -1], [5, 7, 10, 15, 20, 25, 50, "Todos"]],
       "iDisplayLength":	idlp,
@@ -41,7 +41,7 @@ var idlp = Number(document.cookie.replace(
       } ],
       "order": [[ 6, "asc" ]],
       "language": {
-        url: cdnfiles + "/assets/js/lib/data-table/spanish.json",
+        url: filescdn + "/assets/js/lib/data-table/spanish.json",
       },
       "lengthMenu":		[[5, 7, 10, 15, 20, 25, 50, -1], [5, 7, 10, 15, 20, 25, 50, "Todos"]],
       "iDisplayLength":	idlp,
@@ -60,7 +60,7 @@ var idlp = Number(document.cookie.replace(
           "bFilter": true,
           "paging": true,
       "language": {
-        url: cdnfiles + "/assets/js/lib/data-table/SpanishGrupos.json"
+        url: filescdn + "/assets/js/lib/data-table/SpanishGrupos.json"
       },
       "lengthMenu":		[[5, 7, 10, 15, 20, 25, 50, -1], [5, 7, 10, 15, 20, 25, 50, "Todos"]],
       "iDisplayLength":	idlp,

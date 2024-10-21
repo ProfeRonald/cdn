@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-  var cdnfiles = $("#datos_js").attr("cdnfiles");
+  var filescdn = $("#datos_js").attr("filescdn");
   var id_asignaturamf = $("#datos_js").attr("id_asignaturamf");
   var id_grupo = $("#datos_js").attr("id_grupo");
   var urlerd = $("#datos_js").attr("urlerd");
@@ -45,7 +45,7 @@ $(document).ready(function () {
       },
     ],
     language: {
-      url: cdnfiles + "/assets/js/lib/data-table/spanish.json",
+      url: filescdn + "/assets/js/lib/data-table/spanish.json",
     },
     lengthMenu: [
       [5, 7, 10, 20, 25, 30, 35, 50, -1],

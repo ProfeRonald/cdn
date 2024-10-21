@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-  var cdnfiles = $("#datos_js").attr("cdnfiles");
+  var filescdn = $("#datos_js").attr("filescdn");
   var target = $("#datos_js").attr("target");
   var urlerd = $("#datos_js").attr("urlerd");
   var urlimgs = $("#datos_js").attr("urlimgs");
@@ -26,7 +26,7 @@ var idlp = Number(document.cookie.replace(
     "oSearch": {"sSearch": var_buscar},
     "order": [[1, "asc"]],
     "language": {
-      url: cdnfiles + "/assets/js/lib/data-table/spanish.json",
+      url: filescdn + "/assets/js/lib/data-table/spanish.json",
     },
     "lengthMenu": [[5, 7, 10, 20, 25, 50, -1], [5, 7, 10, 20, 25, 50, "Todos"]],
     "iDisplayLength": idlp,

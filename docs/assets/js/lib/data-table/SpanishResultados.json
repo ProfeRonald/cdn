@@ -18,7 +18,7 @@
 		"sLast":     "Última",
 		"sNext":     "Siguiente",
 		"sPrevious": "Anterior"
-	},
+	}, 
 	"oAria": {
 		"sSortAscending":  ": Activar para ordenar de forma ascendente",
 		"sSortDescending": ": Activar para ordenar de forma descendente"

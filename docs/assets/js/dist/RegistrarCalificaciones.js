@@ -118,7 +118,7 @@ $(document).ready(function () {
        if(local == 1){
         document.cookie = "ColorGrupo" + grupo + "_" + year_1 + "-" + year_2 + "_" + quien + "_" + id_sesion + "=" + scolor;
        }else{
-       fetch('https://cdn-escuelard-default-rtdb.firebaseio.com/' + year_1 + '-' + year_2 + '/' + quien + '_' + id_sesion + '.json', {method: 'PATCH',body: JSON.stringify({[grupo]:scolor}),headers:{'Content-Type': 'application/json'}}); 
+       fetch('https://imgs-escuelard-default-rtdb.firebaseio.com/' + year_1 + '-' + year_2 + '/' + quien + '_' + id_sesion + '.json', {method: 'PATCH',body: JSON.stringify({[grupo]:scolor}),headers:{'Content-Type': 'application/json'}}); 
        }
       });
     } else {

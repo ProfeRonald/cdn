@@ -73,7 +73,7 @@ $('#TablaAescolar').DataTable({
   } ],
   "order": [[ 0, "asc" ]],
   "language": {
-    url: filescdn + "/assets/js/lib/data-table/spanishResultados.json",
+    url: filescdn + "/assets/js/lib/data-table/SpanishResultados.json",
   },
   "lengthMenu":		[[5, 7, 10, 20, 25, 30, 50, -1], [5, 7, 10, 20, 25, 30, 50, "Todos"]],
   "iDisplayLength":	idlp,

@@ -3,10 +3,10 @@ $(document).ready(function () {
   var filescdn = $("#datos_js").attr("filescdn");
   var id_asignaturamf = $("#datos_js").attr("id_asignaturamf");
   var id_grupo = $("#datos_js").attr("id_grupo");
-  var urlerd = $("#datos_js").attr("urlerd");
   var urlimgs = $("#datos_js").attr("urlimgs");
   var aarch = Number($("#datos_js").attr("aarch"));
-  var target = Number($("#datos_js").attr("target"));
+  var id_sesion = Number($("#datos_js").attr("id_sesion"));
+  var escuela_sesion = Number($("#datos_js").attr("escuela_sesion"));
   var asistencia_local = Number($("#datos_js").attr("asistencia_local"));
   var taa = Number($("#datos_js").attr("taa"));
   
@@ -1297,7 +1297,9 @@ $(document).ready(function () {
 
           $('#' + $("#teps").attr("tipo_ruleta")).val(lista.join('\n'));
           
-          document.cookie = $("#teps").attr("tipo_ruleta") + '=' + lista.join('-');
+          //document.cookie = $("#teps").attr("tipo_ruleta") + '=' + lista.join('-');
+          firebase.database().ref('ruletas/' + $("#teps").attr("tipo_ruleta")).set(lista.join('-'));
+			    
           return lista;
           }
 
@@ -1332,14 +1334,15 @@ $(document).ready(function () {
 
     $(document).on('click', '.ops-ruleta', function () {
 
-     $("#teps").attr("tipo_ruleta", 'tipo_ruleta-' + id_grupo + '-' + id_asignaturamf + '-' + $(this).attr("tipo"));
+     $("#teps").attr("tipo_ruleta", 'r-' + escuela_sesion + '-' + id_sesion + '-' + id_asignaturamf + '-' + $(this).attr("tipo"));
      drawRoulette();
   
     });
 
     $(document).on('click', '.recargar-lista', function () {
 
-      document.cookie = $("#teps").attr("tipo_ruleta") + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT';
+      //document.cookie = $("#teps").attr("tipo_ruleta") + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT';
+      firebase.database().ref('ruletas/' + $("#teps").attr("tipo_ruleta")).remove();
       $('#' + $("#teps").attr("tipo_ruleta")).val($("#teps").attr("lista_ruleta").split('-').join('\n'));
       drawRoulette();
   

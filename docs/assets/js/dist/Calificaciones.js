@@ -1270,6 +1270,19 @@ $(document).ready(function () {
         }
 
         if(herr == 'HRuleta'){
+          
+        const firebaseConfig = {
+          apiKey: "AIzaSyA9eJxcrKP8r4YuteGpfvQRTQxdj6ORqFg",
+          authDomain: "escuelard.edu.do",
+          databaseURL: "https://web-escuelard-default-rtdb.firebaseio.com",
+          projectId: "web-escuelard",
+          storageBucket: "web-escuelard.appspot.com",
+          messagingSenderId: "948522304281",
+          appId: "1:948522304281:web:4ccbd164a1dac6ddf03b88"
+          };
+
+          firebase.initializeApp(firebaseConfig);
+
           $('#ruletaModal').modal('show');
 
           function listaActualizadaRuleta()
@@ -1336,7 +1349,7 @@ $(document).ready(function () {
 
      $("#teps").attr("tipo_ruleta", 'r-' + escuela_sesion + '-' + id_sesion + '-' + id_asignaturamf + '-' + $(this).attr("tipo"));
      drawRoulette();
-  
+  ngm
     });
 
     $(document).on('click', '.recargar-lista', function () {

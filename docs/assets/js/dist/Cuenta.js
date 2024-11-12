@@ -52,7 +52,7 @@ scrollCollapse: verdadero_f,
     "scrollY": verdadero_f,
     "bAutoWidth": verdadero_f,	
 "language": {
-    url: filescdn + "/assets/js/lib/data-table/spanishAsignaturas.json",
+    url: filescdn + "/assets/js/lib/data-table/SpanishAsignaturas.json",
 },
 "iDisplayLength":	-1,
 

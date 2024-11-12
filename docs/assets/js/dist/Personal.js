@@ -21,7 +21,7 @@ $(document).ready(function() {
       } ],
       "order": [[ 1, "asc" ]],
       "language": {
-        url: filescdn + "/assets/js/lib/data-table/spanishPersonal.json",
+        url: filescdn + "/assets/js/lib/data-table/SpanishPersonal.json",
       },
       "lengthMenu":		[[5, 7, 10, 20, 25, 50, -1], [5, 7, 10, 20, 25, 50, "Todos"]],
       iDisplayLength: idlp,

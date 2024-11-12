@@ -378,12 +378,12 @@ $(document).ready(function () {
     var mwtn = $(".open").length;
     if (mwtn == 1) {
       $('#tablanotas').removeAttr('class');
-      $('#tablanotas').attr("class", "tablanotas2");
+     // $('#tablanotas').attr("class", "tablanotas2");
       $('#tablacal').css("max-width", "910px");
     }
     if (mwtn == 0) {
       $('#tablanotas').removeAttr('class');
-      $('#tablanotas').attr("class", "tablanotas");
+    //  $('#tablanotas').attr("class", "tablanotas");
       $('#tablacal').css("max-width", "1105px");
     }
     $("#tablanotas").css("max-width", $("#msj_grupo_aviso").width());

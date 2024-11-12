@@ -10,6 +10,11 @@ $(document).on('click', '#menuToggle', function () {
     $('#tablacal').css("max-width","1000px");
     $('#tablacal2').css("max-width","910px");
             }
+
+            setTimeout(function () {
+              $("#tablacal").css("max-width", ($("#get-width").width() - 5) + 'px');
+              $("#tablacal2").css("max-width", ($("#get-width").width() - 5) + 'px');
+            }, 500);
 });
 
 if ($(window).width() < 480 || $(window).height() < 480) {
@@ -164,4 +169,12 @@ if (ant > 0 || sig > 0) {
   $("html, body").animate({
     scrollTop: pos
   }, 2000);
+}
+
+window.onload = function(){
+  setTimeout(function () {
+    $("#tablacal").css("max-width", ($("#get-width").width() - 5) + 'px');
+    $("#tablacal2").css("max-width", ($("#get-width").width() - 5) + 'px');
+  }, 500);
+  
 }

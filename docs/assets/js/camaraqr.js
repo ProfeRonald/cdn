@@ -86,7 +86,7 @@ function read(a){
     }else if(a != ''){
      // $('head').append('<meta http-equiv="refresh" content="5; url=http://localhost/Dropbox/adecuacion/sesion.php?op=SesionQR" />');
       document.cookie = 'sesionqr=' + a;
-      window.location = 'http://localhost/Dropbox/adecuacion/sesion.php?op=SesionQR';
+      window.location = 'https://escuelard.edu.do/sesion.php?op=SesionQR';
   	}
 }
 

@@ -386,7 +386,6 @@ $(document).ready(function () {
       $('#tablanotas').attr("class", "tablanotas");
       $('#tablacal').css("max-width", "1105px");
     }
-    $("#tablanotas").css("max-width", $("#msj_grupo_aviso").width());
   });
 
   $(document).on('click', '#pantcom', function () {
@@ -1196,19 +1195,6 @@ $(document).ready(function () {
     $('#slidecontainer').hide('slow');
   });
 
-  const ruletawebfirebaseConfig = {
-    apiKey: "AIzaSyA9eJxcrKP8r4YuteGpfvQRTQxdj6ORqFg",
-    authDomain: "escuelard.edu.do",
-    databaseURL: "https://web-escuelard-default-rtdb.firebaseio.com",
-    projectId: "web-escuelard",
-    storageBucket: "web-escuelard.appspot.com",
-    messagingSenderId: "948522304281",
-    appId: "1:948522304281:web:4ccbd164a1dac6ddf03b88"
-    };
-
-  
-      const ruletaweb = firebase.initializeApp(ruletawebfirebaseConfig, "ruletaweb");
-
   
   $(document).on('click', '.iconHerramienta', function () {
 
@@ -1285,13 +1271,24 @@ $(document).ready(function () {
 
         if(herr == 'HRuleta'){
           
+        const firebaseConfig = {
+          apiKey: "AIzaSyA9eJxcrKP8r4YuteGpfvQRTQxdj6ORqFg",
+          authDomain: "escuelard.edu.do",
+          databaseURL: "https://web-escuelard-default-rtdb.firebaseio.com",
+          projectId: "web-escuelard",
+          storageBucket: "web-escuelard.appspot.com",
+          messagingSenderId: "948522304281",
+          appId: "1:948522304281:web:4ccbd164a1dac6ddf03b88"
+          };
+
+          firebase.initializeApp(firebaseConfig);
 
           $('#ruletaModal').modal('show');
 
           function listaActualizadaRuleta()
           {
 
-         if($('#eliminar-ruleta').prop("checked") && $('#resultado-ruleta').text() != ''){
+         if($('#eliminar-ruleta').prop("checked")){
             
            var lista_ruleta = $('#' + $("#teps").attr("tipo_ruleta")).val().replace($('#resultado-ruleta').text(), "");
           
@@ -1314,10 +1311,9 @@ $(document).ready(function () {
           $('#' + $("#teps").attr("tipo_ruleta")).val(lista.join('\n'));
           
           //document.cookie = $("#teps").attr("tipo_ruleta") + '=' + lista.join('-');
-          ruletaweb.database().ref('ruletas/' + $("#teps").attr("tipo_ruleta")).set(lista.join('-'));
+          firebase.database().ref('ruletas/' + $("#teps").attr("tipo_ruleta")).set(lista.join('-'));
 			    
           return lista;
-          
           }
 
     let canvas = $("#ruleta-ruleta")[0];
@@ -1350,7 +1346,8 @@ $(document).ready(function () {
   });
 
     $(document).on('click', '.ops-ruleta', function () {
-     $("#teps").attr("tipo_ruleta", 'r-' + escuela_sesion + '-' + id_sesion + '-' + id_grupo + '-' + id_asignaturamf + '-' + $(this).attr("tipo"));
+
+     $("#teps").attr("tipo_ruleta", 'r-' + escuela_sesion + '-' + id_sesion + '-' + id_asignaturamf + '-' + $(this).attr("tipo"));
      drawRoulette();
   ngm
     });
@@ -1358,7 +1355,7 @@ $(document).ready(function () {
     $(document).on('click', '.recargar-lista', function () {
 
       //document.cookie = $("#teps").attr("tipo_ruleta") + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT';
-      ruletaweb.database().ref('ruletas/' + $("#teps").attr("tipo_ruleta")).remove();
+      firebase.database().ref('ruletas/' + $("#teps").attr("tipo_ruleta")).remove();
       $('#' + $("#teps").attr("tipo_ruleta")).val($("#teps").attr("lista_ruleta").split('-').join('\n'));
       drawRoulette();
   

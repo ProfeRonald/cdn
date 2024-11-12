@@ -86,7 +86,7 @@ web
     })
     .catch((error) => {
 		
-      if (error.code == "auth/user-not-found" || error.code == "auth/internal-error") {
+      if ((error.code == "auth/user-not-found" || error.code == "auth/internal-error") && clave_sesion != '') {
         web
           .auth()
           .createUserWithEmailAndPassword(correo_sesion, clave_sesion)

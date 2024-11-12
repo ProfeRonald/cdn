@@ -1482,5 +1482,10 @@ $(document).ready(function () {
     }
 
   });
+
+  window.onload = function(){
+    $("#tablanotas").css("max-width", $("#msj_grupo_aviso").width());
+  }
   
+
 });

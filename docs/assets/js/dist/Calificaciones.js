@@ -378,18 +378,17 @@ $(document).ready(function () {
     var mwtn = $(".open").length;
     if (mwtn == 1) {
       $('#tablanotas').removeAttr('class');
-     // $('#tablanotas').attr("class", "tablanotas2");
+      $('#tablanotas').attr("class", "tablanotas2");
       $('#tablacal').css("max-width", "910px");
     }
     if (mwtn == 0) {
       $('#tablanotas').removeAttr('class');
-    //$('#tablanotas').attr("class", "tablanotas");
+    $('#tablanotas').attr("class", "tablanotas");
       $('#tablacal').css("max-width", "1105px");
     }
     setTimeout(function () {
-      $("#tablanotas").css("max-width", '800px');
-      $("#tablanotas").css("max-width", $("#msj_grupo_aviso").width());
-    }, 5000);
+      $("#tablanotas").css("max-width", ($("#get-width").width() - 5) + 'px');
+    }, 500);
   });
 
   $(document).on('click', '#pantcom', function () {
@@ -875,13 +874,13 @@ $(document).ready(function () {
           $('#mensaje_grupo').html('<i class="fa fa-bullhorn" aria-hidden="true"></i> Enviar mensaje');
           $('#id_classroom').val('');
           setTimeout(function () {
-            $('#msj_grupo_aviso').text('');
+            $('#get-width').text('');
           }, 6000);
         } else {
           $('#mensaje_grupo').html('<i class="fa fa-bullhorn" aria-hidden="true"></i> Intentar de nuevo');
         }
 
-        $('#msj_grupo_aviso').html(m['msj']);
+        $('#get-width').html(m['msj']);
 
       })
 
@@ -1487,10 +1486,9 @@ $(document).ready(function () {
   });
 
   window.onload = function(){
-    $("#tablanotas").css("max-width", '800px');
     setTimeout(function () {
-      $("#tablanotas").css("max-width", $("#msj_grupo_aviso").width());
-    }, 5000);
+      $("#tablanotas").css("max-width", ($("#get-width").width() - 5) + 'px');
+    }, 500);
     
   }
   

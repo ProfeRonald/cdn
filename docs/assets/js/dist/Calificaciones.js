@@ -387,6 +387,7 @@ $(document).ready(function () {
       $('#tablacal').css("max-width", "1105px");
     }
     setTimeout(function () {
+      $("#tablanotas").css("max-width", '800px');
       $("#tablanotas").css("max-width", $("#msj_grupo_aviso").width());
     }, 5000);
   });
@@ -1486,6 +1487,7 @@ $(document).ready(function () {
   });
 
   window.onload = function(){
+    $("#tablanotas").css("max-width", '800px');
     setTimeout(function () {
       $("#tablanotas").css("max-width", $("#msj_grupo_aviso").width());
     }, 5000);

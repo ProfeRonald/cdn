@@ -14,6 +14,7 @@ $(document).on('click', '#menuToggle', function () {
             setTimeout(function () {
               $("#tablacal").css("max-width", ($("#get-width").width() - 5) + 'px');
               $("#tablacal2").css("max-width", ($("#get-width").width() - 5) + 'px');
+              console.log(($("#get-width").width() - 5) + 'px');
             }, 500);
 });
 

@@ -388,7 +388,7 @@ $(document).ready(function () {
     }
     setTimeout(function () {
       $("#tablanotas").css("max-width", $("#msj_grupo_aviso").width());
-    }, 1500);
+    }, 5000);
   });
 
   $(document).on('click', '#pantcom', function () {
@@ -1488,7 +1488,7 @@ $(document).ready(function () {
   window.onload = function(){
     setTimeout(function () {
       $("#tablanotas").css("max-width", $("#msj_grupo_aviso").width());
-    }, 1500);
+    }, 5000);
     
   }
   

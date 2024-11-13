@@ -379,16 +379,12 @@ $(document).ready(function () {
     if (mwtn == 1) {
       $('#tablanotas').removeAttr('class');
       $('#tablanotas').attr("class", "tablanotas2");
-      $('#tablacal').css("max-width", "910px");
     }
     if (mwtn == 0) {
       $('#tablanotas').removeAttr('class');
     $('#tablanotas').attr("class", "tablanotas");
-      $('#tablacal').css("max-width", "1105px");
     }
-    setTimeout(function () {
       $("#tablanotas").css("max-width", ($("#get-width").width() - 5) + 'px');
-    }, 500);
   });
 
   $(document).on('click', '#pantcom', function () {

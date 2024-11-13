@@ -1,21 +1,11 @@
 var filescdn = $("#datos_js").attr("filescdn");
   
 $(document).on('click', '#menuToggle', function () {	
-    var mwtn = $(".open").length;
-            if(mwtn > 0){
-    $('#tablacal').css("max-width","1205px");
-    $('#tablacal2').css("max-width","1105px");
-            }
-            if(mwtn == 0){
-    $('#tablacal').css("max-width","1000px");
-    $('#tablacal2').css("max-width","910px");
-            }
-
-            setTimeout(function () {
+              $('#tablacal').css("max-width","800px");
               $("#tablacal").css("max-width", ($("#get-width").width() - 5) + 'px');
               $("#tablacal2").css("max-width", ($("#get-width").width() - 5) + 'px');
-              console.log(($("#get-width").width() - 5) + 'px');
-            }, 500);
+              $("#tablacal2 .dataTables_scrollHeadInner").css("width", '100%');
+              $("#tablacal2 table").css("width", '100%');
 });
 
 if ($(window).width() < 480 || $(window).height() < 480) {
@@ -147,7 +137,6 @@ $(document).on('blur', '#textbioest', function () {
   })
 	}
 });
-
 
 function CuentaNav(o=0){
 if(o == 1){

@@ -384,7 +384,7 @@ $(document).ready(function () {
       $('#tablanotas').removeAttr('class');
     $('#tablanotas').attr("class", "tablanotas");
     }
-      $("#tablanotas").css("max-width", ($("#get-width").width() - 5) + 'px');
+     // $("#tablanotas").css("max-width", ($("#get-width").width() - 5) + 'px');
   });
 
   $(document).on('click', '#pantcom', function () {
@@ -1483,7 +1483,7 @@ $(document).ready(function () {
 
   window.onload = function(){
     setTimeout(function () {
-      $("#tablanotas").css("max-width", ($("#get-width").width() - 5) + 'px');
+      //$("#tablanotas").css("max-width", ($("#get-width").width() - 5) + 'px');
     }, 500);
     
   }

@@ -996,7 +996,7 @@ $(document).ready(function () {
       var tcompprop = 1;
     }
 
-    var tarea_a = Number($("#tarea_a").val());
+    var formato_registro = Number($("#formato_registro").val());
 
     $("#ttarea").val(suma);
 
@@ -1005,7 +1005,7 @@ $(document).ready(function () {
     var ra = trabn[1];
     var trabn = Number(trabn[3]);
 
-    if (tarea_a == 2) {
+    if (formato_registro == 6) {
       tpra = 10;
     } else {
       tpra = trabn;
@@ -1017,7 +1017,7 @@ $(document).ready(function () {
 
     }
 
-    if (tarea_a == 0) {
+    if (formato_registro == 3) {
       tpra = 100;
     }
 
@@ -1041,7 +1041,7 @@ $(document).ready(function () {
       $("#vttarea").text(suma);
     }
 
-    if (tarea_a == 0) {
+    if (formato_registro == 3) {
       $("#verindicor").attr('data-id', ra);
       $("#verindicor").text('Ver Indicador ' + ra);
     }
@@ -1050,7 +1050,7 @@ $(document).ready(function () {
 
     var btarea = 0;
 
-    if (tarea_a == 1 || tarea_a == 2) {
+    if (formato_registro == 5 || formato_registro == 6) {
 
       if (trabn == 0) {
         $("#mtarea").html('Este RA' + ra + ' no tiene un valor asignado');
@@ -1077,7 +1077,7 @@ $(document).ready(function () {
     }
 
 
-    if (tarea_a == 0) {
+    if (formato_registro == 3) {
 
       if (suma != 100 && ((tcomp == 0 && tprop == 0 && tcompprop == 0) || stcomp == 1)) {
 

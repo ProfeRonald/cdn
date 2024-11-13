@@ -417,6 +417,8 @@ $(document).ready(function () {
     $('body').css("overflow", "auto");
     $('tfoot').hide();
     $('#dragit-contained').css("top", "350px");
+    $("#tablanotas").css("max-width", '800px');
+    $("#tablanotas").css("max-width", ($("#get-width").width() - 5) + 'px');
 
   });
 

@@ -11,6 +11,7 @@ var taa = Number($("#datos_js").attr("taa"));
 var grupos_competencias = Number($("#datos_js").attr("grupos_competencias"));
 var tperiodos_escuela = $("#datos_js").attr("tperiodos_escuela");
 var compts = $("#datos_js").attr("compts");
+var notas_gc = $("#datos_js").attr("notas_gc");
 
 $(document).on("click", ".CasillasIL", function () {
   var periodo = $(this).attr("periodo");
@@ -797,7 +798,7 @@ $(document).on('click', '#CalificacionesGCTodas', function () {
     $('[data-toggle="popover"]').popover()
   })
 
-  if(compts == 1 && taa == 0){
+  if(compts == 1 && taa == 0 && notas_gc == 0){
 
   $(window).on("load", function () {
 

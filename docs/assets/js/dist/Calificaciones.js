@@ -1046,7 +1046,6 @@ $(document).ready(function () {
       $("#verindicor").text('Ver Indicador ' + ra);
     }else{
       $("#verindicor").text('');
-    }else{
     }
 
     $("#noradiv").text('');

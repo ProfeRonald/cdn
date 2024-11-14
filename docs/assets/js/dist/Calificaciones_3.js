@@ -375,6 +375,7 @@ $(document).on("blur", ".CalificacionesRP", function () {
     $('#VerIndicadores').attr("class", 'btn btn-lg btn-block btn-secondary');
     CalcularComptencias();
     $('#barra-des').attr('max', $('.dataTables_scrollBody')[0].scrollWidth);
+    $("#datos_js").attr("rpp", 1);
     }
   
     window.CalcularComptencias = function () {
@@ -398,6 +399,7 @@ $(document).on("blur", ".CalificacionesRP", function () {
    $('#VerRecuperacion').attr("class", 'btn btn-lg btn-block btn-secondary');
    $('#VerIndicadores').attr("class", 'btn btn-lg btn-block btn-dark');
    $('#barra-des').attr('max', $('.dataTables_scrollBody')[0].scrollWidth); 
+   $("#datos_js").attr("rpp", 1);
       
   }
 
@@ -804,7 +806,7 @@ $(document).on('click', '#CalificacionesGCTodas', function () {
 
     setTimeout(function () {
 
-    $('.DTFC_ScrollWrapper').before('<div class="row text-white border my-0 text-center bg-dark p-0"><div class="col p-0 m-0"><button type="button" class="btn btn-lg btn-block btn-dark" id="VerIndicadores"><i class="fa fa-trophy"></i>&nbsp; Indicadores de logro</button></div><div class="col border-left p-0 m-0"><button type="button" class="btn btn-lg btn-block btn-secondary" id="VerRecuperacion" rpp="1"><i class="fa fa-repeat"></i>&nbsp; Recuperaci&oacute;n Pedag&oacute;gica</button></div></div>');
+    $('.DTFC_ScrollWrapper').before('<div class="row text-white border my-0 text-center bg-dark p-0"><div class="col p-0 m-0"><button type="button" class="btn btn-lg btn-block btn-dark" id="VerIndicadores" rpp="0"><i class="fa fa-trophy"></i>&nbsp; Indicadores de logro</button></div><div class="col border-left p-0 m-0"><button type="button" class="btn btn-lg btn-block btn-secondary" id="VerRecuperacion" rpp="1"><i class="fa fa-repeat"></i>&nbsp; Recuperaci&oacute;n Pedag&oacute;gica</button></div></div>');
 
     if(rpp == 1){
          VerRecuperacion();

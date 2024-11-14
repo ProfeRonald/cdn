@@ -1041,7 +1041,7 @@ $(document).ready(function () {
       $("#vttarea").text(suma);
     }
 
-    if (formato_registro == 3) {
+    if (formato_registro == 3 && taa == 0) {
       $("#verindicor").attr('data-id', ra);
       $("#verindicor").text('Ver Indicador ' + ra);
     }

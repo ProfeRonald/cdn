@@ -399,7 +399,7 @@ $(document).on("blur", ".CalificacionesRP", function () {
    $('#VerRecuperacion').attr("class", 'btn btn-lg btn-block btn-secondary');
    $('#VerIndicadores').attr("class", 'btn btn-lg btn-block btn-dark');
    $('#barra-des').attr('max', $('.dataTables_scrollBody')[0].scrollWidth); 
-   $("#datos_js").attr("rpp", 1);
+   $("#datos_js").attr("rpp", 0);
       
   }
 

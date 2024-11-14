@@ -6,7 +6,7 @@ var id_asignaturamf = $("#datos_js").attr("id_asignaturamf");
 var id_grupo = $("#datos_js").attr("id_grupo");
 var year_1 = $("#datos_js").attr("year_1");
 var year_2 = $("#datos_js").attr("year_2");
-var rp = Number($("#datos_js").attr("rp"));
+var rpp = Number($("#datos_js").attr("rpp"));
 var taa = Number($("#datos_js").attr("taa"));
 var grupos_competencias = Number($("#datos_js").attr("grupos_competencias"));
 var tperiodos_escuela = $("#datos_js").attr("tperiodos_escuela");
@@ -370,7 +370,7 @@ $(document).on("blur", ".CalificacionesRP", function () {
     tablec.columns('.recuperacion_pedagogica').visible(true, false);
     tablec.columns.adjust().draw(false);
     $("#columnas_me").text("");
-    $('#VerRecuperacion').removeAttr("rp");
+    $('#VerRecuperacion').removeAttr("rpp");
     $('#VerRecuperacion').attr("class", 'btn btn-lg btn-block btn-dark');
     $('#VerIndicadores').attr("class", 'btn btn-lg btn-block btn-secondary');
     CalcularComptencias();
@@ -394,7 +394,7 @@ $(document).on("blur", ".CalificacionesRP", function () {
     tablec.columns('.recuperacion_pedagogica').visible(false, false);
     tablec.columns.adjust().draw(false);
    $("#columnas_me").text("");
-   $('#VerRecuperacion').attr("rp", '1');
+   $('#VerRecuperacion').attr("rpp", '1');
    $('#VerRecuperacion').attr("class", 'btn btn-lg btn-block btn-secondary');
    $('#VerIndicadores').attr("class", 'btn btn-lg btn-block btn-dark');
    $('#barra-des').attr('max', $('.dataTables_scrollBody')[0].scrollWidth); 
@@ -501,7 +501,7 @@ window.RevaluaRP = function (id_nota) {
 }
 
  $(document).on('click', '#VerRecuperacion', function () {
-   if($(this).attr("rp") == 1){
+   if($(this).attr("rpp") == 1){
      VerRecuperacion();
    }
  });
@@ -511,7 +511,7 @@ window.RevaluaRP = function (id_nota) {
 });
  
    $(window).on("load", function () {
-     if(rp == 1){
+     if(rpp == 1){
     //   VerRecuperacion();
      }else{
       // VerIndicadores();
@@ -519,7 +519,7 @@ window.RevaluaRP = function (id_nota) {
    });
 
   $(document).on('click', '#VerIndicadores', function () {
-    if($('#VerRecuperacion').attr("rp") != 1){
+    if($('#VerRecuperacion').attr("rpp") != 1){
       VerIndicadores();
     }
   }); 
@@ -804,9 +804,9 @@ $(document).on('click', '#CalificacionesGCTodas', function () {
 
     setTimeout(function () {
 
-    $('.DTFC_ScrollWrapper').before('<div class="row text-white border my-0 text-center bg-dark p-0"><div class="col p-0 m-0"><button type="button" class="btn btn-lg btn-block btn-dark" id="VerIndicadores"><i class="fa fa-trophy"></i>&nbsp; Indicadores de logro</button></div><div class="col border-left p-0 m-0"><button type="button" class="btn btn-lg btn-block btn-secondary" id="VerRecuperacion" rp="1"><i class="fa fa-repeat"></i>&nbsp; Recuperaci&oacute;n Pedag&oacute;gica</button></div></div>');
+    $('.DTFC_ScrollWrapper').before('<div class="row text-white border my-0 text-center bg-dark p-0"><div class="col p-0 m-0"><button type="button" class="btn btn-lg btn-block btn-dark" id="VerIndicadores"><i class="fa fa-trophy"></i>&nbsp; Indicadores de logro</button></div><div class="col border-left p-0 m-0"><button type="button" class="btn btn-lg btn-block btn-secondary" id="VerRecuperacion" rpp="1"><i class="fa fa-repeat"></i>&nbsp; Recuperaci&oacute;n Pedag&oacute;gica</button></div></div>');
 
-    if(rp == 1){
+    if(rpp == 1){
          VerRecuperacion();
        }else{
          VerIndicadores();

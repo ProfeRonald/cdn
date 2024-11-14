@@ -37,7 +37,7 @@ $(document).ready(function () {
     },
     scrollX: true,
     //  "oSearch": {"sSearch": bus},
-    /*"order": [[ 0, "asc" ]],*/
+    "order": [[ 0, "asc" ]],
     columnDefs: [
       {
         targets: "no-sort",
@@ -1077,7 +1077,7 @@ $(document).ready(function () {
     }
 
 
-    if (formato_registro == 3) {
+    if (formato_registro == 30) {
 
       if (suma != 100 && ((tcomp == 0 && tprop == 0 && tcompprop == 0) || stcomp == 1)) {
 

@@ -1044,6 +1044,9 @@ $(document).ready(function () {
     if (formato_registro == 3 && taa == 0) {
       $("#verindicor").attr('data-id', ra);
       $("#verindicor").text('Ver Indicador ' + ra);
+    }else{
+      $("#verindicor").text('');
+    }else{
     }
 
     $("#noradiv").text('');

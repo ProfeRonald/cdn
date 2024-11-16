@@ -41,10 +41,10 @@ $(document).ready(function () {
     
     $(document).on('click', '#qr-gc', function () {
       var cqr = $(this).css('transform');
-      if(cqr == 'matrix(4, 0, 0, 4, 0, 0)'){
+      if(cqr == 'matrix(2.5, 0, 0, 2.5, 0, 0)'){
       $(this).css({'transform':'scale(1)','position': 'relative','top':'','left': '','margin': ''});
       }else{
-      $(this).css({'transform':'scale(4)','position': 'absolute','top':'50%','left': '50%','margin': 'auto'});
+      $(this).css({'transform':'scale(2.5)','position': 'absolute','top':'50%','left': '50%','margin': 'auto'});
       }
       
       });

@@ -2034,7 +2034,7 @@ margin-left: -4px;
   z-index: 1;
 }
 
-#qrcodigo {
+#qrcodigo, #huellacodigo {
   position: relative;
   width: 60px;
   float: right;
@@ -2049,7 +2049,7 @@ margin-left: -4px;
   border-radius: 15px;
 }
 
-#qrcodigo img {
+#qrcodigo img, #huellacodigo img {
   width: 60px;
   padding: 0px;
   background-color: white;

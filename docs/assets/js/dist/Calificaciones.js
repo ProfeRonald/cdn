@@ -391,7 +391,7 @@ $(document).ready(function () {
     $('#tablanotas').attr("class", "tablanotas");
     }
 
-      $("#tablanotas").css("max-width", ($("#get-width").width() +  wdtt) + 'px');
+      $("#tablanotas").css("max-width", ($("#get-width").width() + wdtt) + 'px');
 
       
         $('#adjustcol').trigger('click');

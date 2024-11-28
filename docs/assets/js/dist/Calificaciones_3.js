@@ -32,9 +32,9 @@ $(document).on("click", ".CasillasIL", function () {
       "font-weight": "bold",
     });
 
-    $(".celdas-" + orden + "-" + periodo + "-input" + " input").show("slow");
+        $(".celdas-" + orden + "-" + periodo + "-input input").show("slow");
     $.each(
-      $(".celdas-" + orden + "-" + periodo + "-input" + " input"),
+          $(".celdas-" + orden + "-" + periodo + "-input input"),
       function () {
         RevaluaIL($(this).attr("id"));
       }
@@ -65,7 +65,8 @@ $(document).on("click", ".CasillasIL", function () {
       for (h = 0; h < 3; h++) {
         $(this).fadeTo("slow", 0.5).fadeTo("slow", 1.0);
       }
-      $(this).attr("class", "celdas-" + orden + "-" + periodo + "-input");
+          $(this).removeClass("celdas-" + orden + "-" + periodo);
+          $(this).addClass("celdas-" + orden + "-" + periodo + "-input");
     });
     sel.val(vsel); 
     sel.change();
@@ -75,6 +76,7 @@ $(document).on("click", ".CasillasIL", function () {
 $(document).on("blur", ".CalificacionesIL", function () {
   var reserva = $("#datos_js").attr("reserva");
   var nota = $(this).val();
+      $(this).attr('value', nota);
   var id_nota = $(this).attr("id_nota");
   var id = $(this).attr("id").split("-");
   var id_estudiante = id[0];
@@ -146,7 +148,7 @@ $(document).on("blur", ".CalificacionesILFinales", function () {
         tipo_nota: tipo_nota,
         id_asignaturamf: id_asignaturamf,
         id_grupo: id_grupo,
-        year_1: year_2,
+            year_1: year_1,
         year_2: year_2,
       },
     }).done(function (e) {
@@ -793,7 +795,107 @@ $(document).on("click", ".CalificacionesILGC", function () {
 $(document).on('click', '#CalificacionesGCTodas', function () {
 
   $('.CalificacionesILGC').trigger("click");
-                
+      $('.CalificacionesRPGC').trigger("click");
+                    
+    });
+
+    $(document).on("click", ".CalificacionesRPGC", function () {
+      var reserva = $("#datos_js").attr("reserva");
+      var nota = $(this).attr('valgc');
+      var id_nota = $(this).attr("id_nota");
+      var id = $(this).attr("id").split("-");
+      var id_estudiante = id[0];
+      var tipo_nota = "p-" + id[1] + "-" + id[2];
+      var input = $(this);
+      if (nota != reserva) {
+        $.ajax({
+          method: "POST",
+          url: "up.php?op=Calificaciones",
+          dataType: "json",
+          data: {
+            nota: nota,
+            id_nota: id_nota,
+            id_estudiante: id_estudiante,
+            tipo_nota: tipo_nota,
+            pra: 100,
+            id_asignaturamf: id_asignaturamf,
+            id_grupo: id_grupo,
+            year_1: year_1,
+            year_2: year_2,
+          },
+        }).done(function (e) {
+          if (e["exito"] == 1) {
+            var color = "#2ECC71";
+            input.text('Publicada');
+            input.attr('class', 'btn btn-sm btn-success');
+          } else {
+            var color = "red";
+            input.text('Error');
+            input.attr('class', 'btn btn-sm btn-danger CalificacionesRPGC');
+          }
+          if (id_nota > 0) {
+          } else if (e["id_nota"] > 0) {
+            input.attr("id_nota", e["id_nota"]);
+          }
+          var fondo = $(input).css({ backgroundColor: color }).show();
+          setTimeout(function () {
+            fondo.css({ backgroundColor: "", color: "white" });
+          }, 1500);
+          for (h = 0; h < 2; h++) {
+            $(input).fadeTo("slow", 0.5).fadeTo("slow", 1.0);
+          }
+        });
+      }
+    });
+
+
+    $(document).on("click", ".CalificacionesILFinalesGC", function () {
+      var reserva = $("#datos_js").attr("reserva");
+      var nota = $(this).attr('valgc');
+      var id_nota = $(this).attr("id_nota");
+      var id = $(this).attr("id").split("-");
+      var id_estudiante = id[0];
+      var tipo_nota = id[1];
+      var input = $(this);
+      if (nota != reserva) {
+        $.ajax({
+          method: "POST",
+          url: "up.php?op=Calificaciones",
+          dataType: "json",
+          data: {
+            nota: nota,
+            id_nota: id_nota,
+            id_estudiante: id_estudiante,
+            tipo_nota: tipo_nota,
+            pra: 100,
+            id_asignaturamf: id_asignaturamf,
+            id_grupo: id_grupo,
+            year_1: year_1,
+            year_2: year_2,
+          },
+        }).done(function (e) {
+          if (e["exito"] == 1) {
+            var color = "#2ECC71";
+            input.text('Publicada');
+            input.attr('class', 'btn btn-sm btn-success');
+          } else {
+            var color = "red";
+            input.text('Error');
+            input.attr('class', 'btn btn-sm btn-danger CalificacionesILFinalesGC');
+          }
+          if (id_nota > 0) {
+          } else if (e["id_nota"] > 0) {
+            input.attr("id_nota", e["id_nota"]);
+          }
+          var fondo = $(input).css({ backgroundColor: color }).show();
+          setTimeout(function () {
+            fondo.css({ backgroundColor: "", color: "white" });
+          }, 1500);
+          for (h = 0; h < 2; h++) {
+            $(input).fadeTo("slow", 0.5).fadeTo("slow", 1.0);
+          }
+        });
+      }
 });
 
   $(function () {
@@ -814,7 +916,7 @@ $(document).on('click', '#CalificacionesGCTodas', function () {
          VerIndicadores();
        }
        $('#barra-des').attr('max', $('.dataTables_scrollBody')[0].scrollWidth);
-     }, 101);
+         }, 201);
 
 
   });
@@ -822,5 +924,3 @@ $(document).on('click', '#CalificacionesGCTodas', function () {
 }
 
 });
-
-//*,*fac4t@.

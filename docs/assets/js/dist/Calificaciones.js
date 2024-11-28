@@ -12,9 +12,9 @@ $(document).ready(function () {
   var datetype = $("#datos_js").attr("datetype");
 
   if(datetype == 'text'){
-    wdtt = -5;
+    var wdtt = -5;
   }else{
-    wdtt = 81;
+    var wdtt = 81;
   }
   
   var idlp = Number(document.cookie.replace(

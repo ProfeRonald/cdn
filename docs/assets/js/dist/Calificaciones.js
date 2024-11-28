@@ -9,6 +9,7 @@ $(document).ready(function () {
   var escuela_sesion = Number($("#datos_js").attr("escuela_sesion"));
   var asistencia_local = Number($("#datos_js").attr("asistencia_local"));
   var taa = Number($("#datos_js").attr("taa"));
+  var datetype = $("#datos_js").attr("datetype");
   
   var idlp = Number(document.cookie.replace(
     /(?:(?:^|.*;\s*)idples\s*\=\s*([^;]*).*$)|^.*$/,
@@ -959,12 +960,15 @@ $(document).ready(function () {
   }
 	});*/
 
+  if(datetype == 'text'){
 
   $(window).on("load", function () {
 
     $('#barra-des').attr('max', $('.dataTables_scrollBody')[0].scrollWidth);
 
   });
+
+}
 
   $('#barra-des').on('input', function () {
     $('.dataTables_scrollBody').scrollLeft($(this).val());

@@ -177,6 +177,7 @@ $(document).on('click', '#huellacodigo, #huellacodigo-pwa', function() {
 $(document).on('change click blur', '#auto-huella-sesion', function() {
 			if ($(this).prop("checked") == true) {
 				document.cookie = 'AutoHuellaSesion=auto';
+				$('#auto-camera-sesion').prop("checked", false);
 			}else{
 				document.cookie = 'AutoHuellaSesion=NO';
 			}

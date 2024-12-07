@@ -1,24 +1,22 @@
 var local = $("#index_js").attr("local");
 var urlcdn = $("#index_js").attr("urlcdn");
 
-		$("#input_buscar").on("keyup",function(){
+		$("#input_buscar").on("keyup",function(event){
 			
 			var ibv = $(this).val();
-			var ibv = ibv.replace(/\s/g, '_');
+			//var ibv = ibv.replace(/\s/g, '_');
 			//var ibv = ibv.replace(/\W/g, '');
-			var ibv = ibv.replace(/[^aA0-zZ9ñÑáéíóúüÁÉÍÓÚÜ]/g,"");
-			var ibv = ibv.replace(/_/g, ' ');
+            var ibv = ibv.replace(/[^a-zA-Z0-9ñÑáéíóúüÁÉÍÓÚÜ ]/g, "");
+			//var ibv = ibv.replace(/_/g, ' ');
 			var ibv = ibv.substring(0, 50);
 
 			$(this).val(ibv);
 				
 				if($(this).val().length > 1 && ibv != "Buscar..."){
 					
-					var tclsb = event.keyCode;
-					var tvlds = (tclsb > 47 && tclsb < 58) || tclsb == 32 || (tclsb > 64 && tclsb < 91) || (tclsb > 95 && tclsb < 112) || tclsb == 8;
-						
-						if(tvlds == true){
-							
+					const validKeys = /^[a-zA-Z0-9ñÑáéíóúüÁÉÍÓÚÜ ]$/;
+                if (validKeys.test(event.key) || event.key === "Backspace") {
+       
 							var inb = $('#input_buscar').val();
 							
 							$.ajax({
@@ -33,42 +31,49 @@ var urlcdn = $("#index_js").attr("urlcdn");
 					  		$('#estudiante_busquedasel').attr('size', 7);
 					  		$("#estudiante_busquedasel").show();
 					  	})		  
-						}	
+						}else{
+                            event.preventDefault();
+                        }	
 
     		}
     });
 
     
-		$(document).on('keyup', '#input_buscar', function () {
-			if(event.keyCode == 40){
-				$(".estudiante_busquedasel:first").focus();
-			}
-			if(event.keyCode == 27){
-				if($("#estudiante_busquedasel").is(":hidden")){
-					$("#busqueda_cerrar").trigger("click");
-				}else{
-					$("#estudiante_busquedasel").hide();					
-				}
-			}	
+		$(document).on('keyup', '#input_buscar', function (event) {
+			if (event.key === "ArrowDown") {
+                $(".estudiante_busquedasel:first").focus();
+            }
+            
+			if (event.key === "Escape") {
+                if ($("#estudiante_busquedasel").is(":hidden")) {
+                    $("#busqueda_cerrar").trigger("click");
+                } else {
+                    $("#estudiante_busquedasel").hide();
+                }
+            }
+            
 		});		
 		
-		$(document).on('keyup change', '.estudiante_busquedasel:first', function () {
-			if(event.keyCode == 38){
-				$("#input_buscar").focus();
-				$('.foto-busqueda').remove();
-			}
+		$(document).on('keyup change', '.estudiante_busquedasel:first', function (event) {
+			if (event.key === "ArrowUp") {
+                $("#input_buscar").focus();
+                $('.foto-busqueda').remove();
+            }            
+            
 		});
 		
-		$(document).on('keyup change', '.estudiante_busquedasel', function () {
-			if(event.keyCode == 27){
-				$("#input_buscar").focus();
-			}
-			if(event.keyCode == 38){
-			$(this).prev().focus();				
-			}
-			if(event.keyCode == 40){
-			$(this).next().focus();				
-			}
+		$(document).on('keyup change', '.estudiante_busquedasel', function (event) {
+                    if (event.key === "Escape") {
+                        $("#input_buscar").focus();
+                    }
+                    
+                    if (event.key === "ArrowUp") {
+                        $(event.target).prev().focus();
+                    }
+                    
+                    if (event.key === "ArrowDown") {
+                        $(event.target).next().focus();
+                    }
 		});
 		
 		$(document).on('focus mouseenter', '.estudiante_busquedasel', function () {

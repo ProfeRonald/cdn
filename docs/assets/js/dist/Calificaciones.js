@@ -373,7 +373,7 @@ $(document).ready(function () {
   });
 
   $(document).on('change', '#genpag_sel', function () {
-    if ($(this).val() != '') {x
+    if ($(this).val() != '') {
       $("#genpag").prop('disabled', false);
     } else {
       $("#genpag").prop('disabled', true);
@@ -883,13 +883,13 @@ $(document).ready(function () {
           $('#mensaje_grupo').html('<i class="fa fa-bullhorn" aria-hidden="true"></i> Enviar mensaje');
           $('#id_classroom').val('');
           setTimeout(function () {
-            $('#get-width').text('');
+            $('#msj_grupo_aviso').text('');
           }, 6000);
         } else {
           $('#mensaje_grupo').html('<i class="fa fa-bullhorn" aria-hidden="true"></i> Intentar de nuevo');
         }
 
-        $('#get-width').html(m['msj']);
+        $('#msj_grupo_aviso').html(m['msj']);
 
       })
 

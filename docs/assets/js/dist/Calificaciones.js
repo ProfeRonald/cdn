@@ -10,6 +10,7 @@ $(document).ready(function () {
   var asistencia_local = Number($("#datos_js").attr("asistencia_local"));
   var taa = Number($("#datos_js").attr("taa"));
   var datetype = $("#datos_js").attr("datetype");
+  var local = $("#datos_js").attr("local");
 
   if(datetype == 'text'){
     var wdtt = -5;
@@ -712,6 +713,9 @@ $(document).ready(function () {
           $("#insertar_asistencia").prop('disabled', false);
           $('#linksheet').attr('href', ias['urlexcel']);
           $('#linksheet').show('slow');
+          setTimeout(function () {
+            $('#insertar_asistencia').trigger('click');
+          }, 1000);
         }else if (ias['si'] == 1) {
           $('#insertar_asistencia i').text(' Registrar');
           setTimeout(function () {
@@ -727,7 +731,10 @@ $(document).ready(function () {
       })
 
       .fail(function (a,b,c) {
-        
+        setTimeout(function () {
+          $('#insertar_asistencia i').text(' Intentar de nuevo');
+          $("#insertar_asistencia").prop('disabled', false);
+        }, 3000);
       })
 
   });
@@ -918,7 +925,7 @@ $(document).ready(function () {
       setTimeout(function () {
         $('#activar_asistencia').trigger('click');
       }, 1500);
-    }else{
+    }else if(asistencia_local != 1) {
       ImportarDiaAsistencia();
     }
   });
@@ -972,8 +979,9 @@ $(document).ready(function () {
   if(datetype == 'text'){
 
   $(window).on("load", function () {
-
+    if($('.dataTables_scrollBody')[0] != undefined){
     $('#barra-des').attr('max', $('.dataTables_scrollBody')[0].scrollWidth);
+    }
 
   });
 
@@ -988,6 +996,8 @@ $(document).ready(function () {
     $('#slidecontainer').hide('slow');
   });
 
+  if(local > 1){
+
   const ruletawebfirebaseConfig = {
     apiKey: "AIzaSyA9eJxcrKP8r4YuteGpfvQRTQxdj6ORqFg",
     authDomain: "escuelard.edu.do",
@@ -1000,7 +1010,7 @@ $(document).ready(function () {
 
   
       const ruletaweb = firebase.initializeApp(ruletawebfirebaseConfig, "ruletaweb");
-
+  }
   
   $(document).on('click', '.iconHerramienta', function () {
 
@@ -1075,7 +1085,7 @@ $(document).ready(function () {
           $("#dragit-contained").toggle("slow");
         }
 
-        if(herr == 'HRuleta'){
+        if(herr == 'HRuleta' && local > 1){
           
 
           $('#ruletaModal').modal('show');

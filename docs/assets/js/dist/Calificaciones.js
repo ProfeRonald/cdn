@@ -11,6 +11,9 @@ $(document).ready(function () {
   var taa = Number($("#datos_js").attr("taa"));
   var datetype = $("#datos_js").attr("datetype");
   var local = $("#datos_js").attr("local");
+  var year_1 = Number($("#datos_js").attr("year_1"));
+  var year_2 = Number($("#datos_js").attr("year_2"));
+  var setApp = 1;
 
   if(datetype == 'text'){
     var wdtt = -5;
@@ -797,6 +800,7 @@ $(document).ready(function () {
   $('#insertar_asistencia i').text(' Registrar');
   var dia = $('#dia_asistencia').val();
   var archivoxlsx = $('#archivoxlsx').val();
+  VerificarHuellimetro ();
   $.ajax({
     method: "POST",
     url: "sesion.php?op=ImportarDiaAsistencia",
@@ -809,7 +813,7 @@ $(document).ready(function () {
     }
   })
     .done(function (ides) {
-      
+
       if(ides != null && ides['data'] != null && ides['e'] == 1){
         $('#msjasistencia').html(ides['data']);
       }else if(ides != null && ides['data'] != null){
@@ -845,6 +849,50 @@ $(document).ready(function () {
       }
     }
     });
+  }
+
+  
+  function VerificarHuellimetro () {
+    
+        let asistencias;
+        if (!firebase.apps.some(app => app.name === "asistencias")) {
+          const asistenciasfirebaseConfig = {
+            apiKey: "AIzaSyDQmWuKzpuupSMNwp1UNqsIoLL2-5FuZ7o",
+            authDomain: "asistencias-escuelard.firebaseapp.com",
+            databaseURL: "asistencias-escuelard-default-rtdb.firebaseio.com",
+            projectId: "asistencias-escuelard",
+            storageBucket: "asistencias-escuelard.firebasestorage.app",
+            messagingSenderId: "280871850687",
+            appId: "1:280871850687:web:2d85833ac756f24476ac0a"
+          };
+    
+          asistencias = firebase.initializeApp(asistenciasfirebaseConfig, "asistencias");
+        } else {
+          asistencias = firebase.app("asistencias");
+        }
+
+        $('.huella-timestamp').text('');
+        
+        var mesdia = $('#dia_asistencia').val().split('-');
+    
+        asistencias.database().ref(escuela_sesion + '/asistencias/' + year_1 + '-' + year_2 + '/' + id_asignaturamf + '-' + id_grupo + '/' + mesdia[1] + '/' + mesdia[2]).on("value", function (snapshot) {
+            
+          if (snapshot.exists()) {
+          snapshot.forEach(function(childSnapshot) {
+            var timestamp = childSnapshot.val();
+            var date = new Date(timestamp * 1000);
+            var hours = date.getHours();
+            var minutes = date.getMinutes();
+            var ampm = hours >= 12 ? 'p.m.' : 'a.m.';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // the hour '0' should be '12'
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            var formattedDate = hours + ':' + minutes + ' ' + ampm;
+            $('#ea_' + childSnapshot.key).children('.huella-timestamp').text('Huella registrada a las ' + formattedDate); 
+          });
+          }
+    });
+
   }
 
   $(document).on('click', '#bactasis', function () {
@@ -925,7 +973,7 @@ $(document).ready(function () {
       setTimeout(function () {
         $('#activar_asistencia').trigger('click');
       }, 1500);
-    }else if(asistencia_local != 1) {
+    }else {
       ImportarDiaAsistencia();
     }
   });
@@ -1041,8 +1089,6 @@ $(document).ready(function () {
 
       if(herr == 'HDestacados'){
     
-    var year_1 = Number($("#datos_js").attr("year_1"));
-    var year_2 = Number($("#datos_js").attr("year_2"));
     var lmeritorio = Number($("#datos_js").attr("lmeritorio"));
     var cmeritorios = Number($("#datos_js").attr("cmeritorios"));
     var tperiodos_escuela = Number($("#datos_js").attr("tperiodos_escuela"));

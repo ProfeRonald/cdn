@@ -2,7 +2,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase
 import { getDatabase, ref, onValue, set, query, orderByValue, limitToLast } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDQmWuKzpuupSMNwp1UNqsIoLL2-5FuZ7o",
+  apiKey: "AIzaSyDQmWuKzpuupSMNwp1UNqsIoLL2-5FuZ7o",
   authDomain: "asistencias-escuelard.firebaseapp.com",
   databaseURL: "asistencias-escuelard-default-rtdb.firebaseio.com",
   projectId: "asistencias-escuelard",
@@ -46,7 +46,7 @@ function insertData(data) {
             $('#activar_horario_asistencia').attr('horario', 1);
             $('#activar_horario_asistencia').trigger('click');
             revisarHuellimetro();
-            set(ref(database, correo_sesion), id_escuela + '-' + id_sesion + '-' + $('#id_huellimetro').val() + '-' + year1 + '-' + year2);
+            set(ref(database, 'profesores/' + correo_sesion), id_escuela + '-' + id_sesion + '-' + $('#id_huellimetro').val() + '-' + year1 + '-' + year2);
         })
 }
 
@@ -81,7 +81,7 @@ const daysOfWeek = ['domingo', 'lunes', 'martes', 'miercoles', 'jueves', 'vierne
 const today = new Date();
 const dayOfWeek = daysOfWeek[today.getDay()];
 
-const dbRef = ref(database, id_sesion);
+const dbRef = ref(database, id_escuela + '/' + id_sesion);
 onValue(dbRef, (snapshot) => {
     const hora = snapshot.val();
     $('.data-huellas').parent().removeClass('bg-warning font-weight-bold');
@@ -106,12 +106,18 @@ if (hora[dayOfWeek]) {
    }
 });
 
-function insertarAsistencia(){
-    const id_user = $('#id_user').val();
-set(ref(database, '1/asistencias/2024-2025/9-10/12/27/' + id_user), Math.floor(Date.now() / 1000))		
-.then((data) => {
-//	console.log(data);
-})
+function insertarAsistencia(data){
+
+    const newKeyRef = ref(database, id_escuela + '/asistencias/' + year1 + '-' + year2 + '/' + $('#titulo-asignatura').attr('idcarga') + '/' + (new Date().getMonth() + 1) + '/' + new Date().getDate() + '/' + $('#id_user').val());
+onValue(newKeyRef, (snapshot) => {
+  if (snapshot.exists()) {
+    set(ref(database, 'no_registro/' + id_escuela + '/' + $('#num_huellimetro').text()), $('#id_user').val()).then(() => {});
+    set(ref(database, 'no_registro/' + id_escuela + '/' + $('#num_huellimetro').text()), null).then(() => {});
+  }else{
+    set(newKeyRef, Math.floor(Date.now() / 1000)).then(() => {});
+  }
+}, { onlyOnce: true });
+
 }
 
 $('#insertar-registro').click(function(){

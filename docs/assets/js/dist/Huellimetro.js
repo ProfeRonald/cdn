@@ -1,11 +1,11 @@
 const firebaseConfig = {
-    apiKey: "AIzaSyDQmWuKzpuupSMNwp1UNqsIoLL2-5FuZ7o",
-    authDomain: "asistencias-escuelard.firebaseapp.com",
-    databaseURL: "https://asistencias-escuelard-default-rtdb.firebaseio.com",
-    projectId: "asistencias-escuelard",
-    storageBucket: "asistencias-escuelard.appspot.com",
-    messagingSenderId: "280871850687",
-    appId: "1:280871850687:web:2d85833ac756f24476ac0a"
+        apiKey: "AIzaSyDQmWuKzpuupSMNwp1UNqsIoLL2-5FuZ7o",
+        authDomain: "asistencias-escuelard.firebaseapp.com",
+        databaseURL: "https://asistencias-escuelard-default-rtdb.firebaseio.com",
+        projectId: "asistencias-escuelard",
+        storageBucket: "asistencias-escuelard.appspot.com",
+        messagingSenderId: "280871850687",
+        appId: "1:280871850687:web:2d85833ac756f24476ac0a"
 };
 
 const datos_huella = $('#num_huellimetro').attr('datos_huella').split('-');
@@ -20,7 +20,7 @@ const database = firebase.database();
 
 function revisarHuellimetro() {
         const idHuellimetro = $('#id_huellimetro').val();
-        if(!isNaN(idHuellimetro) && idHuellimetro > 0) {
+        if (!isNaN(idHuellimetro) && idHuellimetro > 0) {
                 const dbRef = database.ref(id_escuela + '/huellimetros/' + idHuellimetro);
                 dbRef.on('value', (snapshot) => {
                         const data = snapshot.val();
@@ -49,27 +49,39 @@ function insertData(data) {
 
 $(document).on('click', '#activar_asignatura_asistencia', function () {
         const idHuellimetro = $('#id_huellimetro').val();
-        if(!isNaN(idHuellimetro) && idHuellimetro > 0) {
+        if (!isNaN(idHuellimetro) && idHuellimetro > 0) {
                 insertData($('#asignatura_asistencia').val());
         }
 });
 
 $(document).on('click', '#activar_horario_asistencia', function () {
         var horario = $('#activar_horario_asistencia').attr('horario');
-        if(horario == 1) {
-                fetch('https://asistencias-escuelard-default-rtdb.firebaseio.com/' + id_escuela + '/' + id_sesion + '.json', {method: 'PATCH',body: JSON.stringify({horario:0}),headers:{'Content-Type': 'application/json'}});
+        if (horario == 1) {
+                fetch('https://asistencias-escuelard-default-rtdb.firebaseio.com/' + id_escuela + '/' + id_sesion + '.json', {
+                        method: 'PATCH',
+                        body: JSON.stringify({ horario: 0 }),
+                        headers: { 'Content-Type': 'application/json' }
+                });
                 $('#activar_horario_asistencia').attr('horario', 0);
-        }else{
-                fetch('https://asistencias-escuelard-default-rtdb.firebaseio.com/' + id_escuela + '/' + id_sesion + '.json', {method: 'PATCH',body: JSON.stringify({horario:1}),headers:{'Content-Type': 'application/json'}});
+        } else {
+                fetch('https://asistencias-escuelard-default-rtdb.firebaseio.com/' + id_escuela + '/' + id_sesion + '.json', {
+                        method: 'PATCH',
+                        body: JSON.stringify({ horario: 1 }),
+                        headers: { 'Content-Type': 'application/json' }
+                });
                 insertarHoarioHuella();
                 $('#activar_horario_asistencia').attr('horario', 1);
         }
 });
 
-function insertarHoarioHuella(){
-        if($('.data-huellas').length > 0) {
-                $('.data-huellas').each(function() {
-                        fetch('https://asistencias-escuelard-default-rtdb.firebaseio.com/' + id_escuela + '/' + id_sesion + '/' + $(this).attr('dia') + '.json', {method: 'PATCH',body: JSON.stringify({[$(this).attr('id')]:$(this).attr('val')}),headers:{'Content-Type': 'application/json'}});
+function insertarHoarioHuella() {
+        if ($('.data-huellas').length > 0) {
+                $('.data-huellas').each(function () {
+                        fetch('https://asistencias-escuelard-default-rtdb.firebaseio.com/' + id_escuela + '/' + id_sesion + '/' + $(this).attr('dia') + '.json', {
+                                method: 'PATCH',
+                                body: JSON.stringify({ [$(this).attr('id')]: $(this).attr('val') }),
+                                headers: { 'Content-Type': 'application/json' }
+                        });
                 });
         }
 }
@@ -82,7 +94,7 @@ const dbRef = database.ref(id_escuela + '/' + id_sesion);
 dbRef.on('value', (snapshot) => {
         const hora = snapshot.val();
         $('.data-huellas').parent().removeClass('bg-warning font-weight-bold');
-        if(hora && hora['horario'] && hora['horario'] != null && hora['horario'] == 1){
+        if (hora && hora['horario'] && hora['horario'] != null && hora['horario'] == 1) {
                 $('.hide-show-horario-hide').show();
                 $('.hide-show-horario-show').hide();
                 $('#activar_horario_asistencia').html('<i class="fa fa-calendar"></i> Desactivar según horario de clases');
@@ -90,39 +102,43 @@ dbRef.on('value', (snapshot) => {
                         const timestamp = Math.floor(Date.now() / 1000);
                         Object.keys(hora[dayOfWeek]).forEach((key, i) => {
                                 const nextKey = Object.keys(hora[dayOfWeek])[i + 1];
-                                if(timestamp > key && (timestamp < nextKey || nextKey == undefined)) {
-                                        fetch('https://asistencias-escuelard-default-rtdb.firebaseio.com/' + id_escuela + '/' + 'huellimetros.json', {method: 'PATCH',body: JSON.stringify({[$('#num_huellimetro').text()]:hora[dayOfWeek][key]}),headers:{'Content-Type': 'application/json'}});
+                                if (timestamp > key && (timestamp < nextKey || nextKey == undefined)) {
+                                        fetch('https://asistencias-escuelard-default-rtdb.firebaseio.com/' + id_escuela + '/' + 'huellimetros.json', {
+                                                method: 'PATCH',
+                                                body: JSON.stringify({ [$('#num_huellimetro').text()]: hora[dayOfWeek][key] }),
+                                                headers: { 'Content-Type': 'application/json' }
+                                        });
                                         $('#' + key).parent().addClass('bg-warning font-weight-bold');
                                 }
                         });
                 }
-        }else{
+        } else {
                 $('.hide-show-horario-hide').hide();
                 $('.hide-show-horario-show').show();
                 $('#activar_horario_asistencia').html('<i class="fa fa-calendar"></i> Activar según horario de clases');
         }
 });
 
-function insertarAsistencia(data){
+function insertarAsistencia() {
         const newKeyRef = database.ref(id_escuela + '/asistencias/' + year1 + '-' + year2 + '/' + $('#titulo-asignatura').attr('idcarga') + '/' + (new Date().getMonth() + 1) + '/' + new Date().getDate() + '/' + $('#id_user').val());
         newKeyRef.on('value', (snapshot) => {
                 if (snapshot.exists()) {
-                        database.ref('no_registro/' + id_escuela + '/' + $('#num_huellimetro').text()).set($('#id_user').val() + '-' + snapshot.val()).then(() => {});
-                        database.ref('no_registro/' + id_escuela + '/' + $('#num_huellimetro').text()).set(null).then(() => {});
-                }else{
-                        newKeyRef.set(Math.floor(Date.now() / 1000)).then(() => {});
+                        database.ref('no_registro/' + id_escuela + '/' + $('#num_huellimetro').text()).set($('#id_user').val() + '-' + snapshot.val()).then(() => { });
+                        database.ref('no_registro/' + id_escuela + '/' + $('#num_huellimetro').text()).set(null).then(() => { });
+                } else {
+                        newKeyRef.set(Math.floor(Date.now() / 1000)).then(() => { });
                 }
         }, { onlyOnce: true });
 }
 
-$('#insertar-registro').click(function(){
+$('#insertar-registro').click(function () {
         insertarAsistencia();
 })
 
-function VerUltimoAsistencia(data){
+function VerUltimoAsistencia(data) {
         const queryRef = database.ref(id_escuela + '/asistencias/' + year1 + '-' + year2 + '/' + data + '/' + (new Date().getMonth() + 1) + '/' + new Date().getDate()).orderByValue().limitToLast(1);
         queryRef.on('value', (snapshot) => {
-                if((snapshot.val() != null && snapshot.val() != undefined) && Object.keys(snapshot.val())[0] != undefined){
+                if ((snapshot.val() != null && snapshot.val() != undefined) && Object.keys(snapshot.val())[0] != undefined) {
                         database.ref(id_escuela + '/usuarios/' + Object.keys(snapshot.val())[0]).on('value', (snapshot) => {
                                 $('#nombre').text(snapshot.val().datos);
                                 $('#foto').attr('src', snapshot.val().foto);

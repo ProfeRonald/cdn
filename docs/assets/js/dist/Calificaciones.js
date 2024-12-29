@@ -13,7 +13,6 @@ $(document).ready(function () {
   var local = $("#datos_js").attr("local");
   var year_1 = Number($("#datos_js").attr("year_1"));
   var year_2 = Number($("#datos_js").attr("year_2"));
-  var setApp = 1;
 
   if(datetype == 'text'){
     var wdtt = -5;
@@ -800,7 +799,9 @@ $(document).ready(function () {
   $('#insertar_asistencia i').text(' Registrar');
   var dia = $('#dia_asistencia').val();
   var archivoxlsx = $('#archivoxlsx').val();
+  if(local != 1){
   VerificarHuellimetro ();
+  }
   $.ajax({
     method: "POST",
     url: "sesion.php?op=ImportarDiaAsistencia",

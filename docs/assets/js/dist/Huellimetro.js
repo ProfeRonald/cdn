@@ -111,7 +111,7 @@ function insertarAsistencia(data){
     const newKeyRef = ref(database, id_escuela + '/asistencias/' + year1 + '-' + year2 + '/' + $('#titulo-asignatura').attr('idcarga') + '/' + (new Date().getMonth() + 1) + '/' + new Date().getDate() + '/' + $('#id_user').val());
 onValue(newKeyRef, (snapshot) => {
   if (snapshot.exists()) {
-    set(ref(database, 'no_registro/' + id_escuela + '/' + $('#num_huellimetro').text()), $('#id_user').val()).then(() => {});
+    set(ref(database, 'no_registro/' + id_escuela + '/' + $('#num_huellimetro').text()), $('#id_user').val() + '-' + snapshot.val()).then(() => {});
     set(ref(database, 'no_registro/' + id_escuela + '/' + $('#num_huellimetro').text()), null).then(() => {});
   }else{
     set(newKeyRef, Math.floor(Date.now() / 1000)).then(() => {});

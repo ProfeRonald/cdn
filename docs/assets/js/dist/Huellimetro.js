@@ -8,8 +8,6 @@ const firebaseConfig = {
     appId: "1:280871850687:web:2d85833ac756f24476ac0a"
 };
 
-alert('sssssssssssss');
-
 const datos_huella = $('#num_huellimetro').attr('datos_huella').split('-');
 const id_escuela = datos_huella[0];
 const id_sesion = datos_huella[1];

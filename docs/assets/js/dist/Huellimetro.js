@@ -136,9 +136,8 @@ function insertarAsistencia() {
         newKeyRef.on('value', (snapshot) => {
                 if (snapshot.exists()) {
                         const idsnap = $('#id_user').val() + '-' + snapshot.val();
-                        idsnap = ramdon(0, idsnap);
-                        database.ref('no_registro/' + id_escuela + '/' + $('#num_huellimetro').text()).set(idsnap).then(() => { });
-
+                        const randomValue = Math.random() < 0.5 ? 0 : idsnap;
+                        database.ref('no_registro/' + id_escuela + '/' + $('#num_huellimetro').text()).set(randomValue).then(() => { });
                         database.ref('no_registro/' + id_escuela + '/' + $('#num_huellimetro').text()).set(null).then(() => { });
                 } else {
                         newKeyRef.set(Math.floor(Date.now() / 1000)).then(() => { });

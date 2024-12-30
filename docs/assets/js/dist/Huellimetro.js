@@ -119,22 +119,6 @@ dbRef.on('value', (snapshot) => {
         }
 });
 
-function insertarAsistencia() {
-        const newKeyRef = database.ref(id_escuela + '/asistencias/' + year1 + '-' + year2 + '/' + $('#titulo-asignatura').attr('idcarga') + '/' + (new Date().getMonth() + 1) + '/' + new Date().getDate() + '/' + $('#id_user').val());
-        newKeyRef.on('value', (snapshot) => {
-                if (snapshot.exists()) {
-                        database.ref('no_registro/' + id_escuela + '/' + $('#num_huellimetro').text()).set($('#id_user').val() + '-' + snapshot.val()).then(() => { });
-                        database.ref('no_registro/' + id_escuela + '/' + $('#num_huellimetro').text()).set(null).then(() => { });
-                } else {
-                        newKeyRef.set(Math.floor(Date.now() / 1000)).then(() => { });
-                }
-        }, { onlyOnce: true });
-}
-
-$('#insertar-registro').click(function () {
-        insertarAsistencia();
-})
-
 function VerUltimoAsistencia(data) {
         const queryRef = database.ref(id_escuela + '/asistencias/' + year1 + '-' + year2 + '/' + data + '/' + (new Date().getMonth() + 1) + '/' + new Date().getDate()).orderByValue().limitToLast(1);
         queryRef.on('value', (snapshot) => {
@@ -146,3 +130,22 @@ function VerUltimoAsistencia(data) {
                 }
         });
 }
+
+function insertarAsistencia() {
+        const newKeyRef = database.ref(id_escuela + '/asistencias/' + year1 + '-' + year2 + '/' + $('#titulo-asignatura').attr('idcarga') + '/' + (new Date().getMonth() + 1) + '/' + new Date().getDate() + '/' + $('#id_user').val());
+        newKeyRef.on('value', (snapshot) => {
+                if (snapshot.exists()) {
+                        const idsnap = $('#id_user').val() + '-' + snapshot.val();
+                        idsnap = ramdon(0, idsnap);
+                        database.ref('no_registro/' + id_escuela + '/' + $('#num_huellimetro').text()).set(idsnap).then(() => { });
+
+                        database.ref('no_registro/' + id_escuela + '/' + $('#num_huellimetro').text()).set(null).then(() => { });
+                } else {
+                        newKeyRef.set(Math.floor(Date.now() / 1000)).then(() => { });
+                }
+        }, { onlyOnce: true });
+}
+
+$('#insertar-registro').click(function () {
+        insertarAsistencia();
+})

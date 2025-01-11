@@ -131,6 +131,7 @@ function VerUltimoAsistencia(data) {
         });
 }
 
+// SIMULADO PARA IMPLEMENTAR EL REGISTRO DE ASISTENCIA EN EL DOSPOSITIVO.
 function insertarAsistencia() {
         const newKeyRef = database.ref(id_escuela + '/asistencias/' + year1 + '-' + year2 + '/' + $('#titulo-asignatura').attr('idcarga') + '/' + (new Date().getMonth() + 1) + '/' + new Date().getDate() + '/' + $('#id_user').val());
         newKeyRef.on('value', (snapshot) => {

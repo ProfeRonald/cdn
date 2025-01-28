@@ -13,6 +13,7 @@ $(document).ready(function () {
   var local = $("#datos_js").attr("local");
   var year_1 = Number($("#datos_js").attr("year_1"));
   var year_2 = Number($("#datos_js").attr("year_2"));
+  var auto_asistencia = Number($("#datos_js").attr("auto_asistencia"));
 
   if(datetype == 'text'){
     var wdtt = -5;
@@ -998,6 +999,9 @@ $(document).ready(function () {
   });
 
   $(window).on("load", function () {
+    if(auto_asistencia == 1){
+    $('#activar-asistencia').trigger('click');
+    }
     var showinvgc = $('#teps').attr('showinvgc');
     if (showinvgc == 1) {
       $('#invgc').show();

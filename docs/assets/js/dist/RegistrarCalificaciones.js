@@ -244,7 +244,9 @@ $(document).on('click', '.ordenarGrupo', function () {
     var ordg = $(this).attr('ordg');
     document.cookie = 'ordenGrupoaz=; expires=Thu, 01 Jan 1970 00:00:01 GMT';
     document.cookie = 'ordenGrupoza=; expires=Thu, 01 Jan 1970 00:00:01 GMT';
-    document.cookie = 'ordenGrupoHO='+ordg+'; expires=Thu, 22 Dec ' + jyear2 + ' 01:00:00 UTC';
+    document.cookie = 'ordenGrupoHO=1; expires=Thu, 22 Dec ' + jyear2 + ' 01:00:00 UTC';
+    let dayName = new Date().toLocaleDateString('en-US', {weekday: 'short'});
+    document.cookie = 'ordenGrupoHO' + dayName + '='+ordg+'; expires=Thu, 22 Dec ' + jyear2 + ' 01:00:00 UTC';
     document.cookie = 'ordenGrupo='+ordg+'; expires=Thu, 22 Dec ' + jyear2 + ' 01:00:00 UTC';
     window.location.href = urlerd + "/index.php?sec=RegistrarCalificaciones";
 

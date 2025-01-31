@@ -302,7 +302,7 @@ $(document).ready(function () {
           id_grupo: id_grupo,
         },
       }).done(function (e) {
-        
+        console.log(e);
         if (e["exito"] == 1 || e["exito"] == 2) {
           var color = "#2ECC71";
           if (e["exito"] == 1) {
@@ -1069,26 +1069,11 @@ $(document).ready(function () {
 
     var herr = $(this).attr('herramienta');
     
-    if(herr == 'HAsistencias'){
-
-    if (!confirm("Si desea hacerlo sólo para un mes específico, pulsa \"Cancelar\" y luego haga click sobre el nombre del mes. Tome en cuenta que, al darle a \"Confirmar\", reemplazará cualquier otra asistencia que haya puesto manual y se cargará todo desde la hoja de asistencia.")) {
-      return false;
-    }
-
-    $('.Asistencias').trigger('blur');
-    $('.dataTables_scrollHeadInner .AsistenciasDias:input').each(function () {
-    var asistencia = $(this).val();
-    var mes = $(this).attr("id").split("-")[1];
-    var input = $(this);
-    AsistenciasDias(asistencia, mes, input);
-    $('#herramientasModal').modal('hide');
-    });
-
-  }else{
-    
     var titulo_asignaturamf = $("#datos_js").attr("titulo_asignaturamf");
     var titulo_grupo = $("#datos_js").attr("titulo_grupo");
     var listaruleta = $("#teps").attr("lista_ruleta");
+    var imeses = $("#teps").attr("imeses");
+    var kmeses = $("#teps").attr("kmeses");
     var incluir_grado = 0;
     var grado_grupo = '';
 
@@ -1111,17 +1096,30 @@ $(document).ready(function () {
 
      }
 
-   
-    
+
+     if(herr == 'HAsistencias'){
+
+      if (!confirm("Si desea hacerlo sólo para un mes específico, pulsa \"Cancelar\" y luego haga click sobre el nombre del mes. Tome en cuenta que, al darle a \"Confirmar\", reemplazará cualquier otra asistencia que haya puesto manual y se cargará todo desde la hoja de asistencia.")) {
+        return false;
+      }
+
+      }
+
     $.ajax({
       method: "POST",
       url: "up.php?op=" + herr,
-      data: {titulo_asignaturamf: titulo_asignaturamf, listaruleta: listaruleta, titulo_grupo: titulo_grupo, id_asignaturamf: id_asignaturamf, id_grupo: id_grupo, year_1: year_1, year_2: year_2, lmeritorio: lmeritorio, cmeritorios: cmeritorios, tperiodos_escuela: tperiodos_escuela, id_asignaturamf: id_asignaturamf, incluir_grado: incluir_grado, grado_grupo: grado_grupo}
+      data: {titulo_asignaturamf: titulo_asignaturamf, listaruleta: listaruleta, titulo_grupo: titulo_grupo, id_asignaturamf: id_asignaturamf, id_grupo: id_grupo, year_1: year_1, year_2: year_2, lmeritorio: lmeritorio, cmeritorios: cmeritorios, tperiodos_escuela: tperiodos_escuela, id_asignaturamf: id_asignaturamf, incluir_grado: incluir_grado, grado_grupo: grado_grupo, imeses: imeses, kmeses: kmeses, archivoxlsx: $('#archivoxlsx').val()}
     })
       .done(function (cont) {
         
-       $('#contenidoHerraminetas').html(cont);
+       $('#contenidoHerramientas').html(cont);
        $('#herramientasModal').modal('hide');
+
+       if(herr == 'HAsistencias'){
+        if(cont != ''){
+          $('#asistenciasModal').modal('show');
+        }
+       }
 
        if(herr == 'HDestacados'){
         if(cont != ''){
@@ -1331,8 +1329,6 @@ $(document).ready(function () {
       .fail(function (a,b,c) {
        
       })
-
-    }
 
   });
 

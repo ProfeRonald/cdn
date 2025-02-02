@@ -1012,7 +1012,7 @@ $(document).ready(function () {
     $('body').addClass('modal-open');
 
   })
-/*
+
   $(window).scroll(function () {
     var display = $('#slidecontainer').attr('display');
     if(display == 1){
@@ -1027,18 +1027,17 @@ $(document).ready(function () {
       $('#slidecontainer').hide();
     }
   }
-	});*/
+	});
 
   if(datetype == 'text'){
 
-  $(window).on("load", function () {
-    if($('.dataTables_scrollBody')[0] != undefined){
-    $('#barra-des').attr('max', $('.dataTables_scrollBody')[0].scrollWidth);
-    }
+    $(window).on("load", function () {
+      if($('.dataTables_scrollBody')[0] != undefined){
+        $('#barra-des').attr('max', $('.dataTables_scrollBody')[0].scrollWidth - 850);
+      }
+    });
 
-  });
-
-}
+  }
 
   $('#barra-des').on('input', function () {
     $('.dataTables_scrollBody').scrollLeft($(this).val());
@@ -1105,6 +1104,8 @@ $(document).ready(function () {
 
       }
 
+   
+    
     $.ajax({
       method: "POST",
       url: "up.php?op=" + herr,

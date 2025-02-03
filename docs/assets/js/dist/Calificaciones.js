@@ -796,11 +796,11 @@ $(document).ready(function () {
     ImportarDiaAsistencia ();
   });
   
- function ImportarDiaAsistencia () {
-  $('#insertar_asistencia i').text(' Registrar');
+ function ImportarDiaAsistencia () {  $('#insertar_asistencia i').text(' Registrar');
   var dia = $('#dia_asistencia').val();
   var archivoxlsx = $('#archivoxlsx').val();
   if(local != 1){
+    alert();
   VerificarHuellimetro ();
   }
   $.ajax({
@@ -887,7 +887,7 @@ $(document).ready(function () {
             var minutes = date.getMinutes();
             var ampm = hours >= 12 ? 'p.m.' : 'a.m.';
             hours = hours % 12;
-            hours = hours ? hours : 12; // the hour '0' should be '12'
+            hours = hours ? hours : 12;
             minutes = minutes < 10 ? '0' + minutes : minutes;
             var formattedDate = hours + ':' + minutes + ' ' + ampm;
             $('#ea_' + childSnapshot.key).children('.huella-timestamp').text('Huella registrada a las ' + formattedDate); 

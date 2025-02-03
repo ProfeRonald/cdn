@@ -800,7 +800,6 @@ $(document).ready(function () {
   var dia = $('#dia_asistencia').val();
   var archivoxlsx = $('#archivoxlsx').val();
   if(local != 1){
-    alert();
   VerificarHuellimetro ();
   }
   $.ajax({
@@ -876,6 +875,8 @@ $(document).ready(function () {
         $('.huella-timestamp').text('');
         
         var mesdia = $('#dia_asistencia').val().split('-');
+        mesdia[1] = parseInt(mesdia[1], 10);
+        mesdia[2] = parseInt(mesdia[2], 10);
     
         asistencias.database().ref(escuela_sesion + '/asistencias/' + year_1 + '-' + year_2 + '/' + id_asignaturamf + '-' + id_grupo + '/' + mesdia[1] + '/' + mesdia[2]).on("value", function (snapshot) {
             

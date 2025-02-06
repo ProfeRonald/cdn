@@ -1,7 +1,7 @@
 var local = $("#index_js").attr("local");
 var urlcdn = $("#index_js").attr("urlcdn");
 
-		$("#input_buscar").on("keyup",function(event){
+		$("#input_buscar").on("keyup input",function(event){
 			
 			var ibv = $(this).val();
 			//var ibv = ibv.replace(/\s/g, '_');

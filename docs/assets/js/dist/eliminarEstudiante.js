@@ -3,8 +3,7 @@ $(document).ready(function() {
 
     $(document).on('click', '#EliminarAlumno', function () {
 
-      if (
-                       !confirm(
+      if (!confirm(
 						"Se eliminar&aacute;n todos los datos del estudiante y todas sus calificaciones."
                        )
                      ) {

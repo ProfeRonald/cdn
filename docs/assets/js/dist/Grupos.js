@@ -109,3 +109,122 @@ $("#movergs").prop('disabled', false);
   })
 }
 });
+
+
+$(document).on('click', '.opcionesGrupo', function (event) {
+
+	var grupo = $(this).attr('grupo');
+	var id_grupo = $(this).attr('id_grupo');
+	var activo_grupo = $(this).attr('activo_grupo');
+	var estudiantes = $(this).attr('estudiantes');
+	var tr = $(this).attr('tr');
+	$('.opcionesGrupo').removeAttr('id');
+	$(this).attr('id', 'opcionesGrupo');
+  if (activo_grupo == 1) {
+    var activo = '<i style="color:green;cursor:pointer" rel="tooltip" title="Grupo activo"  class="fa fa-unlock fa-5x activoGrupo" id_grupo="'+id_grupo+'" activo_grupo="'+activo_grupo+'" tr="'+tr+'"></i>';
+	$('#TablaGrupos tr').eq(tr).css({'background-color': ''});
+  } else {
+    var activo = '<i style="cursor:pointer" rel="tooltip" title="Grupo desactivado" class="fa fa-lock fa-5x activoGrupo" id_grupo="'+id_grupo+'" activo_grupo="'+activo_grupo+'" tr="'+tr+'"></i>';
+	$('#TablaGrupos tr').eq(tr).css({'background-color': '#eb98098c'});
+  }
+
+  if (estudiantes == 0 && activo_grupo == 1) {
+    var dis_gp = "";
+  }else{
+	var dis_gp = " disabled";
+  }
+
+	var eliminar = '<input  id="eliminarGrupo" type="checkbox" value="'+id_grupo+'" style="width:40px;height:40px"'+dis_gp+'>';
+
+	$('#opcionesModal h3').html(grupo);
+
+	$('#opcionesModal table tbody').html('<tr><td class="text-center"><div class="form-group"><a href="index.php?sec=EditarSeccion&id='+id_grupo+'" class="badge badge-warning pull-center" style="font-size:2rem;" target="InscribirModal">'+ estudiantes + '</a></div></td><td class="text-center">'+activo+'</td><td class="text-center">'+eliminar+'</td></tr>');
+	$('#opcionesModal').modal('show');
+
+
+	$(document).on('click', '.activoGrupo', function (event) {
+		var activo_grupo = $(this).attr('activo_grupo');
+		var id_grupo = $(this).attr('id_grupo');
+		var th = $(this);
+		var tr = $(this).attr('tr');
+		
+    $.ajax({
+      method: "POST",
+      url: "up.php?op=activoGrupo",
+      data: {id_grupo: id_grupo, activo_grupo: activo_grupo}
+    })
+      .done(function (a) {
+		
+		var estudiantes = $('#opcionesGrupo').attr('estudiantes');
+  
+		if (estudiantes == 0 && a == 1) {
+    var dis_gp = "";
+  		}else{
+	var dis_gp = " disabled";
+  		}
+
+		$('#eliminarGrupo').parent().html('<input id="eliminarGrupo" type="checkbox" value="'+id_grupo+'" style="width:40px;height:40px"'+dis_gp+'>');
+		
+		if (a == 1){
+    		var hactivo = '<i style="color:green;cursor:pointer" rel="tooltip" title="Grupo activo"  class="fa fa-unlock fa-5x activoGrupo" id_grupo="'+id_grupo+'" activo_grupo="1" tr="'+tr+'"></i>';
+			$('#opcionesGrupo').attr('activo_grupo', 1);
+			$('#opcionesGrupo').attr('tr', tr);
+			$('#TablaGrupos tr').eq(tr).css({'background-color': ''});
+			
+  		}else{
+    		var hactivo = '<i style="cursor:pointer" rel="tooltip" title="Grupo desactivado"  class="fa fa-lock fa-5x activoGrupo" id_grupo="'+id_grupo+'" activo_grupo="0" tr="'+tr+'"></i>';
+			$('#opcionesGrupo').attr('activo_grupo', 0);
+			$('#opcionesGrupo').attr('tr', tr);
+			$('#TablaGrupos tr').eq(tr).css({'background-color': '#eb98098c'});
+  		}
+	  
+	th.parent().html(hactivo);
+
+	  })
+	})
+
+	$(document).on('click', '#eliminarGrupo', function () {
+		if($(this).prop('checked') == true){
+		$('#confirmarGrupo').prop('disabled', false);
+		$('#confirmarGrupo').attr('activo_grupo', $('#opcionesGrupo').attr('activo_grupo'));
+		$('#confirmarGrupo').attr('id_grupo', $(this).val());
+		}else{
+			$('#confirmarGrupo').prop('disabled', true);
+			$('#confirmarGrupo').removeAttr('activo_grupo');
+			$('#confirmarGrupo').removeAttr('id_grupo');
+		}
+	})
+
+	$(document).on('click', '#confirmarGrupo', function () {
+		var activo_grupo = $(this).attr('activo_grupo');
+		var id_grupo = $(this).attr('id_grupo');
+		var estudiantes = $('#opcionesGrupo').attr('estudiantes');
+    $.ajax({
+      method: "POST",
+      url: "up.php?op=eliminarGrupo",
+      data: {id_grupo: id_grupo, activo_grupo: activo_grupo, estudiantes: estudiantes}
+    })
+      .done(function (a) {
+		if(a == 1){
+		$('#avisoGrupo').html('<span class="text-danger">El grupo ha sido eliminado.</span>');
+		}else{
+			$('#avisoGrupo').html('<span class="text-dark">No se ha podido eliminar el grupo. El grupo debe estar vac&iacute;o y activo.</span>');
+		}
+	})
+})
+
+})
+
+
+$(document).on('click', '#actualizarGrupos', function () {
+	$.ajax({
+		method: "POST",
+		url: "sesion.php?op=ActualizarGrupos",
+		data: $("#fgrupos").serialize()
+	})
+	.done(function (r) {
+		$('#ActulizarGruposModal .modal-body').html(r);
+		$('#ActulizarGruposModal').modal('show');
+	})
+
+})

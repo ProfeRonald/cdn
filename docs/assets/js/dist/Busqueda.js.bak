@@ -1,7 +1,8 @@
 var local = $("#index_js").attr("local");
 var urlcdn = $("#index_js").attr("urlcdn");
 
-            $(document).on('keyup input', '#input_buscar', function (event) {
+		$("#input_buscar").on("keyup input",function(event){
+			
 			var ibv = $(this).val();
 			//var ibv = ibv.replace(/\s/g, '_');
 			//var ibv = ibv.replace(/\W/g, '');
@@ -10,12 +11,11 @@ var urlcdn = $("#index_js").attr("urlcdn");
 			var ibv = ibv.substring(0, 50);
 
 			$(this).val(ibv);
-           
 				
 				if($(this).val().length > 1 && ibv != "Buscar..."){
 					
 					const validKeys = /^[a-zA-Z0-9ñÑáéíóúüÁÉÍÓÚÜ ]$/;
-             //   if (validKeys.test(event.key) || event.key === "Backspace") {
+                if (validKeys.test(event.key) || event.key === "Backspace") {
        
 							var inb = $('#input_buscar').val();
 							
@@ -31,9 +31,9 @@ var urlcdn = $("#index_js").attr("urlcdn");
 					  		$('#estudiante_busquedasel').attr('size', 7);
 					  		$("#estudiante_busquedasel").show();
 					  	})		  
-						//}else{
-                       //     event.preventDefault();
-                       // }	
+						}else{
+                            event.preventDefault();
+                        }	
 
     		}
     });

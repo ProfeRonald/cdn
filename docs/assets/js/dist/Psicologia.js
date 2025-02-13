@@ -32,7 +32,7 @@ var idlp = Number(document.cookie.replace(
     });
     
     $('#TablaEstudiantesPsi').DataTable({
-        
+
         "responsive": true,
     
         "columnDefs": [ {
@@ -66,26 +66,24 @@ var idlp = Number(document.cookie.replace(
       "iDisplayLength":	idlp,
     });
 
-      
   $(document).on(
     "blur",
     "#TablaPsicologia_wrapper select:first",
     "#TablaEstudiantesPsi_wrapper select:first",
-    "#TablaPsicologiaGrupo_wrapper select:first",
+    /*"#TablaPsicologiaGrupo_wrapper select:first",*/
     function () {
       var idpl = $(this).val();
       document.cookie = "idples=" + idpl;
     }
   );
     
-      $("#searchInput").on("input", function (e) {
+     $("#searchInput").on("input", function (e) {
      e.preventDefault();
      $('#TablaPsicologiaGrupo').DataTable().search($(this).val()).draw();
           });
     
   });
 
-  	
 $( window ).on( "load", function() {
 	$('#datos-estudiantes').hide();
 });
@@ -150,4 +148,4 @@ $(document).on('click', '#bproact', function () {
 	$(".bfechaextra").hide("slow");
 	$('#pactividad').show("slow");
 	$('#actividadp').text('');
-	});
+});

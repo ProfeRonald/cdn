@@ -873,8 +873,6 @@ $(document).ready(function () {
         }
 
         $('.huella-timestamp').text('');
-
-        
         
         var mesdia = $('#dia_asistencia').val().split('-');
         mesdia[1] = parseInt(mesdia[1], 10);
@@ -1017,8 +1015,6 @@ $(document).ready(function () {
   })
 
   $(window).scroll(function () {
-  
-    setTimeout(function () {
     var display = $('#slidecontainer').attr('display');
     if(display == 1){
 		var scrls_info = $("#TablaCalificaciones_info").offset().top - 575;
@@ -1032,8 +1028,6 @@ $(document).ready(function () {
       $('#slidecontainer').hide();
     }
   }
-}, 1000);
-
 	});
 
   if(datetype == 'text'){

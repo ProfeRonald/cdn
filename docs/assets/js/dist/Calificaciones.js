@@ -697,7 +697,47 @@ $(document).ready(function () {
 
     $(this).children('.estado').val($(this).attr('estado'));
 
+    estadisticaAsistenciaHoy();
+
   });
+
+  function estadisticaAsistenciaHoy(){
+    
+    var testados = new Array();
+    $('.basis').each(function () {
+      testados[$(this).attr('sexo') + '-' + $(this).attr('estado')] = (testados[$(this).attr('sexo') + '-' + $(this).attr('estado')] || 0) + 1;
+    });
+
+    testados['1-P'] = (typeof testados['1-P'] !== 'undefined') ? testados['1-P'] : 0;
+    testados['1-E'] = (typeof testados['1-E'] !== 'undefined') ? testados['1-E'] : 0; 
+    testados['1-T'] = (typeof testados['1-T'] !== 'undefined') ? testados['1-T'] : 0;
+    testados['1-A'] = (typeof testados['1-A'] !== 'undefined') ? testados['1-A'] : 0; 
+   
+    $('#presencias_varones').text(testados['1-P'] + testados['1-T']);
+    $('#excusas_varones').text(testados['1-E']);
+    $('#tardanzas_varones').text(testados['1-T']);
+    $('#ausencias_varones').text(testados['1-A']);
+    $('#total_varones').text(Number($('#presencias_varones').text()) + Number($('#excusas_varones').text()) +  Number($('#ausencias_varones').text()));
+
+    testados['2-P'] = (typeof testados['2-P'] !== 'undefined') ? testados['2-P'] : 0;
+    testados['2-E'] = (typeof testados['2-E'] !== 'undefined') ? testados['2-E'] : 0; 
+    testados['2-T'] = (typeof testados['2-T'] !== 'undefined') ? testados['2-T'] : 0;
+    testados['2-A'] = (typeof testados['2-A'] !== 'undefined') ? testados['2-A'] : 0; 
+
+    $('#presencias_hembras').text(testados['2-P'] + testados['2-T']);
+    $('#excusas_hembras').text(testados['2-E']);
+    $('#tardanzas_hembras').text(testados['2-T']);
+    $('#ausencias_hembras').text(testados['2-A']);
+    $('#total_hembras').text(Number($('#presencias_hembras').text()) + Number($('#excusas_hembras').text()) +  Number($('#ausencias_hembras').text()));
+
+    $('#tprencias').text(Number($('#presencias_varones').text()) + Number($('#presencias_hembras').text()));
+    $('#texcusas').text(Number($('#excusas_varones').text()) + Number($('#excusas_hembras').text()));
+    $('#ttardanzas').text(Number($('#tardanzas_varones').text()) + Number($('#tardanzas_hembras').text()));
+    $('#tausencias').text(Number($('#ausencias_varones').text()) + Number($('#ausencias_hembras').text()));
+
+    $('#ttotal').text(Number($('#total_varones').text()) + Number($('#total_hembras').text()));
+    
+  }
 
   $(document).on('click', '#insertar_asistencia', function () {
     $("#insertar_asistencia").prop('disabled', true);
@@ -794,6 +834,7 @@ $(document).ready(function () {
     $('.basis').attr('estado', 'P');
     $('.basis').children('.bestado').attr('class', 'btn btn-xl btn-primary fa fa-4x bestado');
     ImportarDiaAsistencia ();
+    estadisticaAsistenciaHoy();
   });
   
  function ImportarDiaAsistencia () {  $('#insertar_asistencia i').text(' Registrar');
@@ -873,8 +914,6 @@ $(document).ready(function () {
         }
 
         $('.huella-timestamp').text('');
-
-        
         
         var mesdia = $('#dia_asistencia').val().split('-');
         mesdia[1] = parseInt(mesdia[1], 10);
@@ -980,6 +1019,7 @@ $(document).ready(function () {
       }, 1500);
     }else {
       ImportarDiaAsistencia();
+      estadisticaAsistenciaHoy();
     }
   });
 

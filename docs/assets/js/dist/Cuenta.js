@@ -71,7 +71,7 @@ $(document).on('click', '#notaprivadam', function () {
 	var np = $('#notaprivada').attr('np');
   $.ajax({
   method: "POST",	
-  url: "sesion.php?op=NotaPrivada",
+  url: "up.php?op=NotaPrivada",
   data:{np: np}
 	})
   .done(function(tex){
@@ -112,7 +112,7 @@ $(document).on('blur', '#textbioest', function () {
 	$("#textbioesta").val(txbioest);	
 	 $.ajax({
   method: "POST",	
-  url: "sesion.php?op=ActualizarBio",
+  url: "up.php?op=ActualizarBio",
   data: {bio: txbioest}
 	})
   .done(function( data ){

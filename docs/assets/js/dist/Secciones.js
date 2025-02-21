@@ -77,6 +77,7 @@ $(document).ready(function () {
     "bFilter": false,
     "paging": false,
     "iDisplayLength": -1,
+    "fixedColumns": true
   
   });
   

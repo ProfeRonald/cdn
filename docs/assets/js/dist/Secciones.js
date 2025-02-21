@@ -79,8 +79,11 @@ $(document).ready(function () {
     "iDisplayLength": -1,
     "autoWidth": false,
     "fixedColumns": true
-  
   });
+
+  setTimeout(function() {
+    $('#Tabla-Asignaturas').DataTable().columns.adjust();
+}, 500);
   
   var basec = false;
   

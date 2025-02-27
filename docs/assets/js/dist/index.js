@@ -5,7 +5,8 @@ function GPS(){
 		navigator.geolocation.getCurrentPosition(function(objPosition){
 			var lon = objPosition.coords.longitude;
 			var lat = objPosition.coords.latitude;
-			var ubicacion = lat + '%2C' + lon;
+			//var ubicacion = lat + '%2C' + lon;
+			var ubicacion = lat + ',' + lon;
 			document.cookie = 'ubicacionerd=' + ubicacion;
 		},
 		function(objPositionError){},

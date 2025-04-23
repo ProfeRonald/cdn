@@ -837,7 +837,8 @@ $(document).ready(function () {
     estadisticaAsistenciaHoy();
   });
   
- function ImportarDiaAsistencia () {  $('#insertar_asistencia i').text(' Registrar');
+ function ImportarDiaAsistencia () {
+  $('#insertar_asistencia i').text(' Registrar');
   var dia = $('#dia_asistencia').val();
   var archivoxlsx = $('#archivoxlsx').val();
   if(local != 1){

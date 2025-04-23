@@ -142,7 +142,7 @@ $(document).ready(function () {
       var g = $(this).attr('grupo');
       var fecha = $(this).attr('fecha');
       var raz = $('#raz' + ide).val();
-      $('#eliminarest').html('<div class="modal-body"><div><a href="' + urlerd + '/index.php?sec=VerEstudiante&id=' + ide + '&grupo=' + g + '"' + target + '><img style="border-radius: 10%;width:70px;height:70px;" src="' + foto + '"/><span> ' + nom + ', #' + num + '</span></a></div></div><div id="cargar_razon"><div class="row form-group text-center ml-2"><label for="fecha_estudiante" class="form-control-label">Fecha de retito:</label><input type="date" value="' + fecha + '" name="fecha_estudiante" id="fecha_estudiante" class="form-control" /></input></div><div class="row form-group text-center ml-2"><label for="razon_estudiante" class="form-control-label">Raz&oacute;n o motivo</label><textarea style="width:250px" name="razon_estudiante" id="razon_estudiante" rows="4" placeholder="Describa el motivo por el cual quedar&aacute; retirado el estudiante" class="form-control">' + raz + '</textarea></div></div>');
+      $('#eliminarest').html('<div class="modal-body"><div><a href="' + urlerd + '/index.php?op=VerEstudiante&id=' + ide + '&grupo=' + g + '"' + target + '><img style="border-radius: 10%;width:70px;height:70px;" src="' + foto + '"/><span> ' + nom + ', #' + num + '</span></a></div></div><div id="cargar_razon"><div class="row form-group text-center ml-2"><label for="fecha_estudiante" class="form-control-label">Fecha de retito:</label><input type="date" value="' + fecha + '" name="fecha_estudiante" id="fecha_estudiante" class="form-control" /></input></div><div class="row form-group text-center ml-2"><label for="razon_estudiante" class="form-control-label">Raz&oacute;n o motivo</label><textarea style="width:250px" name="razon_estudiante" id="razon_estudiante" rows="4" placeholder="Describa el motivo por el cual quedar&aacute; retirado el estudiante" class="form-control">' + raz + '</textarea></div></div>');
       $('#guardarae').attr('est', ide);
       $('#guardarae').attr('g', g);
     } else {
@@ -542,7 +542,7 @@ subirimagen.snapshot.ref.getDownloadURL().then(function(urlFoto) {
     var ide = $(this).attr('ide');
     var g = $(this).attr('grupo');
     $("#CuadroEstLabel").text("Eliminando estudiante");
-    $('#eliminarest').html('<div class="modal-body"><div><a href="' + urlerd + '/index.php?sec=VerEstudiante&id=' + ide + '&grupo=' + g + '"' + target + '><img style="border-radius: 10%;width:70px;height:70px;" src="' + foto + '"/><span> ' + nom + ', #' + num + '</span></a></div></div><div style="font-size:10pt;padding-bottom:20px">&iquest;Seguro desea eliminar este estudiante?</div>');
+    $('#eliminarest').html('<div class="modal-body"><div><a href="' + urlerd + '/index.php?op=VerEstudiante&id=' + ide + '&grupo=' + g + '"' + target + '><img style="border-radius: 10%;width:70px;height:70px;" src="' + foto + '"/><span> ' + nom + ', #' + num + '</span></a></div></div><div style="font-size:10pt;padding-bottom:20px">&iquest;Seguro desea eliminar este estudiante?</div>');
     $('#coelest').attr('est', ide);
     $('#coelest').attr('g', g);
   

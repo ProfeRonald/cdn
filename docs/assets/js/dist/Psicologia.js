@@ -114,7 +114,7 @@ if(a != e){
 	}
 	var g = $(this).attr('g');
 		if(g != ''){
-	$("#btnvc").attr('href', 'index.php?sec=VerEstudiante&id=' + e + '&grupo=' + g);
+	$("#btnvc").attr('href', 'index.php?op=VerEstudiante&id=' + e + '&grupo=' + g);
 		}
 	 $.ajax({
   method: "POST",	

@@ -138,7 +138,7 @@ $(document).on('click', '.opcionesGrupo', function (event) {
 
 	$('#opcionesModal h3').html(grupo);
 
-	$('#opcionesModal table tbody').html('<tr><td class="text-center"><div class="form-group"><a href="index.php?sec=EditarSeccion&id='+id_grupo+'" class="badge badge-warning pull-center" style="font-size:2rem;" target="InscribirModal">'+ estudiantes + '</a></div></td><td class="text-center">'+activo+'</td><td class="text-center">'+eliminar+'</td></tr>');
+	$('#opcionesModal table tbody').html('<tr><td class="text-center"><div class="form-group"><a href="index.php?op=EditarSeccion&id='+id_grupo+'" class="badge badge-warning pull-center" style="font-size:2rem;" target="InscribirModal">'+ estudiantes + '</a></div></td><td class="text-center">'+activo+'</td><td class="text-center">'+eliminar+'</td></tr>');
 	$('#opcionesModal').modal('show');
 
 

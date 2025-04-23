@@ -248,7 +248,7 @@ $(document).on('click', '.ordenarGrupo', function () {
     let dayName = new Date().toLocaleDateString('en-US', {weekday: 'short'});
     document.cookie = 'ordenGrupoHO' + dayName + '='+ordg+'; expires=Thu, 22 Dec ' + jyear2 + ' 01:00:00 UTC';
     document.cookie = 'ordenGrupo='+ordg+'; expires=Thu, 22 Dec ' + jyear2 + ' 01:00:00 UTC';
-    window.location.href = urlerd + "/index.php?sec=RegistrarCalificaciones";
+    window.location.href = urlerd + "/index.php?op=RegistrarCalificaciones";
 
   }
 

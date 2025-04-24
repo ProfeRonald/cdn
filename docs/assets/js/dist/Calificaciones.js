@@ -621,7 +621,6 @@ $(document).ready(function () {
       url: "sesion.php?op=ActivarAsistencia",
       data: {
         op: "ActivarAsistencia",
-        sec: "ActivarAsistencia",
         a: id_asignaturamf,
         g: id_grupo,
         e: e,
@@ -1018,6 +1017,7 @@ $(document).ready(function () {
       setTimeout(function () {
         $('#activar_asistencia').trigger('click');
       }, 1500);
+      alert(asistencia_local);
     }else {
       ImportarDiaAsistencia();
       estadisticaAsistenciaHoy();

@@ -1017,10 +1017,11 @@ $(document).ready(function () {
       setTimeout(function () {
         $('#activar_asistencia').trigger('click');
       }, 1500);
-      alert(asistencia_local);
     }else {
       ImportarDiaAsistencia();
-      estadisticaAsistenciaHoy();
+      setTimeout(function () {
+        estadisticaAsistenciaHoy();
+      }, 1500);
     }
   });
 

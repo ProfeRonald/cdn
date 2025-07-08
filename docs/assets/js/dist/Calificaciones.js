@@ -368,7 +368,7 @@ $(document).ready(function () {
   });
 
   $(document).on('click', '#genrep', function () {
-    if ($('#genrep_sel').val() == 0) {
+    if ($('#genrep_sel').val() == 0 || $('#genrep_sel').val() == 8) {
 
       if (!confirm("Dependiendo del la cantidad de módulos o asignaturas el proceso puede tardar. ¿Desea continuar?")) {
         return false;

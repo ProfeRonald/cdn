@@ -48,3 +48,9 @@ $(document).ready(function () {
       }
       
       });
+
+      $(document).on('click', '#genrep', function () {
+      if (!confirm("Dependiendo del la cantidad de módulos o asignaturas el proceso puede tardar. ¿Desea continuar?")) {
+        return false;
+      }
+  });

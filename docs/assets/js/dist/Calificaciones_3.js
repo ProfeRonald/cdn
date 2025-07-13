@@ -13,6 +13,7 @@ var tperiodos_escuela = $("#datos_js").attr("tperiodos_escuela");
 var compts = $("#datos_js").attr("compts");
 var notas_gc = $("#datos_js").attr("notas_gc");
 var datetype = $("#datos_js").attr("datetype");
+var tiponota = $("#datos_js").attr("tipo_nota");
 
 $(document).on("click", ".CasillasIL", function () {
   var periodo = $(this).attr("periodo");
@@ -81,7 +82,7 @@ $(document).on("blur", ".CalificacionesIL", function () {
   var id_nota = $(this).attr("id_nota");
   var id = $(this).attr("id").split("-");
   var id_estudiante = id[0];
-  var tipo_nota = "i-" + id[1] + "-" + id[2];
+  var tipo_nota = tiponota + "-" + id[1] + "-" + id[2];
   var input = $(this);
   if (nota != reserva) {
     $.ajax({
@@ -750,7 +751,7 @@ $(document).on("click", ".CalificacionesILGC", function () {
   var id_nota = $(this).attr("id_nota");
   var id = $(this).attr("id").split("-");
   var id_estudiante = id[0];
-  var tipo_nota = "i-" + id[1] + "-" + id[2];
+  var tipo_nota = tiponota + "-" + id[1] + "-" + id[2];
   var input = $(this);
   if (nota != reserva) {
     $.ajax({

@@ -53,4 +53,6 @@ $(document).ready(function () {
       if (!confirm("Dependiendo del la cantidad de módulos o asignaturas el proceso puede tardar. ¿Desea continuar?")) {
         return false;
       }
+
+     $('#estudiantes-pendientes').submit();
   });

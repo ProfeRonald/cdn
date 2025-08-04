@@ -2,6 +2,8 @@ $(document).ready(function () {
 
     var taa = Number($("#datos_js").attr("taa"));
     var formato_registro = Number($("#datos_js").attr("formato_registro"));
+    var tiponota = $("#datos_js").attr("tipo_nota");
+
     
     
   $(document).on('click', '#importar_tareas', function () {
@@ -34,7 +36,11 @@ $(document).ready(function () {
 
     if (formato_registro == 3 && taa == 0 && rpp == 0) {
       $('#trabn').html($('#opindicadores').html());
+      if(tiponota == 'i'){
       $('#verindicor').text('Ver indicador 1');
+      }else{
+        $('#verindicor').text('Ver competencias del grupo 1');
+      }
       $('#verindicor').attr('data-toggle', 'modal');
       }else if (formato_registro == 3 && taa == 0 && rpp == 1) {
           $('#trabn').html($('#oprecuperacion').html());
@@ -154,8 +160,16 @@ $(document).ready(function () {
 
     if (formato_registro == 3 && taa == 0 && rpp == 0) {
       $("#verindicor").attr('data-id', ra);
+
+       if(tiponota == 'i'){
       $("#verindicor").text('Ver Indicador ' + ra);
-     }else if (formato_registro == 3 && taa == 0 && rpp == 1) {
+      }else{
+        $("#verindicor").text('Ver competencias del grupo ' + ra);
+      }
+    
+    
+    
+    }else if (formato_registro == 3 && taa == 0 && rpp == 1) {
         $("#verindicor").html($('.recuperacion_pedagogica').eq(ra - 1).html().split('<br>').join(' '));
         PeriodoGC(ra, per);
         $('#verindicor').popover({
@@ -274,6 +288,63 @@ $(document).ready(function () {
 
     $('.starea').trigger("blur");
 
+  });
+
+  $(document).on('click', '.cambiar_total_gc', function () {
+    var op = $('#' + $(this).attr('idpub')).attr('op');
+    if(op != 1){
+    $(this).parent().html('<input value="' + $(this).text() + '" valc="'+$(this).attr('valc')+'" name="'+$(this).attr('idpub')+'" formato_registro="'+$(this).attr('formato_registro')+'" pon="'+$(this).attr('pon')+'" type="text" class="form-control form-control-sm cambiar_total_gc_input" maxlength="3" size="2" style="font-size:2rem;width:73px;height:32px;text-align:center;margin:0 auto;"><i>Anterior: '+$(this).attr('valc')+'</i>');
+
+    }
+
+  });
+
+
+  $(document).on('blur', '.cambiar_total_gc_input', function () {
+    $('#'+$(this).attr('name')).attr('valgc', $(this).val());
+    var formato_registro = $(this).attr('formato_registro');
+    var val = $(this).val();
+    var pon = Number($(this).attr('pon'));
+    var estado_gc = '';
+    var estado_style = '';
+      if(formato_registro == 3){
+									if(val < pon){
+							estado_gc = "Insuficiente";
+							estado_style = "danger";
+								}else if(val > 69 && val < 80){
+							estado_gc = "Bueno";
+							estado_style = "warning";
+								}else if(val > 79 && val < 90){
+							estado_gc = "Muy Bueno";	
+							estado_style = "info";
+								}else if(val > 89 && val < 101){
+							estado_gc = "Excelente";
+							estado_style = "success";
+								}
+								}else if(formato_registro == 5){
+									if(val < pon){
+								estado_gc = "No completado";
+								estado_style = "danger";
+									}else{
+								estado_gc = "Completado";
+								estado_style = "success";
+									}
+								}else if(formato_registro == 6){
+										if(val < pon){
+							  estado_gc = "NO APTO";
+							  estado_style = "danger";
+								  }else{
+							  estado_gc = "APTO";
+							  estado_style = "success";
+								  }
+              }
+              
+        $('#estado-' + $(this).attr('name')).text(estado_gc);
+        $('#estado-' + $(this).attr('name')).attr('class', 'text-center font-weight-bold text-' + estado_style);
+
+    $(this).parent().html('<span class="cambiar_total_gc" idpub="'+$(this).attr('name')+'" valc="'+$(this).attr('valc')+'" formato_registro="'+formato_registro+'" pon="'+pon+'">'+val+'</span>');
+
+  
   });
 
 })

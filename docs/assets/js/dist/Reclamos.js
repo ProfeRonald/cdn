@@ -3,9 +3,11 @@ $(document).on('click', '.notireclamo', function () {
 	
 	var idr = $(this).attr('id');
 	var noidr = $('#norecrec').val();
+	
+	if($('#recmodal').text() == ''){
+		//$('#recmodal').html('<div class="text-info text-center mt-5 display-3"><i class="fa fa-refresh rotar"></i> Cargando...</div>');
+	}
 
-	$('#recmodal').html('<div class="text-info text-center mt-5 display-3"><i class="fa fa-refresh rotar"></i> Cargando...</div>');
-		
 		if(idr != noidr){
 
 	$('#' + idr).removeAttr('no', idr);
@@ -18,13 +20,14 @@ $(document).on('click', '.notireclamo', function () {
   		dataType: 'json',
   		data: {
   			op: "ModalRec",
-    		sec: "ModalRec",
     		datos: datos
   		}
 		})
   
   .done(function(rec){
-  	$('#recmodal').html(rec);
+  	$('#recmodal').html(rec['cont']);
+
+	$('#asigrec').html('- ' + rec['asig']);
   
   	var src = $('#' + idr).find('.photo').children('img').attr('src');
   	var nom = $('#' + idr).find('.name').text();
@@ -71,7 +74,6 @@ $(document).on('click', '#elical', function () {
   data: $("#fcale").serialize()
 	})
   .done(function(del){
-  	
   	if(del['u'] == 1){
 	setTimeout(function(){$('#idbcerrar').trigger("click");},2500);
   $("#aelirec").html('<div class="my-3 text-center" style="font-size:2rem;color:#D65D0A;">Calificaci&oacute;n eliminada<br /><i class="fa fa-check" aria-hidden="true"></i></div>');
@@ -106,7 +108,6 @@ $(document).on('click', '#elical', function () {
   url: "sesion.php?op=ModificarReclamoNota",
   dataType: 'json',
   data:{ op: 'ModificarReclamoNota',
-  			 sec: 'ModificarReclamoNota',
   			idr: idr, notar: notar}
 	})
   .done(function(up){		

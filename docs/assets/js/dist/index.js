@@ -17,6 +17,5 @@ function GPS(){
 GPS();
 
 $(document).on('click', '#desactivar-simulador', function () {
-	document.cookie = "simulador=administrador";
-	location.href = 'index.php';
+	location.href = 'sesion.php?op=CerrarSesion&adm=1';
 });

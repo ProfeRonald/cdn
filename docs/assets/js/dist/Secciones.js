@@ -130,7 +130,7 @@ $(document).ready(function () {
     var ide = $(this).attr('ide');
     $('#CuadroEst').attr('ide', ide);
     if ($(this).prop("checked") == false) {
-      $('#retirado_e' + ide).val('1');
+      $('#retirado_e' + ide).val('retirado');
       $('#coelest').attr('id', 'guardarae');
       $('#CuadroEst').modal('show');
       $('#guardarae').show();
@@ -146,7 +146,7 @@ $(document).ready(function () {
       $('#guardarae').attr('est', ide);
       $('#guardarae').attr('g', g);
     } else {
-      $('#retirado_e' + ide).val('0');
+      $('#retirado_e' + ide).val('');
       $('#guardarae').attr('id', 'coelest');
       $('#CuadroEst').modal('hide');
       $('#coelest').hide();
@@ -159,7 +159,7 @@ $(document).ready(function () {
   $('#CuadroEst').on('hidden.bs.modal', function () {
     var ide = $(this).attr('ide');
     $('#activo_e' + ide).prop('checked', true);
-    $('#retirado_e' + ide).val('0');
+    $('#retirado_e' + ide).val('');
   })
   
   $(document).on('click', '#guardarae', function () {
@@ -478,7 +478,7 @@ function(snapshot) {
   $('#barra_upload').html('<div class="progress-bar rounded progress-bar-striped d-block bg-info progress-bar-animated" role="progressbar" style="width: ' + progress + '%;font-weight:bold;font-size:15pt" aria-valuenow="' + progress + '" aria-valuemin="0" aria-valuemax="100">' + progress + '%</div>');
   switch (snapshot.state) {
     case firebase.storage.TaskState.PAUSED:
-      console.log('Pausar subida');
+      $('#mensaje_uploading').html('<div class="text-info"><i class="fa fa-refresh rotar"></i> Subida pausada.</div>');
       break;
     case firebase.storage.TaskState.RUNNING:
       $('#mensaje_uploading').html('<div class="text-info"><i class="fa fa-refresh rotar"></i> Subiendo imagen...</div>');
@@ -532,55 +532,7 @@ subirimagen.snapshot.ref.getDownloadURL().then(function(urlFoto) {
 });
 }
   
-  $(document).on('click', '.elimest', function () {
   
-    $('#guardarae').attr('id', 'coelest');
-    var foto = $(this).attr('img');
-    var foto = $('#' + foto).attr('src');
-    var nom = $(this).attr('nom');
-    var num = $(this).attr('num');
-    var ide = $(this).attr('ide');
-    var g = $(this).attr('grupo');
-    $("#CuadroEstLabel").text("Eliminando estudiante");
-    $('#eliminarest').html('<div class="modal-body"><div><a href="' + urlerd + '/index.php?op=VerEstudiante&id=' + ide + '&grupo=' + g + '"' + target + '><img style="border-radius: 10%;width:70px;height:70px;" src="' + foto + '"/><span> ' + nom + ', #' + num + '</span></a></div></div><div style="font-size:10pt;padding-bottom:20px">&iquest;Seguro desea eliminar este estudiante?</div>');
-    $('#coelest').attr('est', ide);
-    $('#coelest').attr('g', g);
-  
-  });
-  
-  $(document).on('click', '#coelest', function () {
-    var e = $(this).attr('est');
-    var g = $(this).attr('g');
-    $.ajax({
-      method: "POST",
-      url: "sesion.php?op=EliminarEst",
-      data: {
-        op: "EliminarEst",
-        sec: "EliminarEst",
-        id: e,
-        grupo: g
-      }
-    })
-      .done(function (elesth) {
-        var elesth = JSON.parse(elesth);
-        if (elesth['e'] == 1) {
-          $('#tr' + e).hide();
-          setTimeout(function () {
-            $('#cerrarde').trigger('click');
-          }, 3000);
-        } else {
-          var fondo = $('#tr' + e).css({ backgroundColor: '#cc8e35', border: '2px solid #F36C02' }).show()
-          setTimeout(function () {
-            fondo.css({ backgroundColor: '', border: '' });
-          }, 3000);
-          for (h = 0; h < 4; h++) {
-            $('#tr' + e).fadeTo('slow', 0.5).fadeTo('slow', 1.0);
-          }
-        }
-        $('#eliminarest').html(elesth['m']);
-      })
-  
-  });  
   
   
   });

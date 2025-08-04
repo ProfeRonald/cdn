@@ -12,6 +12,7 @@ $(document).ready(function () {
 	var grupos_competencias = Number($("#datos_js").attr("grupos_competencias"));
 	var tperiodos_escuela = $("#datos_js").attr("tperiodos_escuela");
 	var fechaextraordinario = $("#datos_js").attr("fechaextraordinario");
+	var tiponota = $("#datos_js").attr("tipo_nota");
 
 	$(document).on('click', '#verlista, #cerrar-listaests', function () {
 		$('#listaests').toggle("slow");
@@ -212,9 +213,12 @@ $(document).ready(function () {
 
 	}
 
-	function SumaPs(a, col, per) {
-		var n = 0;
+	function SumaPs(a, col, per, p=0, nota=0) {
+		
+		
+		if(tiponota == 'i'){
 		var suma = 0;
+		var n = 0;
 		$(".comp-" + a + '-' + col + '-' + per).each(function () {
 			var sumap = Number($(this).val());
 			if(sumap > 0){
@@ -222,8 +226,17 @@ $(document).ready(function () {
 				n++;
 			}
 		});
-
-		if(suma > 0){
+		}else{
+			if(p == 1){
+				$('#ind-' + a + '-' + col + '-' + per).attr('valclp', Number(nota));
+				$('#ind-' + a + '-' + col + '-' + per).attr('e', 1);
+			}
+			var suma = Number($('#ind-' + a + '-' + col + '-' + per).attr('valclp'));
+			var n = 1;
+			
+		}
+		
+		if(suma > 0 || p == 1){
 			var ind = Number(parseFloat(suma / n).toFixed(0));
 			$('#ind-' + a + '-' + col + '-' + per).text(ind);
 			var rp = Number(parseFloat(($('#' + a + '-' + col + '-' + per + '-rp').val() / 100) * (100 - ind)).toFixed(0));
@@ -292,7 +305,7 @@ $(document).ready(function () {
 		var nota = $(this).val();
 		var id_nota = $(this).attr("id_nota");
 		var id = $(this).attr("id").split("-");
-		var tipo_nota = "i-" + id[1] + "-" + id[2];
+		var tipo_nota = tiponota + "-" + id[1] + "-" + id[2];
 		var input = $(this);
 		if (nota != reserva) {
 			$.ajax({
@@ -315,7 +328,7 @@ $(document).ready(function () {
 				if (e["exito"] == 1) {
 					var color = "#2ECC71";
 					var col = input.attr("class").split('-')[2];
-					SumaPs (id[0], col, id[2]);
+					SumaPs (id[0], col, id[2], 1, nota);
 					SumaPCs(id[0]);
 					RevaluaAsignatura(id[0]);
 				} else {
@@ -334,8 +347,21 @@ $(document).ready(function () {
 					$(input).fadeTo("slow", 0.5).fadeTo("slow", 1.0);
 				}
 			});
+		}else{
+			SumaPs (id[0], id[1], id[2], 1, nota);
 		}
 	});
+
+	$(document).on("click", ".ValsCLP", function () {
+		var e = $(this).attr("e");
+		if(e == 1){
+		var id = $(this).attr("id").split('ind-')[1];
+		var valclp = $(this).attr("valclp");
+		$(this).html('<div class="text-white" style="font-size:1rem" id="' + id + '-1"></div><input class="CalificacionIL comp-' + id + '" maxlength="3" size="2" id="' + id + '" id_nota="' + $(this).attr("id_nota") + '" op="' + $(this).attr("op") + '" valc="' + valclp + '" autocomplete="off" value="' + valclp + '" style="font-size:2.5rem;width:80px;height:80px;"><div class="text-white" style="font-size:1rem" id="' + id + '-2" />');
+		$(this).attr("e", 0);
+		}
+	})
+	
 
 	$(document).on("blur", ".CalificacionILIngresar", function () {
 		var nota = $(this).val();
@@ -888,6 +914,9 @@ function SumaA(a){
 		if(cf > 0){
 		
 		if(pasis < ponderacion_asistencia){
+			
+			$('#fi-' + a + '-1').hide();
+
 			$('#pfs-' + a).closest('tr').hide();
 
 			$('#cpc-' + a).closest('tr').hide();
@@ -905,6 +934,7 @@ function SumaA(a){
 					  
 					}else if (cf >= ponderacion_academica) {
 						
+			$('#fi-' + a + '-1').hide();
 
 			$('#pfs-' + a).closest('tr').hide();
 			
@@ -1020,16 +1050,8 @@ function SumaA(a){
 									estado = "Reprobada";
 							}
 
-				
-
-
-
-			}
-
-							
+			}		
 						}
-
-
 
 
 					  }
@@ -1253,12 +1275,23 @@ function SumaA(a){
 		$('.CalificacionRA').trigger('change');
 		$('.CalificacionFCT').trigger('change');
 		asignaturas = asignaturas.split(',');
+		
 		var comps = new Object();
+
+		if(tiponota == 'i'){
 		$.each(asignaturas, function (i, a) {
 			$('#tabla-' + a + ' .CalificacionIL').each(function () {
 			comps[$(this).attr('class').split(' ')[1]] = $(this).attr('class').split(' ')[1];
 			})
 		})
+	}else{
+		$.each(asignaturas, function (i, a) {
+			$('#tabla-periodos-' + a + ' .ValsCLP').each(function () {
+			comps[$(this).attr('id')] = $(this).attr('id');
+			})
+		})
+
+	}
 
 		$.each(comps, function (c, comp) {
 		var cp = comp.split('-');

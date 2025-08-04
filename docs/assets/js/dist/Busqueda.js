@@ -26,7 +26,6 @@ var urlcdn = $("#index_js").attr("urlcdn");
 							})
 							
 					  	.done(function(opcs){
-					  		//console.log(opcs);
 					  		$('#estudiante_busquedasel').html(opcs);
 					  		$('#estudiante_busquedasel').attr('size', 7);
 					  		$("#estudiante_busquedasel").show();

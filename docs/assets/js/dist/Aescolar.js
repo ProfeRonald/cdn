@@ -33,12 +33,34 @@ fixedHeader: true,
     "iDisplayLength":	-1,
     
     });
+
+
+    $('#Tabla-Estadistica_final').DataTable({
+    orderCellsTop: true,
+fixedHeader: true,
+"columnDefs": [ {
+  "targets": 'no-sort',
+  "orderable": false,
+} ],
+    "responsive": true,
+    "scrollX": false,
+    "scrollY": 200,
+    "bAutoWidth": false,
+    "searching": false,
+    "bLengthChange" : false,
+    "bInfo":false,
+    "bFilter": false,
+    "paging": false,
+    "iDisplayLength":	-1,
+    
+    });
   
   }
 
 $(document).on('click', '#bestscentro', function () {
 
 $("#estscentro").toggle("slow");
+$("#estscentro_final").toggle("slow");
 $(".bfechaextra").toggle("slow");
 
 });
@@ -52,15 +74,18 @@ $(document).on('click', '#bproact', function () {
 });
 
 
-$(document).on('click', '#bcestscentro', function () {
+$(document).on('click', '#bcestscentro, #bcestscentro_final', function () {
 	$("#estscentro").css("display", "none");
+  $("#estscentro_final").css("display", "none");
+  $(".bfechaextra").show("slow");
 });
 
 $( window ).on( "load", function() {
 	$('.dataTables_scrollBody').css({'overflow': 'hidden', 'overflow-y': 'auto'});
     setTimeout(function(){
 		$('#estscentro').hide();	 
-			},6);
+    $('#estscentro_final').hide();
+			},500);
 });
 
 if($('#TablaAescolar').length > 0){
@@ -128,5 +153,65 @@ $(document).on('click', '#condfinal', function () {
 
 });
 
+
+$(document).on('click', '.elimest', function () {
+  
+    $('#guardarae').attr('id', 'coelest');
+    var foto = $(this).attr('img');
+    var foto = $('#' + foto).attr('src');
+    var nom = $(this).attr('nom');
+    var num = $(this).attr('num');
+    var ide = $(this).attr('ide');
+    var g = $(this).attr('grupo');
+    $("#CuadroEstLabel").text("Eliminando estudiante");
+    $('#eliminarest').html('<div class="modal-body"><div><a href="' + urlerd + '/index.php?op=VerEstudiante&id=' + ide + '&grupo=' + g + '"' + target + '><img style="border-radius: 10%;width:70px;height:70px;" src="' + foto + '"/><span> ' + nom + ', #' + num + '</span></a></div></div><div style="font-size:10pt;padding-bottom:20px">&iquest;Seguro desea eliminar la inscripci&oacute;n de este estudiante?</div>');
+    $('#coelest').attr('est', ide);
+    $('#coelest').attr('g', g);
+  
+  });
+  
+  $(document).on('click', '#coelest', function () {
+    var e = $(this).attr('est');
+    var g = $(this).attr('g');
+    $.ajax({
+      method: "POST",
+      url: "sesion.php?op=EliminarEst",
+      data: {
+        op: "EliminarEst",
+        sec: "EliminarEst",
+        id: e,
+        grupo: g
+      }
+    })
+      .done(function (elesth) {
+        var elesth = JSON.parse(elesth);
+        if (elesth['e'] == 1) {
+          $('#tr' + e).hide();
+          setTimeout(function () {
+            $('#cerrarde').trigger('click');
+          }, 3000);
+        } else {
+          var fondo = $('#tr' + e).css({ backgroundColor: '#cc8e35', border: '2px solid #F36C02' }).show()
+          setTimeout(function () {
+            fondo.css({ backgroundColor: '', border: '' });
+          }, 3000);
+          for (h = 0; h < 4; h++) {
+            $('#tr' + e).fadeTo('slow', 0.5).fadeTo('slow', 1.0);
+          }
+        }
+        $('#eliminarest').html(elesth['m']);
+      })
+  
+  });  
+
+$(document).on('click', '#sel-grp-todos', function () {
+
+  if( $(this).is(':checked') ) {
+    $('.sel-grp').prop('checked', true);
+  }else {
+    $('.sel-grp').prop('checked', false);
+  }
+  
+})
 
 });

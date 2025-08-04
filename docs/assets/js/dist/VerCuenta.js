@@ -2,7 +2,7 @@ $(document).ready(function () {
    
     var idc = new URLSearchParams(
         document.location.search.substring(1)
-      ).get("ica");
+      ).get("idcal");
      
       if (idc != "" && idc != null) {
 

@@ -302,7 +302,6 @@ $(document).ready(function () {
           id_grupo: id_grupo,
         },
       }).done(function (e) {
-        console.log(e);
         if (e["exito"] == 1 || e["exito"] == 2) {
           var color = "#2ECC71";
           if (e["exito"] == 1) {
@@ -512,18 +511,21 @@ $(document).ready(function () {
   })
 
   $(document).on('click', '.sizecal', function () {
+
   var por = Number($('#sizecal').attr('por'));
   var size = $(this).attr('size');
  
-  if(size == 'a' && por >= 10 && por < 291){
+  if(size == 'a' && por >= 10 && por < 161){
     $('#sizecal').attr('por', por + 10);
     $('#sizecal').text((por + 10) + '%');
-  }else if(size == 'r' && por > 10 && por <= 300){
+  }else if(size == 'r' && por > 10 && por <= 170){
     $('#sizecal').attr('por', por - 10);
     $('#sizecal').text((por - 10) + '%');
   }
   
   var por = Number($('#sizecal').attr('por'));
+  $('.DTFC_ScrollWrapper').parent().css({'zoom':'' + por / 100});
+  /*
  $('#TablaCalificaciones tbody td').css({'font-size':'' + por*60/10000 + 'rem'});
  $('#TablaCalificaciones_wrapper tbody td').css({'font-size':'' + por*60/10000 + 'rem'});
  $('#TablaCalificaciones_wrapper tbody td .foto-estudiantep').css({'width':'' + por + '%', 'height':'' + por + '%'});
@@ -540,17 +542,18 @@ $(document).ready(function () {
  $('#TablaCalificaciones thead th input').css({'width':'' + por*0.36 + 'px', 'height':'' + por*0.28 + 'px', 'font-size':'' + por*60/6000 + 'rem'});
  $('#TablaCalificaciones_wrapper thead th input').css({'width':'' + por*0.36 + 'px', 'height':'' + por*0.28 + 'px', 'font-size':'' + por*60/6000 + 'rem'});
  $('#TablaCalificaciones thead th .AsistenciasILFechaFinales').css({'width':'' + por*0.73 + 'px', 'height':'' + por*0.38 + 'px', 'font-size':'' + por*60/6000 + 'rem'});
- $('#TablaCalificaciones_wrapper thead th .AsistenciasILFechaFinales').css({'width':'' + por*0.72 + 'px', 'height':'' + por*0.38 + 'px', 'font-size':'' + por*60/6000 + 'rem'});
+ $('#TablaCalificaciones_wrapper thead th .AsistenciasILFechaFinales').css({'width':'' + por*0.72 + 'px', 'height':'' + por*0.38 + 'px', 'font-size':'' + por*60/6000 + 'rem'});*/
 
  $(".sizecal[size=a] img").show();
-  if($('#sizecal').text() == '300%'){
+  if($('#sizecal').text() == '170%'){
     $(".sizecal[size=a] img").hide();
   }
 
   $(".sizecal[size=r] img").show();
-  if($('#sizecal').text() == '10%'){
+  if($('#sizecal').text() == '60%'){
     $(".sizecal[size=r] img").hide();
   }
+
   })
 
 
@@ -748,7 +751,6 @@ $(document).ready(function () {
       data: $("#formasis").serialize()
     })
       .done(function (ias) {
-        
         $('#msjasistencia').html(ias['msj']);
         if (ias['si'] == 2) {
           $('#insertar_asistencia i').text(' Pulse de nuevo para registrar la asistencia');
@@ -1097,7 +1099,7 @@ $(document).ready(function () {
     $('#slidecontainer').hide('slow');
   });
 
-  //if(local > 1){
+  if(local > 1){
 
   const ruletawebfirebaseConfig = {
     apiKey: "AIzaSyA9eJxcrKP8r4YuteGpfvQRTQxdj6ORqFg",
@@ -1111,7 +1113,7 @@ $(document).ready(function () {
 
   
       const ruletaweb = firebase.initializeApp(ruletawebfirebaseConfig, "ruletaweb");
-  //}
+  }
   
   $(document).on('click', '.iconHerramienta', function () {
 

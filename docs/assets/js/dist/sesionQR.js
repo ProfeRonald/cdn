@@ -1,4 +1,6 @@
 
+var urlcdn = $("#index_js").attr("urlcdn");
+
 $(document).on('click', '#vincular-device-link', function () {
     $('#vincular-device').html('<iframe id="camara-id" style="margin:0px;padding:0px;width: 100%;border:0px;height: 100vh;overflow:hidden;" src="web.php" scrolling="no" allow="camera;"></iframe>');
     
@@ -15,7 +17,7 @@ $(document).on('click', '#vincular-device-link', function () {
     });
     
     $(function () {
-                  $('[data-toggle="popover"]').popover()
+       $('[data-toggle="popover"]').popover()
     })
     
     $(document).on('click', '#message', function () {
@@ -30,10 +32,12 @@ $(document).on('click', '#vincular-device-link', function () {
         datos_reclamos = datos_reclamos.split(',');
         var ids = Array();
         var puestos = Array();
+        var profesores = Array();
         $.each(datos_reclamos, function(i, dato_reclamo) {
             id_puesto = dato_reclamo.split('-');
             ids[i] = id_puesto[0];
             puestos[i] = id_puesto[1];
+            profesores[i] = id_puesto[2];
         })
         
          $.ajax({
@@ -42,13 +46,16 @@ $(document).on('click', '#vincular-device-link', function () {
       dataType: 'json',
       data: {
         ids: ids,
-        puestos: puestos
+        puestos: puestos,
+        profesores: profesores
       }
         })
       .done(function(ids_puestos){
         $.each(ids_puestos, function(i, id_puesto) {
             if(id_puesto['foto'] !=''){
             $('.foto-reclamo-'+i).attr('src', id_puesto['foto']);
+
+            
             }
             if(id_puesto['nombre'] !=''){
             $('.nombre-reclamo-'+i).html(' ' + id_puesto['nombre']);

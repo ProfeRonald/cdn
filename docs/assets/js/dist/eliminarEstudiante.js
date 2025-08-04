@@ -36,7 +36,6 @@ $(document).ready(function() {
       }
     })
       .done(function (e) {
-		console.log(e);
         if (e == 1) {
 			$('#EliminandoAlumno .modal-body').html('<span style="font-size:2rem;color:#218c74;font-weight:bold;" class="fa fa-trash"> &iexcl;Eliminado!</span>');
 			$('#elimina-estudiante').hide();

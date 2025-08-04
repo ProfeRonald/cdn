@@ -455,6 +455,7 @@ $(document).on("blur", ".CalificacionesRP", function () {
       }
       
     });
+    
    // var ti = verT(col, per);
   //  if(suma > 0 && ti == n){
       if(suma > 0){
@@ -598,7 +599,6 @@ window.RevaluaRP = function (id_nota) {
         }
 
        // if(psgs == grupos_competencias){
-//console.log(psgs +'------'+grupos_competencias);
         var comps = '';
         var cf = 0;
         var pc = new Array();

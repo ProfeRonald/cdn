@@ -54,7 +54,12 @@ scrollCollapse: verdadero_f,
 
 });
 
-$("#nivelea").appendTo("#nivela");
+setTimeout(function(){
+	 $("#nivelea").attr('class', 'card');
+   $("#nivelea").appendTo("#nivela");
+   },1000);
+
+
 
 $("#progreso_alumno_line").peity("line");
 

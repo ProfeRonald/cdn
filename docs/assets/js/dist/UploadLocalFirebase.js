@@ -104,7 +104,7 @@ $(".input_file_foto").change(function () {
 				  $('#barra_upload').html('<div class="progress-bar rounded progress-bar-striped d-block bg-info progress-bar-animated" role="progressbar" style="width: ' + progress + '%;font-weight:bold;font-size:15pt" aria-valuenow="' + progress + '" aria-valuemin="0" aria-valuemax="100">' + progress + '%</div>');
 				  switch (snapshot.state) {
 					case firebase.storage.TaskState.PAUSED:
-					  console.log('Pausar subida');
+					  $('#mensaje_uploading').html('<div class="text-info"><i class="fa fa-refresh rotar"></i> Subida pausada.</div>');
 					  break;
 					case firebase.storage.TaskState.RUNNING:
 					  $('#mensaje_uploading').html('<div class="text-info"><i class="fa fa-refresh rotar"></i> Subiendo imagen...</div>');

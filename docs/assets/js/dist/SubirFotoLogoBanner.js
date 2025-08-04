@@ -85,15 +85,18 @@ if (sqlq == 1) {
     }
   })
     .done(function (e) {
-      
       if(e == 1){
         imagenSubida(urlimgs + '/' + ruta, cmini);
         $('#mensaje_uploading').html('<div class="text-success"> ¡La imagen se ha subido con éxito!</div>');
-					setTimeout(function(){
+					
+
+      }else{
+         $('#mensaje_uploading').html('<div class="text-danger"> ¡No se pudo subir la imagen!</div>');
+      }
+
+      setTimeout(function(){
 					$('#mensaje_uploading').hide('slow');
 					},5000);
-
-      }
     })
 
   }

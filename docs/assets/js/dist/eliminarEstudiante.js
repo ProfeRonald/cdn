@@ -27,6 +27,7 @@ $(document).ready(function() {
     });
 
 	$(document).on('click', '#elimina-estudiante', function () {
+    var foto = $(this).attr('foto');
     $.ajax({
       method: "POST",
       url: "up.php?op=EliminarEstudiante",
@@ -39,6 +40,11 @@ $(document).ready(function() {
         if (e == 1) {
 			$('#EliminandoAlumno .modal-body').html('<span style="font-size:2rem;color:#218c74;font-weight:bold;" class="fa fa-trash"> &iexcl;Eliminado!</span>');
 			$('#elimina-estudiante').hide();
+          if (foto && foto.includes('firebasestorage.googleapis.com')) {
+        foto = foto.replace(/^url\(['"](.+)['"]\)/, '$1');
+        let filePath = decodeURIComponent(foto.replace('https://firebasestorage.googleapis.com/v0/b/imgs-escuelard.appspot.com/o/', '')).split('?')[0];
+        firebase.storage().ref().child(filePath).delete();
+          }
           setTimeout(function () {
             location.href = 'index.php';
           }, 4000);

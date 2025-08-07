@@ -182,7 +182,7 @@ $(document).ready(function () {
 
     })
       .done(function (u) {
-        
+        console.log(u);
         $('#cargar_razon').html('<div style="text-align:center;font-size:20pt"><i class="fa fa-refresh rotar" aria-hidden="true"></i></div>');
         if (u == 1) {
           $('#raz' + est).val(re);

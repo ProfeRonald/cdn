@@ -2,6 +2,8 @@
 $(document).ready(function () {
 
 var filescdn = $("#datos_js").attr("filescdn");
+var urlerd = $("#datos_js").attr("urlerd");
+var target = $("#datos_js").attr("target");
 
 var idlp = Number(document.cookie.replace(
   /(?:(?:^|.*;\s*)idples\s*\=\s*([^;]*).*$)|^.*$/,

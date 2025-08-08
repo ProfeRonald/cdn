@@ -59,27 +59,34 @@ fixedHeader: true,
   
   }
 
-$(document).on('click', '#bestscentro', function () {
+$(document).on('click', '#boton-ests-centro', function () {
 
 $("#estscentro").toggle("slow");
 $("#estscentro_final").toggle("slow");
-$(".bfechaextra").toggle("slow");
+$(".botones-aescolar-menu").toggle("slow");
+$("#boton-ests-centro-back").toggle("slow");
+
+});
+
+$(document).on('click', '#boton-ests-centro-back', function () {
+
+$("#boton-ests-centro").trigger('click');
 
 });
 
 
 $(document).on('click', '#bproact', function () {
-  $("#bestscentro").hide("slow");
-  $(".bfechaextra").hide("slow");
+  $("#boton-ests-centro").hide("slow");
+  $(".botones-aescolar-menu").hide("slow");
   $('#pactividad').show("slow");
   $('#actividadp').text('');
 });
 
 
-$(document).on('click', '#bcestscentro, #bcestscentro_final', function () {
+$(document).on('click', '#boton-close-ests, #boton-close-ests_final', function () {
 	$("#estscentro").css("display", "none");
   $("#estscentro_final").css("display", "none");
-  $(".bfechaextra").show("slow");
+  $(".botones-aescolar-menu").show("slow");
 });
 
 $( window ).on( "load", function() {

@@ -70,6 +70,6 @@
 	$(document).on('click', '#bceract', function () {
 		$('#pactividad').hide("slow");
 		$('#bproact').show("slow");
-		$("#bestscentro").show("slow");
-		$(".bfechaextra").show("slow");
+		$("#boton-ests-centro").show("slow");
+		$(".botones-aescolar-menu").show("slow");
 	});

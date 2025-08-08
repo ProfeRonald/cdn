@@ -84,8 +84,8 @@ var idlp = Number(document.cookie.replace(
     });
 
 	$(document).on('click', '#bproact', function () {
-		$("#bestscentro").hide("slow");
-		$(".bfechaextra").hide("slow");
+		$("#boton-ests-centro").hide("slow");
+		$(".botones-aescolar-menu").hide("slow");
 		$('#pactividad').show("slow");
 		$('#actividadp').text('');
 	});

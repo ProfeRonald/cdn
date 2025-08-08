@@ -145,7 +145,7 @@ if(a != e){
 });
 
 $(document).on('click', '#bproact', function () {
-	$(".bfechaextra").hide("slow");
+	$(".botones-aescolar-menu").hide("slow");
 	$('#pactividad').show("slow");
 	$('#actividadp').text('');
 });

@@ -2490,6 +2490,18 @@ right: 182px;
 
 }
 
+.botones-aescolar  {
+    display: inline-block;
+    width: 270px;
+    height: 101px;
+    white-space: normal;
+    font-size: 1.5rem;
+    padding: 8px;
+    cursor: pointer;
+    margin-bottom: 6px;
+    border: 0px;
+}
+
 /*
 img{
   pointer-events: none;

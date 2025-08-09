@@ -143,8 +143,10 @@ $(document).on(
 		}
 });
 
-$(document).on('click', '#condfinal', function () {
+$(document).on('click', '.boton-reporte-lista', function () {
   
+  $('#op-lista').val($(this).attr('op'));
+
  if($('.sel-grp').filter(':checked').length > 0){
   
   $( "#condfinalForm" ).trigger( "submit" );

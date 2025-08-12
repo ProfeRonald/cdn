@@ -1,4 +1,3 @@
-$(document).ready(function () {
 
   const ruletawebfirebaseConfig = {
     apiKey: "AIzaSyA9eJxcrKP8r4YuteGpfvQRTQxdj6ORqFg",
@@ -12,6 +11,3 @@ $(document).ready(function () {
 
   
       const ruletaweb = firebase.initializeApp(ruletawebfirebaseConfig, "ruletaweb");
-  
-
-});

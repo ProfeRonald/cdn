@@ -1,0 +1,26 @@
+
+
+{
+	"sProcessing":     "Procesando...",
+	"sLengthMenu":     "Mostrar _MENU_",
+	"sZeroRecords":    "No se encontraron empresas",
+	"sEmptyTable":     "Ninguna empresa disponible en esta tabla",
+	"sInfo":           "Mostrando resultados del _START_ al _END_ de un total de _MAX_ empresas",
+	"sInfoEmpty":      "Mostrando resultados del 0 al 0 de un total de 0 resultados",
+	"sInfoFiltered":   "",
+	"sInfoPostFix":    "",
+	"sSearch":         "Buscar empresa:",
+	"sUrl":            "",
+	"sInfoThousands":  ",",
+	"sLoadingRecords": "Cargando...",
+	"oPaginate": {
+		"sFirst":    "Primera",
+		"sLast":     "Última",
+		"sNext":     "Siguiente",
+		"sPrevious": "Anterior"
+	},
+	"oAria": {
+		"sSortAscending":  ": Activar para ordenar de forma ascendente",
+		"sSortDescending": ": Activar para ordenar de forma descendente"
+	}
+}

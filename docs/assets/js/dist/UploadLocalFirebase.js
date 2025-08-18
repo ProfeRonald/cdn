@@ -1,6 +1,5 @@
 $(".input_file_foto").change(function () {
 
-
 		$('#barra_upload').show('slow');
 		$('#mensaje_uploading').show('slow');
 		var xwidth = $(this).attr('xwidth');

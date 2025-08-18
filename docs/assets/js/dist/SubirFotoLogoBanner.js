@@ -71,6 +71,8 @@ if (sqlq == 1) {
   var ruta = 'logos/otros/logo_'+idq+'.png';
 } else if (sqlq == 3) {
   var ruta = 'banners/banner_'+idq+'.png';
+} else if (sqlq == 5) {
+  var ruta = 'logos/empresas/empresa_'+idq+'.png';
 } else {
   var ruta = 'fotos/personal/foto_'+idq+'.jpg';
 }
@@ -88,6 +90,10 @@ if (sqlq == 1) {
       if(e == 1){
         imagenSubida(urlimgs + '/' + ruta, cmini);
         $('#mensaje_uploading').html('<div class="text-success"> ¡La imagen se ha subido con éxito!</div>');
+
+        if (sqlq == 5) {
+            $('[ide='+idq+']').attr('src', urlimgs + '/' + ruta + '?v=' + `${new Date().getTime()}`);
+        }
 					
 
       }else{

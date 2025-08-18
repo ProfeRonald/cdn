@@ -1376,6 +1376,77 @@ $(document).ready(function () {
       }, 700);
     
     })
-  
 
-});
+
+     $(document).on('click', '.datos-empresa', function () {
+      var idempresa = $(this).attr('idempresa');
+      var id_estudiante = $(this).attr("id");
+      if(idempresa > 0){
+        $('#datosempresa-estudiante').show();
+        $('#sinsempresa-estudiante').hide();
+      }else{
+        $('#sinsempresa-estudiante').show();
+        $('#datosempresa-estudiante').hide();
+        $('#vincular-empresa').attr('id_estudiante', id_estudiante);
+      }
+  //  $('#datosempresa-estudiante').html('<div class="row g-4"><div class="col-md-6 border-end">              <div class="text-center mb-3">   <img src="https://via.placeholder.com/80x80?text=Logo" alt="Logo Empresa" class="empresa-logo">              </div>              <div class="info-block">                <h6>Nombre:</h6>                <p>Mi Empresa SRL</p>              </div>              <div class="info-block">                <h6>Dirección:</h6>                <p>Calle Principal #123, Ciudad</p>              </div>              <div class="info-block">                <h6>Teléfono:</h6>                <p>(809) 555-1234</p>              </div>              <div class="info-block">                <h6>Correo:</h6>                <p>contacto@miempresa.com</p>              </div>              <div class="info-block">                <h6>RNC:</h6>                <p>123456789</p>              </div>              <div class="info-block">                <h6>Descripción:</h6>                <p>Empresa dedicada a ofrecer servicios de tecnología y soluciones empresariales.</p>              </div>            </div>            <div class="col-md-6">              <div class="text-center mb-3">                <img src="https://via.placeholder.com/100?text=Foto" alt="Foto Usuario" class="usuario-foto">              </div>              <div class="info-block">                <h6>Nombre Completo:</h6>                <p>Juan Pérez</p>              </div>              <div class="info-block">                <h6>Sexo:</h6>                <p>Masculino</p>              </div>              <div class="info-block">                <h6>Edad:</h6>                <p>30 años</p>              </div>            </div>          </div>');
+
+
+})
+
+$(document).on('change', '#empresa_estudiante', function () {
+  $('#vincular-empresa').attr('idempresa', $(this).val());
+  $(this).parent().parent().parent().find('img').attr("src", $(this).find("option:selected").attr("logo"));
+})
+
+$(document).on('click', '#vincular-empresa', function () {
+  var idempresa = $(this).attr('idempresa');
+  var id_estudiante = $(this).attr('id_estudiante');
+  var op = $('#empresa_estudiante').find("option:selected");
+  $.ajax({
+    method: "POST",
+    url: "up.php?op=VincularEmpresaEstudiante",
+    data: {
+      id_empresa: idempresa,
+      id_estudiante: id_estudiante,
+      id_grupo: id_grupo
+    },
+  }).done(function (u) {
+    console.log(u);
+      if(u == 1){
+  var td = $('#' + id_estudiante).parent().parent();
+  $('[id=' + id_estudiante + ']').each(function(){
+   $(this).attr('idempresa', idempresa);
+  });
+  td.find('.logo_empresa').html('<img src="' + op.attr("data-logo") + '" alt="Logo Empresa">');
+  td.find('.nombre_empresa').html(op.attr("data-nombre"));
+  td.find('.direccion_empresa').html(op.attr("data-direccion"));
+  td.find('.telefono_empresa').html(op.attr("data-telefono"));  
+  td.find('.correo_empresa').html(op.attr("data-correo"));  
+  td.find('.rnc_empresa').html(op.attr("data-rnc"));  
+  td.find('.descripcion_empresa').html(op.attr("data-descripcion"));
+  setTimeout(function () {  
+    $('#datosEmpresa').modal('hide');
+    }, 3000);
+  $('#msj_empresa').html('<span class="text-success">Empresa vinculada con éxito.</span>');
+    }else{
+  $('#msj_empresa').html('<span class="text-danger">No se pudo vincular la empresa con el estudiante. Intente de nuevo.</span>');
+setTimeout(function () { 
+    $('#msj_empresa').html('');
+    }, 3000);
+    }
+
+})
+
+})
+
+
+$(".standardSelect").chosen({
+      disable_search_threshold: 1,
+      no_results_text: "Elija una empresa!",
+      width: "50%"
+    });
+
+
+
+})

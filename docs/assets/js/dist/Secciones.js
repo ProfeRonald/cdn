@@ -528,11 +528,6 @@ subirimagen.snapshot.ref.getDownloadURL().then(function(urlFoto) {
 });
 
 });
-}
-
-$(window).on("load", function () {
-$('#menuToggle').trigger('click');
-});
-  
+}  
   
   });

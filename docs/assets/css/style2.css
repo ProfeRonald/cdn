@@ -370,7 +370,8 @@ td {
 }
 
 .anchotablasecciones {
-  max-width: 900px;
+  /*max-width: 900px;*/
+  max-width: 1160px;
   max-height: 375px;
   /*overflow-x:scroll;
   overflow-y:scroll;*/

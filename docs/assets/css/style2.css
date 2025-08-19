@@ -401,7 +401,7 @@ td {
 .tabla-secciones .fijars-3 {
   position: sticky;
   min-width: 100px;
-  left: 160px;
+  left: 266px;
 }
 
 .tabla-secciones tbody tr .fijars,
@@ -2500,8 +2500,13 @@ right: 182px;
     padding: 8px;
     cursor: pointer;
     margin-bottom: 6px;
+    margin-left: 22px;
     border: 0px;
     border-radius: 1rem;
+}
+
+.inputsecs{
+font-size: 1.2rem;
 }
 
 /*

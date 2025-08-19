@@ -88,6 +88,7 @@ $(document).on('change', '#sel-grupo-seccion', function () {
 	$(document).on('focus', '.inputsecs', function () {
 	$(this).css({'background-color':'#F6DDCC'});
 	$('#cantidad').prop('disabled', true);
+	$('#sel-grupo-ests').prop('disabled', true);
 	});
 
 	$(document).on('blur', '.inputsecs', function () {

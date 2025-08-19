@@ -2493,11 +2493,11 @@ right: 182px;
 
 .botones-aescolar  {
     display: inline-block;
-    width: 270px;
+    width: 250px;
     height: 101px;
     white-space: normal;
-    font-size: 1.5rem;
-    padding: 8px;
+    font-size: 1.3rem;
+    padding: 17px;
     cursor: pointer;
     margin-bottom: 6px;
     margin-left: 22px;

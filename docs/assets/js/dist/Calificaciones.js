@@ -14,6 +14,7 @@ $(document).ready(function () {
   var year_1 = Number($("#datos_js").attr("year_1"));
   var year_2 = Number($("#datos_js").attr("year_2"));
   var auto_asistencia = Number($("#datos_js").attr("auto_asistencia"));
+  var teps = Number($("#datos_js").attr("teps"));
 
   if(datetype == 'text'){
     var wdtt = -5;
@@ -1379,42 +1380,58 @@ $(document).ready(function () {
 
 
      $(document).on('click', '.datos-empresa', function () {
+      $('#msj_empresa').html('');
+      $('#vincular-empresa').attr('up', 1);
       var idempresa = $(this).attr('idempresa');
       var id_estudiante = $(this).attr("id");
       if(idempresa > 0){
         $('#datosempresa-estudiante').show();
         $('#sinsempresa-estudiante').hide();
+        
+      var td = $('#' + id_estudiante).parent().parent();
+  
+      $('#datosempresa-estudiante').html('<div class="row g-4"><div class="col-md-6 border-end">              <div class="text-center mb-3">   <img src="' + td.find('.logo_empresa img').attr('src') + '" style="max-width:100px" alt="' + td.find('.nombre_empresa').html() + '" class="empresa-logo">              </div>              <div class="info-block">                <h6>Nombre:</h6>                <p>' + td.find('.nombre_empresa').html() + '</p>              </div>              <div class="info-block">                <h6>Dirección:</h6>                <p>' + td.find('.direccion_empresa').html()  + '</p>              </div>              <div class="info-block">                <h6>Teléfono:</h6>                <p>' + td.find('.telefono_empresa').html() + '</p>              </div>              <div class="info-block">                <h6>Correo:</h6>                <p>' + td.find('.correo_empresa').html() + '</p>              </div>              <div class="info-block">                <h6>RNC:</h6>                <p>' + td.find('.rnc_empresa').html() + '</p>              </div>              <div class="info-block">                <h6>Descripción:</h6>                <p>' + td.find('.descripcion_empresa').html() + '</p>              </div>            </div>            <div class="col-md-6">              <div class="text-center mb-3">                <img src="' + td.find('.foto-estudiantep img').attr('src') + '" style="max-width:100px" alt="Foto Usuario" class="usuario-foto">              </div>              <div class="info-block">                <h6>Nombre Completo:</h6>                <p>' + td.find('.datos-empresa').parent().attr('title') + '</p>              </div>              <div class="info-block">                <h6>Sexo:</h6>                <p>' + td.find('.sexo_empresa').html() + '</p>              </div>              <div class="info-block">                <h6>Edad:</h6>                <p>' + td.find('.edad_empresa').html() + ' a&ntilde;os</p>              </div>            </div>          </div><div class="mt-2 text-center"><button type="button" class="btn btn-danger btn-sm"><i style="cursor:pointer" class="desvincular_empresa fa fa-trash fa-2x"> Desvincular estudiante de esta empresa<i/></button></div>');
+
+      $('#datosempresa-estudiante').find('.desvincular_empresa').attr('id_estudiante', id_estudiante);
+      
       }else{
         $('#sinsempresa-estudiante').show();
         $('#datosempresa-estudiante').hide();
         $('#vincular-empresa').attr('id_estudiante', id_estudiante);
       }
-  //  $('#datosempresa-estudiante').html('<div class="row g-4"><div class="col-md-6 border-end">              <div class="text-center mb-3">   <img src="https://via.placeholder.com/80x80?text=Logo" alt="Logo Empresa" class="empresa-logo">              </div>              <div class="info-block">                <h6>Nombre:</h6>                <p>Mi Empresa SRL</p>              </div>              <div class="info-block">                <h6>Dirección:</h6>                <p>Calle Principal #123, Ciudad</p>              </div>              <div class="info-block">                <h6>Teléfono:</h6>                <p>(809) 555-1234</p>              </div>              <div class="info-block">                <h6>Correo:</h6>                <p>contacto@miempresa.com</p>              </div>              <div class="info-block">                <h6>RNC:</h6>                <p>123456789</p>              </div>              <div class="info-block">                <h6>Descripción:</h6>                <p>Empresa dedicada a ofrecer servicios de tecnología y soluciones empresariales.</p>              </div>            </div>            <div class="col-md-6">              <div class="text-center mb-3">                <img src="https://via.placeholder.com/100?text=Foto" alt="Foto Usuario" class="usuario-foto">              </div>              <div class="info-block">                <h6>Nombre Completo:</h6>                <p>Juan Pérez</p>              </div>              <div class="info-block">                <h6>Sexo:</h6>                <p>Masculino</p>              </div>              <div class="info-block">                <h6>Edad:</h6>                <p>30 años</p>              </div>            </div>          </div>');
-
+      
 
 })
 
 $(document).on('change', '#empresa_estudiante', function () {
   $('#vincular-empresa').attr('idempresa', $(this).val());
-  $(this).parent().parent().parent().find('img').attr("src", $(this).find("option:selected").attr("logo"));
+  $(this).parent().parent().parent().find('img').attr("src", $(this).find("option:selected").attr("data-logo"));
 })
 
 $(document).on('click', '#vincular-empresa', function () {
-  var idempresa = $(this).attr('idempresa');
   var id_estudiante = $(this).attr('id_estudiante');
-  var op = $('#empresa_estudiante').find("option:selected");
+  var up = $(this).attr('up');
+  $('#vincular-empresa').attr('up', 1);
+  if(up == 1){
+    var op = $('#empresa_estudiante').find("option:selected");
+    var idempresa = $(this).attr('idempresa');
+  }else{
+    var idempresa = '';
+  }
   $.ajax({
     method: "POST",
     url: "up.php?op=VincularEmpresaEstudiante",
     data: {
       id_empresa: idempresa,
       id_estudiante: id_estudiante,
-      id_grupo: id_grupo
+      id_grupo: id_grupo,
+      up: up
     },
   }).done(function (u) {
     console.log(u);
       if(u == 1){
   var td = $('#' + id_estudiante).parent().parent();
+  if(up == 1){
   $('[id=' + id_estudiante + ']').each(function(){
    $(this).attr('idempresa', idempresa);
   });
@@ -1425,12 +1442,38 @@ $(document).on('click', '#vincular-empresa', function () {
   td.find('.correo_empresa').html(op.attr("data-correo"));  
   td.find('.rnc_empresa').html(op.attr("data-rnc"));  
   td.find('.descripcion_empresa').html(op.attr("data-descripcion"));
+  td.find('.desvincular_empresa-parent').html('<i style="cursor:pointer" class="desvincular_empresa fa fa-trash fa-2x"><i/>');
+  ContarVinculados(1);
+  }else{
+  $('[id=' + id_estudiante + ']').each(function(){
+   $(this).removeAttr('idempresa');
+  });
+  td.find('.logo_empresa').text('');
+  td.find('.nombre_empresa').text('');
+  td.find('.direccion_empresa').text('');
+  td.find('.telefono_empresa').text('');  
+  td.find('.correo_empresa').text('');  
+  td.find('.rnc_empresa').text('');  
+  td.find('.descripcion_empresa').text('');
+  td.find('.desvincular_empresa-parent').text('');
+  ContarVinculados(-1);
+  }
+  
   setTimeout(function () {  
     $('#datosEmpresa').modal('hide');
-    }, 3000);
+    }, 2000);
+    if(up == 1){
   $('#msj_empresa').html('<span class="text-success">Empresa vinculada con éxito.</span>');
     }else{
+  $('#msj_empresa').html('<span class="text-warning">Empresa desvinculada con éxito.</span>');   
+    }
+    }else{
+      if(up == 1){
   $('#msj_empresa').html('<span class="text-danger">No se pudo vincular la empresa con el estudiante. Intente de nuevo.</span>');
+    }else{
+  $('#msj_empresa').html('<span class="text-success">No se pudo desvincular la empresa con el estudiante. Intente de nuevo.</span>');  
+    }
+  
 setTimeout(function () { 
     $('#msj_empresa').html('');
     }, 3000);
@@ -1440,6 +1483,51 @@ setTimeout(function () {
 
 })
 
+$(document).on('click', '.desvincular_empresa', function () {
+
+   if (!confirm("¿Segugo desea desvincular al estudiante de esta empresa?")) {
+        return false;
+   }
+      if($(this).attr('id_estudiante') != ''){
+
+        var id_estudiante = $(this).attr('id_estudiante');
+
+      }else{
+  
+        var id_estudiante = $(this).closest("tr").find(".datos-empresa").attr("id");
+      
+      }
+
+$('#vincular-empresa').attr('id_estudiante', id_estudiante);
+$('#vincular-empresa').attr('up', 0);
+$('#vincular-empresa').trigger('click');
+
+})
+
+function ContarVinculados(s=0){
+    tv = 0;  
+  if(s == 0){
+    $('.datos-empresa').each(function () {
+      if(Number($(this).attr('idempresa')) > 0){
+      tv++;
+      }
+    });
+    }else{
+  tv = Number($('#cantidad-vinculados').attr('tv'));
+  if(s == 1){
+  tv = tv + 1;
+  }else{
+    tv = tv - 1;
+  }
+    }
+    $('#cantidad-vinculados').attr('tv', tv);
+    var vin = Number(parseFloat(tv / teps * 100).toFixed(0));
+    $('#cantidad-vinculados').html(tv + ' de ' + teps + ' estudiantes vinculados');
+    $('#progreso-vinculados').html('<h4 class="font-weight-bold">Progreso de la vinculaci&oacute;n para este grupo:</h4><div class="progress my-2" style="height:30px">						<div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: ' + vin + '%;font-weight:bold;font-size:15pt" aria-valuenow="' + vin + '" aria-valuemin="0" aria-valuemax="100">' + vin + '%</div>					</div>');
+    //
+}
+
+ContarVinculados(0);
 
 $(".standardSelect").chosen({
       disable_search_threshold: 1,

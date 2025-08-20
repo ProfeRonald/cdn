@@ -42,4 +42,15 @@ $(document).on(
 }
 
 
+$(document).on("click", ".vinculados-empresa", function () {
+  var logo_empresa = $(this).attr('src');
+  var nombre_empresa = $(this).attr('alt');
+  var ids_empresa = $(this).attr('data-ids');
+  $('#vinculados-empresa').html('<div class="row"><div class="col-6"><img src="' + logo_empresa + '" alt="' + nombre_empresa + '"></div><div class="col-6">' + nombre_empresa + '</div></div>');
+      
+})
+
+
+
+
 });

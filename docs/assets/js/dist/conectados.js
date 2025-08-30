@@ -135,6 +135,7 @@ web
             })
         })
 
+
 $(document).on("click", "#cerrarSesion", function () {
   enlineaPersonal.set(0);
 	UltimaConexion.set(

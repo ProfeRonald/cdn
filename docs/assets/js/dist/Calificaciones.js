@@ -1384,15 +1384,30 @@ $(document).ready(function () {
       $('#vincular-empresa').attr('up', 1);
       var idempresa = $(this).attr('idempresa');
       var id_estudiante = $(this).attr("id");
+      var quien = $(this).attr('quien');
       if(idempresa > 0){
         $('#datosempresa-estudiante').show();
         $('#sinsempresa-estudiante').hide();
         
+        if(quien == 'vinculador'){
       var td = $('#' + id_estudiante).parent().parent();
-  
-      $('#datosempresa-estudiante').html('<div class="row g-4"><div class="col-md-6 border-end">              <div class="text-center mb-3">   <img src="' + td.find('.logo_empresa img').attr('src') + '" style="max-width:100px" alt="' + td.find('.nombre_empresa').html() + '" class="empresa-logo">              </div>              <div class="info-block">                <h6>Nombre:</h6>                <p>' + td.find('.nombre_empresa').html() + '</p>              </div>              <div class="info-block">                <h6>Dirección:</h6>                <p>' + td.find('.direccion_empresa').html()  + '</p>              </div>              <div class="info-block">                <h6>Teléfono:</h6>                <p>' + td.find('.telefono_empresa').html() + '</p>              </div>              <div class="info-block">                <h6>Correo:</h6>                <p>' + td.find('.correo_empresa').html() + '</p>              </div>              <div class="info-block">                <h6>RNC:</h6>                <p>' + td.find('.rnc_empresa').html() + '</p>              </div>              <div class="info-block">                <h6>Descripción:</h6>                <p>' + td.find('.descripcion_empresa').html() + '</p>              </div>            </div>            <div class="col-md-6">              <div class="text-center mb-3">                <img src="' + td.find('.foto-estudiantep img').attr('src') + '" style="max-width:100px" alt="Foto Usuario" class="usuario-foto">              </div>              <div class="info-block">                <h6>Nombre Completo:</h6>                <p>' + td.find('.datos-empresa').parent().attr('title') + '</p>              </div>              <div class="info-block">                <h6>Sexo:</h6>                <p>' + td.find('.sexo_empresa').html() + '</p>              </div>              <div class="info-block">                <h6>Edad:</h6>                <p>' + td.find('.edad_empresa').html() + ' a&ntilde;os</p>              </div>            </div>          </div><div class="mt-2 text-center"><button type="button" class="btn btn-danger btn-sm"><i style="cursor:pointer" class="desvincular_empresa fa fa-trash fa-2x"> Desvincular estudiante de esta empresa<i/></button></div>');
+        }else{
+   var td = $(this);
+   
+        }
 
-      $('#datosempresa-estudiante').find('.desvincular_empresa').attr('id_estudiante', id_estudiante);
+      $('#datosempresa-estudiante').html('<div class="row g-4"><div class="col-md-6 border-end">              <div class="text-center mb-3">   <img src="' + td.find('.logo_empresa img').attr('src') + '" style="max-width:100px" alt="' + td.find('.nombre_empresa').html() + '" class="empresa-logo">              </div>              <div class="info-block">                <h6>Nombre:</h6>                <p>' + td.find('.nombre_empresa').html() + '</p>              </div>              <div class="info-block">                <h6>Dirección:</h6>                <p>' + td.find('.direccion_empresa').html()  + '</p>              </div>              <div class="info-block">                <h6>Teléfono:</h6>                <p>' + td.find('.telefono_empresa').html() + '</p>              </div>              <div class="info-block">                <h6>Correo:</h6>                <p>' + td.find('.correo_empresa').html() + '</p>              </div>              <div class="info-block">                <h6>RNC:</h6>                <p>' + td.find('.rnc_empresa').html() + '</p>              </div> <div class="info-block">                <h6>Tutor empresarial:</h6>                <p>' + td.find('.tutor_empresa').html() + '</p>              </div>              <div class="info-block">                <h6>Descripción:</h6>                <p>' + td.find('.descripcion_empresa').html() + '</p>              </div>            </div>            <div class="col-md-6">              <div class="text-center mb-3">                <img src="' + td.find('.foto-estudiantep img').attr('src') + '" style="max-width:100px" alt="Foto Usuario" class="usuario-foto">              </div>              <div class="info-block">                <h6>Nombre Completo:</h6>                <p id="p-nombre">' + td.find('.datos-empresa').parent().attr('title') + '</p>              </div>              <div class="info-block">                <h6>Sexo:</h6>                <p>' + td.find('.sexo_empresa').html() + '</p>              </div>              <div class="info-block">                <h6>Edad:</h6>                <p>' + td.find('.edad_empresa').html() + ' a&ntilde;os</p>              </div>            </div>          </div><div class="mt-2 text-center"><button type="button" class="btn btn-danger btn-sm"><i style="cursor:pointer" class="desvincular_empresa fa fa-trash fa-2x"> Desvincular estudiante de esta empresa<i/></button></div>');
+        
+      if(quien == 'profesor'){
+        
+        $('#p-nombre').html(td.parent().parent().find('.nombre_completo').attr('title'));
+        $('#datosempresa-estudiante').find('.desvincular_empresa').parent().hide();
+      
+      }else{
+
+        $('#datosempresa-estudiante').find('.desvincular_empresa').attr('id_estudiante', id_estudiante);
+      
+      }
       
       }else{
         $('#sinsempresa-estudiante').show();
@@ -1440,7 +1455,8 @@ $(document).on('click', '#vincular-empresa', function () {
   td.find('.direccion_empresa').html(op.attr("data-direccion"));
   td.find('.telefono_empresa').html(op.attr("data-telefono"));  
   td.find('.correo_empresa').html(op.attr("data-correo"));  
-  td.find('.rnc_empresa').html(op.attr("data-rnc"));  
+  td.find('.rnc_empresa').html(op.attr("data-rnc"));
+  td.find('.tutor_empresa').html(op.attr("data-tutor"));  
   td.find('.descripcion_empresa').html(op.attr("data-descripcion"));
   td.find('.desvincular_empresa-parent').html('<i style="cursor:pointer" class="desvincular_empresa fa fa-trash fa-2x"><i/>');
   ContarVinculados(1);
@@ -1453,7 +1469,8 @@ $(document).on('click', '#vincular-empresa', function () {
   td.find('.direccion_empresa').text('');
   td.find('.telefono_empresa').text('');  
   td.find('.correo_empresa').text('');  
-  td.find('.rnc_empresa').text('');  
+  td.find('.rnc_empresa').text('');
+  td.find('.tutor_empresa').text('');  
   td.find('.descripcion_empresa').text('');
   td.find('.desvincular_empresa-parent').text('');
   ContarVinculados(-1);
@@ -1484,11 +1501,11 @@ setTimeout(function () {
 })
 
 $(document).on('click', '.desvincular_empresa', function () {
-
+  
    if (!confirm("¿Segugo desea desvincular al estudiante de esta empresa?")) {
         return false;
    }
-      if($(this).attr('id_estudiante') != ''){
+      if($(this).attr('id_estudiante') != '' && $(this).attr('id_estudiante') != undefined){
 
         var id_estudiante = $(this).attr('id_estudiante');
 
@@ -1529,12 +1546,60 @@ function ContarVinculados(s=0){
 
 ContarVinculados(0);
 
-$(".standardSelect").chosen({
-      disable_search_threshold: 1,
-      no_results_text: "Elija una empresa!",
+ $(document).on('click', '.visita-empresa', function () {
+    $('.visita-empresa').hide();
+    $('.visita-empresa').removeClass('visitafct-empresas');
+    $(this).show();
+    $(this).addClass('visitafct-empresas');
+    $('#form-visitafct').show();
+    $('#resgistrar-visitafct').attr('id_empresa', $(this).attr('id_empresa'));
+ })
+
+ $(document).on('click', '.visitafct-empresas', function () {
+    $('.visita-empresa').show();
+    $(this).removeClass('visitafct-empresas');
+ })
+
+ 
+$(document).on("click", "#resgistrar-visitafct", function () {
+
+  var ubicacion = document.cookie.replace(
+  /(?:(?:^|.*;\s*)ubicacionerd\s*\=\s*([^;]*).*$)|^.*$/,
+  "$1",
+);
+
+var rut = "visitasfct/" + escuela_sesion + "/" + year_1 + "-" + year_2 + "/" + id_grupo + "/" + $(this).attr('id_empresa') + "/" + id_sesion + "/" + $('#fecha-visitafct').val();
+
+  ruletaweb.database().ref(rut + '/motivo').set($('#motivo-visitafct').val());
+  ruletaweb.database().ref(rut + '/gps').set(ubicacion);
+
+  setTimeout(function () {
+      $('#aviso-visitafct').html('<span class="text-danger font-weight-bold mt-2">¡NO SE PUDO REGISTRAR LA VISITA!</span>');
+    }, 300);
+
+
+ruletaweb.database().ref(rut + '/motivo').on("value", (visitas) => {
+  if(visitas.key != ''){
+    setTimeout(function () {
+     $('#aviso-visitafct').html('<span class="text-success font-weight-bold mt-2">¡La visita se ha registrado con éxito!</span>');
+    }, 303);
+  }
+  })
+
+setTimeout(function () {
+      $('#aviso-visitafct').text('');
+      $('#visitaFCTModal').modal('hide');
+    }, 2300);
+			
+	});
+
+  if($(".standardSelect").length > 0){
+    $(".standardSelect").chosen({
+      disable_search_threshold: 3,
+      no_results_text: "¡Elija una empresa!",
       width: "50%"
     });
+  }
 
 
-
-})
+  });

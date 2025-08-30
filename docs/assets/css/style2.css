@@ -2509,6 +2509,33 @@ right: 182px;
 font-size: 1.2rem;
 }
 
+.chart-container {
+    position: relative;
+    width: 200px;
+    height: 120px;
+    margin-bottom: 30px; /* espacio para la leyenda */
+    margin-top: 30px;
+  }
+  .bar-value {
+    position: absolute;
+    font-size: 12px;
+    font-weight: bold;
+    color: black;
+    text-align: center;
+  }
+  .legend {
+    display: flex;
+    justify-content: space-between;
+    width: 174px;
+    font-size: 12px;
+    margin-top: -48px;
+    padding-left: 24px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+  }
+
 /*
 img{
   pointer-events: none;

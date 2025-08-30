@@ -61,7 +61,6 @@ $(document).on('click', '#simular-usuario', function () {
 });
 
 
-
 var filescdn = $("#datos_js").attr("filescdn");
 
 var idlp = Number(document.cookie.replace(
@@ -86,7 +85,7 @@ var tablea = $('#TablaAescolar').DataTable({
             className: "text-center"
         },
   {
-            targets: 7,
+            targets: 8,
             className: "text-center"
         } ],
   "order": [[ 0, "asc" ]],
@@ -107,7 +106,6 @@ $(document).on(
   );
 
 }
-
                     
 $(document).on('click', '#guardar-empresa', function () {
         $.ajax({
@@ -183,22 +181,26 @@ $('#foto_cambiar').trigger('click');
 $(document).on('click', '.dato-empresa', function () { 
 var dato = $(this).attr('dato');
 var texto = $(this).html();
+if(texto == 'Click para introducir'){
+  texto = '';
+}
 if(dato == 'descripcion'){
-$(this).parent().html('<textarea name="' + dato + '" class="dato-empresa-input form-control" style="width: 100%; height: 100%;" rows="4" cols="50" >' + texto + '</textarea>');
+$(this).parent().html('<textarea name="' + dato + '" class="dato-empresa-input form-control" style="width: 100%; height: 100%;" rows="4" cols="50" placeholder="Click para introducir">' + texto + '</textarea>');
 }else{
-$(this).parent().html('<input name="' + dato + '" class="dato-empresa-input form-control" type="text" value="' + texto + '" style="width: 100%; height: 100%;" />');
+$(this).parent().html('<input name="' + dato + '" class="dato-empresa-input form-control" type="text" value="' + texto + '" style="width: 100%; height: 100%;"  placeholder="Click para introducir" />');
 }
 
 })
 
 $(document).on('blur', '.dato-empresa-input', function () { 
 var ths = $(this).parent();
-var ide = ths.parent().attr('ide');
-
+var ide = ths.parent().find('.subirlogo-empresa').attr('ide');
+var val = $(this).val();
+if(val != 'Click para introducir' && val != ''){
 $.ajax({
       method: "POST",
       url: "up.php?op=ActualizarEmpresa",
-      data: {ide: ide, valor: $(this).val(), dato: $(this).attr('name')}
+      data: {ide: ide, valor: val, dato: $(this).attr('name')}
         })
       .done(function(up){
         console.log(up);
@@ -219,12 +221,18 @@ $.ajax({
       
       })
 
-      $(this).parent().html('<span class="dato-empresa" dato="' + $(this).attr('name') + '">' + $(this).val() + '</span>');
+    }
+
+    if(val == ''){
+      val = 'Click para introducir';
+  }
+
+      $(this).parent().html('<span class="dato-empresa" dato="' + $(this).attr('name') + '">' + val + '</span>');
 })
 
 $(document).on('click', '.eliminar-empresa', function () {
 var ths = $(this);
-var ide = $(this).parent().parent().attr('ide');
+var ide = $(this).parent().parent().find('.subirlogo-empresa').attr('ide');
 var tempresas = Number($('#tempresas').text());
 
  if (!confirm("Confirme eliminar empresa")) {

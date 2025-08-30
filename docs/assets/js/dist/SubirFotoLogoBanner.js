@@ -69,6 +69,8 @@ if (sqlq == 1) {
   var ruta = 'fotos/directores/foto_'+idq+'.jpg';
 } else if (sqlq == 2) {
   var ruta = 'logos/otros/logo_'+idq+'.png';
+} else if (sqlq == 6) {
+  var ruta = 'logos/otros/logo_fct_'+idq+'.png';
 } else if (sqlq == 3) {
   var ruta = 'banners/banner_'+idq+'.png';
 } else if (sqlq == 5) {

@@ -19,7 +19,7 @@ $(document).ready(function () {
   
     var var_buscar = $("#datos_js").attr("e");
   
-    var tableg = $('#TablaGrupos').DataTable({
+     window['tableg'] = $('#TablaGrupos').DataTable({
       "columnDefs": [{
         "targets": 'no-sort',
         "orderable": false,
@@ -87,7 +87,7 @@ $(document).ready(function () {
   
   var basec = false;
   
-  $(document).on('click', '#asec', function () {
+  /*$(document).on('click', '#asec', function () {
     if (basec == false) {
       var noresize = $('#TablaGrupos').parents('.dataTables_wrapper').clone(true, true);
       $("#TablaGrupos").css({ display: 'none' });
@@ -99,6 +99,19 @@ $(document).ready(function () {
       $("#cargandos").css({ display: 'inline' });
       basec = true;
       noresize.appendTo('#cargandos');
+      $("#asec").prop('disabled', true);
+      $("#asec").text('Actualizando sección');
+      $("#faescolar").submit();
+    }
+  });*/
+
+
+  
+  $(document).on('click', '#asec', function () {
+    if (basec == false) {
+      $("select[name=TablaGrupos_length]").val("-1");
+      $("select[name=TablaGrupos_length]").change();
+      basec = true;
       $("#asec").prop('disabled', true);
       $("#asec").text('Actualizando sección');
       $("#faescolar").submit();
@@ -118,7 +131,7 @@ $(document).ready(function () {
     $(".cambiar_ops").toggle("slow");
   });
   
-  $(document).on('change', '#cambiargrupo_inscrito', function () {
+  $(document).on('change', '.cambiargrupo_inscrito', function () {
     var y1 = $("option:selected", this).attr('y1');
     var y2 = $("option:selected", this).attr('y2');
     $('#y1_sel').val(y1);

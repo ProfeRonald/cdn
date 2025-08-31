@@ -124,24 +124,29 @@ $(document).on(
 
 }
 
-  var basec = false;
-	$(document).on('click', '#asec', function () {
-		if(basec == false){
-	var noresize = $('#TablaGrupos').parents('.dataTables_wrapper').clone(true, true);
-	$("#TablaGrupos").css({display:'none'});	
-	$("#tablagrupo").css("width", "0px");
-	$("#tablagrupo").css("height", "0px");
-	$("select[name=TablaGrupos_length]").val("-1");
+
+$(document).on('click', '#aplicar-numero', function (e) {
+   e.preventDefault();
+   if (!confirm("¿Segudo desea reemplazar los números de todos los estudiantes de este grupo?")) {
+        return false;
+      }
+  $("select[name=TablaGrupos_length]").val("-1");
 	$("select[name=TablaGrupos_length]").change();
-	$("#tablagrupo").css({visibility:'hidden'});
-	$("#cargandos").css({display:'inline'});	
-	basec = true;		
-	noresize.appendTo('#cargandos');
-	$("#asec").prop('disabled', true);
-	$("#asec").text('Actualizando sección');
-	$("#faescolar").submit();
-		}
-});
+     setTimeout(function(){
+  tableg.order([4, 'asc']).draw();
+    var n = 1;
+    $('.aplicar-numero').each(function() {
+      $(this).val(n);
+      n++;
+    });
+			},500);
+setTimeout(function(){
+$('#asec').trigger('click');
+			},700);
+      
+})
+
+
 
 $(document).on('click', '.boton-reporte-lista', function () {
   

@@ -95,6 +95,11 @@ $( window ).on( "load", function() {
 		$('#estscentro').hide();	 
     $('#estscentro_final').hide();
 			},500);
+
+      $('#ir-a-otro-curso').html($('#ir_a_otro_curso').html());
+      $('#ir_a_otro_curso').text('');
+
+
 });
 
 if($('#TablaAescolar').length > 0){

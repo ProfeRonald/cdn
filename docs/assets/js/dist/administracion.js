@@ -75,7 +75,17 @@ if (idlp.length < 1) {
 if($('#TablaAescolar').length > 0){
 
 var tablea = $('#TablaAescolar').DataTable({
-    "responsive": true,
+     dom: 'Bfrtip', // agrega los botones
+        buttons: [
+          {
+            extend: 'excelHtml5',
+            text: 'Exportar a Excel',
+            title: 'Reporte_Datatables',
+            filename: 'reporte_datatables'
+          }
+        ],
+        
+        "responsive": true,
     "columnDefs": [ {
         "targets": 'no-sort',
         "orderable": false,

@@ -417,13 +417,14 @@ function procesarVisitas(data, idFiltrar = null) {
          function listarVisitas(m=0){
               
             ruletaweb.database().ref(rut).on("value", (ivisitas) => {
-                
+               
                var visitas = procesarVisitas(ivisitas.val(), grupo);
-                
+                 
                 Object.keys(visitas).forEach(date => {
                   
-                    var fecha = date.split('-')
-                    var dia = $('[data-date="'+ fecha[0] + '-' + Number(fecha[1]) + '-' + fecha[2] + '"]');
+                    var fecha = date.split('-');
+            
+                    var dia = $('[data-date="'+ fecha[0] + '-' + Number(fecha[1]) + '-' + Number(fecha[2]) + '"]');
                     
                      if(m == 1){
                                 var grupos = new Array();

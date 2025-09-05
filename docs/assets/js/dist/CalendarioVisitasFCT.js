@@ -369,12 +369,6 @@ var grupo = $("#datos_js").attr("data-grupo");
                 var ths = $(this).parent().find('.calendar-table td:not(.empty):first').trigger('click');
             });
 
-
-         
-
-
-
-
         });
       
 function procesarVisitas(data, idFiltrar = null) {
@@ -417,13 +411,12 @@ function procesarVisitas(data, idFiltrar = null) {
          function listarVisitas(m=0){
               
             ruletaweb.database().ref(rut).on("value", (ivisitas) => {
-               
+                
                var visitas = procesarVisitas(ivisitas.val(), grupo);
-                 
+                
                 Object.keys(visitas).forEach(date => {
                   
-                    var fecha = date.split('-');
-            
+                    var fecha = date.split('-')
                     var dia = $('[data-date="'+ fecha[0] + '-' + Number(fecha[1]) + '-' + Number(fecha[2]) + '"]');
                     
                      if(m == 1){
@@ -626,3 +619,5 @@ function limpiarCadena(cadena) {
         $('#visitaFCTModal').modal('show');
       })
 })
+
+

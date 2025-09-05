@@ -267,19 +267,12 @@ $('.peity-grupo-total svg.peity').each(function() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-  
-
     })
-      
+
+    $(document).on("click", "#custom-nav-visitas-tab", function () {
+      if($(this).attr('iframe') == 1){
+    $('#visitas-a-las-empresas').html('<iframe src="sesion.php?op=CalendarioFCT" style="width:100%;height:600px;border: 4px solid black;"></iframe>');
+    $(this).removeAttr('iframe');
+      }
+    }) 
 })

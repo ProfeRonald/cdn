@@ -367,9 +367,9 @@ $(document).ready(function () {
     }
   });
 
-  $(document).on('click', '#genrep', function () {
+  $(document).on('click', '#genrep', function (e) {
     if ($('#genrep_sel').val() == 10) {
-
+      e.preventDefault();
       ListaFinalPDF(1);
       
     }else if ($('#genrep_sel').val() == 0 || $('#genrep_sel').val() == 8) {

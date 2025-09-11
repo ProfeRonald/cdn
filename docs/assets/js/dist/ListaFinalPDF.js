@@ -3,7 +3,7 @@ $(document).on('click', '#ListaFinalPDF', function () {
     ListaFinalPDF(0);
 })
 
-function ListaFinalPDF(p=0){
+  window.ListaFinalPDF = function (p=0) {
 
  if($('.sel-grp').filter(':checked').length > 0 || p == 1){
 

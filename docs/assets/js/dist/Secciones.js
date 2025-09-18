@@ -18,6 +18,8 @@ $(document).ready(function () {
     }
   
     var var_buscar = $("#datos_js").attr("e");
+
+    DataTable.intlOrder('es');
   
      window['tableg'] = $('#TablaGrupos').DataTable({
       "columnDefs": [{

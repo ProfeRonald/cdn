@@ -10,6 +10,17 @@ const webfirebaseConfig = {
 
 const web = firebase.initializeApp(webfirebaseConfig, "web");
 
+
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("/firebase-messaging-sw.js")
+    .then(function(registration) {
+      console.log("Service Worker registrado con éxito:", registration);
+    })
+    .catch(function(err) {
+      console.error("Error registrando Service Worker:", err);
+    });
+}
+
 var correo_sesion = $("#index_js").attr("correo_sesion");
 
 var clave_sesion = $("#index_js").attr("clave_sesion");

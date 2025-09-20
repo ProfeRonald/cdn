@@ -1,3 +1,20 @@
+// Normaliza una cadena para usar como clave de ordenación
+    function normalizeForSort(str) {
+      if (str === null || str === undefined) return '';
+      if (typeof str !== 'string') str = String(str);
+      str = str.replace(/<[^>]*>/g, ''); // quitar HTML
+      str = str.toLowerCase();
+
+      // ✅ reglas especiales
+      str = str.replace(/ñ/g, 'n{'); // ñ después de n
+      str = str.replace(/ü/g, 'u{'); // ü después de u
+
+      // quitar tildes/acentos (á -> a, é -> e, etc.)
+      str = str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+      return str;
+    }
+
 $(document).ready(function () {
 
     var filescdn = $("#datos_js").attr("filescdn");
@@ -18,14 +35,21 @@ $(document).ready(function () {
     }
   
     var var_buscar = $("#datos_js").attr("e");
-
-    DataTable.intlOrder('es');
   
      window['tableg'] = $('#TablaGrupos').DataTable({
       "columnDefs": [{
         "targets": 'no-sort',
         "orderable": false,
-      }],
+      },
+      {
+            targets: 4,
+            render: function (data, type, row, meta) {
+              if (type === 'sort') {
+                return normalizeForSort(data);
+              }
+              return data;
+            }
+          }],
       "oSearch": {"sSearch": var_buscar},
       "order": [[1, "asc"]],
       "language": {
@@ -43,8 +67,6 @@ $(document).ready(function () {
         document.cookie = "idples=" + idpl;
       }
     );
-  
-  
   
   $(window).on("load", function () {
     $('#esccol').trigger("click");
@@ -125,6 +147,12 @@ $(document).ready(function () {
       disable_search_threshold: 10,
       no_results_text: "Elija una opcion!",
       width: "100%"
+    });
+
+    jQuery(".standardSelectOtro").chosen({
+      disable_search_threshold: 5,
+      no_results_text: "Elija un grupo!",
+      width: "70%"
     });
   });
 

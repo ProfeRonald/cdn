@@ -11,15 +11,28 @@ const webfirebaseConfig = {
 const web = firebase.initializeApp(webfirebaseConfig, "web");
 
 
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("/firebase-messaging-sw.js")
-    .then(function(registration) {
-      console.log("Service Worker registrado con éxito:", registration);
-    })
-    .catch(function(err) {
-      console.error("Error registrando Service Worker:", err);
-    });
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.getRegistrations().then(registrations => {
+    // Verificar si YA existe uno con firebase-messaging-sw.js
+    const yaRegistrado = registrations.some(reg =>
+      reg.active && reg.active.scriptURL.reg.active.scriptURL.endsWith('/firebase-messaging-sw.js')
+    );
+
+    if (yaRegistrado) {
+      console.log("El Service Worker de FCM ya está registrado.");
+    } else {
+      console.log("No se encontró SW de FCM, registrando ahora...");
+      navigator.serviceWorker.register('/firebase-messaging-sw.js')
+        .then(reg => {
+          console.log("Service Worker de FCM registrado:", reg.scope);
+        })
+        .catch(err => {
+          console.error("Error registrando SW de FCM:", err);
+        });
+    }
+  });
 }
+
 
 var correo_sesion = $("#index_js").attr("correo_sesion");
 

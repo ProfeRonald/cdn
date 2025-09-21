@@ -15,7 +15,7 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker.getRegistrations().then(registrations => {
     // Verificar si YA existe uno con firebase-messaging-sw.js
     const yaRegistrado = registrations.some(reg =>
-      reg.active && reg.active.scriptURL.reg.active.scriptURL.endsWith('/firebase-messaging-sw.js')
+      reg.active && reg.active.scriptURL.includes('firebase-messaging-sw.js')
     );
 
     if (yaRegistrado) {

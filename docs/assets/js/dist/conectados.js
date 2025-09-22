@@ -10,30 +10,6 @@ const webfirebaseConfig = {
 
 const web = firebase.initializeApp(webfirebaseConfig, "web");
 
-
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.getRegistrations().then(registrations => {
-    // Verificar si YA existe uno con firebase-messaging-sw.js
-    const yaRegistrado = registrations.some(reg =>
-      reg.active && reg.active.scriptURL.includes('firebase-messaging-sw.js')
-    );
-
-    if (yaRegistrado) {
-      console.log("El Service Worker de FCM ya está registrado.");
-    } else {
-      console.log("No se encontró SW de FCM, registrando ahora...");
-      navigator.serviceWorker.register('/firebase-messaging-sw.js')
-        .then(reg => {
-          console.log("Service Worker de FCM registrado:", reg.scope);
-        })
-        .catch(err => {
-          console.error("Error registrando SW de FCM:", err);
-        });
-    }
-  });
-}
-
-
 var correo_sesion = $("#index_js").attr("correo_sesion");
 
 var clave_sesion = $("#index_js").attr("clave_sesion");

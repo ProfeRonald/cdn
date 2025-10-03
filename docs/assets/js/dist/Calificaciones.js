@@ -845,6 +845,7 @@ $(document).ready(function () {
   
  function ImportarDiaAsistencia () {
   $('#insertar_asistencia i').text(' Registrar');
+   $('#insertar_asistencia').attr('class', 'btn btn-block btn-info my-2');
   var dia = $('#dia_asistencia').val();
   var archivoxlsx = $('#archivoxlsx').val();
   if(local != 1){
@@ -895,6 +896,7 @@ $(document).ready(function () {
       })
       if(a > 0){
       $('#insertar_asistencia i').text(' Actualizar asistencia');
+      $('#insertar_asistencia').attr('class', 'btn btn-block btn-warning my-2');
       }
     }
     });

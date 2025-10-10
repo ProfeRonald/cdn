@@ -497,7 +497,7 @@ function VerGraficoAsistencia(dataObj){
           title: 'Asistencia por grado',
            chartArea: { left: 80, top: 50, right: 20, bottom: 50, width: '80%', height: '70%' },
           hAxis: { title: 'Cantidad de estudiantes', minValue: 0 },
-          vAxis: { title: 'Grado' },
+          vAxis: { title: 'Asistencias' },
           titleTextStyle: { fontSize: 18, bold: true },
           colors: ['#f06292', '#64b5f6', '#81c784'],
           legend: { position: 'top', alignment: 'center' },

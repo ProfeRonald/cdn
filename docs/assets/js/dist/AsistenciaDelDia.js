@@ -418,7 +418,7 @@ $.each(aviso['asis'], function (curso, asis) {
     $('#total_asis_total').text(total_asis_total);
     grafico['total_asis_total'] = total_asis_total; 
   
-    grafico['total_asis_existencia'] = Number($('#data-tee').text());
+    grafico['total_asis_existencia'] = Number($('#data-tee').data('tee'));
 
     if(total_asis_total > 0){
     VerGraficoAsistencia(grafico);

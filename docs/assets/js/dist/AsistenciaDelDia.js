@@ -318,9 +318,6 @@ window.asistenciaDiaPDF = async function () {
 }
 
 
-
-
-
 $(document).on('click', '#asistencia_diaria', function () {
 
   AsistenciaDiaria();
@@ -502,8 +499,7 @@ function VerGraficoAsistencia(dataObj){
           hAxis: { title: 'Cantidad de estudiantes', minValue: 0 },
           vAxis: { title: 'Grado' },
           titleTextStyle: { fontSize: 18, bold: true },
-          //colors: ['#f06292', '#64b5f6', '#81c784'],
-          colors: ['#81C784', '#64B5F6', '#FFD54F'],
+          colors: ['#f06292', '#64b5f6', '#81c784'],
           legend: { position: 'top', alignment: 'center' },
            bar: { groupWidth: '70%' }
         };

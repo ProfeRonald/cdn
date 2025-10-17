@@ -639,6 +639,7 @@ $(document).ready(function () {
         if (ac == 1) {
           $('#msj_asistencia').html('Espere...');
           $('#activar_asistencia').html('<i class="fa fa-3x" aria-hidden="true">Activando...</i>');
+           $("#insertar_asistencia").hide('slow');
           $.ajax({
             method: "POST",
             url: "sesion.php?op=ActivarAsistencia",
@@ -649,6 +650,7 @@ $(document).ready(function () {
               
               $('#msj_asistencia').html(as['msj']);
               if (as['si'] == 1) {
+                $("#insertar_asistencia").show('slow');
                 $('#activar_asistencia').hide('slow');
                 $('#archivoxlsx').val(as['archivoxlsx']);
                 $('#linksheet').attr('href', 'https://docs.google.com/spreadsheets/d/' + as['archivoxlsx'] + '/edit');
@@ -758,12 +760,21 @@ $(document).ready(function () {
       data: $("#formasis").serialize()
     })
       .done(function (ias) {
+        console.log(ias);
         $('#msjasistencia').html(ias['msj']);
-        if (ias['si'] == 2) {
+         if (ias['si'] == 3) {
+          $("#insertar_asistencia").prop('disabled', true);
+          $('#activando-file').val('0');
+          setTimeout(function () {
+            $("#insertar_asistencia").prop('disabled', false);
+            $("#insertar_asistencia").trigger('click');
+          }, 1000);
+         }else if (ias['si'] == 2) {
           $('#insertar_asistencia i').text(' Pulse de nuevo para registrar la asistencia');
           $("#insertar_asistencia").prop('disabled', false);
           $('#linksheet').attr('href', ias['urlexcel']);
           $('#linksheet').show('slow');
+          $('#archivoxlsx').val(ias['archivoxlsx']);
           setTimeout(function () {
             $('#insertar_asistencia').trigger('click');
           }, 1000);
@@ -782,6 +793,7 @@ $(document).ready(function () {
       })
 
       .fail(function (a,b,c) {
+        console.log(a, b, c);
         setTimeout(function () {
           $('#insertar_asistencia i').text(' Intentar de nuevo');
           $("#insertar_asistencia").prop('disabled', false);
@@ -837,6 +849,8 @@ $(document).ready(function () {
   });
   
   $(document).on('change', '#dia_asistencia', function () {
+    $('#preloader').fadeIn('slow');
+    $('body').css({ 'overflow': 'hidden' });
     $('.basis').children('.bestado').val('P');
     $('.basis').attr('estado', 'P');
     $('.basis').children('.bestado').attr('class', 'btn btn-xl btn-primary fa fa-4x bestado');
@@ -859,23 +873,32 @@ $(document).ready(function () {
     dataType: 'json',
     data: {
       op: "ImportarDiaAsistencia",
-      sec: "ImportarDiaAsistencia",
       dia: dia,
       archivoxlsx: archivoxlsx
     }
   })
     .done(function (ides) {
+      
       if(ides != null && ides['data'] != null && ides['e'] == 1){
         $('#msjasistencia').html(ides['data']);
       }else if(ides != null && ides['data'] != null){
         var a = 0;
+        var noa;
+
       $.each(ides['data'], function (id, estado) {
+         if (estado == '') {
+            estado = 'P';
+            noa = 0;
+        }else{
+             noa = 1;
+        }
+
         if (id != 0 && (estado == 'P' || estado == 'A' || estado == 'E' || estado == 'T')) {
 
       $('#ea_' + id).children('.bestado').val(estado);
       $('#ea_' + id).attr('estado', estado);
           
-    if (estado == 'P') {
+    if (estado == 'P' || estado == '') {
       $('#ea_' + id).children('.bestado').attr('class', 'btn btn-xl btn-primary fa fa-4x bestado');
     }
 
@@ -892,7 +915,9 @@ $(document).ready(function () {
     }
 
     $('#ea_' + id).children('.estado').val(estado);
+    if(noa == 1){
       a++;
+    }
         }
       })
       if(a > 0){
@@ -902,8 +927,15 @@ $(document).ready(function () {
     }
     setTimeout(function () {
         estadisticaAsistenciaHoy();
-      }, 1000);
-    });
+      }, 500);
+      setTimeout(function () {
+        $('#preloader').fadeOut('slow');
+        $('body').css({ 'overflow': 'visible' });
+      }, 550);
+    })
+    .fail(function(a, b, c){
+     // console.log(a, b, c);
+    })
   }
 
   
@@ -1450,7 +1482,6 @@ $(document).on('click', '#vincular-empresa', function () {
       up: up
     },
   }).done(function (u) {
-    console.log(u);
       if(u == 1){
   var td = $('#' + id_estudiante).parent().parent();
   if(up == 1){

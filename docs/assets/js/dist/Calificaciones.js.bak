@@ -721,10 +721,11 @@ $(document).ready(function () {
     testados['1-A'] = (typeof testados['1-A'] !== 'undefined') ? testados['1-A'] : 0; 
    
     $('#presencias_varones').text(testados['1-P'] + testados['1-T']);
+    $('#presencias_varones_registro').val(testados['1-P'] + testados['1-T']);
     $('#excusas_varones').text(testados['1-E']);
     $('#tardanzas_varones').text(testados['1-T']);
-    $('#ausencias_varones').text(testados['1-A']);
-    $('#total_varones').text(Number($('#presencias_varones').text()) + Number($('#excusas_varones').text()) +  Number($('#ausencias_varones').text()));
+    $('#ausencias_varones').text(testados['1-A'] + testados['1-E']);
+    $('#total_varones').text(Number($('#presencias_varones').text()) + Number($('#ausencias_varones').text()));
 
     testados['2-P'] = (typeof testados['2-P'] !== 'undefined') ? testados['2-P'] : 0;
     testados['2-E'] = (typeof testados['2-E'] !== 'undefined') ? testados['2-E'] : 0; 
@@ -732,10 +733,11 @@ $(document).ready(function () {
     testados['2-A'] = (typeof testados['2-A'] !== 'undefined') ? testados['2-A'] : 0; 
 
     $('#presencias_hembras').text(testados['2-P'] + testados['2-T']);
+    $('#presencias_hembras_registro').val(testados['2-P'] + testados['2-T']);
     $('#excusas_hembras').text(testados['2-E']);
     $('#tardanzas_hembras').text(testados['2-T']);
-    $('#ausencias_hembras').text(testados['2-A']);
-    $('#total_hembras').text(Number($('#presencias_hembras').text()) + Number($('#excusas_hembras').text()) +  Number($('#ausencias_hembras').text()));
+    $('#ausencias_hembras').text(testados['2-A'] + testados['2-E']);
+    $('#total_hembras').text(Number($('#presencias_hembras').text()) + Number($('#ausencias_hembras').text()));
 
     $('#tprencias').text(Number($('#presencias_varones').text()) + Number($('#presencias_hembras').text()));
     $('#texcusas').text(Number($('#excusas_varones').text()) + Number($('#excusas_hembras').text()));
@@ -756,6 +758,7 @@ $(document).ready(function () {
       data: $("#formasis").serialize()
     })
       .done(function (ias) {
+        console.log(ias);
         $('#msjasistencia').html(ias['msj']);
         if (ias['si'] == 2) {
           $('#insertar_asistencia i').text(' Pulse de nuevo para registrar la asistencia');
@@ -787,7 +790,6 @@ $(document).ready(function () {
       })
 
   });
-
 
   $(document).on('click', '.asis_datos', function () {
 
@@ -840,7 +842,6 @@ $(document).ready(function () {
     $('.basis').attr('estado', 'P');
     $('.basis').children('.bestado').attr('class', 'btn btn-xl btn-primary fa fa-4x bestado');
     ImportarDiaAsistencia ();
-    estadisticaAsistenciaHoy();
   });
   
  function ImportarDiaAsistencia () {
@@ -848,9 +849,11 @@ $(document).ready(function () {
    $('#insertar_asistencia').attr('class', 'btn btn-block btn-info my-2');
   var dia = $('#dia_asistencia').val();
   var archivoxlsx = $('#archivoxlsx').val();
+
   if(local != 1){
-  VerificarHuellimetro ();
+    VerificarHuellimetro ();
   }
+
   $.ajax({
     method: "POST",
     url: "sesion.php?op=ImportarDiaAsistencia",
@@ -863,7 +866,6 @@ $(document).ready(function () {
     }
   })
     .done(function (ides) {
-
       if(ides != null && ides['data'] != null && ides['e'] == 1){
         $('#msjasistencia').html(ides['data']);
       }else if(ides != null && ides['data'] != null){
@@ -899,6 +901,9 @@ $(document).ready(function () {
       $('#insertar_asistencia').attr('class', 'btn btn-block btn-warning my-2');
       }
     }
+    setTimeout(function () {
+        estadisticaAsistenciaHoy();
+      }, 1000);
     });
   }
 
@@ -1028,9 +1033,6 @@ $(document).ready(function () {
       }, 1500);
     }else {
       ImportarDiaAsistencia();
-      setTimeout(function () {
-        estadisticaAsistenciaHoy();
-      }, 1500);
     }
   });
 

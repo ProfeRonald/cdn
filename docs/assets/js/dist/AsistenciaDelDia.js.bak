@@ -219,6 +219,8 @@ window.asistenciaDiaPDF = async function () {
   const bloqueTablaCentrada = (pagina) => {
     const totalFilas = pagina.tabla.length;
     const fontSize = calcularFontSize(totalFilas);
+
+    
     const body = pagina.tabla.map((row, rIdx) =>
       row.map(cell => {
         const nuevo = Object.assign({}, cell);

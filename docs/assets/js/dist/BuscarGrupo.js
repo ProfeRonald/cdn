@@ -77,6 +77,7 @@ $(document).ready(function () {
                     } else {
                         // Ocultar elemento
                         $item.addClass('hidden').hide();
+                        console.log($item.attr('class'));
                     }
                 });
 

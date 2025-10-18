@@ -10,13 +10,279 @@ var id_sesion = $("#datos_js").attr("id_sesion");
 
 $(document).ready(function () {
 
-  $(document).on("click", ".colorpicker", function () {
+  if(local != 1){
+
+  var id_sesion = $("#datos_js").attr("id_sesion");
+ 
+  var storageRef = firebase
+    .storage()
+    .ref('grupos/' + year_1 + "-" + year_2 + "/FondosGrupos/profe_" + id_sesion);
+  storageRef
+    .listAll()
+    .then(function (result) {
+      result.items.forEach(function (imageRef) {
+        displayImage(imageRef);
+      });
+    })
+    .catch(function (error) {});
+  
+  function displayImage(imageRef) {
+    imageRef
+      .getDownloadURL()
+      .then(function (url) {
+        
+        var idg = imageRef.name.split(".jpg")[0].split("_")[1];
+        if (idg > 0) { 
+          if ($("#FotoGrupo_cambiar-" + idg).attr("v") == 1) {
+            $("#FotoGrupo_cambiar-" + idg)
+              .parent()
+              .attr(
+                "style",
+                'background-image: url("' +
+                  url +
+                  '");background-position: bottom;background-repeat: no-repeat;background-size: 100% 100%;'
+              );
+
+            var scolor = $("#FotoGrupo_cambiar-" + idg).attr("color");
+              $("#FotoGrupo_cambiar-" + idg).attr(
+                "style",
+                "background: linear-gradient(90deg, #" +
+                  scolor +
+                  ", black);opacity:0.85"
+              );
+             
+          } else {
+            $("#FotoGrupo_cambiar-" + idg)
+              .parent()
+              .parent()
+              .parent()
+              .parent()
+              .parent()
+              .parent()
+              .attr(
+                "style",
+                'background-image: url("' +
+                  url +
+                  '");background-repeat: no-repeat;background-size: 100% 100%;'
+              );
+
+            var scolor = $("#FotoGrupo_cambiar-" + idg).attr("color");
+  
+              $(".imageGrupo" + idg).attr(
+                "style",
+                "background: linear-gradient(90deg, #" +
+                  scolor +
+                  ", black);opacity:0.85"
+              );
+            
+          }
+        }
+      })
+      .catch(function (error) {});
+  }
+
+}
+
+
+        var tgrados = {};
+        var testudiantes = new Array();
+        $("#gruposc .ordenGrupo").each(function(){
+          if(tgrados[$(this).attr('grado')] == undefined){
+            tgrados[$(this).attr('grado')] = 0;
+          }
+          if(testudiantes[$(this).attr('grado')] == undefined){
+            testudiantes[$(this).attr('grado')] = 0;
+          }
+          tgrados[$(this).attr('grado')] += 1;
+          testudiantes[$(this).attr('grado')] += Number($(this).attr('estudiantes'));
+        });
+
+      var trhtml = '';
+      
+      $.each(tgrados, function (grado, cantidad) {
+        trhtml += '<tr><td class="text-center">'+grado+'</td><td class="text-center">'+cantidad+'</td><td class="text-center">'+testudiantes[grado]+'</td></tr>';
+      });
+
+      $('#tbody-grupos').html(trhtml);
+
+    firebase.database().ref('escuela_' + escuela_sesion + '/grupos/' + year_1 + '-' + year_2 + '/' + quien + '_' + id_sesion).on("value", (profe) => {
+
+      $.each(profe.val().colores, function (idg, color) {
+        $("#FotoGrupo_cambiar-" + idg).attr('color', color);
+        $("#FotoGrupo_cambiar-" + idg).parent().parent().parent().parent().attr("style", "background: linear-gradient(90deg, #" + color + ", black);opacity:0.85");
+        $("#FotoGrupo_cambiar-" + idg).parent().parent().parent().parent().parent().parent().attr("style", "background-color: #" + color);
+      })
+
+      $('#ordenarGrupoAZ').html('<i class="fa fa-sort-alpha-asc fa-2x p-1 border rounded mx-2 btn" rel="tooltip" title="Ordenar alfabeticamente de forma ascendente" aria-hidden="true"></i>');
+      $('#ordenarGrupoAZ').data('orden', 'az');
+
+      $('#ordenarGrupoHorario').html('<i class="fa fa-clock-o fa-2x p-1 border rounded mx-2 btn" rel="tooltip" title="Ordenar seg&uacute;n tu horario de clases de forma ascendente" aria-hidden="true"></i><i class="fa fa-long-arrow-down" aria-hidden="true" style="margin-left: -9px"></i>');
+      $('#ordenarGrupoHorario').data('orden', 'horarioaz');
+      
+      const orden = profe.val().orden;
+
+      if(orden == 'za' || orden == 'az' || orden == 'horarioaz' || orden == 'horarioza'){
+      
+      
+      $('#ordenarGrupoAZ i').tooltip('dispose');
+      $('#ordenarGrupoHorario i').tooltip('dispose');
+      
+      if(orden == 'za' || orden == 'az'){
+        var ordGrp = new Array();
+        var valGrp = new Array();
+        var d = 0;
+      $("#gruposc .ordenGrupo").each(function(){
+        ordGrp[d] = $(this).data('orden');
+        valGrp[ordGrp[d]] = $(this).prop('outerHTML');
+        d++;
+      });
+       
+      ordGrp.sort();
+
+      if(orden == 'za'){
+        ordGrp.reverse();
+        $('#ordenarGrupoAZ').html('<i class="fa fa-sort-alpha-desc fa-2x p-1 border rounded mx-2 btn btn-dark text-white" rel="tooltip" title="Ordenar alfabeticamente de forma ascendente" aria-hidden="true"></i>');
+        $('#ordenarGrupoAZ').data('orden', 'az');
+      }else{
+        $('#ordenarGrupoAZ').html('<i class="fa fa-sort-alpha-asc fa-2x p-1 border rounded mx-2 btn btn-dark text-white" rel="tooltip" title="Ordenar alfabeticamente de forma descendente" aria-hidden="true"></i>');
+        $('#ordenarGrupoAZ').data('orden', 'za');
+      }
+  
+  }
+
+(async () => {
+  
+  const thor = Number($('#ordenarGrupoHorario').attr('data-hor'));
+  
+  let hor;
+
+  if(thor > 0){
+    hor = thor;
+  }else{
+    hor = await obtenerHorarios();
+    $('#ordenarGrupoHorario').attr('data-hor', hor);
+  }
+  
+  if(hor > 0){
+
+    if(orden == 'horarioaz' || orden == 'horarioza'){
+
+        
+    var ordGrp = new Array();
+        var valGrp = new Array();
+        var d = 0;
+      $("#gruposc .ordenGrupo").each(function(){
+        if($(this).data('horario') != undefined){
+          ordGrp[d] = $(this).data('horario');
+        }else{
+          ordGrp[d] = d + 17;
+        }
+        valGrp[ordGrp[d]] = $(this).prop('outerHTML');
+        d++;
+      });
+
+      ordGrp.sort();
+        
+      }
+
+      
+      $('#ordenarGrupoHorario').show();
+
+      if(orden == 'horarioza'){
+        ordGrp.reverse();
+        $('#ordenarGrupoHorario').html('<i class="fa fa-clock-o fa-2x p-1 border rounded mx-2 btn btn-dark text-white" rel="tooltip" title="Ordenar seg&uacute;n tu horario de clases de forma ascendente" aria-hidden="true"></i><i class="fa fa-long-arrow-down" aria-hidden="true" style="margin-left: -9px"></i>');
+        $('#ordenarGrupoHorario').data('orden', 'horarioaz');
+      }else if(orden == 'horarioaz'){
+        $('#ordenarGrupoHorario').html('<i class="fa fa-clock-o fa-2x p-1 border rounded mx-2 btn btn-dark text-white" rel="tooltip" title="Ordenar seg&uacute;n tu horario de clases de forma descendente" aria-hidden="true"></i><i class="fa fa-long-arrow-up" aria-hidden="true" style="margin-left: -9px"></i>');
+        $('#ordenarGrupoHorario').data('orden', 'horarioza');
+      }
+
+        if(orden == 'horarioaz' || orden == 'horarioza'){
+
+      var htmlGrp = '';
+      $.each(ordGrp, function (i, o) {
+        htmlGrp += valGrp[o];
+      });
+
+      $("#gruposc").html(htmlGrp);
+
+        }
+
+    }else{
+      $('#ordenarGrupoHorario').hide();
+    }
+
+  })();
+
+  }else{
+
+ var valGrp = new Array();
+ const ordMov = orden.split(',');
+ var htmlGrp = '';
+ ordMov.forEach(idg => {
+  htmlGrp += $('#FotoGrupo_cambiar-' + idg).parent().parent().parent().parent().parent().parent().parent().prop('outerHTML');
+ });
+ 
+$("#gruposc").html(htmlGrp);
+ 
+}
+
+  if(ordGrp != undefined){
+
+      var htmlGrp = '';
+      $.each(ordGrp, function (i, o) {
+        htmlGrp += valGrp[o];
+      });
+
+      $("#gruposc").html(htmlGrp);
+
+  }
+
+   })
+  
+  
+    $(document).on('click', '#ordenarGrupoAZ, #ordenarGrupoHorario', function () {
+
+      const orden = $(this).data('orden');
+
+      firebase.database().ref('escuela_' + escuela_sesion + '/grupos/' + year_1 + '-' + year_2 + '/' + quien + '_' + id_sesion + '/orden').set(orden);
+      
+
+    })
+
+  async function obtenerHorarios() {
+    
+    let dayName = new Date().toLocaleDateString('es-ES', {weekday: 'long'});
+    dayName = 'lunes';
+    let hor = 0;
+
+  const horarios = await ruletaweb.database()
+    .ref('horarios/escuela_' + escuela_sesion + '/profesor_' + id_sesion + '/horario')
+    .once('value');
+
+     horarios.forEach(horario => {
+      
+        if(horario.val()[dayName] != undefined){
+        var dataidg = $('.ordenGrupo[data-idg="' + horario.val()[dayName].link.split('&')[0] + '"]');
+        if(dataidg.attr('data-horario') == '' || dataidg.attr('data-horario') == undefined){          
+         dataidg.attr('data-horario', horario.val().inicio);
+          hor++;
+        }
+        }
+
+      });
+
+  return hor;
+}
+
+
+$(document).on("click", ".colorpicker", function () {
     if ($(this).text() == "" || $(this).html() == "&nbsp;") {
       $(".colorpicker").text("");
       $(this).html('<div id="picker"></div>');
       var g = $(this);
       var grupo = g.attr("g");
-      var icolor = $("#FotoGrupo_cambiar" + grupo).attr("color");
+      var icolor = $("#FotoGrupo_cambiar-" + grupo).attr("color");
            
       var colorPicker = new iro.ColorPicker("#picker", {
         width: 180,
@@ -66,7 +332,7 @@ $(document).ready(function () {
               ", black);opacity:0.85"
           );
 
-        $("#FotoGrupo_cambiar" + grupo).attr("color", scolor);
+        $("#FotoGrupo_cambiar-" + grupo).attr("color", scolor);
 
         var bimg = $(".imageGrupo" + grupo).css("background-image");
 
@@ -120,332 +386,13 @@ $(document).ready(function () {
        if(local == 1){
         document.cookie = "ColorGrupo" + grupo + "_" + year_1 + "-" + year_2 + "_" + quien + "_" + id_sesion + "=" + scolor;
        }else{
-       fetch('https://imgs-escuelard-default-rtdb.firebaseio.com/escuela_' + escuela_sesion + '/' + 'grupos/' + year_1 + '-' + year_2 + '/' + quien + '_' + id_sesion + '/colores.json', {method: 'PATCH',body: JSON.stringify({[grupo]:scolor}),headers:{'Content-Type': 'application/json'}}); 
+       firebase.database().ref('escuela_' + escuela_sesion + '/grupos/' + year_1 + '-' + year_2 + '/' + quien + '_' + id_sesion + '/colores/' + grupo).set(scolor);
        }
       });
     } else {
       $(".colorpicker").text("");
     }
   });
-
-  if(local != 1){
-
-  var id_sesion = $("#datos_js").attr("id_sesion");
- 
-  var storageRef = firebase
-    .storage()
-    .ref('grupos/' + year_1 + "-" + year_2 + "/FondosGrupos/profe_" + id_sesion);
-  storageRef
-    .listAll()
-    .then(function (result) {
-      result.items.forEach(function (imageRef) {
-        displayImage(imageRef);
-      });
-    })
-    .catch(function (error) {});
-  
-  function displayImage(imageRef) {
-    imageRef
-      .getDownloadURL()
-      .then(function (url) {
-        
-        var idg = imageRef.name.split(".jpg")[0].split("_")[1];
-        if (idg > 0) { 
-          if ($("#FotoGrupo_cambiar" + idg).attr("v") == 1) {
-            $("#FotoGrupo_cambiar" + idg)
-              .parent()
-              .attr(
-                "style",
-                'background-image: url("' +
-                  url +
-                  '");background-position: bottom;background-repeat: no-repeat;background-size: 100% 100%;'
-              );
-
-            var scolor = $("#FotoGrupo_cambiar" + idg).attr("color");
-              $("#FotoGrupo_cambiar" + idg).attr(
-                "style",
-                "background: linear-gradient(90deg, #" +
-                  scolor +
-                  ", black);opacity:0.85"
-              );
-             
-          } else {
-            $("#FotoGrupo_cambiar" + idg)
-              .parent()
-              .parent()
-              .parent()
-              .parent()
-              .parent()
-              .parent()
-              .attr(
-                "style",
-                'background-image: url("' +
-                  url +
-                  '");background-repeat: no-repeat;background-size: 100% 100%;'
-              );
-
-            var scolor = $("#FotoGrupo_cambiar" + idg).attr("color");
-  
-              $(".imageGrupo" + idg).attr(
-                "style",
-                "background: linear-gradient(90deg, #" +
-                  scolor +
-                  ", black);opacity:0.85"
-              );
-            
-          }
-        }
-      })
-      .catch(function (error) {});
-  }
-
-}
-
-$(document).on('click', '.ordenarGrupo', function () {
-
-  $('.ordenarGrupo').removeClass('bg-dark text-white');
-
-  var orden = $(this).attr('orden');
-  
-  if(orden == 'za' || orden == 'az'){
-      var ordGrp = new Array();
-      var idGrp = new Array();
-      var valGrp = new Array();
-      var d = 0;
-      $("#gruposc .ordenGrupo").each(function(){
-      ordGrp[d] = $(this).data('orden');
-      idGrp[ordGrp[d]] = $(this).data('idg');
-      valGrp[ordGrp[d]] = $(this).prop('outerHTML');
-      d++;
-      });
-
-      
-      ordGrp.sort();
-      if(orden == 'za'){
-        ordGrp.reverse();
-      }
-      
-      var htmlGrp = '';
-      var ordg = '';
-      $.each(ordGrp, function (i, o) {
-        ordg += idGrp[o] + ',';
-        htmlGrp += valGrp[o];
-      });
-
-      ordg = ordg.substring(0, ordg.length - 1);
-      
-      document.cookie = 'ordenGrupoaz=; expires=Thu, 01 Jan 1970 00:00:01 GMT';
-      document.cookie = 'ordenGrupoza=; expires=Thu, 01 Jan 1970 00:00:01 GMT';
-      document.cookie = 'ordenGrupoHO=; expires=Thu, 01 Jan 1970 00:00:01 GMT';
-      document.cookie = 'ordenGrupo'+orden+'='+ordg+'; expires=Thu, 22 Dec ' + jyear2 + ' 01:00:00 UTC';
-      document.cookie = 'ordenGrupo='+ordg+'; expires=Thu, 22 Dec ' + jyear2 + ' 01:00:00 UTC';
-      $("#gruposc").html(htmlGrp);
-
-      $(this).addClass('bg-dark text-white');
-  
-  }
-  
-  if(orden == 'hor'){
-
-    var ordg = $(this).attr('ordg');
-    document.cookie = 'ordenGrupoaz=; expires=Thu, 01 Jan 1970 00:00:01 GMT';
-    document.cookie = 'ordenGrupoza=; expires=Thu, 01 Jan 1970 00:00:01 GMT';
-    document.cookie = 'ordenGrupoHO=1; expires=Thu, 22 Dec ' + jyear2 + ' 01:00:00 UTC';
-    let dayName = new Date().toLocaleDateString('en-US', {weekday: 'short'});
-    document.cookie = 'ordenGrupoHO' + dayName + '='+ordg+'; expires=Thu, 22 Dec ' + jyear2 + ' 01:00:00 UTC';
-    document.cookie = 'ordenGrupo='+ordg+'; expires=Thu, 22 Dec ' + jyear2 + ' 01:00:00 UTC';
-    window.location.href = urlerd + "/index.php?op=RegistrarCalificaciones";
-
-  }
-
-  
-
-  });
-
-    firebase.database().ref('escuela_' + escuela_sesion + '/grupos/' + year_1 + '-' + year_2 + '/' + quien + '_' + id_sesion + '/orden').on("value", (orden) => {
-      const activo = orden.val().activo;
-      if(activo == 'za' || activo == 'az'){
-        var ordGrp = new Array();
-        var valGrp = new Array();
-        var d = 0;
-      $("#gruposc .ordenGrupo").each(function(){
-        ordGrp[d] = $(this).data('orden');
-        valGrp[ordGrp[d]] = $(this).prop('outerHTML');
-        d++;
-      });
-       
-      ordGrp.sort();
-
-      if(activo == 'za'){
-        ordGrp.reverse();
-        $('#ordenarGrupoAZ').html('<i class="fa fa-sort-alpha-desc fa-2x p-1 border rounded mx-2 btn btn-dark text-white" rel="tooltip" title="Ordenar alfabeticamente de forma ascendente" aria-hidden="true"></i>');
-        $('#ordenarGrupoAZ').data('orden', 'az');
-      }else{
-        $('#ordenarGrupoAZ').html('<i class="fa fa-sort-alpha-asc fa-2x p-1 border rounded mx-2 btn btn-dark text-white" rel="tooltip" title="Ordenar alfabeticamente de forma descendente" aria-hidden="true"></i>');
-        $('#ordenarGrupoAZ').data('orden', 'za');
-      }
-  
-  }else{
-
-    $('#ordenarGrupoAZ').html('<i class="fa fa-sort-alpha-asc fa-2x p-1 border rounded mx-2 btn" rel="tooltip" title="Ordenar alfabeticamente de forma ascendente" aria-hidden="true"></i>');
-    $('#ordenarGrupoAZ').data('orden', 'az');
-    
-  }
-
-  if(activo == 'horarioza' || activo == 'horarioaz'){
-
-
-(async () => {
-  
-  const hor = await obtenerHorarios();
-   
-  if(hor > 0){
-
-  var ordGrp = new Array();
-        var valGrp = new Array();
-        var d = 0;
-      $("#gruposc .ordenGrupo").each(function(){
-        if($(this).data('horario') != undefined){
-          ordGrp[d] = $(this).data('horario');
-        }else{
-          ordGrp[d] = d + 17;
-        }
-        valGrp[ordGrp[d]] = $(this).prop('outerHTML');
-        d++;
-      });
-
-      
-      $('#ordenarGrupoHorario').show();
-      
-      
-      ordGrp.sort();
-
-      if(activo == 'horarioza'){
-        ordGrp.reverse();
-        $('#ordenarGrupoHorario').html('<i class="fa fa-clock-o ordenarGrupo fa-2x p-1 border rounded mx-2 btn btn-dark text-white" rel="tooltip" title="Ordenar seg&uacute;n tu horario de clases de forma ascendente" aria-hidden="true"></i>');
-        $('#ordenarGrupoHorario').data('orden', 'horarioaz');
-      }else{
-        $('#ordenarGrupoHorario').html('<i class="fa fa-clock-o ordenarGrupo fa-2x p-1 border rounded mx-2 btn btn-dark text-white" rel="tooltip" title="Ordenar seg&uacute;n tu horario de clases de forma descendente" aria-hidden="true"></i>');
-        $('#ordenarGrupoHorario').data('orden', 'horarioza');
-      }
-
-      var htmlGrp = '';
-      $.each(ordGrp, function (i, o) {
-        htmlGrp += valGrp[o];
-      });
-
-      $("#gruposc").html(htmlGrp);
-
-    }else{
-      $('#ordenarGrupoHorario').hide();
-    }
-
-})();
-
-  }else{
-
-    $('#ordenarGrupoHorario').html('<i class="fa fa-clock-o ordenarGrupo fa-2x p-1 border rounded mx-2 btn" rel="tooltip" title="Ordenar seg&uacute;n tu horario de clases de forma ascendente" aria-hidden="true"></i>');
-    $('#ordenarGrupoHorario').data('orden', 'horarioaz');
-    
-  }
-
-  if(ordGrp != undefined){
-
-      var htmlGrp = '';
-      $.each(ordGrp, function (i, o) {
-        htmlGrp += valGrp[o];
-      });
-
-      $("#gruposc").html(htmlGrp);
-
-  }
-
-   })
-  
-  
-    $(document).on('click', '#ordenarGrupoAZ', function () {
-
-      const orden = $(this).data('orden');
-
-      firebase.database().ref('escuela_' + escuela_sesion + '/grupos/' + year_1 + '-' + year_2 + '/' + quien + '_' + id_sesion + '/orden/activo').set(orden);
-      
-
-    })
-
-     $(document).on('click', '#ordenarGrupoHorario', function () {
-
-      const orden = $(this).data('orden');
-
-      firebase.database().ref('escuela_' + escuela_sesion + '/grupos/' + year_1 + '-' + year_2 + '/' + quien + '_' + id_sesion + '/orden/activo').set(orden);
-      
-
-    })
-
-  async function obtenerHorarios() {
-    
-    let dayName = new Date().toLocaleDateString('es-ES', {weekday: 'long'});
-    
-    let hor = 0;
-
-  const horarios = await ruletaweb.database()
-    .ref('horarios/escuela_' + escuela_sesion + '/profesor_' + id_sesion + '/horario')
-    .once('value');
-
-     horarios.forEach(horario => {
-
-        if(horario.val()[dayName] != undefined){
-        var dataidg = $('.ordenGrupo[data-idg="' + horario.val()[dayName].link.split('&')[0] + '"]');
-        console.log(dataidg.attr('data-horario'));
-        if(dataidg.attr('data-horario') == '' || dataidg.attr('data-horario') == undefined){
-         dataidg.attr('data-horario', horario.val().inicio);
-        }
-         hor++;
-        }
-
-      });
-
-  return hor;
-}
-
-
-/*
-
- var orden = $(this).attr('orden');
-
-if(orden == 'az'){
-  $(this).html('<i class="fa fa-sort-alpha-asc fa-2x p-1 border rounded mx-2 btn btn-dark text-white" rel="tooltip" title="Ordenar alfabeticamente de forma descentente" aria-hidden="true"></i>');
- }else if(orden == 'za'){
-  $(this).html('<i class="fa fa-sort-alpha-desc fa-2x p-1 border rounded mx-2 btn btn-dark text-white" rel="tooltip" title="Ordenar alfabeticamente de forma ascendente" aria-hidden="true"></i>');
- }else{
-
-  $(this).html('<i class="fa fa-sort-alpha-asc fa-2x p-1 border rounded mx-2 btn" rel="tooltip" title="Ordenar alfabeticamente de forma descentente" aria-hidden="true"></i>');
-  $(this).attr('orden', 'az');
-  
- }
-
-*/
-
-
-  var tgrados = {};
-  var testudiantes = new Array();
-  $("#gruposc .ordenGrupo").each(function(){
-    if(tgrados[$(this).attr('grado')] == undefined){
-      tgrados[$(this).attr('grado')] = 0;
-    }
-    if(testudiantes[$(this).attr('grado')] == undefined){
-      testudiantes[$(this).attr('grado')] = 0;
-    }
-    tgrados[$(this).attr('grado')] += 1;
-    testudiantes[$(this).attr('grado')] += Number($(this).attr('estudiantes'));
-  });
-
-var trhtml = '';
- 
-$.each(tgrados, function (grado, cantidad) {
-  trhtml += '<tr><td class="text-center">'+grado+'</td><td class="text-center">'+cantidad+'</td><td class="text-center">'+testudiantes[grado]+'</td></tr>';
-});
-
-$('#tbody-grupos').html(trhtml);
 
 });
 
@@ -458,33 +405,31 @@ $(document).on('click', '.moverg', function () {
     $(document).on('dblclick', '.moverg', function () {
   $("#gruposc").css({"transform": "scale(1)"});
   });
+
   Sortable.create(gruposc, {
     animation: 150,
     //easing: "cubic-bezier(1, 0, 0, 1)",
     handle: ".moverg",
-    dataIdAttr: 'idg',
+    dataIdAttr: 'data-idg',
     ghostClass: "gmover",
     delay: "0",
     chosenClass: "chosen",
     store: {
       set: function (sortable) {
       var ordg = sortable.toArray();
-      document.cookie = 'ordenGrupoaz=; expires=Thu, 01 Jan 1970 00:00:01 GMT';
-      document.cookie = 'ordenGrupoza=; expires=Thu, 01 Jan 1970 00:00:01 GMT';
-      document.cookie = 'ordenGrupoHO=; expires=Thu, 01 Jan 1970 00:00:01 GMT';
-      document.cookie = 'ordenGrupo='+ordg+'; expires=Thu, 22 Dec ' + jyear2 + ' 01:00:00 UTC';
+      firebase.database().ref('escuela_' + escuela_sesion + '/grupos/' + year_1 + '-' + year_2 + '/' + quien + '_' + id_sesion + '/orden').set(ordg.join(','));
       }
         },
   
   });
 
 $(document).on("click", ".input_file_foto", function () {
-  $('#datos_js').attr('idg', $(this).attr('idg'));
+  $('#datos_js').attr('data-idg', $(this).attr('data-idg'));
 })
 
 function imagenSubida(url, i=0, h=0) {
-  var idg = $('#datos_js').attr('idg');
-  $("#FotoGrupo_cambiar" + idg)
+  var idg = $('#datos_js').attr('data-idg');
+  $("#FotoGrupo_cambiar-" + idg)
     .parent()
     .parent()
     .parent()
@@ -500,7 +445,7 @@ function imagenSubida(url, i=0, h=0) {
   $(".imageGrupo" + idg).attr(
     "style",
     "background: linear-gradient(90deg, #" +
-      $("#FotoGrupo_cambiar" + idg).attr("color") +
+      $("#FotoGrupo_cambiar-" + idg).attr("color") +
       ", black);opacity:0.85"
   );
 }
@@ -508,7 +453,7 @@ function imagenSubida(url, i=0, h=0) {
 $(document).on("mouseenter", ".eliminar_file_foto", function () {
  var grupo = $(this).attr('g');
 
-   var bimg = $("#FotoGrupo_cambiar" + grupo)
+   var bimg = $("#FotoGrupo_cambiar-" + grupo)
     .parent()
     .parent()
     .parent()
@@ -535,7 +480,7 @@ $(document).on("click", ".eliminar_file_foto_icon", function () {
     return false;
   }
   var grupo = $(this).attr('grupo');
-  var fondo = $("#FotoGrupo_cambiar" + grupo)
+  var fondo = $("#FotoGrupo_cambiar-" + grupo)
   .parent()
   .parent()
   .parent()
@@ -569,8 +514,8 @@ fondo.css({"background-image":""});
 if(local != 1){
 
 function SubirFotoPersonalLogoBanner(dataurl, cmini=0, imgtype='image/jpeg'){
-  var idg = $('#datos_js').attr('idg');
-  var urlfondo = $("#FotoGrupo_cambiar" + idg).attr('ruta');
+  var idg = $('#datos_js').attr('data-idg');
+  var urlfondo = $("#FotoGrupo_cambiar-" + idg).attr('ruta');
    $.ajax({
      method: "POST",
      url: "up.php?op=FondoGrupo",

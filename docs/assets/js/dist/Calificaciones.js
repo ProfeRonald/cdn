@@ -1206,6 +1206,19 @@ $(document).ready(function () {
         }
        }
 
+       if(herr == 'HDrive'){
+        if(cont != ''){
+          $('#driveModal').modal('show');
+           setTimeout(function () {
+      $('body').addClass('modal-open');
+      cargarArchivosProfesor();
+      }, 700);
+          
+        }else{
+          $('body').removeClass('modal-open');
+        }
+       }
+
         if(herr == 'HCalculadora'){
           $("#dragit-contained").toggle("slow");
         }
@@ -1217,13 +1230,13 @@ $(document).ready(function () {
 
           function listaActualizadaRuleta()
           {
-
+            var base_tipo_ruleta = 'r-' + escuela_sesion + '-' + id_sesion + '-' + id_grupo + '-' + id_asignaturamf + '-' + $("#teps").attr("tipo_ruleta");
          if($('#eliminar-ruleta').prop("checked") && $('#resultado-ruleta').text() != ''){
-            
-           var lista_ruleta = $('#' + $("#teps").attr("tipo_ruleta")).val().replace($('#resultado-ruleta').text(), "");
+          
+           var lista_ruleta = $('#' + base_tipo_ruleta).val().replace($('#resultado-ruleta').text(), "");
           
           }else{
-            var lista_ruleta = $('#' + $("#teps").attr("tipo_ruleta")).val();
+            var lista_ruleta = $('#' + base_tipo_ruleta).val();
           }
            
           var lista = lista_ruleta.split(/\r?\n/).filter(function(elista) {
@@ -1238,10 +1251,18 @@ $(document).ready(function () {
 
           $('#opcs-ruleta').text(lista.length + ' opciones');
 
-          $('#' + $("#teps").attr("tipo_ruleta")).val(lista.join('\n'));
+          $('#' + base_tipo_ruleta).val(lista.join('\n'));
           
           //document.cookie = $("#teps").attr("tipo_ruleta") + '=' + lista.join('-');
-          ruletaweb.database().ref('ruletas/' + $("#teps").attr("tipo_ruleta")).set(lista.join('-'));
+
+          var oGrupos = Number($('#' + base_tipo_ruleta).attr('oGrupos'));
+          
+          if(oGrupos == 1){
+             ruletaweb.database().ref('ruletas/escuela_' + escuela_sesion + '/profesor_' + id_sesion + '/' + id_grupo + '-' + id_asignaturamf + '-' + $("#teps").attr("tipo_ruleta") + '_1').set(lista.join('-'));
+          }else{
+            ruletaweb.database().ref('ruletas/escuela_' + escuela_sesion + '/profesor_' + id_sesion + '/' + id_grupo + '-' + id_asignaturamf + '-' + $("#teps").attr("tipo_ruleta")).set(lista.join('-'));
+          }
+          
 			    
           return lista;
           
@@ -1263,7 +1284,7 @@ $(document).ready(function () {
     const voz = new SpeechSynthesisUtterance();
 		voz.lang = 'es-DO';
 
-    var val_ruleta = $('#' + $("#teps").attr("tipo_ruleta")).val();
+    var val_ruleta = $('#r-' + escuela_sesion + '-' + id_sesion + '-' + id_grupo + '-' + id_asignaturamf + '-' + $("#teps").attr("tipo_ruleta")).val();
 
     $(document).on('click', '.blur_ruleta', function () {
       val_ruleta = $(this).val();
@@ -1277,16 +1298,15 @@ $(document).ready(function () {
   });
 
     $(document).on('click', '.ops-ruleta', function () {
-     $("#teps").attr("tipo_ruleta", 'r-' + escuela_sesion + '-' + id_sesion + '-' + id_grupo + '-' + id_asignaturamf + '-' + $(this).attr("tipo"));
+     $("#teps").attr("tipo_ruleta", $(this).attr("tipo"));
      drawRoulette();
-  ngm
     });
 
     $(document).on('click', '.recargar-lista', function () {
 
       //document.cookie = $("#teps").attr("tipo_ruleta") + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT';
-      ruletaweb.database().ref('ruletas/' + $("#teps").attr("tipo_ruleta")).remove();
-      $('#' + $("#teps").attr("tipo_ruleta")).val($("#teps").attr("lista_ruleta").split('-').join('\n'));
+      ruletaweb.database().ref('ruletas/escuela_' + escuela_sesion + '/profesor_' + id_sesion + '/' + id_grupo + '-' + id_asignaturamf + '-' + $("#teps").attr("tipo_ruleta")).remove();
+      $('#r-' + escuela_sesion + '-' + id_sesion + '-' + id_grupo + '-' + id_asignaturamf + '-' + $("#teps").attr("tipo_ruleta")).val($("#teps").attr("lista_ruleta").split('-').join('\n'));
       drawRoulette();
   
     });
@@ -1370,6 +1390,10 @@ $(document).ready(function () {
  						 window.speechSynthesis.cancel(); 
   						}
 						$("#resultado-ruleta").text(estudiante_ruleta);
+            let GrupoNum = estudiante_ruleta.replace(' ', '_');
+            $('.' + GrupoNum).focus();
+            $('.' + GrupoNum).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
+            $('.' + GrupoNum).addClass('bg-grupo-sel');
             $("#resultado-ruleta").parent().show('slow');
 						$("#estado-ruleta").text("Girar").attr('girando', 0);
 					} else {

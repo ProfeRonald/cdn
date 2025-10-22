@@ -2487,8 +2487,12 @@ margin-left: -4px;
 .recargar-lista{
 position: absolute;
 top: 32px;
-right: 182px;
+right: 130px;
 
+}
+
+.bg-grupo-sel{
+  background-color: #ffc10770 !important
 }
 
 .botones-aescolar  {
@@ -2568,6 +2572,25 @@ font-size: 1.2rem;
     opacity: 1;
     padding: .75rem;
   }
+
+
+
+
+
+
+    .upload-icon {
+      font-size: 3.5rem;
+      color: #007bff;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .upload-icon:hover {
+      transform: scale(1.1);
+      color: #0056b3;
+    }
+    #progressBar {
+      height: 20px;
+    }
 
 
 

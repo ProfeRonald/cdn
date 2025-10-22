@@ -253,7 +253,7 @@ $("#gruposc").html(htmlGrp);
   async function obtenerHorarios() {
     
     let dayName = new Date().toLocaleDateString('es-ES', {weekday: 'long'});
-    dayName = 'lunes';
+    
     let hor = 0;
 
   const horarios = await ruletaweb.database()

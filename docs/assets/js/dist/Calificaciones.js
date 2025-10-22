@@ -659,6 +659,10 @@ $(document).ready(function () {
                   $('#AsistenciaActivadaGC').hide('slow');
                   $('.AsistenciaGC').show('slow');
                 }, 5000);
+                setTimeout(function () {
+                 $('#preloader').fadeOut('slow');
+                  $('body').css({ 'overflow': 'visible' });
+                 }, 5050);
 
               } else {
                 $('#activar_asistencia').html('<i class="fa fa-3x" aria-hidden="true">Intentar de nuevo</i>');
@@ -849,6 +853,7 @@ $(document).ready(function () {
   });
   
   $(document).on('change', '#dia_asistencia', function () {
+    $('#none-preloader').html('<div id="preloader" style="z-index: 9999"><div id="loader">&nbsp;</div></div>');
     $('#preloader').fadeIn('slow');
     $('body').css({ 'overflow': 'hidden' });
     $('.basis').children('.bestado').val('P');
@@ -934,7 +939,11 @@ $(document).ready(function () {
       }, 550);
     })
     .fail(function(a, b, c){
-     // console.log(a, b, c);
+     setTimeout(function () {
+        $('#preloader').fadeOut('slow');
+        $('body').css({ 'overflow': 'visible' });
+      }, 550);
+      // console.log(a, b, c);
     })
   }
 
@@ -1058,6 +1067,9 @@ $(document).ready(function () {
 
 
   $(document).on('click', '#activar-asistencia', function () {
+    $('#none-preloader').html('<div id="preloader" style="z-index: 9999"><div id="loader">&nbsp;</div></div>');
+    $('#preloader').fadeIn('slow');
+    $('body').css({ 'overflow': 'hidden' });
     if (aarch == 0 && asistencia_local != 1) {
       setTimeout(function () {
         $('#activar_asistencia').trigger('click');
@@ -1142,6 +1154,11 @@ $(document).ready(function () {
   $(document).on('click', '.iconHerramienta', function () {
 
     var herr = $(this).attr('herramienta');
+    if(herr == 'HRuleta' && local > 1){
+          $('#none-preloader').html('<div id="preloader" style="z-index: 9999"><div id="loader">&nbsp;</div></div>');
+          $('#preloader').fadeIn('slow');
+          $('body').css({ 'overflow': 'hidden' });
+    }
     
     var titulo_asignaturamf = $("#datos_js").attr("titulo_asignaturamf");
     var titulo_grupo = $("#datos_js").attr("titulo_grupo");
@@ -1225,7 +1242,6 @@ $(document).ready(function () {
 
         if(herr == 'HRuleta' && local > 1){
           
-
           $('#ruletaModal').modal('show');
 
           function listaActualizadaRuleta()
@@ -1421,6 +1437,11 @@ $(document).ready(function () {
 		$("#estado-ruleta").on('click', function() {
 			sortear();
 		});
+
+    if(herr == 'HRuleta' && local > 1){
+          $('#preloader').fadeOut('slow');
+        $('body').css({ 'overflow': 'visible' });
+    }
           
         }
         

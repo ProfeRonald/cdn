@@ -83,6 +83,7 @@ $(document).ready(function () {
 
 }
 
+        if($('#tbody-grupos').length > 0){
 
         var tgrados = {};
         var testudiantes = new Array();
@@ -105,6 +106,7 @@ $(document).ready(function () {
 
       $('#tbody-grupos').html(trhtml);
 
+     
     firebase.database().ref('escuela_' + escuela_sesion + '/grupos/' + year_1 + '-' + year_2 + '/' + quien + '_' + id_sesion).on("value", (profe) => {
 
       $.each(profe.val().colores, function (idg, color) {
@@ -239,6 +241,12 @@ $("#gruposc").html(htmlGrp);
   }
 
    })
+
+
+  }
+
+
+
   
   
     $(document).on('click', '#ordenarGrupoAZ, #ordenarGrupoHorario', function () {

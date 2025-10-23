@@ -38,6 +38,8 @@ $(document).on("click", ".CasillasIL", function () {
 
         $(".celdas-" + orden + "-" + periodo + "-input input").show("slow");
         $('.pegarNota[ref="' + comp + '-' + periodo + '"]').show();
+
+        
     $.each(
           $(".celdas-" + orden + "-" + periodo + "-input input"),
       function () {

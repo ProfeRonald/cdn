@@ -1696,18 +1696,19 @@ setTimeout(function () {
           return;
         }
         
-        texto = texto.replace(/\r/g, '');
+          texto = texto.replace(/\r/g, '').trim();
 
-        if (texto.includes('\t')) {
-          texto = texto.replace(/\t/g, '\n');
-        }
+          if (/\t/.test(texto) || /\s{2,}/.test(texto)) {
+            texto = texto.replace(/\t+/g, '\n').replace(/\s{2,}/g, '\n');
+          }
 
-        const lineas = texto.split('\n');
+          const lineas = texto.split('\n').filter(l => l.trim() !== '');
 
-        const valores = lineas.map(linea => {
-          const n = parseFloat(linea.trim().replace(',', '.'));
-          return isNaN(n) ? 0 : n;
-        });
+          const valores = lineas.map(linea => {
+            const limpio = linea.trim().replace(',', '.');
+            const esNumero = /^-?\d+(\.\d+)?$/.test(limpio);
+            return esNumero ? parseFloat(limpio) : 0;
+          });
 
       let nombre_clase = '';
 

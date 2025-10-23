@@ -1698,12 +1698,14 @@ setTimeout(function () {
         
           texto = texto.replace(/\r/g, '').trim();
 
-          if (/\t/.test(texto) || /\s{2,}/.test(texto)) {
-            texto = texto.replace(/\t+/g, '\n').replace(/\s{2,}/g, '\n');
+          const tieneSaltos = /\n/.test(texto);
+
+          if (!tieneSaltos && (/\t/.test(texto) || /\s+/.test(texto))) {
+            texto = texto.replace(/\t+/g, '\n').replace(/\s+/g, '\n');
           }
 
           const lineas = texto.split('\n').filter(l => l.trim() !== '');
-
+          
           const valores = lineas.map(linea => {
             const limpio = linea.trim().replace(',', '.');
             const esNumero = /^-?\d+(\.\d+)?$/.test(limpio);
@@ -1727,7 +1729,11 @@ setTimeout(function () {
 
       const filas = tablec.rows().nodes(); 
 
+      const tvalores = valores.length
+
       $(filas).each(function(i, tr) {
+      
+  if(i < tvalores){
         const ide = $(tr).attr('ide');
         const valor = valores[i];
         const $celda = $('#' + ide + '-' + ref); 
@@ -1748,6 +1754,7 @@ $('<input>', {
         
        }
 
+      }
 
       });
 

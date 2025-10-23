@@ -11,22 +11,31 @@ $(document).ready(function () {
         var rat = $(this).attr("pra");
       
         if (click == "no") {
+          $(this).css({ color: "#ccc", "font-size": "1em", "font-weight": "normal" });
           $(this).attr("click", "si");
           $(this).css({ color: "#ccc" });
           $(".celdas-fct-" + rat + "-1-input input").hide();
           $(".celdas-fct-" + rat + "-2-input input").hide();
           $(".celdas-fct-" + rat + "-3-input input").hide();
+          $('.pegarNota[ref="' + rat + '-1"]').hide();
+          $('.pegarNota[ref="' + rat + '-2"]').hide();
+          $('.pegarNota[ref="' + rat + '-3"]').hide();
         }
       
         if (click == "si") {
-          $(this).attr("click", "no");
           $(this).css({
-            color: "white"
-          });
-      
+      color: "white",
+      "font-size": "1.5em",
+      "font-weight": "bold",
+    });
+          $(this).attr("click", "no");
+         
           $(".celdas-fct-" + rat + "-1-input input").show("slow");
           $(".celdas-fct-" + rat + "-2-input input").show("slow");
           $(".celdas-fct-" + rat + "-3-input input").show("slow");
+          $('.pegarNota[ref="' + rat + '-1"]').show();
+          $('.pegarNota[ref="' + rat + '-2"]').show();
+          $('.pegarNota[ref="' + rat + '-3"]').show();
           
           for (let i = 1; i < 4; i++) {
           $.each(

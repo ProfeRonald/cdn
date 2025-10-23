@@ -2592,7 +2592,10 @@ font-size: 1.2rem;
       height: 20px;
     }
 
-
+.pegarNota:hover {
+  cursor: pointer;
+  color: #03a9f3;
+}
 
 /*
 img{

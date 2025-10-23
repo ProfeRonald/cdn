@@ -15,6 +15,7 @@ $(document).ready(function () {
   var year_2 = Number($("#datos_js").attr("year_2"));
   var auto_asistencia = Number($("#datos_js").attr("auto_asistencia"));
   var teps = Number($("#datos_js").attr("teps"));
+  var formato_registro = Number($("#datos_js").attr("formato_registro"));
 
   if(datetype == 'text'){
     var wdtt = -5;
@@ -1683,6 +1684,110 @@ setTimeout(function () {
       width: "50%"
     });
   }
+
+  async function pegarCalificaciones(ths, click = 0) {
+    try {
+     
+        let texto = await navigator.clipboard.readText();
+        if (!texto) {
+           ths.attr('data-content', '<span class="text-danger">No hay contenido en el portapapeles</span>');
+           ths.popover('dispose').popover('show');
+           ths.attr('data-content', 'Haga click para guardar estas calificaciones.<br />&iexcl;Se reemplazar&aacute;n existentes!');
+          return;
+        }
+        
+        texto = texto.replace(/\r/g, '');
+
+        if (texto.includes('\t')) {
+          texto = texto.replace(/\t/g, '\n');
+        }
+
+        const lineas = texto.split('\n');
+
+        const valores = lineas.map(linea => {
+          const n = parseFloat(linea.trim().replace(',', '.'));
+          return isNaN(n) ? 0 : n;
+        });
+
+      let nombre_clase = '';
+
+      if(formato_registro == 3){
+        nombre_clase = 'CalificacionesIL';
+      }else if(formato_registro == 5){
+        nombre_clase = 'CalificacionesRA';
+      }else if(formato_registro == 6){
+        nombre_clase = 'CalificacionesFCT';
+      }
+      
+       $('.pegarCalificaciones').remove();
+       $('.' + nombre_clase).show(); 
+
+      const ref = ths.attr('ref');
+
+      const filas = tablec.rows().nodes(); 
+
+      $(filas).each(function(i, tr) {
+        const ide = $(tr).attr('ide');
+        const valor = valores[i];
+        const $celda = $('#' + ide + '-' + ref); 
+        
+        $celda.hide(); 
+       if(click == 1){
+          $celda.val(valores[i]).show().blur();
+       }else{
+$('<input>', {
+  type: 'text',
+  class: 'pegarCalificaciones border border-dark',
+  id: `pegar-${ide}-${ref}`,
+  value: valor,
+  maxlength: 2,
+  size: 2,
+  style: 'background-color: #F6DDCC'
+}).insertBefore($celda);
+        
+       }
+
+
+      });
+
+if(click == 1){
+      ths.attr('data-content', '<span class="text-success">Calificaciones pegadas correctamente</span>');
+      ths.popover('dispose').popover('show');
+      setTimeout(function () {
+        ths.attr('data-content', 'Haga click para guardar estas calificaciones.<br />&iexcl;Se reemplazar&aacute;n existentes!');
+      }, 4000);
+
+    }
+
+       if(click == 1){
+      ths.attr('click', 0);
+       }
+
+    } catch (err) {
+      console.error('❌ Error leyendo el portapapeles:', err);
+
+    }
+  }
+
+  $('.pegarNota').on('mouseover', async function() {
+    await pegarCalificaciones($(this));
+  });
+
+  $('.pegarNota').on('click', async function() {
+    await pegarCalificaciones($(this), 1);
+  });
+
+$(document).on('mouseout', '.pegarNota', function () {
+    const click = $(this).attr('click');
+    if(click == 1){
+      return false;
+    }
+    const ref = $(this).attr('ref');
+    $('.pegarCalificaciones').remove();
+    $('#TablaCalificaciones_wrapper tbody tr').each(function () {
+      $('#' + $(this).attr('ide') + '-' + ref).show();
+    })
+  })
 
 
   });

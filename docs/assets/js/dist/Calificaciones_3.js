@@ -19,11 +19,13 @@ $(document).on("click", ".CasillasIL", function () {
   var periodo = $(this).attr("periodo");
   var orden = $(this).attr("orden");
   var click = $(this).attr("click");
+  var comp = $(this).attr("comp");
 
   if (click == "no") {
     $(this).attr("click", "si");
     $(this).css({ color: "#ccc", "font-size": "1em", "font-weight": "normal" });
     $(".celdas-" + orden + "-" + periodo + "-input" + " input").hide();
+    $('.pegarNota[ref="' + comp + '-' + periodo + '"]').hide();
   }
 
   if (click == "si") {
@@ -35,6 +37,7 @@ $(document).on("click", ".CasillasIL", function () {
     });
 
         $(".celdas-" + orden + "-" + periodo + "-input input").show("slow");
+        $('.pegarNota[ref="' + comp + '-' + periodo + '"]').show();
     $.each(
           $(".celdas-" + orden + "-" + periodo + "-input input"),
       function () {

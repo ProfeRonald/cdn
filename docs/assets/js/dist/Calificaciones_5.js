@@ -18,6 +18,11 @@ var year_2 = $("#datos_js").attr("year_2");
 
 $(document).on('blur', '.CalificacionesRAPra', function () {
     var pra = $(this).val();
+    if(pra > 0){
+      $('.pegarNotaBotones').show();
+    }else{
+       $('.pegarNotaBotones').hide();
+    }
     var reserva = $("#datos_js").attr("reserva");
     var input = $(this);
     if(pra > 0 && pra != reserva){
@@ -34,10 +39,12 @@ $(document).on('blur', '.CalificacionesRAPra', function () {
                   }
                     })
                   .done(function(e){
-                    
+                    console.log(e);
                     if (e["exito"] == 1) {
                         var color = "#2ECC71";
+                        //Cambia al valor maximo las notas ya puestas que superen el nuevo pra
                         $('.CalificacionesRA').trigger('change');
+                        $('#pegarNotaBotones_' + ra).show();
                       } else {
                         var color = "red";
                       }
@@ -56,6 +63,7 @@ $(document).on('blur', '.CalificacionesRAPra', function () {
             
 
             var cas = input.attr('pra');
+
             
             if(cas == 0 && pra > 0){
 
@@ -84,7 +92,6 @@ $(document).on('blur', '.CalificacionesRAPra', function () {
             }
 
         });
-
     
 		$(document).on('keyup change', '.CalificacionesRA', function () {
 			var val = $(this).val().replace(/[^\d]/g,"");
@@ -94,6 +101,7 @@ $(document).on('blur', '.CalificacionesRAPra', function () {
             if (Number(val) > pra && pra > 0 && Number(val) > 0) {
                 val = pra;
               }
+
 			$(this).val(val);
 			
 			RevaluaRA(idc);
@@ -293,7 +301,6 @@ var op3 = $('#'+ra3).attr('op');
 
 $(window).on("load", function () {
     $('.CalificacionesRA').trigger('change');
-
 });
 
 $(document).on("click", ".CalificacionesRAGC", function () {

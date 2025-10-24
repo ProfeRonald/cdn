@@ -274,7 +274,7 @@ function listarTodosArchivos() {
                 <div id="fileinfo_${fileId}">
                   ${n}.${a} ${getFileIcon(nombreFirebase.split('.').pop())}
                   <a href="${linkDrive}" target="_blank" class="nombre-firebase">${nombreFirebase}</a>
-                  <div class="text-muted small">Detalles no cargados</div>
+                  <div class="text-muted small">Pulse "Más info"</div>
                 </div>
                 <button type="button" class="btn btn-sm btn-outline-primary cargar-drive" data-fileid="${fileId}">
                   <i class="fa fa-refresh"></i> Más info

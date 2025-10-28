@@ -10,79 +10,6 @@ var id_sesion = $("#datos_js").attr("id_sesion");
 
 $(document).ready(function () {
 
-  if(local != 1){
-
-  var id_sesion = $("#datos_js").attr("id_sesion");
- 
-  var storageRef = firebase
-    .storage()
-    .ref('grupos/' + year_1 + "-" + year_2 + "/FondosGrupos/profe_" + id_sesion);
-  storageRef
-    .listAll()
-    .then(function (result) {
-      result.items.forEach(function (imageRef) {
-        displayImage(imageRef);
-      });
-    })
-    .catch(function (error) {});
-  
-  function displayImage(imageRef) {
-    imageRef
-      .getDownloadURL()
-      .then(function (url) {
-        
-        var idg = imageRef.name.split(".jpg")[0].split("_")[1];
-        if (idg > 0) { 
-          if ($("#FotoGrupo_cambiar-" + idg).attr("v") == 1) {
-            $("#FotoGrupo_cambiar-" + idg)
-              .parent()
-              .attr(
-                "style",
-                'background-image: url("' +
-                  url +
-                  '");background-position: bottom;background-repeat: no-repeat;background-size: 100% 100%;'
-              );
-
-            var scolor = $("#FotoGrupo_cambiar-" + idg).attr("color");
-              $("#FotoGrupo_cambiar-" + idg).attr(
-                "style",
-                "background: linear-gradient(90deg, #" +
-                  scolor +
-                  ", black);opacity:0.85"
-              );
-             
-          } else {
-            $("#FotoGrupo_cambiar-" + idg)
-              .parent()
-              .parent()
-              .parent()
-              .parent()
-              .parent()
-              .parent()
-              .attr(
-                "style",
-                'background-image: url("' +
-                  url +
-                  '");background-repeat: no-repeat;background-size: 100% 100%;'
-              );
-
-            var scolor = $("#FotoGrupo_cambiar-" + idg).attr("color");
-  
-              $(".imageGrupo" + idg).attr(
-                "style",
-                "background: linear-gradient(90deg, #" +
-                  scolor +
-                  ", black);opacity:0.85"
-              );
-            
-          }
-        }
-      })
-      .catch(function (error) {});
-  }
-
-}
-
         if($('#tbody-grupos').length > 0){
 
         var tgrados = {};
@@ -106,8 +33,11 @@ $(document).ready(function () {
 
       $('#tbody-grupos').html(trhtml);
 
-     
-    firebase.database().ref('escuela_' + escuela_sesion + '/grupos/' + year_1 + '-' + year_2 + '/' + quien + '_' + id_sesion).on("value", (profe) => {
+     firebase.database().ref('escuela_' + escuela_sesion + '/grupos/' + year_1 + '-' + year_2 + '/' + quien + '_' + id_sesion).on("value", (profe) => {
+      
+      console.log(profe.val());
+
+      if(profe.val() != undefined && profe.val() != null){
 
       $.each(profe.val().colores, function (idg, color) {
         $("#FotoGrupo_cambiar-" + idg).attr('color', color);
@@ -240,7 +170,84 @@ $("#gruposc").html(htmlGrp);
 
   }
 
+  }
+
    })
+
+
+   if(local != 1){
+
+    setTimeout(function () {
+ 
+  var storageRef = firebase
+    .storage()
+    .ref('grupos/' + year_1 + "-" + year_2 + "/FondosGrupos/profe_" + id_sesion);
+  storageRef
+    .listAll()
+    .then(function (result) {
+      result.items.forEach(function (imageRef) {
+        displayImage(imageRef);
+      });
+    })
+    .catch(function (error) {});
+  
+  function displayImage(imageRef) {
+    imageRef
+      .getDownloadURL()
+      .then(function (url) {
+        
+        var idg = imageRef.name.split(".jpg")[0].split("_")[1];
+        if (idg > 0) { 
+          if ($("#FotoGrupo_cambiar-" + idg).attr("v") == 1) {
+            $("#FotoGrupo_cambiar-" + idg)
+              .parent()
+              .attr(
+                "style",
+                'background-image: url("' +
+                  url +
+                  '");background-position: bottom;background-repeat: no-repeat;background-size: 100% 100%;'
+              );
+
+            var scolor = $("#FotoGrupo_cambiar-" + idg).attr("color");
+              $("#FotoGrupo_cambiar-" + idg).attr(
+                "style",
+                "background: linear-gradient(90deg, #" +
+                  scolor +
+                  ", black);opacity:0.85"
+              );
+             
+          } else {
+            $("#FotoGrupo_cambiar-" + idg)
+              .parent()
+              .parent()
+              .parent()
+              .parent()
+              .parent()
+              .parent()
+              .attr(
+                "style",
+                'background-image: url("' +
+                  url +
+                  '");background-repeat: no-repeat;background-size: 100% 100%;'
+              );
+
+            var scolor = $("#FotoGrupo_cambiar-" + idg).attr("color");
+  
+              $(".imageGrupo" + idg).attr(
+                "style",
+                "background: linear-gradient(90deg, #" +
+                  scolor +
+                  ", black);opacity:0.85"
+              );
+            
+          }
+        }
+      })
+      .catch(function (error) {});
+  }
+        }, 1000);
+
+}
 
 
   }
@@ -401,8 +408,6 @@ $(document).on("click", ".colorpicker", function () {
       $(".colorpicker").text("");
     }
   });
-
-});
 
 var fecha = new Date();
 var jyear2 = fecha.getFullYear() + 1;
@@ -572,3 +577,5 @@ function SubirFotoPersonalLogoBanner(dataurl, cmini=0, imgtype='image/jpeg'){
     porcentaje.data('porcentaje', porciento);
     porcentaje.text(porciento + '%');
   })
+
+  });

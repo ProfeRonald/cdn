@@ -25,7 +25,9 @@ $(document).on("click", ".CasillasIL", function () {
     $(this).attr("click", "si");
     $(this).css({ color: "#ccc", "font-size": "1em", "font-weight": "normal" });
     $(".celdas-" + orden + "-" + periodo + "-input" + " input").hide();
-    $('.pegarNota[ref="' + comp + '-' + periodo + '"]').hide();
+    $('.pegarNota[ref="' + comp + '-' + periodo + '"]').removeAttr('activo');
+    $('.dictarNota[ref="' + comp + '-' + periodo + '"]').hide();
+    $('.pegarBotones[ref="' + comp + '-' + periodo + '"]').hide();
   }
 
   if (click == "si") {
@@ -37,7 +39,9 @@ $(document).on("click", ".CasillasIL", function () {
     });
 
         $(".celdas-" + orden + "-" + periodo + "-input input").show("slow");
-        $('.pegarNota[ref="' + comp + '-' + periodo + '"]').show();
+        $('.pegarNota[ref="' + comp + '-' + periodo + '"]').attr('activo', 1);
+        $('.pegarBotones[ref="' + comp + '-' + periodo + '"]').show();
+        $('.dictarNota[ref="' + comp + '-' + periodo + '"]').show();
 
         
     $.each(

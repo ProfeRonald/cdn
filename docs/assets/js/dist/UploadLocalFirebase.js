@@ -1,7 +1,5 @@
  
  $(document).on('change', '.input_file_foto', function () {
-    		
-	alert('sssss');
 
 		$('#barra_upload').show('slow');
 		$('#mensaje_uploading').show('slow');

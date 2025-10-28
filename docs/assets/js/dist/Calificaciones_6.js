@@ -9,7 +9,7 @@ $(document).ready(function () {
        
         var click = $(this).attr("click");
         var rat = $(this).attr("pra");
-      
+                
         if (click == "no") {
           $(this).css({ color: "#ccc", "font-size": "1em", "font-weight": "normal" });
           $(this).attr("click", "si");
@@ -17,9 +17,13 @@ $(document).ready(function () {
           $(".celdas-fct-" + rat + "-1-input input").hide();
           $(".celdas-fct-" + rat + "-2-input input").hide();
           $(".celdas-fct-" + rat + "-3-input input").hide();
-          $('.pegarNota[ref="' + rat + '-1"]').hide();
-          $('.pegarNota[ref="' + rat + '-2"]').hide();
-          $('.pegarNota[ref="' + rat + '-3"]').hide();
+          $('.pegarBotones[ref="' + rat + '"]').parent().find('.pegarNota').removeAttr('activo');
+          $('.pegarBotones[ref="' + rat + '"]').hide();
+          $(this).parent().parent().find('.pegarBotones').hide();
+          $('.dictarNota[ref="' + rat + '-1"]').hide();
+          $('.dictarNota[ref="' + rat + '-2"]').hide();
+          $('.dictarNota[ref="' + rat + '-3"]').hide();
+          
         }
       
         if (click == "si") {
@@ -33,9 +37,11 @@ $(document).ready(function () {
           $(".celdas-fct-" + rat + "-1-input input").show("slow");
           $(".celdas-fct-" + rat + "-2-input input").show("slow");
           $(".celdas-fct-" + rat + "-3-input input").show("slow");
-          $('.pegarNota[ref="' + rat + '-1"]').show();
-          $('.pegarNota[ref="' + rat + '-2"]').show();
-          $('.pegarNota[ref="' + rat + '-3"]').show();
+          $('.pegarBotones[ref="' + rat + '"]').parent().find('.pegarNota').attr('activo', 1);
+          $('.pegarBotones[ref="' + rat + '"]').show();
+          $('.dictarNota[ref="' + rat + '-1"]').show();
+          $('.dictarNota[ref="' + rat + '-2"]').show();
+          $('.dictarNota[ref="' + rat + '-3"]').show();
           
           for (let i = 1; i < 4; i++) {
           $.each(

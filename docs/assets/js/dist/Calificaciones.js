@@ -2008,7 +2008,6 @@ const iniciarDictado = () => {
         $('#' + ref).val($(this).hide().val()).show().blur();
       });
        $('#btnNoVoz').trigger('click');
-      detenerDictado();
       return;
     }
     
@@ -2070,8 +2069,6 @@ const detenerDictado = () => {
 const resetInactividad = () => {
   clearTimeout(timeoutInactividad);
   timeoutInactividad = setTimeout(() => {
-    $('#btnMicVoz').attr('class', 'fa fa-microphone-slash text-danger fa-3x');
-    $('#btnMicVoz').removeClass('mic-escuchando').addClass('mic-inactivo');
     detenerDictado();
   }, 10000);
 };
@@ -2089,7 +2086,6 @@ const escribirNumeros = async (numeros) => {
   if (indexActual < 0) indexActual = 0;
 
   for (let num of numeros) {
-    if (indexActual >= inputs.length) break;
 
     const input = inputs.eq(indexActual);
 
@@ -2099,6 +2095,11 @@ const escribirNumeros = async (numeros) => {
     inputs.eq(indexActual + 1).css({ backgroundColor: '#ffcd42b8' });
 
     input.val(num);
+    
+    if ((indexActual + 1) >= inputs.length){
+      detenerDictado();
+      break;
+    } 
 
     indexActual++;
     if (indexActual < inputs.length) {

@@ -2673,7 +2673,7 @@ font-size: 1.2rem;
   content: none;
 }
 
-#floatingMic {
+#btnMiniMicVoz {
   position: absolute;
   z-index: 2000;
   display: flex;
@@ -2689,7 +2689,7 @@ font-size: 1.2rem;
   transition: transform 0.2s ease;
 }
 
-#floatingMic::before {
+#btnMiniMicVoz::before {
   content: "";
   position: absolute;
   left: -6px;
@@ -2700,7 +2700,7 @@ font-size: 1.2rem;
   border-color: transparent #f8f9fa transparent transparent;
 }
 
-#floatingMic i {
+#btnMiniMicVoz i {
   font-size: 1.2em;
 }
 
@@ -2709,7 +2709,7 @@ font-size: 1.2rem;
   50% { transform: scale(1.3); }
 }
 
-#btnVoz {
+#btnMicVoz {
  cursor: pointer;
   position: relative;
   z-index: 4000;

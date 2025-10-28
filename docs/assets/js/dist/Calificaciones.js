@@ -765,7 +765,6 @@ $(document).ready(function () {
       data: $("#formasis").serialize()
     })
       .done(function (ias) {
-        //console.log(ias);
         $('#msjasistencia').html(ias['msj']);
          if (ias['si'] == 3) {
           $("#insertar_asistencia").prop('disabled', true);
@@ -798,7 +797,6 @@ $(document).ready(function () {
       })
 
       .fail(function (a,b,c) {
-        //console.log(a, b, c);
         setTimeout(function () {
           $('#insertar_asistencia i').text(' Intentar de nuevo');
           $("#insertar_asistencia").prop('disabled', false);
@@ -944,7 +942,6 @@ $(document).ready(function () {
         $('#preloader').fadeOut('slow');
         $('body').css({ 'overflow': 'visible' });
       }, 550);
-      // console.log(a, b, c);
     })
   }
 
@@ -1790,7 +1787,7 @@ if(click == 1){
       boundary: "scrollParent"
     };
     $(this).popover('dispose').popover(options).popover('show');
-     const click = $('#btnMicVoz').attr('click');
+     const click = $('#btnVoz').attr('click');
      if(click == 1){
       return false;
     }
@@ -1814,7 +1811,7 @@ if(click == 1){
 
 $(document).on('mouseout', '.pegarNota', function () {
     const click = $(this).attr('click');
-    if(click == 1 || $('#btnMicVoz').attr('click') == 1){
+    if(click == 1 || $('#btnVoz').attr('click') == 1){
       return false;
     }
     const ref = $(this).attr('ref');
@@ -1830,9 +1827,8 @@ if (!('webkitSpeechRecognition' in window)) {
 
   $('.dictarNota').show();
 
-  // === Mostrar inputs al pasar el ratón ===
   $(document).on('mouseover', '.dictarNota', async function() {
-     const click = $('#btnMicVoz').attr('click');
+     const click = $('#btnVoz').attr('click');
      if(click == 1){
       return false;
     }
@@ -1840,7 +1836,7 @@ if (!('webkitSpeechRecognition' in window)) {
     
   });
 
-  // === Mostrar popover con micrófono ===
+
   $(document).on('click', '.dictarNota', function () {
     $('.dictarNota').removeAttr('id');
     $('.dictarNota').popover('dispose');
@@ -1849,7 +1845,7 @@ if (!('webkitSpeechRecognition' in window)) {
     $(this).attr('title', 'Dictando calificaciones');
    $(this).attr('data-content', `
       <span class="d-block text-center">
-        <i id="btnVoz" class="btn fa fa-microphone fa-3x" aria-hidden="true"></i><br />
+        <i id="btnMicVoz" class="btn fa fa-microphone fa-3x" aria-hidden="true"></i><br />
         Vaya dictando haciendo una peque&ntilde;a pausa.<br />
         &iexcl;Se reemplazar&aacute;n existentes!<br />
         <span id="btnNoVoz" type="button" class="btn btn-secondary btn-sm mt-2">Cerrar</span>
@@ -1861,28 +1857,27 @@ var options = {
   toggle: 'popover',
   html: true,
   title: 'Dictando calificaciones',
-  content: '<span class="d-block text-center">        <i id="btnVoz" class="btn fa fa-microphone fa-3x" aria-hidden="true"></i><br />        Vaya dictando haciendo una peque&ntilde;a pausa.<br />        &iexcl;Se reemplazar&aacute;n existentes!<br />        <span id="btnNoVoz" type="button" class="btn btn-secondary btn-sm mt-2">Cerrar</span>      </span>',
+  content: '<span class="d-block text-center">        <i id="btnMicVoz" class="btn fa fa-microphone fa-3x" aria-hidden="true"></i><br />        Vaya dictando haciendo una peque&ntilde;a pausa.<br />        &iexcl;Se reemplazar&aacute;n existentes!<br />        <span id="btnNoVoz" type="button" class="btn btn-secondary btn-sm mt-2">Cerrar</span>      </span>',
   fallbackPlacement: ["left"],
   boundary: "scrollParent"
 };
     $(this).popover('dispose').popover(options).popover('show');
 
     $(this).attr('click', 1);
-    $(this).attr('id', 'btnMicVoz');
+    $(this).attr('id', 'btnVoz');
     currentIndex = null;
     iniciarDictado();
   });
 
  $(window).on("load", function () {
   $('.dataTables_scrollBody').on('scroll', function () {
-    if ($('#btnMicVoz').length) {
+    if ($('#btnVoz').length) {
       $('#btnNoVoz').trigger('click');
     }
   });
 });
 
-  // === Iniciar/Detener dictado ===
-  $(document).on('click', '#btnVoz', function () {
+  $(document).on('click', '#btnMicVoz', function () {
     let activo = $(this).attr('activo');
     if(activo == 1){
       detenerDictado();
@@ -1892,19 +1887,17 @@ var options = {
     }
   });
 
-  // === Cerrar popover ===
   $(document).on('click', '#btnNoVoz', function () {
-    $('#btnMicVoz').popover('dispose');
-    $('#btnMicVoz').attr('click', 0);
-    $('#btnMicVoz').trigger('mouseout');
+    $('#btnVoz').popover('dispose');
+    $('#btnVoz').attr('click', 0);
+    $('#btnVoz').trigger('mouseout');
     detenerDictado();
-    $('#btnMicVoz').attr('data-content', 'Pulse para comenzar a dictar');
+    $('#btnVoz').attr('data-content', 'Pulse para comenzar a dictar');
   });
 
-  // === Restaurar tabla al salir del área ===
   $(document).on('mouseout', '.dictarNota', function () {
     const click = $(this).attr('click');
-     if(click == 1 || $('#btnMicVoz').attr('click') == 1){
+     if(click == 1 || $('#btnVoz').attr('click') == 1){
       return false;
     }
     const ref = $(this).attr('ref');
@@ -1914,7 +1907,6 @@ var options = {
     });
   });
 
-  // === Generar inputs dinámicos ===
   async function dictarCalificaciones(ths) {
     try {
       
@@ -1952,44 +1944,34 @@ var options = {
     }
   }
 
-  // === VARIABLES GLOBALES ===
 let reconocimiento;
 let escuchando = false;
 let timeoutInactividad;
-let currentIndex = null; // casilla actual
-let ultimaActividad = Date.now();
+let currentIndex = null;
 
-// === GUARDAR FOCUS ===
 $(document).on('focus', '.dictarCalificaciones', function () {
   currentIndex = $(this).attr('id');
-  //console.log("🟢 Focus actual:", currentIndex);
 });
 
-// === INICIAR EL DICTADO ===
 const iniciarDictado = () => {
 
   const inputs = $('.dictarCalificaciones');
   
-  // Si currentIndex ya existe, continuar desde ahí
   if (currentIndex) {
     const inputActual = $('#' + currentIndex);
     if (inputActual.length) inputActual.focus();
   } else {
-    // 🔹 Si no hay currentIndex, usar foco actual
     const foco = $(':focus.dictarCalificaciones');
     if (foco.length) {
       currentIndex = foco.attr('id');
     } else {
-      // 🔹 Si no hay foco, forzar foco en la primera
       const firstInput = inputs.first();
       firstInput.focus();
       currentIndex = firstInput.attr('id');
     }
   }
 
-  //console.log("✅ Dictado iniciado en:", currentIndex);
-
-  if (escuchando) return; // ya está escuchando
+  if (escuchando) return;
   escuchando = true;
 
   reconocimiento = new webkitSpeechRecognition();
@@ -1999,9 +1981,8 @@ const iniciarDictado = () => {
 
   reconocimiento.onstart = () => {
     window.micSetListening(true);
-    //console.log("Escuchando...");
-    $('#btnVoz').attr('class', 'fa fa-microphone text-primary fa-3x');
-    $('#btnVoz').removeClass('mic-inactivo').addClass('mic-escuchando');
+    $('#btnMicVoz').attr('class', 'fa fa-microphone text-primary fa-3x');
+    $('#btnMicVoz').removeClass('mic-inactivo').addClass('mic-escuchando');
     resetInactividad();
   };
 
@@ -2018,7 +1999,6 @@ const iniciarDictado = () => {
 
     if(texto.toLowerCase().includes("fin")) {
       detenerDictado();
-      //console.log("Detenido con \"FIN\"");
       return;
     }
 
@@ -2032,7 +2012,6 @@ const iniciarDictado = () => {
       return;
     }
     
-    //console.log("🗣️ Detectado:", texto);
     const tokens = texto.split(/\s+/);
     const numeros = [];
     const $mic = $('.mic-escuchando');
@@ -2040,38 +2019,22 @@ const iniciarDictado = () => {
   const tokenRaw = (typeof t === 'string') ? t : String(t);
   const tokenTrim = tokenRaw.trim();
 
-  // 1️⃣ Ignorar tokens vacíos (split produce espacios vacíos)
   if (tokenTrim === '') {
-    console.log('token vacío → ignorado');
     continue;
   }
 
-  // 2️⃣ Intentar convertir palabra a número
   const n = convertirPalabrasANumeros(tokenTrim);
 
-  // Si n ya es número, úsalo; si no, intenta parseFloat
   const numeroReal = (typeof n === 'number') ? n : parseFloat(n);
 
-  console.log(
-    'token:', tokenTrim,
-    '→ n:', n,
-    'numeroReal:', numeroReal,
-    'isNaN:', isNaN(numeroReal),
-    'esNumeroValido:', esNumeroValido(numeroReal)
-  );
-
-  // 3️⃣ Si la conversión falló → palabra no numérica → error visual
   if (n === null || n === undefined || isNaN(numeroReal) || !esNumeroValido(numeroReal)) {
     $mic.addClass('mic-error');
     setTimeout(() => $mic.removeClass('mic-error'), 1000);
     continue;
   }
 
-  // 5️⃣ Si llegamos aquí, es número válido → agregar
   numeros.push(numeroReal);
 }
-
-
     
     if (numeros.length > 0) {
       await escribirNumeros(numeros);
@@ -2085,45 +2048,37 @@ const iniciarDictado = () => {
 
   reconocimiento.onend = () => {
     window.micSetListening(false);
-    //console.log("🎙️ Escucha detenida.");
-    $('#btnVoz').attr('class', 'fa fa-microphone-slash text-danger fa-3x');
-    $('#btnVoz').removeClass('mic-escuchando').addClass('mic-inactivo');    
+    $('#btnMicVoz').attr('class', 'fa fa-microphone-slash text-danger fa-3x');
+    $('#btnMicVoz').removeClass('mic-escuchando').addClass('mic-inactivo');    
     escuchando = false;
     clearTimeout(timeoutInactividad);
   };
 
   reconocimiento.start();
-  $('#btnVoz').attr('activo', 1);
+  $('#btnMicVoz').attr('activo', 1);
 };
 
-
-// === DETENER DICTADO ===
 const detenerDictado = () => {
   if (reconocimiento) reconocimiento.stop();
   escuchando = false;
   clearTimeout(timeoutInactividad);
-  $('#btnVoz').attr('class', 'fa fa-microphone-slash text-danger fa-3x');
-  $('#btnVoz').removeClass('mic-escuchando').addClass('mic-inactivo');  
+  $('#btnMicVoz').attr('class', 'fa fa-microphone-slash text-danger fa-3x');
+  $('#btnMicVoz').removeClass('mic-escuchando').addClass('mic-inactivo');  
   stopDictado();
-  //console.log("⏹ Dictado detenido manualmente.");
 };
 
-// === RESETEAR TIMEOUT POR INACTIVIDAD ===
 const resetInactividad = () => {
   clearTimeout(timeoutInactividad);
   timeoutInactividad = setTimeout(() => {
-    //console.log("⏱️ Deteniendo por inactividad...");
-    $('#btnVoz').attr('class', 'fa fa-microphone-slash text-danger fa-3x');
-    $('#btnVoz').removeClass('mic-escuchando').addClass('mic-inactivo');
+    $('#btnMicVoz').attr('class', 'fa fa-microphone-slash text-danger fa-3x');
+    $('#btnMicVoz').removeClass('mic-escuchando').addClass('mic-inactivo');
     detenerDictado();
-  }, 10000); // 10 segundos
+  }, 10000);
 };
 
-// === ESCRIBIR NÚMEROS EN LOS INPUTS ===
 const escribirNumeros = async (numeros) => {
   const inputs = $('.dictarCalificaciones');
 
-  // Validar currentIndex
   if (!currentIndex) {
     const firstInput = inputs.first();
     firstInput.focus();
@@ -2140,14 +2095,11 @@ const escribirNumeros = async (numeros) => {
 
     inputs.css({ backgroundColor: '#007bff' });
 
-    // 🔹 Enfocar antes de escribir
     input.focus();
     inputs.eq(indexActual + 1).css({ backgroundColor: '#ffcd42b8' });
 
-    // 🔹 Escribir el número
     input.val(num);
 
-    // 🔹 Avanzar al siguiente
     indexActual++;
     if (indexActual < inputs.length) {
       currentIndex = inputs.eq(indexActual).attr('id');
@@ -2160,7 +2112,6 @@ const escribirNumeros = async (numeros) => {
   }
 };
 
-// === CONVERTIR PALABRAS A NÚMEROS ===
 const convertirPalabrasANumeros = (texto) => {
   texto = texto.toLowerCase().trim();
   const mapa = {
@@ -2177,17 +2128,16 @@ const convertirPalabrasANumeros = (texto) => {
   return isNaN(numero) ? null : numero;
 };
 
-// === VALIDAR NÚMERO ===
 const esNumeroValido = (num) => {
   const n = parseFloat(num);
 
-  const ref = $('#btnMicVoz').attr('ref');
+  const ref = $('#btnVoz').attr('ref');
   let rango = { tipo: 'entero', min: 0, max: 10 };
 
   if (formato_registro == 3) {
     rango = { tipo: 'entero', min: 0, max: 100 };
   } else if (formato_registro == 5) {
-    const pra = parseFloat($('#pra-' + ref.split('-')[0]).val()); // convertir a número
+    const pra = parseFloat($('#pra-' + ref.split('-')[0]).val());
     rango = { tipo: 'entero', min: 0, max: pra };
   } else if (formato_registro == 6) {
     rango = { tipo: 'decimal', min: 0, max: 10 };
@@ -2199,15 +2149,12 @@ const esNumeroValido = (num) => {
   return false;
 };
 
-// === Micrófono flotante junto al input ===
-// Mic flotante global
-let $floatingMic = null;
+let $btnMiniMicVoz = null;
 
-function showFloatingMic($input) {
-  if (!$floatingMic) {
-    // crear mic si no existe
-    $floatingMic = $(`
-      <div id="floatingMic" style="
+function showbtnMiniMicVoz($input) {
+  if (!$btnMiniMicVoz) {
+    $btnMiniMicVoz = $(`
+      <div id="btnMiniMicVoz" style="
         position:absolute;
         z-index:3000;
         background-color:#f8f9fa;
@@ -2232,49 +2179,43 @@ function showFloatingMic($input) {
           border-bottom:6px solid transparent;
           border-right:6px solid #fff;
         "></div>
-        <i class="fa fa-microphone-slash btnVozMini text-danger mic-inactivo"
+        <i class="fa fa-microphone-slash btnMiniMicVoz text-danger mic-inactivo"
            style="font-size:1.4em;"></i>
       </div>
     `);
     
-    $('body').append($floatingMic);
+    $('body').append($btnMiniMicVoz);
 
-    // click sobre mic → dispara botón real
-    // click sobre mic flotante
-$floatingMic.on('click', '.btnVozMini', function(e) {
+$btnMiniMicVoz.on('click', '.btnMiniMicVoz', function(e) {
   e.stopPropagation();
-  $('#btnVoz').trigger('click'); // dispara botón real
+  $('#btnMicVoz').trigger('click');
 });
 
-// sincronizar estado del mic flotante desde el botón real
-$(document).on('click', '#btnVoz', async function() {
-  const isListening = !window.__micListening; // invierte estado
+$(document).on('click', '#btnMicVoz', async function() {
+  const isListening = !window.__micListening;
   window.micSetListening(isListening);
 });
 
   }
 
-  // posicionar sobre el input
   const offset = $input.offset();
-  const top = offset.top + ($input.outerHeight()/2) - ($floatingMic.outerHeight()/2);
+  const top = offset.top + ($input.outerHeight()/2) - ($btnMiniMicVoz.outerHeight()/2);
   const left = offset.left + $input.outerWidth() + 8;
-  $floatingMic.css({ top: top + 'px', left: left + 'px', display: 'flex' });
+  $btnMiniMicVoz.css({ top: top + 'px', left: left + 'px', display: 'flex' });
 }
 
-function hideFloatingMic() {
-  if ($floatingMic) $floatingMic.hide();
+function hidebtnMiniMicVoz() {
+  if ($btnMiniMicVoz) $btnMiniMicVoz.hide();
 }
 
-// focus → mostrar mic
 $(document).on('focus', '.dictarCalificaciones', function () {
-  showFloatingMic($(this));
+  showbtnMiniMicVoz($(this));
 });
 
-// cambio de estado de escucha (para cambiar color)
 window.micSetListening = function(listening) {
   window.__micListening = !!listening;
-  if ($floatingMic) {
-    const $icon = $floatingMic.find('.btnVozMini');
+  if ($btnMiniMicVoz) {
+    const $icon = $btnMiniMicVoz.find('.btnMiniMicVoz');
     if (listening) {
       $icon.removeClass('fa fa-microphone-slash text-danger mic-inactivo').addClass('fa fa-microphone text-primary mic-escuchando');
     } else {
@@ -2283,9 +2224,8 @@ window.micSetListening = function(listening) {
   }
 };
 
-// opcional: ocultar mic al terminar dictado
 function stopDictado() {
-  hideFloatingMic();
+  hidebtnMiniMicVoz();
 }
 
 

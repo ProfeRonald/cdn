@@ -35,7 +35,7 @@ $(document).ready(function () {
 
      firebase.database().ref('escuela_' + escuela_sesion + '/grupos/' + year_1 + '-' + year_2 + '/' + quien + '_' + id_sesion).on("value", (profe) => {
       
-      console.log(profe.val());
+      $('.count2').removeClass('count');
 
       if(profe.val() != undefined && profe.val() != null){
 
@@ -171,6 +171,9 @@ $("#gruposc").html(htmlGrp);
   }
 
   }
+
+  
+  $('.count2').addClass('count');
 
    })
 
@@ -409,10 +412,8 @@ $(document).on("click", ".colorpicker", function () {
     }
   });
 
-var fecha = new Date();
-var jyear2 = fecha.getFullYear() + 1;
 
-$(document).on('click', '.moverg', function () {
+  $(document).on('click', '.moverg', function () {
   $("#gruposc .moverclass").css({"transform": "scale(0.5)"});
   });
     $(document).on('dblclick', '.moverg', function () {

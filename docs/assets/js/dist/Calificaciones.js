@@ -96,7 +96,7 @@ $(document).ready(function () {
         cols +=
           '<i style="cursor:pointer" class="toggle-vis text-info" data-column="' +
           j +
-          '" aria-hidden="true">Indicador ' +
+          '" aria-hidden="true">Grupo de competencias ' +
           j +
           "</i> | ";
       }
@@ -104,7 +104,7 @@ $(document).ready(function () {
     if (cols != "") {
       cols = cols.substring(0, cols.length - 3);
       $("#columnas_me").html(
-        "<b>Mostrar indicador:</b> <span>" + cols + "</span>"
+        "<b>Mostrar grupo de competencia:</b> <span>" + cols + "</span>"
       );
     }
   });

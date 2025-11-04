@@ -1693,14 +1693,22 @@ setTimeout(function () {
           return;
         }
         
-                  const lineas = texto.split('\n'); // Mantiene todas las líneas, incluso vacías
+        texto = texto.replace(/\r/g, '').trim();
+        
+        const tieneSaltos = /\n/.test(texto);
+    
+        if (!tieneSaltos && (/\t/.test(texto) || /\s+/.test(texto))) {
+          texto = texto.replace(/\t+/g, '\n').replace(/\s+/g, '\n');
+        }
 
-        const valores = lineas.map(linea => {
-          const limpio = linea.trim().replace(',', '.');
-          // Si está vacío o no es número → 0
-          const n = parseFloat(limpio);
-          return isFinite(n) ? n : 0;
-        });
+      const lineas = texto.split('\n');
+
+     const valores = lineas.map(linea => {
+      const limpio = linea.trim().replace(',', '.');
+      const n = parseFloat(limpio);
+      return isFinite(n) ? n : 0;
+    });
+
 
 
       let nombre_clase = '';
@@ -2063,7 +2071,7 @@ const resetInactividad = () => {
   clearTimeout(timeoutInactividad);
   timeoutInactividad = setTimeout(() => {
     detenerDictado();
-  }, 14000);
+  }, 15000);
 };
 
 const escribirNumeros = async (numeros) => {

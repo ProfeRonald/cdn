@@ -1276,6 +1276,8 @@ margin-left: -4px;
   box-sizing: border-box;
 }
 
+/*
+
 #estudiante_busquedasel a:focus,
 #estudiante_busquedasel a:hover {
   font-weight: bold;
@@ -1289,7 +1291,30 @@ margin-left: -4px;
   padding-left: 1px;
   padding-right: 1px;
   background: #99ffcc;
+}*/
+
+
+#estudiante_busquedasel .tbus {
+  background: #99ffcc;
+  font-weight: bold;
+  padding: 0 2px;
+  border-radius: 3px;
 }
+
+#estudiante_busquedasel {
+  display: none;
+  max-height: 220px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.estudiante_busquedasel:focus,
+.estudiante_busquedasel:hover {
+  background-color: #f0f0f0;
+  outline: none;
+}
+
 
 .botones {
   padding: 0;

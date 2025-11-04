@@ -76,7 +76,6 @@ $(document).ready(function () {
     }
   );
 
-
   $(document).on("click", "i.toggle-vis", function (e) {
     e.preventDefault();
     $("#columnas_me").text("");
@@ -1694,21 +1693,15 @@ setTimeout(function () {
           return;
         }
         
-          texto = texto.replace(/\r/g, '').trim();
+                  const lineas = texto.split('\n'); // Mantiene todas las líneas, incluso vacías
 
-          const tieneSaltos = /\n/.test(texto);
+        const valores = lineas.map(linea => {
+          const limpio = linea.trim().replace(',', '.');
+          // Si está vacío o no es número → 0
+          const n = parseFloat(limpio);
+          return isFinite(n) ? n : 0;
+        });
 
-          if (!tieneSaltos && (/\t/.test(texto) || /\s+/.test(texto))) {
-            texto = texto.replace(/\t+/g, '\n').replace(/\s+/g, '\n');
-          }
-
-          const lineas = texto.split('\n').filter(l => l.trim() !== '');
-          
-          const valores = lineas.map(linea => {
-            const limpio = linea.trim().replace(',', '.');
-            const esNumero = /^-?\d+(\.\d+)?$/.test(limpio);
-            return esNumero ? parseFloat(limpio) : 0;
-          });
 
       let nombre_clase = '';
 
@@ -1771,7 +1764,7 @@ if(click == 1){
        }
 
     } catch (err) {
-      console.error('❌ Error leyendo el portapapeles:', err);
+      console.error('Error leyendo el portapapeles:', err);
 
     }
   }
@@ -2070,7 +2063,7 @@ const resetInactividad = () => {
   clearTimeout(timeoutInactividad);
   timeoutInactividad = setTimeout(() => {
     detenerDictado();
-  }, 10000);
+  }, 14000);
 };
 
 const escribirNumeros = async (numeros) => {

@@ -267,10 +267,6 @@ mark {
   white-space: normal;
 }
 
-.TablaGrupos select {
-  font-size: 7pt;
-}
-
 .TablaGrupos table td {
   padding-bottom: 0;
   padding-top: 0.8rem;

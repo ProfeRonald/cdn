@@ -74,7 +74,6 @@ $("#boton-ests-centro").trigger('click');
 
 });
 
-
 $(document).on('click', '#bproact', function () {
   $("#boton-ests-centro").hide("slow");
   $(".botones-aescolar-menu").hide("slow");

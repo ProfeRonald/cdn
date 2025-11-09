@@ -2,7 +2,7 @@
 $(document).ready(function () {
     $('#tabla-panel').DataTable({
         fixedColumns:   {
-        leftColumns: 3
+        leftColumns: 2
     },
         orderCellsTop: true,
     fixedHeader: true,

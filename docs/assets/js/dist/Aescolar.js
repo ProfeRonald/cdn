@@ -225,7 +225,7 @@ $(document).on('click', '.elimest', function () {
   
   });  
 
-$(document).on('click', '#sel-grp-todos', function () {
+$(document).on('click', '#sel-grp-todos, #boletines-sel-grp-todos', function () {
 
   if( $(this).is(':checked') ) {
     $('.sel-grp').prop('checked', true);

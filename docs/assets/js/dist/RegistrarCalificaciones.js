@@ -55,7 +55,6 @@ $(document).ready(function () {
 
       if(orden == 'za' || orden == 'az' || orden == 'horarioaz' || orden == 'horarioza'){
       
-      
       $('#ordenarGrupoAZ i').tooltip('dispose');
       $('#ordenarGrupoHorario i').tooltip('dispose');
       
@@ -152,7 +151,11 @@ $(document).ready(function () {
  const ordMov = orden.split(',');
  var htmlGrp = '';
  ordMov.forEach(idg => {
-  htmlGrp += $('#FotoGrupo_cambiar-' + idg).parent().parent().parent().parent().parent().parent().parent().prop('outerHTML');
+  let outerHTML = $('#FotoGrupo_cambiar-' + idg).parent().parent().parent().parent().parent().parent().parent().prop('outerHTML');
+    if(outerHTML != undefined){
+  htmlGrp += outerHTML;
+    }
+
  });
  
 $("#gruposc").html(htmlGrp);

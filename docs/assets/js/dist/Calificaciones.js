@@ -19,6 +19,7 @@ $(document).ready(function () {
   var compts = $("#datos_js").attr("compts");
   var notas_gc = $("#datos_js").attr("notas_gc");
   var datetype = $("#datos_js").attr("datetype");
+  var rpp = Number($("#datos_js").attr("rpp"));
 
 
 function BotonesRecuperacionPedagogica(){

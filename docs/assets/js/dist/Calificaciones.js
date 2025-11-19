@@ -17,6 +17,32 @@ $(document).ready(function () {
   var teps = Number($("#datos_js").attr("teps"));
   var formato_registro = Number($("#datos_js").attr("formato_registro"));
 
+
+function BotonesRecuperacionPedagogica(){
+
+  if(compts == 1 && taa == 0 && notas_gc == 0 && datetype == 'text'){
+
+  $(window).on("load", function () {
+
+    setTimeout(function () {
+
+    $('.DTFC_ScrollWrapper').before('<div class="row text-white border my-0 text-center bg-dark p-0"><div class="col p-0 m-0"><button type="button" class="btn btn-lg btn-block btn-dark" id="VerIndicadores" rpp="0"><i class="fa fa-trophy"></i>&nbsp; Indicadores de logro</button></div><div class="col border-left p-0 m-0"><button type="button" class="btn btn-lg btn-block btn-secondary" id="VerRecuperacion" rpp="1"><i class="fa fa-repeat"></i>&nbsp; Recuperaci&oacute;n Pedag&oacute;gica</button></div></div>');
+
+    if(rpp == 1){
+         VerRecuperacion();
+       }else{
+         VerIndicadores();
+       }
+       $('#barra-des').attr('max', $('.dataTables_scrollBody')[0].scrollWidth);
+         }, 501);
+
+
+  });
+
+}
+
+}
+
   if(datetype == 'text'){
     var wdtt = -5;
   }else{

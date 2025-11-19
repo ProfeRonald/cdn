@@ -187,7 +187,7 @@ $(document).on("blur", ".CalificacionesILFinales", function () {
 $(document).on(
   "keyup change",
   ".CalificacionesIL, .CalificacionesRP, .CalificacionesILFinales",
-  function () {
+  function (event) {
     var nota = $(this).val().replace(/[^\d]/g, "");
     if (nota.length > 2 && nota != 100) {
       nota = nota.substring(0, nota.length - 1);
@@ -541,7 +541,8 @@ window.RevaluaRP = function (id_nota) {
   }); 
 
   $(document).on('mousedown change keyup', '.CalificacionesRP', function () {
-    SumaPs($(this).attr("id"));
+   SumaPs($(this).attr("id"));
+  $('#comp-'+$(this).attr("id")+'-rp').popover('dispose').popover('show');
   });
   
   window.SumaPs = function (id_nota) {
@@ -927,7 +928,7 @@ $(document).on('click', '#CalificacionesGCTodas', function () {
          VerIndicadores();
        }
        $('#barra-des').attr('max', $('.dataTables_scrollBody')[0].scrollWidth);
-         }, 201);
+         }, 501);
 
 
   });

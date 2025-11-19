@@ -10,9 +10,6 @@ var rpp = Number($("#datos_js").attr("rpp"));
 var taa = Number($("#datos_js").attr("taa"));
 var grupos_competencias = Number($("#datos_js").attr("grupos_competencias"));
 var tperiodos_escuela = $("#datos_js").attr("tperiodos_escuela");
-var compts = $("#datos_js").attr("compts");
-var notas_gc = $("#datos_js").attr("notas_gc");
-var datetype = $("#datos_js").attr("datetype");
 var tiponota = $("#datos_js").attr("tipo_nota");
 
 $(document).on("click", ".CasillasIL", function () {

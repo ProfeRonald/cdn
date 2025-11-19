@@ -16,6 +16,9 @@ $(document).ready(function () {
   var auto_asistencia = Number($("#datos_js").attr("auto_asistencia"));
   var teps = Number($("#datos_js").attr("teps"));
   var formato_registro = Number($("#datos_js").attr("formato_registro"));
+  var compts = $("#datos_js").attr("compts");
+  var notas_gc = $("#datos_js").attr("notas_gc");
+  var datetype = $("#datos_js").attr("datetype");
 
 
 function BotonesRecuperacionPedagogica(){

@@ -914,6 +914,9 @@ $(document).on('click', '#CalificacionesGCTodas', function () {
     $('[data-toggle="popover"]').popover()
   })
 
+
+  function BotonesRecuperacionPedagogica(){
+
   if(compts == 1 && taa == 0 && notas_gc == 0 && datetype == 'text'){
 
   $(window).on("load", function () {
@@ -932,6 +935,8 @@ $(document).on('click', '#CalificacionesGCTodas', function () {
 
 
   });
+
+}
 
 }
 

@@ -37,6 +37,9 @@ $(document).ready(function () {
   ).get("bus");
 
   window['tablec'] = $("#TablaCalificaciones").DataTable({
+    "initComplete": function(settings, json) {
+      BotonesRecuperacionPedagogica();
+    },
     order: [[0, "asc"]],
     fixedColumns: {
       leftColumns: 3,

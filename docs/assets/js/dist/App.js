@@ -81,8 +81,7 @@ if ($('#pwa-nav-bar').length === 0) {
     const forwardBtn = document.getElementById('forward-btn');
     const refreshBtn = document.getElementById('refresh-btn');
     
-    // Adjuntar los listeners
     if (backBtn) backBtn.addEventListener('click', () => window.history.back());
     if (forwardBtn) forwardBtn.addEventListener('click', () => window.history.forward());
-    if (refreshBtn) refreshBtn.addEventListener('click', () => window.location.reload());
+    if (refreshBtn) refreshBtn.addEventListener('click', () => window.location.reload(true));
 }

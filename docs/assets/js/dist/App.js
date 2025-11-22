@@ -65,12 +65,13 @@ if ($('#pwa-nav-bar').length === 0) {
         <div id="pwa-nav-bar">
             <button id="back-btn" class="nav-btn" rel="tooltip" title="Atrás">
                 <i class="fa fa-arrow-left"></i>
-                <span>Atrás</span> </button>
+            </button>
             <button id="forward-btn" class="nav-btn" rel="tooltip" title="Adelante">
                 <i class="fa fa-arrow-right"></i>
-                <span>Adelante</span> </button>
+            </button>
             <button id="refresh-btn" class="nav-btn" rel="tooltip" title="Recargar">
-                <i class="fa fa-refresh"></i> <span>Actualizar</span> </button>
+                <i class="fa fa-refresh"></i>
+            </button>
         </div>
     `;
 

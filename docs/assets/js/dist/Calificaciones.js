@@ -1181,6 +1181,13 @@ function BotonesRecuperacionPedagogica(){
     $('#slidecontainer').removeAttr('display');
     $('#slidecontainer').hide('slow');
   });
+
+  $(document).on('click', '#incluir-grado', function () {
+  $('#cerrarDestacados').trigger('click');
+   setTimeout(function () {
+      $('.iconHerramienta[herramienta="HDestacados"]').trigger('click');
+      }, 250); 
+  });
   
   $(document).on('click', '.iconHerramienta', function () {
 
@@ -1247,7 +1254,7 @@ function BotonesRecuperacionPedagogica(){
 
        if(herr == 'HDestacados'){
         if(cont != ''){
-          $('#destacadosModal').modal('show');
+      $('#destacadosModal').modal('show');
           $('#HDestacados').show();
         }else{
           $('#HDestacados').hide();

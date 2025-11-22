@@ -15,13 +15,11 @@ if ($('#pwa-nav-bar').length === 0) {
         #pwa-nav-bar {
             position: fixed;
             top: 0;
-            left: 50%; /* Corregido a 50% para centrado perfecto con transform */
+            left: 40%;
             transform: translateX(-50%);
             display: flex;
-            gap: 15px; /* Reducido un poco para ser menos espacioso */
+            gap: 30px;
             padding: 10px 20px;
-            background-color: rgba(0, 71, 128, 0.9); /* ¡Añadido el color de fondo! */
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             border-radius: 0 0 15px 15px;
             backdrop-filter: blur(5px);
             z-index: 1000;
@@ -35,12 +33,12 @@ if ($('#pwa-nav-bar').length === 0) {
             align-items: center;
             justify-content: center;
             padding: 8px 12px;
-            border-radius: 8px; /* Corregido: 'order-radius' a 'border-radius' */
+            border-radius: 8px;
             min-width: 65px;
             transition: all 0.2s ease;
         }
         .nav-btn i {
-            color: var(--color-primary-blue); /* Corregida la sintaxis de 'var()' */
+            color: var(--color-primary-blue);
             font-size: 1.2em;
             line-height: 1;
         } 

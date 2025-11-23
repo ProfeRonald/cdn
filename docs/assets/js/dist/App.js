@@ -15,7 +15,7 @@ if ($('#pwa-nav-bar').length === 0) {
         #pwa-nav-bar {
             position: fixed;
             top: 0;
-            left: 40%;
+            left: 50%;
             transform: translateX(-50%);
             display: flex;
             gap: 30px;

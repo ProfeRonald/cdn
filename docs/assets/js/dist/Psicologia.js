@@ -122,13 +122,15 @@ if(a != e){
   data: {e: e}
 	})
   .done(function(datos){
+    console.log(datos);
   $('#pdate').attr('e', e);
   $('#pdate').show("slow");
   $("#datos-estudiante").html(datos);
   $('#datos-estudiantes').show();
   })
   
-  .fail(function() {
+  .fail(function(a, b, c) {
+    console.log(a, b, c);
   $('#datos-estudiantes').hide();	
   	$("#datosestudiantes").text('No se pudo caragar los datos');
     var fondo = $("#datosestudiantes").css({border: '1px solid red'}).show();

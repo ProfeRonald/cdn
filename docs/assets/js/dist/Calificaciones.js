@@ -1240,7 +1240,7 @@ function BotonesRecuperacionPedagogica(){
     $.ajax({
       method: "POST",
       url: "up.php?op=" + herr,
-      data: {titulo_asignaturamf: titulo_asignaturamf, listaruleta: listaruleta, titulo_grupo: titulo_grupo, id_asignaturamf: id_asignaturamf, id_grupo: id_grupo, year_1: year_1, year_2: year_2, lmeritorio: lmeritorio, cmeritorios: cmeritorios, tperiodos_escuela: tperiodos_escuela, id_asignaturamf: id_asignaturamf, incluir_grado: incluir_grado, grado_grupo: grado_grupo, imeses: imeses, kmeses: kmeses, mesp: mesp, ponderacion_academica: ponderacion_academica,  calificaciones_por_indicadores: calificaciones_por_indicadores, sql_d: sql_d, archivoxlsx: $('#archivoxlsx').val()}
+      data: {titulo_asignaturamf: titulo_asignaturamf, listaruleta: listaruleta, titulo_grupo: titulo_grupo, id_asignaturamf: id_asignaturamf, id_grupo: id_grupo, year_1: year_1, year_2: year_2, lmeritorio: lmeritorio, cmeritorios: cmeritorios, tperiodos_escuela: tperiodos_escuela, id_asignaturamf: id_asignaturamf, incluir_grado: incluir_grado, grado_grupo: grado_grupo, imeses: imeses, kmeses: kmeses, mesp: mesp, ponderacion_academica: ponderacion_academica, calificaciones_por_indicadores: calificaciones_por_indicadores, sql_d: sql_d, archivoxlsx: $('#archivoxlsx').val()}
     })
       .done(function (cont) {
         

@@ -157,8 +157,8 @@ $(document).on('click', '#bproact', function () {
 
 function Lupa(){
 
-        const wrapper = document.getElementById('DatosModalEstudiante');
-        const content = document.getElementById('DatosModalEstudianteBody');
+        const wrapper = document.getElementById('datosestudiantes');
+        const content = document.getElementById('datos-estudiante');
         const magnifier = document.getElementById('magnifier');
         const magnifierContent = document.getElementById('magnifierContent');
         

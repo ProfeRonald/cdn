@@ -127,6 +127,7 @@ if(a != e){
   $('#pdate').show("slow");
   $("#datos-estudiante").html(datos);
   $('#datos-estudiantes').show();
+  Lupa();
   })
   
   .fail(function(a, b, c) {
@@ -152,7 +153,10 @@ $(document).on('click', '#bproact', function () {
 	$('#actividadp').text('');
 });
 
-         const wrapper = document.getElementById('DatosModalEstudiante');
+
+function Lupa(){
+
+        const wrapper = document.getElementById('DatosModalEstudiante');
         const content = document.getElementById('DatosModalEstudianteBody');
         const magnifier = document.getElementById('magnifier');
         const magnifierContent = document.getElementById('magnifierContent');
@@ -213,3 +217,5 @@ $(document).on('click', '#bproact', function () {
             
             magnifierContent.style.transform = `scale(${magnification}) translate(${(bgX / magnification) - offsetX}px, ${(bgY / magnification) - offsetY}px)`;
         });
+
+}

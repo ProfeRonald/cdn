@@ -110,7 +110,7 @@ $(document).on('click', '.datose', function () {
 if(a != e){
 	var nc = $(this).attr('nc');
 	if(nc !='' && nc != undefined){
-		$("#nc").html('Nombre completo: <strong>' + nc + '</strong>');
+		$("#nc").html('<span style="font-size:1.2rem">Nombre completo: <strong>' + nc + '</strong></span>');
 	}
 	var g = $(this).attr('g');
 		if(g != ''){

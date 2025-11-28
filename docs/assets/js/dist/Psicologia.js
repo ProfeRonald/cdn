@@ -124,7 +124,7 @@ if(a != e){
   $("#datos-estudiante").html(datos);
   $('#datos-estudiantes').show();
     if(g != ''){
-	$("#btnvc").attr('href', 'index.php?op=VerEstudiante&id=' + e + '&grupo=' + g);W
+	$("#btnvc").attr('href', 'index.php?op=VerEstudiante&id=' + e + '&grupo=' + g);
 		}
   })
   

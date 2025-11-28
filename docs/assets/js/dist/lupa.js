@@ -1,6 +1,6 @@
         const magnifier = document.getElementById('magnifier');
         const magnifierContent = document.getElementById('magnifierContent');
-        const magnifiableAreas = document.querySelectorAll('.magnifiable-area');
+        const magnifiableAreas = document.querySelectorAll('body');
         
         const magnification = 2;
         const magnifierSize = 200;

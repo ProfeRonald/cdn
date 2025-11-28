@@ -1,6 +1,6 @@
-        const magnifiableArea = document.getElementById('datosestudiantes');
         const magnifier = document.getElementById('magnifier');
         const magnifierContent = document.getElementById('magnifierContent');
+        const magnifiableAreas = document.querySelectorAll('.magnifiable-area');
         
         const magnification = 2;
         const magnifierSize = 200;
@@ -19,24 +19,33 @@
         // Actualizar contenido al cargar
         updateMagnifierContent();
 
-        magnifiableArea.addEventListener('mouseenter', () => {
-            magnifier.style.display = 'block';
-            updateMagnifierContent();
-        });
+        // Agregar eventos a todas las áreas magnificables
+        magnifiableAreas.forEach(area => {
+            area.addEventListener('mouseenter', () => {
+                magnifier.style.display = 'block';
+                updateMagnifierContent();
+            });
 
-        magnifiableArea.addEventListener('mouseleave', () => {
-            magnifier.style.display = 'none';
+            area.addEventListener('mouseleave', () => {
+                magnifier.style.display = 'none';
+            });
         });
 
         document.addEventListener('mousemove', (e) => {
-            // Solo mostrar la lupa si está sobre el área específica
-            const rect = magnifiableArea.getBoundingClientRect();
-            const isOverArea = e.clientX >= rect.left && 
-                             e.clientX <= rect.right && 
-                             e.clientY >= rect.top && 
-                             e.clientY <= rect.bottom;
+            // Verificar si está sobre alguna área magnificable
+            let isOverAnyArea = false;
+            
+            magnifiableAreas.forEach(area => {
+                const rect = area.getBoundingClientRect();
+                if (e.clientX >= rect.left && 
+                    e.clientX <= rect.right && 
+                    e.clientY >= rect.top && 
+                    e.clientY <= rect.bottom) {
+                    isOverAnyArea = true;
+                }
+            });
 
-            if (isOverArea) {
+            if (isOverAnyArea) {
                 magnifier.style.display = 'block';
                 
                 // Posicionar la lupa

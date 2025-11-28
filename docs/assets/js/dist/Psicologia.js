@@ -124,12 +124,9 @@ if(a != e){
   $("#datos-estudiante").html(datos);
   $('#datos-estudiantes').show();
     if(g != ''){
-      alert('a');
 	$("#btnvc").attr('href', 'index.php?op=VerEstudiante&id=' + e + '&grupo=' + g);
-		}else{
-      Lupa();
-      alert('s');
-    }
+  Lupa();
+		}
   })
   
   .fail(function(a, b, c) {

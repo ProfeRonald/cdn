@@ -110,12 +110,9 @@ $(document).on('click', '.datose', function () {
 if(a != e){
 	var nc = $(this).attr('nc');
 	if(nc !='' && nc != undefined){
-		$("#nc").html('<span style="font-size:1.2rem">Nombre completo: <strong>' + nc + '</strong></span>');
+		$("#nc").html('Nombre completo: <strong>' + nc + '</strong>');
 	}
 	var g = $(this).attr('g');
-		if(g != ''){
-	$("#btnvc").attr('href', 'index.php?op=VerEstudiante&id=' + e + '&grupo=' + g);
-		}
 	 $.ajax({
   method: "POST",	
   url: "sesion.php?op=DatosEstudiante",
@@ -127,7 +124,11 @@ if(a != e){
   $('#pdate').show("slow");
   $("#datos-estudiante").html(datos);
   $('#datos-estudiantes').show();
-  Lupa();
+    if(g != ''){
+	$("#btnvc").attr('href', 'index.php?op=VerEstudiante&id=' + e + '&grupo=' + g);
+		}else{
+      Lupa();
+    }
   })
   
   .fail(function(a, b, c) {

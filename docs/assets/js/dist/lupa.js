@@ -1,4 +1,4 @@
-        const magnifiableArea = document.getElementById('magnifiableArea');
+        const magnifiableArea = document.getElementById('datosestudiantes');
         const magnifier = document.getElementById('magnifier');
         const magnifierContent = document.getElementById('magnifierContent');
         

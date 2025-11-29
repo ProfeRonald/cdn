@@ -2314,7 +2314,7 @@ margin-left: -4px;
   width: 100px;
 }
 
-#slidecontainer {
+/*#slidecontainer {
   position: fixed;
   bottom: 80px;
   z-index: 99;
@@ -2350,7 +2350,7 @@ margin-left: -4px;
   border-radius: 50%;
   background: #2980b9;
   cursor: pointer;
-}
+}*/
 
 .user-area .dropdown-toggle.noactive:before {
   background: #c2bf16 !important;

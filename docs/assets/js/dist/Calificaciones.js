@@ -1146,26 +1146,6 @@ function BotonesRecuperacionPedagogica(){
 
   })
 
-  $(window).scroll(function () {
-  
-    setTimeout(function () {
-    var display = $('#slidecontainer').attr('display');
-    if(display == 1){
-		var scrls_info = $("#TablaCalificaciones_info").offset().top - 575;
-    var scrls_table = $("#TablaCalificaciones").offset().top - 400;
-		var wscrl = $(window).scrollTop();
-		if (wscrl > scrls_info) {
-      $('#slidecontainer').hide();
-		}else if (wscrl > scrls_table) {
-			$('#slidecontainer').show();
-		}else{
-      $('#slidecontainer').hide();
-    }
-  }
-}, 1000);
-
-	});
-
   if(datetype == 'text'){
 
    

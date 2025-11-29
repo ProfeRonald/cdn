@@ -1146,12 +1146,123 @@ function BotonesRecuperacionPedagogica(){
 
   })
 
-  if(datetype == 'text'){
-
-   
-
-
+  $(window).scroll(function () {
+  
+    setTimeout(function () {
+    var display = $("#slidecontainer").attr("display");
+    if(display == 1){
+		var scrls_info = $("#TablaCalificaciones_info").offset().top - 575;
+    var scrls_table = $("#TablaCalificaciones").offset().top - 580;
+		var wscrl = $(window).scrollTop();
+		if (wscrl > scrls_info) {
+      $("#slidecontainer").hide();
+		}else if (wscrl > scrls_table && datetype == 'text') {
+			$("#slidecontainer").show();
+		}else{
+      $("#slidecontainer").hide();
+    }
   }
+}, 1000);
+
+	});
+
+  function abrirVentanaPWA(formElement) {
+     let url = formElement.getAttribute("action") + "?";
+    const params = [];
+    for (let i = 0; i < formElement.elements.length; i++) {
+        const element = formElement.elements[i];
+        if (element.name && element.value && element.type !== "submit") {
+            params.push(encodeURIComponent(element.name) + "=" + encodeURIComponent(element.value));
+        }
+    }
+    url += params.join("&");
+    window.open(
+        url, 
+        "paginas",
+        "fullscreen=yes, scrollbars=auto, location=no, menubar=no, status=no, titlebar=yes, toolbar=no, left=0, top=0"
+    );
+    return false;
+}
+  
+function initCustomScrollSync() {
+	
+ setTimeout(function () {
+
+    const body = document.querySelector(".dataTables_scrollBody");
+    const slider = document.getElementById("barra-des");
+
+    if (!body || !slider) {
+        setTimeout(initCustomScrollSync, 50);
+        return;
+    }
+
+    let maxScroll = 0;
+    let sliderTravel = 0;
+    const thumbWidth = 22; // tu tamaño real del thumb
+
+    function recalcular() {
+
+        // 1) Scroll real
+        maxScroll = body.scrollWidth - body.clientWidth;
+        if (maxScroll < 0) maxScroll = 0;
+
+        // 2) Slider interno: recorridos físicos
+        const sliderWidth = slider.offsetWidth;
+        sliderTravel = sliderWidth - thumbWidth;
+
+        // 3) Rellenar atributos nativos
+        slider.min = 0;
+        slider.max = maxScroll;
+        slider.step = 1;
+
+        // 4) Posición exacta inicial
+        actualizarThumb(body.scrollLeft);
+    }
+
+function actualizarThumb(scrollValue) {
+    if (maxScroll === 0) return;
+
+    const ratio = sliderTravel / maxScroll;
+    let thumbOffset = scrollValue * ratio;
+
+    // Forzar al máximo al final
+    if (scrollValue >= maxScroll) {
+        scrollValue = maxScroll;        // scroll real
+        thumbOffset = sliderTravel;     // thumb
+    }
+
+    // Aplica el scroll real
+    body.scrollLeft = scrollValue;
+
+    // Aplica el desplazamiento del thumb
+    slider.style.setProperty("--thumb-offset", thumbOffset + "px");
+    slider.value = scrollValue;
+}
+
+
+
+    // SLIDER → SCROLL
+    slider.addEventListener("input", () => {
+        const v = Number(slider.value);
+        body.scrollLeft = v;
+        actualizarThumb(v);
+    });
+
+    // SCROLL → SLIDER
+    body.addEventListener("scroll", () => {
+        const v = Math.round(body.scrollLeft);
+        actualizarThumb(v);
+    });
+
+    // Ejecutar al inicio
+    recalcular();
+    window.addEventListener("resize", recalcular);
+
+	}, 1001);
+}
+
+
+
 
   $('#cerrar-barra').on('click', function () {
     $('#slidecontainer').removeAttr('display');

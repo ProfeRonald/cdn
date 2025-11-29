@@ -1167,29 +1167,7 @@ function BotonesRecuperacionPedagogica(){
 
   if(datetype == 'text'){
 
-    function ajustarSliderScroll() {
-    const body = $('.dataTables_scrollBody')[0];
-    if (!body) return;
-
-    const maxScroll = body.scrollWidth - body.clientWidth;
-
-    $('#barra-des')
-        .attr('min', 0)
-        .attr('max', maxScroll)
-        .val(body.scrollLeft);
-}
-
-$(window).on("load resize", ajustarSliderScroll);
-
-// A → el slider mueve el scroll
-$('#barra-des').on('input', function () {
-    $('.dataTables_scrollBody')[0].scrollLeft = this.value;
-});
-
-// B → si el usuario desplaza con el mouse, actualiza el slider
-$('.dataTables_scrollBody').on('scroll', function () {
-    $('#barra-des').val(this.scrollLeft);
-});
+   
 
 
   }

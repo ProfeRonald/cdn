@@ -71,6 +71,7 @@ function BotonesRecuperacionPedagogica(){
   window['tablec'] = $("#TablaCalificaciones").DataTable({
     "initComplete": function(settings, json) {
       BotonesRecuperacionPedagogica();
+        initCustomScrollSync();
     },
     order: [[0, "asc"]],
     fixedColumns: {

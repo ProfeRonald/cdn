@@ -40,7 +40,6 @@ function BotonesRecuperacionPedagogica(){
        }else{
          VerIndicadores();
        }
-       $('#barra-des').attr('max', $('.dataTables_scrollBody')[0].scrollWidth);
          }, 501);
 
 
@@ -1168,17 +1167,32 @@ function BotonesRecuperacionPedagogica(){
 
   if(datetype == 'text'){
 
-    $(window).on("load", function () {
-      if($('.dataTables_scrollBody')[0] != undefined){
-        $('#barra-des').attr('max', $('.dataTables_scrollBody')[0].scrollWidth - 850);
-      }
-    });
+    function ajustarSliderScroll() {
+    const body = $('.dataTables_scrollBody')[0];
+    if (!body) return;
+
+    const maxScroll = body.scrollWidth - body.clientWidth;
+
+    $('#barra-des')
+        .attr('min', 0)
+        .attr('max', maxScroll)
+        .val(body.scrollLeft);
+}
+
+$(window).on("load resize", ajustarSliderScroll);
+
+// A → el slider mueve el scroll
+$('#barra-des').on('input', function () {
+    $('.dataTables_scrollBody')[0].scrollLeft = this.value;
+});
+
+// B → si el usuario desplaza con el mouse, actualiza el slider
+$('.dataTables_scrollBody').on('scroll', function () {
+    $('#barra-des').val(this.scrollLeft);
+});
+
 
   }
-
-  $('#barra-des').on('input', function () {
-    $('.dataTables_scrollBody').scrollLeft($(this).val());
-  });
 
   $('#cerrar-barra').on('click', function () {
     $('#slidecontainer').removeAttr('display');

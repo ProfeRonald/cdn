@@ -1,8 +1,18 @@
 
+var datetype = $('#datos_js').attr('datetype');
+
+let leftColumnsNum = 2;
+
+if(datetype == 'text'){
+  leftColumnsNum = 2;
+}else{
+  leftColumnsNum = 1;
+}
+
 $(document).ready(function () {
     $('#tabla-panel').DataTable({
         fixedColumns:   {
-        leftColumns: 2
+        leftColumns: leftColumnsNum
     },
         orderCellsTop: true,
     fixedHeader: true,

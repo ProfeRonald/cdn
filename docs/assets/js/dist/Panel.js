@@ -20,27 +20,20 @@ $(document).ready(function () {
       "targets": 'no-sort',
       "orderable": false,
     }, 
-   
-  {
-    "targets": 0,
-    "render": function(data, type, row) {
-      // Para 'display', 'filter', u otros tipos visuales, devuelve el dato original
-      if (type === 'display' || type === 'filter') {
-        return data;
-      }
+   {
+    "targets": 0, // La columna objetivo
+    "render": function(data, type, row, meta) {
+      // 1. Prepara el valor numérico limpio (reemplaza comas por puntos si es necesario)
+      var numericValue = typeof data === 'string' ? data.replace(/,/g, '.') : data;
+      var parsedValue = parseFloat(numericValue);
 
-      // Para 'sort' (ordenación) y 'type' (cacheado de tipo de dato), 
-      // devuelve el valor numérico parseado.
+      // 2. Define el valor para ORDENAR y CACHE (SIEMPRE NUMÉRICO)
       if (type === 'sort' || type === 'type') {
-        // Asegúrate de que 'data' sea un string antes de usar replace()
-        var numericValue = typeof data === 'string' ? data.replace(/,/g, '.') : data;
-        var parsed = parseFloat(numericValue);
-        
-        // Manejo de NaN si la conversión falla
-        return isNaN(parsed) ? 0 : parsed;
+        // Devuelve el número parseado, maneja NaNs devolviendo 0
+        return isNaN(parsedValue) ? 0 : parsedValue;
       }
       
-      // En cualquier otro caso (poco común), devuelve el dato original
+      // 3. Define el valor para MOSTRAR/FILTRAR (el dato original con formato)
       return data;
     }
   }

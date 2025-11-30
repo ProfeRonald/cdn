@@ -19,7 +19,20 @@ $(document).ready(function () {
     "columnDefs": [ {
       "targets": 'no-sort',
       "orderable": false,
-    } ],
+    }, 
+     {
+      "targets": 0, // El índice de la columna que quieres ordenar numéricamente
+      "render": function(data, type, row) {
+        // Si la columna se está renderizando, muestra el dato tal cual
+        if (type === 'display') {
+          return data;
+        }
+        // De lo contrario, devuelve el valor como número
+        return parseFloat(data.replace(/,/g, '.')); // Reemplazar coma por punto si es necesario
+      }
+    }
+  ],
+  "order": [[0, "asc"]], // Ordenar por la primera columna de forma ascendente
         //"responsive": true,
         "scrollX": true,
         "scrollY": 300,

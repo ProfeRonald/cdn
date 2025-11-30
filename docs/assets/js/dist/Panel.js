@@ -20,17 +20,30 @@ $(document).ready(function () {
       "targets": 'no-sort',
       "orderable": false,
     }, 
-     {
-      "targets": 0, // El índice de la columna que quieres ordenar numéricamente
-      "render": function(data, type, row) {
-        // Si la columna se está renderizando, muestra el dato tal cual
-        if (type === 'display') {
-          return data;
-        }
-        // De lo contrario, devuelve el valor como número
-        return parseFloat(data.replace(/,/g, '.')); // Reemplazar coma por punto si es necesario
+   
+  {
+    "targets": 0,
+    "render": function(data, type, row) {
+      // Para 'display', 'filter', u otros tipos visuales, devuelve el dato original
+      if (type === 'display' || type === 'filter') {
+        return data;
       }
+
+      // Para 'sort' (ordenación) y 'type' (cacheado de tipo de dato), 
+      // devuelve el valor numérico parseado.
+      if (type === 'sort' || type === 'type') {
+        // Asegúrate de que 'data' sea un string antes de usar replace()
+        var numericValue = typeof data === 'string' ? data.replace(/,/g, '.') : data;
+        var parsed = parseFloat(numericValue);
+        
+        // Manejo de NaN si la conversión falla
+        return isNaN(parsed) ? 0 : parsed;
+      }
+      
+      // En cualquier otro caso (poco común), devuelve el dato original
+      return data;
     }
+  }
   ],
   "order": [[0, "asc"]], // Ordenar por la primera columna de forma ascendente
         //"responsive": true,

@@ -75,15 +75,22 @@ jQuery(document).ready(function($) {
 		});
 	});
 
-
 	// Load Resize 
-	$(window).on("load resize", function(event) { 
+	$(window).on("load resize", function(event) {
 		var windowWidth = $(window).width();  		 
 		if (windowWidth<1010) {
 			$('body').addClass('small-device'); 
 		} else {
 			$('body').removeClass('small-device');  
 		} 
+
+		setTimeout(function () {
+           if (windowWidth<1010) {
+			$('body').addClass('small-device'); 
+		} else {
+			$('body').removeClass('small-device');  
+		} 
+          }, 2000);
 		
 	});
   

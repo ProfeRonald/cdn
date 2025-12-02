@@ -1,4 +1,8 @@
-listaestudiantem.estind {
+html, body {
+  touch-action: manipulation;
+}
+
+.listaestudiantem.estind {
   border: 1px solid #ccc;
   white-space: pre-wrap;
   text-align: left;

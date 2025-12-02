@@ -75,7 +75,7 @@ jQuery(document).ready(function($) {
 
 	$(window).on("load", function(event) {
 
-	addEventListener("pointerdown", handler);
+	//addEventListener("pointerdown", handler);
 	
 	});
 

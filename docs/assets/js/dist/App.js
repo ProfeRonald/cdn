@@ -18,7 +18,7 @@ if ($('#pwa-nav-bar').length === 0) {
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 30px;
+            gap: 15px;
             padding: 10px 20px;
             border-radius: 0 0 15px 15px;
             backdrop-filter: blur(5px);

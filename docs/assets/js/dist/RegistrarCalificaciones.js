@@ -4,7 +4,7 @@ var local = $("#datos_js").attr("local");
 var year_1 = $("#datos_js").attr("year_1");
 var year_2 = $("#datos_js").attr("year_2");
 var urlerd = $("#datos_js").attr("urlerd");
-var escuela_sesion = $("#datos_js").data("escuela_sesion");
+var escuela_sesion = $("#datos_js").attr("data-escuela_sesion");
 var quien = $("#datos_js").attr("quien");
 var id_sesion = $("#datos_js").attr("id_sesion");
 
@@ -46,10 +46,10 @@ $(document).ready(function () {
       })
 
       $('#ordenarGrupoAZ').html('<i class="fa fa-sort-alpha-asc fa-2x p-1 border rounded mx-2 btn" rel="tooltip" title="Ordenar alfabeticamente de forma ascendente" aria-hidden="true"></i>');
-      $('#ordenarGrupoAZ').data('orden', 'az');
+      $('#ordenarGrupoAZ').attr('data-orden', 'az');
 
       $('#ordenarGrupoHorario').html('<i class="fa fa-clock-o fa-2x p-1 border rounded mx-2 btn" rel="tooltip" title="Ordenar seg&uacute;n tu horario de clases de forma ascendente" aria-hidden="true"></i><i class="fa fa-long-arrow-down" aria-hidden="true" style="margin-left: -9px"></i>');
-      $('#ordenarGrupoHorario').data('orden', 'horarioaz');
+      $('#ordenarGrupoHorario').attr('data-orden', 'horarioaz');
       
       const orden = profe.val().orden;
 
@@ -63,7 +63,7 @@ $(document).ready(function () {
         var valGrp = new Array();
         var d = 0;
       $("#gruposc .ordenGrupo").each(function(){
-        ordGrp[d] = $(this).data('orden');
+        ordGrp[d] = $(this).attr('data-orden');
         valGrp[ordGrp[d]] = $(this).prop('outerHTML');
         d++;
       });
@@ -73,10 +73,10 @@ $(document).ready(function () {
       if(orden == 'za'){
         ordGrp.reverse();
         $('#ordenarGrupoAZ').html('<i class="fa fa-sort-alpha-desc fa-2x p-1 border rounded mx-2 btn btn-dark text-white" rel="tooltip" title="Ordenar alfabeticamente de forma ascendente" aria-hidden="true"></i>');
-        $('#ordenarGrupoAZ').data('orden', 'az');
+        $('#ordenarGrupoAZ').attr('data-orden', 'az');
       }else{
         $('#ordenarGrupoAZ').html('<i class="fa fa-sort-alpha-asc fa-2x p-1 border rounded mx-2 btn btn-dark text-white" rel="tooltip" title="Ordenar alfabeticamente de forma descendente" aria-hidden="true"></i>');
-        $('#ordenarGrupoAZ').data('orden', 'za');
+        $('#ordenarGrupoAZ').attr('data-orden', 'za');
       }
   
   }
@@ -103,8 +103,8 @@ $(document).ready(function () {
         var valGrp = new Array();
         var d = 0;
       $("#gruposc .ordenGrupo").each(function(){
-        if($(this).data('horario') != undefined){
-          ordGrp[d] = $(this).data('horario');
+        if($(this).attr('data-horario') != undefined){
+          ordGrp[d] = $(this).attr('data-horario');
         }else{
           ordGrp[d] = d + 17;
         }
@@ -122,10 +122,10 @@ $(document).ready(function () {
       if(orden == 'horarioza'){
         ordGrp.reverse();
         $('#ordenarGrupoHorario').html('<i class="fa fa-clock-o fa-2x p-1 border rounded mx-2 btn btn-dark text-white" rel="tooltip" title="Ordenar seg&uacute;n tu horario de clases de forma ascendente" aria-hidden="true"></i><i class="fa fa-long-arrow-down" aria-hidden="true" style="margin-left: -9px"></i>');
-        $('#ordenarGrupoHorario').data('orden', 'horarioaz');
+        $('#ordenarGrupoHorario').attr('data-orden', 'horarioaz');
       }else if(orden == 'horarioaz'){
         $('#ordenarGrupoHorario').html('<i class="fa fa-clock-o fa-2x p-1 border rounded mx-2 btn btn-dark text-white" rel="tooltip" title="Ordenar seg&uacute;n tu horario de clases de forma descendente" aria-hidden="true"></i><i class="fa fa-long-arrow-up" aria-hidden="true" style="margin-left: -9px"></i>');
-        $('#ordenarGrupoHorario').data('orden', 'horarioza');
+        $('#ordenarGrupoHorario').attr('data-orden', 'horarioza');
       }
 
         if(orden == 'horarioaz' || orden == 'horarioza'){
@@ -264,7 +264,7 @@ $("#gruposc").html(htmlGrp);
   
     $(document).on('click', '#ordenarGrupoAZ, #ordenarGrupoHorario', function () {
 
-      const orden = $(this).data('orden');
+      const orden = $(this).attr('data-orden');
 
       firebase.database().ref('escuela_' + escuela_sesion + '/grupos/' + year_1 + '-' + year_2 + '/' + quien + '_' + id_sesion + '/orden').set(orden);
       

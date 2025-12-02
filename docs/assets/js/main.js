@@ -73,12 +73,6 @@ jQuery(document).ready(function($) {
 		});
 	});
 
-	$(window).on("load", function(event) {
-
-	//addEventListener("pointerdown", handler);
-	
-	});
-
 	// Load Resize 
 	$(window).on("load resize", function(event) {
 		var windowWidth = $(window).width();  		 

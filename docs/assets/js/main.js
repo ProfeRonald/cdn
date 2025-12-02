@@ -88,7 +88,7 @@ jQuery(document).ready(function($) {
 		} else {
 			$('body').removeClass('small-device');  
 		} 
-          }, 2000);
+          }, 3000);
 		
 	});
   

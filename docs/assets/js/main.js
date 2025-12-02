@@ -1,8 +1,6 @@
 
 //$.noConflict();
 
-addEventListener("pointerdown", handler);
-
 jQuery(document).ready(function($) {
 
 	"use strict";
@@ -13,8 +11,6 @@ jQuery(document).ready(function($) {
 
 	jQuery('.selectpicker').selectpicker;
 
-
-	
 
 	$('.search-trigger').on('click', function(event) {
 		event.preventDefault();
@@ -75,6 +71,12 @@ jQuery(document).ready(function($) {
 			var $temp_text = $(this).children('.dropdown-toggle').html();
 			$(this).children('.sub-menu').prepend('<li class="subtitle">' + $temp_text + '</li>'); 
 		});
+	});
+
+	$(window).on("load", function(event) {
+
+	addEventListener("pointerdown", handler);
+	
 	});
 
 	// Load Resize 

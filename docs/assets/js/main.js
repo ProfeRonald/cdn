@@ -1,6 +1,8 @@
 
 //$.noConflict();
 
+addEventListener("pointerdown", handler);
+
 jQuery(document).ready(function($) {
 
 	"use strict";

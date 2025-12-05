@@ -73,24 +73,23 @@ jQuery(document).ready(function($) {
 		});
 	});
 
-	// Load Resize 
-	$(window).on("load resize", function(event) {
-		var windowWidth = $(window).width();  		 
-		if (windowWidth<1010) {
-			$('body').addClass('small-device'); 
-		} else {
-			$('body').removeClass('small-device');  
-		} 
 
-		setTimeout(function () {
-           if (windowWidth<1010) {
-			$('body').addClass('small-device'); 
-		} else {
-			$('body').removeClass('small-device');  
-		} 
-          }, 3000);
-		
+	$(document).ready(function() {
+    	checkSize();
 	});
-  
+
+	$(window).on("resize", checkSize);
+
+function checkSize() {
+	setTimeout(function () {
+		var windowWidth = $(window).width();
+		if (windowWidth < 1010) {
+			$('body').addClass('small-device');
+		} else {
+			$('body').removeClass('small-device');
+		}
+	}, 1000);
+
+}
  
 });

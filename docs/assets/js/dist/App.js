@@ -15,10 +15,8 @@ if ($('#pwa-nav-bar').length === 0) {
         #pwa-nav-bar {
             position: fixed;
             top: 0;
-            left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 15px;
             padding: 10px 20px;
             border-radius: 0 0 15px 15px;
             backdrop-filter: blur(5px);
@@ -34,7 +32,6 @@ if ($('#pwa-nav-bar').length === 0) {
             justify-content: center;
             padding: 8px 12px;
             border-radius: 8px;
-            min-width: 65px;
             transition: all 0.2s ease;
         }
         .nav-btn i {

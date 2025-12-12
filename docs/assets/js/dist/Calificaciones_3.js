@@ -389,7 +389,13 @@ $(document).on("blur", ".CalificacionesRP", function () {
     }
   
     window.CalcularComptencias = function () {
-   $('.SumaPeriodoCompetencia').trigger('click');
+   //$('.SumaPeriodoCompetencia').trigger('click');
+   $.each(
+     $(".SumaPeriodoCompetencia"),
+     function () {
+      SumaPeriodoCompetencia($(this));
+  
+     });
     $.each(
      $(".CalificacionesRP"),
      function () {
@@ -445,9 +451,13 @@ $(document).on("blur", ".CalificacionesRP", function () {
   }
    
   $(document).on('click', '.SumaPeriodoCompetencia', function () {
-    var col = $(this).attr('col');
-    var per = $(this).attr('id').split('-')[3];
-    var ide = $(this).closest("tr").attr("ide");
+    SumaPeriodoCompetencia($(this));
+   });
+
+   window.SumaPeriodoCompetencia = function (ths) {
+    var col = ths.attr('col');
+    var per = ths.attr('id').split('-')[3];
+    var ide = ths.closest("tr").attr("ide");
   
     var cells = tablec.cells('.comp-' + ide + '-'+ col + '-' + per).nodes();
   
@@ -466,9 +476,10 @@ $(document).on("blur", ".CalificacionesRP", function () {
   //  if(suma > 0 && ti == n){
       if(suma > 0){
       var suma = Number(parseFloat(suma / n).toFixed(0));
-      $(this).text(suma);
+      ths.text(suma);
     }
-   });
+    
+   };
 
 window.RevaluaRP = function (id_nota) {
 

@@ -228,3 +228,14 @@ $(document).on('click', '#actualizarGrupos', function () {
 	})
 
 })
+
+$(document).on('change', '.grupo-titulo-sel', function () {
+	var tr = $(this).closest('tr');
+	var gradoGrupo = tr.find('[name="grado_grupo[]"] option:selected').val();
+	var seccionGrupo = tr.find('[name="seccion_grupo[]"] option:selected').text();
+	var areaGrupo = tr.find('[name="area_grupo[]"] option:selected').text();
+	var idGrupo = tr.attr('id-grupo');
+	if (idGrupo) {
+		$('#grupo-titulo-' + idGrupo).html(gradoGrupo + seccionGrupo + ' de ' + areaGrupo);
+	}
+})

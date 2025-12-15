@@ -86,7 +86,7 @@ function read(a){
     }else if(a != ''){
      // $('head').append('<meta http-equiv="refresh" content="5; url=http://localhost/Dropbox/adecuacion/sesion.php?op=SesionQR" />');
       document.cookie = 'sesionqr=' + a;
-      document.getElementById("outdiv").innerHTML = '<i class="fa fa-spinner fa-spin fa-3x"></i>';
+      document.getElementById("outdiv").innerHTML = '<i class="fa fa-spinner fa-spin fa-4x"></i>';
       var urlerd = document.getElementById("datos_js").getAttribute('urlerd');
       if(urlerd == null || urlerd == undefined || urlerd == ''){
         urlerd = 'https://escuelard.edu.do';

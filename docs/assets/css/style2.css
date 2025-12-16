@@ -782,7 +782,7 @@ td {
   transition: transform 1s ease-out;
 }
 
-.foto-estudiantep img:hover {
+.foto-estudiantep img:hover, .foto-estudianted img:hover {
   -moz-transform: scale(3);
   -webkit-transform: scale(3);
   -o-transform: scale(3);

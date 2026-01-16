@@ -931,8 +931,13 @@ function BotonesRecuperacionPedagogica(){
           eides[i] = id;
           i++;
         })
-        console.log(eides);
-        console.log(ides['data']);
+       
+        const faltantes = eides.filter(id => !(id in ides['data']));
+
+        if (faltantes.length > 0) {
+         $('#estudiantes-no-sincronizados').show();
+        }
+
       $.each(ides['data'], function (id, estado) {
          if (estado == '') {
             estado = 'P';

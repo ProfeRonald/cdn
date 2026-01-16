@@ -394,6 +394,7 @@ $(document).on("blur", ".CalificacionesRP", function () {
      $(".SumaPeriodoCompetencia"),
      function () {
       SumaPeriodoCompetencia($(this));
+  
      });
     $.each(
      $(".CalificacionesRP"),
@@ -562,6 +563,13 @@ window.RevaluaRP = function (id_nota) {
       var nota = Number($("#" + id_nota).val());
       
       var tp = nota + (notap / 100 * (100 - nota));
+
+      
+
+      setTimeout(function () {
+        var id_popover = $('#comp-'+id_nota+'-rp').attr('aria-describedby');
+        $('#' + id_popover).css({'font-size': '2rem','font-weight': 'bold'});
+      }, 100);
 
       tp = Number(parseFloat(tp).toFixed(0));
   

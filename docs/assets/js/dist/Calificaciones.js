@@ -395,7 +395,6 @@ function BotonesRecuperacionPedagogica(){
     });
   }
 
-
   $(document).on('change', '#genrep_sel', function () {
     if ($(this).val() != '') {
       $("#genrep").prop('disabled', false);

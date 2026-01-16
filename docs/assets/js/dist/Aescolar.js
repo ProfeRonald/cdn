@@ -1,4 +1,3 @@
-
 $(document).ready(function () {
 
 var filescdn = $("#datos_js").attr("filescdn");
@@ -232,6 +231,114 @@ $(document).on('click', '#sel-grp-todos, #boletines-sel-grp-todos', function () 
     $('.sel-grp').prop('checked', false);
   }
   
+})
+
+
+$(document).on('click', '#boton-config-escuela', function () {
+ 
+	var y = $(this).attr('y');
+	var val = $('#esconfig').val();
+	if(val == 1){
+	var val = $('#esconfig').attr('y1');
+	}
+	if(val == 2){
+	var val = $('#esconfig').attr('y2');
+	}
+  
+  CargarConfigEscuela(y, val);
+
+});
+
+$(document).on('change', '#esconfig', function () {
+	var y = $('#boton-config-escuela').attr('y');
+	var val = $(this).val();
+	if(val == 1){
+	var val = $(this).attr('y1');
+	}
+	if(val == 2){
+	var val = $(this).attr('y2');
+	}
+	CargarConfigEscuela(y, val);
+});
+
+  function CargarConfigEscuela(y, val){
+   
+	if(val != y){
+	$('#esconfigHTML').html('<div class="display-3">Cargando...</div>');
+	$.ajax({
+  method: "POST",
+  url: "sesion.php?op=CargarConfigEscuela",
+  data:{val: val, y: y}
+	})
+  .done(function(cfg){
+     setTimeout(function(){
+		$('#boton-config-escuela').attr('y', val);
+	$('.editandoescuela').remove();
+   $('#esconfigHTML').html(cfg);
+   $('#GuardarConfiguracion').show();
+			},500);
+	
+  })
+
+}
+
+}
+
+$(document).on('click', '#GuardarConfiguracion', function () {
+  $('#GuardarConfiguracion').prop('disabled', true);
+  $('#GuardarConfiguracionAviso').html('Guardando configuraci&oacute;n...');
+  $('#GuardarConfiguracionAviso').attr('class', 'text-primary font-weight-bold text-right d-block');
+  $.ajax({
+    method: "POST",
+    url: "sesion.php?op=GuardarConfiguracion",
+    data: $("#configuracionEscuelaForm").serialize()
+	})
+  .done(function(cfg){
+    if(cfg == 1){
+  $('#GuardarConfiguracionAviso').html('&excl;Configuraci&oacute;n guardada!');
+  $('#GuardarConfiguracionAviso').attr('class', 'text-success font-weight-bold text-right d-block');
+    }else{
+  $('#GuardarConfiguracionAviso').html('No se pudo establecer la configuraci&oacute;n, intente de nuevo.');
+  $('#GuardarConfiguracionAviso').attr('class', 'text-danger font-weight-bold text-right d-block');
+    }
+    setTimeout(function(){
+	  	$('#GuardarConfiguracion').prop('disabled', false);
+      $('#GuardarConfiguracionAviso').text('');
+      $('#GuardarConfiguracionAviso').attr('class', 'd-none');
+		},2500);
+  
+  
+  })
+  .fail(function(a, b, c){
+    console.log(a, b, c);
+  })
+
+})
+
+$(document).on('click', '.periodo', function () {
+		var prd = $(this).val();
+		var prds = new Array();
+		$(".periodo").each(function(i, prsd){
+    if($(this).prop("checked") == true){
+  prds[i] = $(this).val();
+  $('#custom-nav-P' + $(this).val() + '-tab').show('slow');
+  		}
+  		if($(this).prop("checked") == false){
+  $('#custom-nav-P' + $(this).val() + '-tab').hide('slow');		
+  		}
+    });
+		
+		prds = prds.filter(function () { return true });
+		if(prds.length < 1){
+		  $('#nav-tab-cont').hide('slow');
+		}else{
+		  $('#nav-tab-cont').show('slow');		
+		}
+		
+});
+
+$(document).on('click', '#ListaGrupoPDF', function () {
+     ListaFinalPDF(1);
 })
 
 

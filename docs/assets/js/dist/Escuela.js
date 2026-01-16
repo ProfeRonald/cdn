@@ -66,8 +66,6 @@ $(document).on('click', '.eliminar_file_foto', function () {
 
 })
 
-
-
 $(document).on("mouseenter", "#foto_mini, #banner_mini", function () {   
  $(this).next('.eliminar_file_foto').css({'visibility':'visible'});
  
@@ -75,73 +73,3 @@ $(document).on("mouseenter", "#foto_mini, #banner_mini", function () {
    $('.eliminar_file_foto').css({'visibility':'hidden'});
  }, 8000);
  })
-
- 
-$( window ).on( "load", function() {
-	$('#esconfig').trigger("blick");
-});
-
- 
-$(document).on('blick', '#esconfig', function () {
-	var y = $(this).attr('y');
-	var val = $(this).val();
-	if(val == 1){
-	var val = $(this).attr('y1');
-	}
-	if(val == 2){
-	var val = $(this).attr('y2');
-	}
-	if(val != y){
-	$('#esconfigHTML').remove();
-	$.ajax({
-  method: "POST",
-  url: "sesion.php?op=CargarConfigEscuela",
-  data:{val: val, y: y}
-	})
-  .done(function(cfg){
-	$('#esconfig').attr('y', val);
-	$('.editandoescuela').remove();
-   $('#es-configHTML').after(cfg);
-   setTimeout(function(){
-   },150);
-  })
-
-}
-
-});
-
-$(document).on('change', '#esconfig', function () {
-	var y = $(this).attr('y');
-	var val = $(this).val();
-	if(val == 1){
-	var val = $(this).attr('y1');
-	}
-	if(val == 2){
-	var val = $(this).attr('y2');
-	}
-	if(val != y){
-	$(this).trigger("blick");
-	}
-});
-
-$(document).on('click', '.periodo', function () {
-		var prd = $(this).val();
-		var prds = new Array();
-		$(".periodo").each(function(i, prsd){
-    if($(this).prop("checked") == true){
-  prds[i] = $(this).val();
-  $('#custom-nav-P' + $(this).val() + '-tab').show('slow');
-  		}
-  		if($(this).prop("checked") == false){
-  $('#custom-nav-P' + $(this).val() + '-tab').hide('slow');		
-  		}
-    });
-		
-		prds = prds.filter(function () { return true });
-		if(prds.length < 1){
-		  $('#nav-tab-cont').hide('slow');
-		}else{
-		  $('#nav-tab-cont').show('slow');		
-		}
-		
-});

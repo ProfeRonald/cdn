@@ -86,11 +86,13 @@ function read(a){
     }else if(a != ''){
      // $('head').append('<meta http-equiv="refresh" content="5; url=http://localhost/Dropbox/adecuacion/sesion.php?op=SesionQR" />');
       document.cookie = 'sesionqr=' + a;
+      document.getElementById("outdiv").innerHTML = '<i class="fa fa-spinner fa-spin fa-4x"></i>';
       var urlerd = document.getElementById("datos_js").getAttribute('urlerd');
       if(urlerd == null || urlerd == undefined || urlerd == ''){
         urlerd = 'https://escuelard.edu.do';
       }
-      window.location = urlerd + '/sesion.php?op=SesionQR';
+        console.log(urlerd);
+        window.location = urlerd + '/sesion.php?op=SesionQR';
   	}
 }
 
@@ -108,7 +110,7 @@ function success(stream){
     setTimeout(captureToCanvas, 500);
 }
 		
-function error(error){
+function Verror(error){
     gUM=false;
     return;
 }
@@ -169,7 +171,7 @@ function setwebcam2(options){
             then(function(stream){
                 success(stream);
             }).catch(function(error){
-                error(error)
+                Verror(error);
             });
     }
     else

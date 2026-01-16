@@ -925,7 +925,7 @@ function BotonesRecuperacionPedagogica(){
         var noa;
         var i = 0;
         var eides = new Array();
-        $('.datos-empresa').each(function () {
+        $('.basis').each(function () {
           var id = $(this).attr('id');
           id = id.replace('ea_','');
           eides[i] = id;

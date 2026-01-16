@@ -91,7 +91,6 @@ function read(a){
       if(urlerd == null || urlerd == undefined || urlerd == ''){
         urlerd = 'https://escuelard.edu.do';
       }
-        console.log(urlerd);
         window.location = urlerd + '/sesion.php?op=SesionQR';
   	}
 }

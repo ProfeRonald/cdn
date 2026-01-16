@@ -923,7 +923,15 @@ function BotonesRecuperacionPedagogica(){
       }else if(ides != null && ides['data'] != null){
         var a = 0;
         var noa;
-
+        var i = 0;
+        var eides = [];
+        $('.datos-empresa').each(function () {
+          var id = $(this).attr('id');
+          id = id.replace('ea_','');
+          eides[i] = id;
+        })
+        console.log(eides);
+        console.log(ides['data']);
       $.each(ides['data'], function (id, estado) {
          if (estado == '') {
             estado = 'P';

@@ -394,7 +394,6 @@ $(document).on("blur", ".CalificacionesRP", function () {
      $(".SumaPeriodoCompetencia"),
      function () {
       SumaPeriodoCompetencia($(this));
-  
      });
     $.each(
      $(".CalificacionesRP"),

@@ -924,11 +924,12 @@ function BotonesRecuperacionPedagogica(){
         var a = 0;
         var noa;
         var i = 0;
-        var eides = [];
+        var eides = new Array();
         $('.datos-empresa').each(function () {
           var id = $(this).attr('id');
           id = id.replace('ea_','');
           eides[i] = id;
+          i++;
         })
         console.log(eides);
         console.log(ides['data']);

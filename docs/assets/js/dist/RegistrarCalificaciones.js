@@ -259,9 +259,6 @@ $("#gruposc").html(htmlGrp);
   }
 
 
-
-  
-  
     $(document).on('click', '#ordenarGrupoAZ, #ordenarGrupoHorario', function () {
 
       const orden = $(this).attr('data-orden');
@@ -270,6 +267,26 @@ $("#gruposc").html(htmlGrp);
       
 
     })
+
+
+        function horaATimestamp(horaStr) {
+      const [tiempo, modificador] = horaStr.split(' ');
+      let [horas, minutos] = tiempo.split(':');
+
+      if (horas === '12') {
+        horas = '00';
+      }
+
+      if (modificador === 'PM') {
+        horas = parseInt(horas, 10) + 12;
+      }
+
+      // Creamos un objeto fecha con el día de hoy y la hora procesada
+      const fecha = new Date();
+      fecha.setHours(parseInt(horas, 10), parseInt(minutos, 10), 0, 0);
+
+      return fecha.getTime();
+    }
 
   async function obtenerHorarios() {
     
@@ -282,12 +299,13 @@ $("#gruposc").html(htmlGrp);
     .once('value');
 
      horarios.forEach(horario => {
-      
         if(horario.val()[dayName] != undefined){
         var dataidg = $('.ordenGrupo[data-idg="' + horario.val()[dayName].link.split('&')[0] + '"]');
-        if(dataidg.attr('data-horario') == '' || dataidg.attr('data-horario') == undefined){          
-         dataidg.attr('data-horario', horario.val().inicio);
-          hor++;
+        if(dataidg.attr('data-horario') == '' || dataidg.attr('data-horario') == undefined){
+
+         dataidg.attr('data-horario', horaATimestamp(horario.val().inicio));
+         
+         hor++;
         }
         }
 

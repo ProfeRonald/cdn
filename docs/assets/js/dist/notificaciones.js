@@ -43,8 +43,8 @@ async function requestPermission() {
 // INICIALIZAR FIREBASE
 async function initFirebase() {
      const { initializeApp, getApps, getApp } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js');
-    const { getMessaging } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging.js');
-    const { getDatabase } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js');
+     const { getMessaging } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging.js');
+     const { getDatabase } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js');
     
     let app;
     if (getApps().length === 0) {
@@ -265,7 +265,6 @@ async function updateTokenForUser(newToken, escuela, id) {
 
     return true;
 }
-
 
 // EXPONER FUNCIONES
 window.initNotificationSystem = initNotificationSystem;

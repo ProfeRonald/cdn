@@ -103,7 +103,7 @@ $(document).ready(function () {
         var valGrp = new Array();
         var d = 0;
       $("#gruposc .ordenGrupo").each(function(){
-        if($(this).attr('data-horario') != undefined){
+        if($(this).attr('data-horario') != undefined && $(this).attr('data-horario') != ''){
           ordGrp[d] = $(this).attr('data-horario');
         }else{
           ordGrp[d] = d + 17;

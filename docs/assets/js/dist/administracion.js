@@ -79,9 +79,9 @@ var tablea = $('#TablaAescolar').DataTable({
         buttons: [
           {
             extend: 'excelHtml5',
-            text: 'Exportar a Excel',
-            title: 'Reporte_Datatables',
-            filename: 'reporte_datatables'
+            text: 'Descargar lista de empresas',
+            title: 'Lista de empresas',
+            filename: 'lista_empresas'
           }
         ],
         

@@ -13,6 +13,15 @@ var idlp = Number(document.cookie.replace(
   }
     
       $('#TablaCoordinacion').DataTable({
+        dom: 'Bfrtip', // agrega los botones
+        buttons: [
+          {
+            extend: 'excelHtml5',
+            text: 'Descargar lista de cursos',
+            title: 'Lista de cursos',
+            filename: 'lista_cursos'
+          }
+        ],
           "responsive": true,
           "columnDefs": [ {
               "targets": 'no-sort',

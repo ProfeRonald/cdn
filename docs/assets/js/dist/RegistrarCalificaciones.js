@@ -34,6 +34,8 @@ $(document).ready(function () {
       $('#tbody-grupos').html(trhtml);
 
      firebase.database().ref('escuela_' + escuela_sesion + '/grupos/' + year_1 + '-' + year_2 + '/' + quien + '_' + id_sesion).on("value", (profe) => {
+
+      console.log(profe.val());
       
       $('.count2').removeClass('count');
 

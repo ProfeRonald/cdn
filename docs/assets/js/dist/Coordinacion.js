@@ -13,14 +13,33 @@ var idlp = Number(document.cookie.replace(
   }
     
       $('#TablaCoordinacion').DataTable({
-        dom: 'Bfrtip', // agrega los botones
+        dom: 'lBfrtip',
         buttons: [
           {
             extend: 'excelHtml5',
             text: '<i class="fa fa-file-excel-o"></i> Descargar lista de cursos',
             title: 'Lista de cursos',
             filename: 'lista_cursos',
-            className: 'btn btn-success btn-sm rounded-pill px-3'
+            className: 'btn btn-success btn-sm rounded-pill px-3',
+            exportOptions: {
+              columns: ':not(.no-export)',
+              format: {
+                body: function ( data, row, column, node ) {
+                  var exportText = $(node).attr('data-export');
+                    if (exportText) {
+                      return exportText;
+                    }
+                  return $(node).text().trim();
+                },
+                header: function ( data, column, node ) {
+                  var exportText = $(node).attr('data-export');
+                    if (exportText) {
+                      return exportText;
+                    }
+                  return $(node).text().trim();
+                }
+              }
+            }
           }
         ],
           "responsive": true,
@@ -41,6 +60,35 @@ var idlp = Number(document.cookie.replace(
     });
       
       $('#TablaCoordinacionGrupo').DataTable({
+        dom: 'lBfrtip',
+        buttons: [
+          {
+            extend: 'excelHtml5',
+            text: '<i class="fa fa-file-excel-o"></i> Descargar lista de cursos',
+            title: 'Lista de cursos',
+            filename: 'lista_cursos',
+            className: 'btn btn-success btn-sm rounded-pill px-3',
+            exportOptions: {
+              columns: ':not(.no-export)',
+              format: {
+                body: function ( data, row, column, node ) {
+                  var exportText = $(node).attr('data-export');
+                    if (exportText) {
+                      return exportText;
+                    }
+                  return $(node).text().trim();
+                },
+                header: function ( data, column, node ) {
+                  var exportText = $(node).attr('data-export');
+                    if (exportText) {
+                      return exportText;
+                    }
+                  return $(node).text().trim();
+                }
+              }
+            }
+          }
+        ],
           "responsive": true,
           "columnDefs": [ {
               "targets": 'no-sort',

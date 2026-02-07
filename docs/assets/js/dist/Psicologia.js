@@ -20,7 +20,10 @@ var idlp = Number(document.cookie.replace(
             text: '<i class="fa fa-file-excel-o"></i> Descargar lista de cursos',
             title: 'Lista de cursos',
             filename: 'lista_cursos',
-            className: 'btn btn-success btn-sm rounded-pill px-3'
+            className: 'btn btn-success btn-sm rounded-pill px-3',
+            exportOptions: {
+            columns: ':not(.no-export)' 
+          }
           }
         ],
         "responsive": true,
@@ -49,7 +52,10 @@ var idlp = Number(document.cookie.replace(
             text: '<i class="fa fa-file-excel-o"></i> Descargar lista de estudiantes',
             title: 'Lista de estudiantes',
             filename: 'lista_estudiantes',
-            className: 'btn btn-success btn-sm rounded-pill px-3'
+            className: 'btn btn-success btn-sm rounded-pill px-3',
+            exportOptions: {
+            columns: ':not(.no-export)' 
+          }
           }
         ],
         "responsive": true,
@@ -74,7 +80,10 @@ var idlp = Number(document.cookie.replace(
             text: '<i class="fa fa-file-excel-o"></i> Descargar lista de estudiantes',
             title: 'Lista de estudiantes',
             filename: 'lista_estudiantes',
-            className: 'btn btn-success btn-sm rounded-pill px-3'
+            className: 'btn btn-success btn-sm rounded-pill px-3',
+            exportOptions: {
+            columns: ':not(.no-export)' 
+          }
           }
         ],
         "responsive": true,

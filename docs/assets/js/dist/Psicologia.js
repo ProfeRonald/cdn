@@ -66,6 +66,7 @@ var idlp = Number(document.cookie.replace(
               columns: ':not(.no-export)',
               format: {
                 body: function ( data, row, column, node ) {
+                  console.log(node);
                   var exportText = $(node).attr('data-export');
                     if (exportText) {
                       return exportText;

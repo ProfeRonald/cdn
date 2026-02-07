@@ -23,11 +23,15 @@ var idlp = Number(document.cookie.replace(
             className: 'btn btn-success btn-sm rounded-pill px-3',
             exportOptions: {
             columns: ':not(.no-export)',
-            format: {
-              body: function ( data, row, column, node ) {
-                return $(node).attr('data-export') ? $(node).attr('data-export') : data;
+              format: {
+                body: function ( data, row, column, node ) {
+                  var exportText = $(node).attr('data-export');
+                    if (exportText) {
+                      return exportText;
+                    }
+                  return $(node).text().trim();
+                }
               }
-            }
           }
           }
         ],
@@ -59,13 +63,17 @@ var idlp = Number(document.cookie.replace(
             filename: 'lista_estudiantes',
             className: 'btn btn-success btn-sm rounded-pill px-3',
             exportOptions: {
-            columns: ':not(.no-export)',
-            format: {
-              body: function ( data, row, column, node ) {
-                return $(node).attr('data-export') ? $(node).attr('data-export') : data;
+              columns: ':not(.no-export)',
+              format: {
+                body: function ( data, row, column, node ) {
+                  var exportText = $(node).attr('data-export');
+                    if (exportText) {
+                      return exportText;
+                    }
+                  return $(node).text().trim();
+                }
               }
             }
-          }
           }
         ],
         "responsive": true,
@@ -93,11 +101,15 @@ var idlp = Number(document.cookie.replace(
             className: 'btn btn-success btn-sm rounded-pill px-3',
             exportOptions: {
             columns: ':not(.no-export)',
-            format: {
-              body: function ( data, row, column, node ) {
-                return $(node).attr('data-export') ? $(node).attr('data-export') : data;
+              format: {
+                body: function ( data, row, column, node ) {
+                  var exportText = $(node).attr('data-export');
+                    if (exportText) {
+                      return exportText;
+                    }
+                  return $(node).text().trim();
+                }
               }
-            }
           }
           }
         ],

@@ -67,6 +67,16 @@ var idlp = Number(document.cookie.replace(
     });
     
     $('#TablaPsicologiaGrupo').DataTable({
+      dom: 'Bfrtip', // agrega los botones
+        buttons: [
+          {
+            extend: 'excelHtml5',
+            text: '<i class="fa fa-file-excel-o"></i> Descargar lista',
+            title: 'Lista de estudiantes',
+            filename: 'lista_estudiantes',
+            className: 'btn btn-success btn-sm rounded-pill px-3'
+          }
+        ],
         "responsive": true,
         "columnDefs": [ {
             "targets": 'no-sort',

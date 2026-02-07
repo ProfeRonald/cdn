@@ -22,7 +22,12 @@ var idlp = Number(document.cookie.replace(
             filename: 'lista_cursos',
             className: 'btn btn-success btn-sm rounded-pill px-3',
             exportOptions: {
-            columns: ':not(.no-export)' 
+            columns: ':not(.no-export)',
+            format: {
+              body: function ( data, row, column, node ) {
+                return $(node).attr('data-export') ? $(node).attr('data-export') : data;
+              }
+            }
           }
           }
         ],
@@ -54,7 +59,12 @@ var idlp = Number(document.cookie.replace(
             filename: 'lista_estudiantes',
             className: 'btn btn-success btn-sm rounded-pill px-3',
             exportOptions: {
-            columns: ':not(.no-export)' 
+            columns: ':not(.no-export)',
+            format: {
+              body: function ( data, row, column, node ) {
+                return $(node).attr('data-export') ? $(node).attr('data-export') : data;
+              }
+            }
           }
           }
         ],
@@ -82,7 +92,12 @@ var idlp = Number(document.cookie.replace(
             filename: 'lista_estudiantes',
             className: 'btn btn-success btn-sm rounded-pill px-3',
             exportOptions: {
-            columns: ':not(.no-export)' 
+            columns: ':not(.no-export)',
+            format: {
+              body: function ( data, row, column, node ) {
+                return $(node).attr('data-export') ? $(node).attr('data-export') : data;
+              }
+            }
           }
           }
         ],

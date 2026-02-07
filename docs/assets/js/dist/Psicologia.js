@@ -69,6 +69,8 @@ var idlp = Number(document.cookie.replace(
           // 1. Obtenemos el valor "crudo" del atributo directamente del HTML
           var valorAtributo = node.getAttribute('data-export');
 
+          console.log("Fila: " + row + " | Col: " + column + " | Atributo: " + valorAtributo);
+
           // 2. Si existe, lo devolvemos (esto ignora todo elHTML de la celda)
           if (valorAtributo !== null) {
             return valorAtributo;

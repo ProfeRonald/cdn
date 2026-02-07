@@ -30,6 +30,13 @@ var idlp = Number(document.cookie.replace(
                       return exportText;
                     }
                   return $(node).text().trim();
+                },
+                header: function ( data, column, node ) {
+                  var exportText = $(node).attr('data-export');
+                    if (exportText) {
+                      return exportText;
+                    }
+                  return $(node).text().trim();
                 }
               }
           }
@@ -71,6 +78,13 @@ var idlp = Number(document.cookie.replace(
                       return exportText;
                     }
                   return $(node).text().trim();
+                },
+                header: function ( data, column, node ) {
+                  var exportText = $(node).attr('data-export');
+                    if (exportText) {
+                      return exportText;
+                    }
+                  return $(node).text().trim();
                 }
               }
             }
@@ -103,6 +117,13 @@ var idlp = Number(document.cookie.replace(
             columns: ':not(.no-export)',
               format: {
                 body: function ( data, row, column, node ) {
+                  var exportText = $(node).attr('data-export');
+                    if (exportText) {
+                      return exportText;
+                    }
+                  return $(node).text().trim();
+                },
+                header: function ( data, column, node ) {
                   var exportText = $(node).attr('data-export');
                     if (exportText) {
                       return exportText;

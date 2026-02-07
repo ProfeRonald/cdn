@@ -13,6 +13,16 @@ var idlp = Number(document.cookie.replace(
   }
 
     $('#TablaPsicologia').DataTable({
+      dom: 'Bfrtip', // agrega los botones
+        buttons: [
+          {
+            extend: 'excelHtml5',
+            text: '<i class="fa fa-file-excel-o"></i> Descargar lista de cursos',
+            title: 'Lista de cursos',
+            filename: 'lista_cursos',
+            className: 'btn btn-success btn-sm rounded-pill px-3'
+          }
+        ],
         "responsive": true,
         "columnDefs": [ {
             "targets": 'no-sort',

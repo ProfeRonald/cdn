@@ -13,7 +13,7 @@ var idlp = Number(document.cookie.replace(
   }
 
     $('#TablaPsicologia').DataTable({
-      dom: 'Bfrtip', // agrega los botones
+      dom: 'Bfrtip',
         buttons: [
           {
             extend: 'excelHtml5',
@@ -61,7 +61,7 @@ var idlp = Number(document.cookie.replace(
     });
     
     $('#TablaEstudiantesPsi').DataTable({
-        dom: 'Bfrtip', // agrega los botones
+        dom: 'Bfrtip',
         buttons: [
           {
             extend: 'excelHtml5',
@@ -105,7 +105,7 @@ var idlp = Number(document.cookie.replace(
     });
     
     $('#TablaPsicologiaGrupo').DataTable({
-      dom: 'Bfrtip', // agrega los botones
+      dom: 'Bfrtip',
         buttons: [
           {
             extend: 'excelHtml5',

@@ -17,7 +17,7 @@ var idlp = Number(document.cookie.replace(
         buttons: [
           {
             extend: 'excelHtml5',
-            text: 'Descargar lista de cursos',
+            text: '<i class="fa fa-file-excel-o"></i> Descargar lista de cursos',
             title: 'Lista de cursos',
             filename: 'lista_cursos'
           }

@@ -13,7 +13,7 @@ var idlp = Number(document.cookie.replace(
   }
 
     $('#TablaPsicologia').DataTable({
-      dom: 'Bfrtip',
+      dom: 'lBfrtip',
         buttons: [
           {
             extend: 'excelHtml5',

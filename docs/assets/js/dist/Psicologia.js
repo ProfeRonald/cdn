@@ -65,15 +65,20 @@ var idlp = Number(document.cookie.replace(
             exportOptions: {
               columns: ':not(.no-export)',
               format: {
-                body: function (data, row, column, node) {
-                  var cell = $('#TablaEstudiantesPsi').DataTable().cell(row, column).node();
-                  var exportData = $(cell).attr('data-export');
-                  if (exportData) {
-                    return exportData;
-                  }
-                  return data.replace(/<[^>]*>?/gm, '').trim();
-                }
-              }
+        body: function (data, row, column, node) {
+          // 1. Obtenemos el valor "crudo" del atributo directamente del HTML
+          var valorAtributo = node.getAttribute('data-export');
+
+          // 2. Si existe, lo devolvemos (esto ignora todo el HTML de la celda)
+          if (valorAtributo !== null) {
+            return valorAtributo;
+          }
+
+          // 3. Si no tiene el atributo, limpiamos etiquetas HTML del contenido 'data'
+          // Esto sirve para el resto de las celdas normales
+          return data.replace(/<[^>]*>?/gm, '').trim();
+        }
+      }
             }
           }
         ],

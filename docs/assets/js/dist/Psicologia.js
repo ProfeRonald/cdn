@@ -65,13 +65,13 @@ var idlp = Number(document.cookie.replace(
             exportOptions: {
               columns: ':not(.no-export)',
               format: {
-                body: function ( data, row, column, node ) {
-                  console.log(node);
-                  var exportText = $(node).attr('data-export');
-                    if (exportText) {
-                      return exportText;
-                    }
-                  return $(node).text().trim();
+                body: function (data, row, column, node) {
+                  var cell = $('#TablaEstudiantesPsi').DataTable().cell(row, column).node();
+                  var exportData = $(cell).attr('data-export');
+                  if (exportData) {
+                    return exportData;
+                  }
+                  return data.replace(/<[^>]*>?/gm, '').trim();
                 }
               }
             }

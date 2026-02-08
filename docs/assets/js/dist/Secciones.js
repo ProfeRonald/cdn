@@ -37,6 +37,35 @@ $(document).ready(function () {
     var var_buscar = $("#datos_js").attr("e");
   
      window['tableg'] = $('#TablaGrupos').DataTable({
+      dom: 'lBfrtip',
+        buttons: [
+          {
+            extend: 'excelHtml5',
+            text: '<i class="fa fa-file-excel-o"></i> Descargar lista de estudiantes',
+            title: 'Lista de estudiantes',
+            filename: 'lista_estudiantes',
+            className: 'btn btn-success btn-sm rounded-pill px-3',
+            exportOptions: {
+              columns: ':not(.no-export)',
+              format: {
+                body: function ( data, row, column, node ) {
+                  var exportText = $(node).attr('data-export');
+                    if (exportText) {
+                      return exportText;
+                    }
+                  return $(node).text().trim();
+                },
+                header: function ( data, column, node ) {
+                  var exportText = $(node).attr('data-export');
+                    if (exportText) {
+                      return exportText;
+                    }
+                  return $(node).text().trim();
+                }
+              }
+            }
+          }
+        ],
       "columnDefs": [{
         "targets": 'no-sort',
         "orderable": false,

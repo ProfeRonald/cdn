@@ -105,10 +105,57 @@ var idlp = Number(document.cookie.replace(
         "lengthMenu":		[[5, 7, 10, 15, 20, 25, 50, -1], [5, 7, 10, 15, 20, 25, 50, "Todos"]],
         "iDisplayLength":	idlp,
     });
+
+    $('#TablaCoordinacionProfesores').DataTable({
+        dom: 'lBfrtip',
+        buttons: [
+          {
+            extend: 'excelHtml5',
+            text: '<i class="fa fa-file-excel-o"></i> Descargar lista de profesores',
+            title: 'Lista de profesores',
+            filename: 'lista_profesores',
+            className: 'btn btn-success btn-sm rounded-pill px-3',
+            exportOptions: {
+              columns: ':not(.no-export)',
+              format: {
+                body: function ( data, row, column, node ) {
+                  var exportText = $(node).attr('data-export');
+                    if (exportText) {
+                      return exportText;
+                    }
+                  return $(node).text().trim();
+                },
+                header: function ( data, column, node ) {
+                  var exportText = $(node).attr('data-export');
+                    if (exportText) {
+                      return exportText;
+                    }
+                  return $(node).text().trim();
+                }
+              }
+            }
+          }
+        ],
+          "responsive": true,
+          "columnDefs": [ {
+              "targets": 'no-sort',
+              "orderable": false,
+        } ],
+            "order": [[ 0, "asc" ]],
+        "bLengthChange" : true,
+        "searching": true,
+        "bInfo":false,
+            "bFilter": true,
+            "paging": true,
+        "language": {
+            url: filescdn + "/assets/js/lib/data-table/SpanishGrupos.json"        },
+        "lengthMenu":		[[5, 7, 10, 15, 20, 25, 50, -1], [5, 7, 10, 15, 20, 25, 50, "Todos"]],
+        "iDisplayLength":	idlp,
+    });
     
   $(document).on(
     "blur",
-    "#TablaCoordinacion_wrapper select:first, #TablaCoordinacionGrupo_wrapper select:first",
+    "#TablaCoordinacion_wrapper select:first, #TablaCoordinacionGrupo_wrapper select:first, #TablaCoordinacionProfesores_wrapper select:first",
     function () {
       var idpl = $(this).val();
       document.cookie = "idples=" + idpl;

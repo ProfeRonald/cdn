@@ -134,11 +134,12 @@ var idlp = Number(document.cookie.replace(
                   return $(node).text().replace(/<br\s*\/?>/gi, '\n').trim();
                 },
                 footer: function(data, column, node) {
-          var exportText = $(node).attr('data-export');
-                    if (exportText) {
-                      return exportText.replace(/<br\s*\/?>/gi, '\n');
+                if (node) {
+                        var attr = node.getAttribute('data-export');
+                        if (attr) return attr.replace(/<br\s*\/?>/gi, '\n');
                     }
-                  return $(node).text().replace(/<br\s*\/?>/gi, '\n').trim();
+                    // Si no hay atributo, limpiamos el HTML
+                    return data ? data.replace(/<[^>]*>?/gm, '').trim() : '';
         }
               }
             },

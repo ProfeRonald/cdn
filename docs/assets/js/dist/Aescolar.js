@@ -145,9 +145,77 @@ $('#TablaAescolar').DataTable({
   "iDisplayLength":	idlp,
 });
 
+$('#TablaAdminProfesores').DataTable({
+        dom: 'lBfrtip',
+        buttons: [
+          {
+            extend: 'excelHtml5',
+            text: '<i class="fa fa-file-excel-o"></i> Descargar lista de profesores',
+            title: 'Lista de profesores',
+            filename: 'lista_profesores',
+            className: 'btn btn-success btn-sm rounded-pill px-3',
+            footer: true,
+            exportOptions: {
+              columns: ':not(.no-export)',
+              footer: true,
+              format: {
+                body: function ( data, row, column, node ) {
+                  var exportText = $(node).attr('data-export');
+                    if (exportText) {
+                      return exportText.replace(/<br\s*\/?>/gi, '\n');
+                    }
+                  return $(node).text().trim();
+                },
+                header: function ( data, column, node ) {
+                  var exportText = $(node).attr('data-export');
+                    if (exportText) {
+                      return exportText.replace(/<br\s*\/?>/gi, '\n');
+                    }
+                  return $(node).text().replace(/<br\s*\/?>/gi, '\n').trim();
+                },
+                footer: function(data, column, node) {
+                if (node) {
+                        var attr = node.getAttribute('data-export');
+                        if (attr) return attr.replace(/<br\s*\/?>/gi, '\n');
+                    }
+                    // Si no hay atributo, limpiamos el HTML
+                    return data ? data.replace(/<[^>]*>?/gm, '').trim() : '';
+        }
+              }
+            },
+            customize: function(xlsx) {
+    var sheet = xlsx.xl.worksheets['sheet1.xml'];
+    
+    // Buscamos las celdas que contienen el carácter de salto de línea
+    $('row c', sheet).each(function() {
+        if ($('is t', this).text().indexOf('\n') !== -1) {
+            // El estilo '25' es: Alineado a la izquierda + Wrap Text
+            $(this).attr('s', '55'); 
+        }
+    });
+}
+          }
+        ],
+          "responsive": true,
+          "columnDefs": [ {
+              "targets": 'no-sort',
+              "orderable": false,
+        } ],
+            "order": [[ 0, "asc" ]],
+        "bLengthChange" : true,
+        "searching": true,
+        "bInfo":false,
+            "bFilter": true,
+            "paging": true,
+        "language": {
+            url: filescdn + "/assets/js/lib/data-table/SpanishGrupos.json"        },
+        "lengthMenu":		[[5, 7, 10, 15, 20, 25, 50, -1], [5, 7, 10, 15, 20, 25, 50, "Todos"]],
+        "iDisplayLength":	idlp,
+    });
+
 $(document).on(
     "blur",
-    "#TablaAescolar_wrapper select:first",
+    "#TablaAescolar_wrapper select:first, #TablaAdminProfesores_wrapper select:first",
     function () {
       var idpl = $(this).val();
       document.cookie = "idples=" + idpl;

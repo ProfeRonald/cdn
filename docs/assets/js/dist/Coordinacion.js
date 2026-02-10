@@ -117,6 +117,7 @@ var idlp = Number(document.cookie.replace(
             className: 'btn btn-success btn-sm rounded-pill px-3',
             exportOptions: {
               columns: ':not(.no-export)',
+              footer: true,
               format: {
                 body: function ( data, row, column, node ) {
                   var exportText = $(node).attr('data-export');
@@ -131,7 +132,14 @@ var idlp = Number(document.cookie.replace(
                       return exportText.replace(/<br\s*\/?>/gi, '\n');
                     }
                   return $(node).text().replace(/<br\s*\/?>/gi, '\n').trim();
-                }
+                },
+                footer: function(data, column, node) {
+          var exportText = $(node).attr('data-export');
+                    if (exportText) {
+                      return exportText.replace(/<br\s*\/?>/gi, '\n');
+                    }
+                  return $(node).text().replace(/<br\s*\/?>/gi, '\n').trim();
+        }
               }
             },
             customize: function(xlsx) {

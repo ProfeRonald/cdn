@@ -121,7 +121,7 @@ var idlp = Number(document.cookie.replace(
                 body: function ( data, row, column, node ) {
                   var exportText = $(node).attr('data-export');
                     if (exportText) {
-                      return exportText.replace('<br />', '\n');
+                      return exportText.replace(/<br\s*\/?>/gi, '\n');
                     }
                   return $(node).text().trim();
                 },

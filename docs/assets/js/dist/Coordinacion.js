@@ -133,7 +133,18 @@ var idlp = Number(document.cookie.replace(
                   return $(node).text().replace(/<br\s*\/?>/gi, '\n').trim();
                 }
               }
-            }
+            },
+            customize: function(xlsx) {
+            var sheet = xlsx.xl.worksheets['sheet1.xml'];
+            
+            // Esta función busca todas las celdas que tengan un salto de línea (\n)
+            // y les aplica el estilo '51', que en DataTables es "Texto Centrado con Ajuste"
+            $('row c', sheet).each(function() {
+                if ($('is t', this).text().indexOf('\n') !== -1) {
+                    $(this).attr('s', '51'); // El estilo 51 es clave para el Wrap Text
+                }
+            });
+        }
           }
         ],
           "responsive": true,

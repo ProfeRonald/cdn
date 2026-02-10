@@ -115,6 +115,7 @@ var idlp = Number(document.cookie.replace(
             title: 'Lista de profesores',
             filename: 'lista_profesores',
             className: 'btn btn-success btn-sm rounded-pill px-3',
+            footer: true,
             exportOptions: {
               columns: ':not(.no-export)',
               footer: true,
@@ -134,7 +135,6 @@ var idlp = Number(document.cookie.replace(
                   return $(node).text().replace(/<br\s*\/?>/gi, '\n').trim();
                 },
                 footer: function(data, column, node) {
-                  console.log("Exportando footer de col " + column);
                 if (node) {
                         var attr = node.getAttribute('data-export');
                         if (attr) return attr.replace(/<br\s*\/?>/gi, '\n');

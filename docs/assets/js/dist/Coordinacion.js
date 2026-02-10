@@ -141,7 +141,7 @@ var idlp = Number(document.cookie.replace(
     $('row c', sheet).each(function() {
         if ($('is t', this).text().indexOf('\n') !== -1) {
             // El estilo '25' es: Alineado a la izquierda + Wrap Text
-            $(this).attr('s', '25'); 
+            $(this).attr('s', '55'); 
         }
     });
 }

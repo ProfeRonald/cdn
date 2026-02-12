@@ -473,6 +473,7 @@ function listarTodosArchivos() {
 
 $(document).on('click', '#ListaGrupoPDF', function () {
      ListaFinalPDF(1);
+     console.log('click');
 })
 
 

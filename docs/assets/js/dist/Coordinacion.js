@@ -249,9 +249,12 @@ var idlp = Number(document.cookie.replace(
   });
 
   function cargarArchivosProfesor(profesorId) {
+    $('#archivosContainer').html('<div class="text-center text-muted" style="font-size: 18px">Cargando...</div>');
+
+    if (profesorId in profesores) {
+      
     const ruta = `escuela_${escuelaID}/archivos/${periodoActual}/profesor_${profesorId}`;
     const dbRef = firebase.database().ref(ruta);
-    $('#archivosContainer').html('<div class="text-center text-muted" style="font-size: 18px">Cargando...</div>');
     dbRef.off();
 
     dbRef.on('value', snapshot => {
@@ -268,15 +271,12 @@ var idlp = Number(document.cookie.replace(
       }
 
       Object.keys(data).forEach((asignaturaKey, iAsig) => {
-        console.log('Procesando asignatura:', asignaturaKey);
         const titulo_asig = $('.asigMod[idAsig="' + asignaturaKey + '"]').html();
         
         if(titulo_asig != undefined){
 
         const asignaturaData = data[asignaturaKey];
         const collapseAsignaturaID = `collapse_asig_${iAsig}`;
-          console.log('Título asignatura:', titulo_asig);
-          console.log('Datos asignatura:', asignaturaData);
         let htmlAsignatura = `
           <div class="card mb-3 border-info border">
             <div class="card-header bg-light">
@@ -311,7 +311,7 @@ var idlp = Number(document.cookie.replace(
 
       });
     });
-  
+  }
 }
 
 

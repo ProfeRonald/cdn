@@ -233,7 +233,6 @@ var idlp = Number(document.cookie.replace(
   }
 }
 
- 
   // 🔥 Variables configurables
   const escuelaID = $('#verArchivosDrive').data('idescuela');
   const periodoActual = $('#verArchivosDrive').data('periodo'); // Solo cambiar aquí el año cuando sea necesario
@@ -251,6 +250,7 @@ var idlp = Number(document.cookie.replace(
 
   function cargarArchivosProfesor(profesorId) {
     const ruta = `escuela_${escuelaID}/archivos/${periodoActual}/profesor_${profesorId}`;
+    console.log('Cargando archivos desde ruta:', ruta);
     const dbRef = firebase.database().ref(ruta);
     $('#archivosContainer').html('<div class="text-center text-muted" style="font-size: 18px">Cargando...</div>');
     dbRef.off();
@@ -270,7 +270,6 @@ var idlp = Number(document.cookie.replace(
 
       Object.keys(data).forEach((asignaturaKey, iAsig) => {
         
-
         const titulo_asig = $('.asigMod[idAsig="' + asignaturaKey + '"]').html();
         
         if(titulo_asig != undefined){
@@ -322,8 +321,6 @@ var idlp = Number(document.cookie.replace(
 
 const escuela_sesionAll = $('#archivosProfesores').data('escuela');
 const periodoActualAll = $('#archivosProfesores').data('periodo');
-
-
 
 function listarTodosArchivos() {
   $('#listaArchivos').html('<div class="text-center text-muted" style="font-size:2rem">Cargando archivos del periodo...</div>');

@@ -337,6 +337,9 @@ function listarTodosArchivos() {
     // Recorremos profesores
     Object.keys(data).forEach((profKey, profIndex) => {
       const profesorId = profKey.replace('profesor_', '');
+      
+      if (profesorId in profesores) {
+
       const asigsMods = data[profKey];
 
       // IDs seguros/únicos
@@ -411,7 +414,7 @@ function listarTodosArchivos() {
         }
       });
     });
-
+  }
     // Delegación de evento para botones "Más info" (por archivo)
     $('#listaArchivos').off('click', '.cargar-drive').on('click', '.cargar-drive', function () {
       const fileId = $(this).data('fileid');

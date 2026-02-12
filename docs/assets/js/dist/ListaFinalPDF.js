@@ -6,7 +6,7 @@ $(document).on('click', '#ListaFinalPDF', function () {
   window.ListaFinalPDF = function (p=0) {
 
  if($('.sel-grp').filter(':checked').length > 0 || p == 1){
-
+console.log('click');
     $.ajax({
       method: "POST",
       url: "sesion.php?op=ListaFinalPDF",

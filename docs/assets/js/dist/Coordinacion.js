@@ -255,7 +255,6 @@ var idlp = Number(document.cookie.replace(
     dbRef.off();
 
     dbRef.on('value', snapshot => {
-      console.log('Datos recibidos de Firebase:', snapshot.val());
       const data = snapshot.val();
       const contenedor = $('#archivosContainer');
       contenedor.empty();
@@ -269,14 +268,15 @@ var idlp = Number(document.cookie.replace(
       }
 
       Object.keys(data).forEach((asignaturaKey, iAsig) => {
-        
+        console.log('Procesando asignatura:', asignaturaKey);
         const titulo_asig = $('.asigMod[idAsig="' + asignaturaKey + '"]').html();
         
         if(titulo_asig != undefined){
 
         const asignaturaData = data[asignaturaKey];
         const collapseAsignaturaID = `collapse_asig_${iAsig}`;
-
+          console.log('Título asignatura:', titulo_asig);
+          console.log('Datos asignatura:', asignaturaData);
         let htmlAsignatura = `
           <div class="card mb-3 border-info border">
             <div class="card-header bg-light">

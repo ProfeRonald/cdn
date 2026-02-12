@@ -250,12 +250,12 @@ var idlp = Number(document.cookie.replace(
 
   function cargarArchivosProfesor(profesorId) {
     const ruta = `escuela_${escuelaID}/archivos/${periodoActual}/profesor_${profesorId}`;
-    console.log('Cargando archivos desde ruta:', ruta);
     const dbRef = firebase.database().ref(ruta);
     $('#archivosContainer').html('<div class="text-center text-muted" style="font-size: 18px">Cargando...</div>');
     dbRef.off();
 
     dbRef.on('value', snapshot => {
+      console.log('Datos recibidos de Firebase:', snapshot.val());
       const data = snapshot.val();
       const contenedor = $('#archivosContainer');
       contenedor.empty();

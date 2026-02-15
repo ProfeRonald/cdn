@@ -145,35 +145,6 @@ $('#TablaAescolar').DataTable({
   "iDisplayLength":	idlp,
 });
 
-// Definimos los formatos comunes para no repetir código en cada botón
-var commonExportOptions = {
-    columns: ':not(.no-export)',
-    footer: true,
-    format: {
-        body: function(data, row, column, node) {
-            var exportText = $(node).attr('data-export');
-            if (exportText) {
-                return exportText.replace(/<br\s*\/?>/gi, '\n');
-            }
-            return $(node).text().trim();
-        },
-        header: function(data, column, node) {
-            var exportText = $(node).attr('data-export');
-            if (exportText) {
-                return exportText.replace(/<br\s*\/?>/gi, '\n');
-            }
-            return $(node).text().replace(/<br\s*\/?>/gi, '\n').trim();
-        },
-        footer: function(data, column, node) {
-            if (node) {
-                var attr = node.getAttribute('data-export');
-                if (attr) return attr.replace(/<br\s*\/?>/gi, '\n');
-            }
-            return data ? data.replace(/<[^>]*>?/gm, '').trim() : '';
-        }
-    }
-};
-
 $('#TablaAdminProfesores').DataTable({
     dom: 'lBfrtip',
     buttons: [
@@ -181,42 +152,51 @@ $('#TablaAdminProfesores').DataTable({
             extend: 'excelHtml5',
             text: '<i class="fa fa-file-excel-o"></i> Excel',
             title: 'Lista de profesores',
-            filename: 'lista_profesores',
             className: 'btn btn-success btn-sm rounded-pill px-3',
             footer: true,
-            exportOptions: commonExportOptions,
+            exportOptions: {
+                columns: ':not(.no-export)',
+                footer: true,
+                format: {
+                    body: function(data, row, column, node) {
+                        var attr = $(node).attr('data-export');
+                        return attr ? attr.replace(/<br\s*\/?>/gi, '\n') : $(node).text().trim();
+                    },
+                    header: function(data, column, node) {
+                        var attr = $(node).attr('data-export');
+                        return attr ? attr.replace(/<br\s*\/?>/gi, '\n') : $(node).text().replace(/<br\s*\/?>/gi, '\n').trim();
+                    },
+                    footer: function(data, column, node) {
+                        var attr = node ? node.getAttribute('data-export') : null;
+                        return attr ? attr.replace(/<br\s*\/?>/gi, '\n') : (data ? data.replace(/<[^>]*>?/gm, '').trim() : '');
+                    }
+                }
+            },
             customize: function(xlsx) {
                 var sheet = xlsx.xl.worksheets['sheet1.xml'];
                 $('row c', sheet).each(function() {
-                    if ($('is t', this).text().indexOf('\n') !== -1) {
-                        $(this).attr('s', '55'); // Wrap text activo
-                    }
+                    if ($(this).text().indexOf('\n') !== -1) $(this).attr('s', '55');
                 });
             }
         },
         {
             extend: 'pdfHtml5',
             text: '<i class="fa fa-file-pdf-o"></i> PDF',
-            title: 'Lista de profesores',
-            filename: 'lista_profesores',
-            className: 'btn btn-danger btn-sm rounded-pill px-3 ml-2',
+            className: 'btn btn-danger btn-sm rounded-pill px-3',
             footer: true,
-            exportOptions: commonExportOptions,
-            orientation: 'landscape', // Opcional: mejor para tablas anchas
-            pageSize: 'A4'
+            exportOptions: {
+                columns: ':not(.no-export)',
+                footer: true
+            }
         },
         {
             extend: 'print',
             text: '<i class="fa fa-print"></i> Imprimir',
-            className: 'btn btn-info btn-sm rounded-pill px-3 ml-2',
+            className: 'btn btn-info btn-sm rounded-pill px-3',
             footer: true,
-            exportOptions: commonExportOptions,
-            customize: function(win) {
-                // Ajuste visual para la impresión
-                $(win.document.body).css('font-size', '10pt');
-                $(win.document.body).find('table')
-                    .addClass('compact')
-                    .css('font-size', 'inherit');
+            exportOptions: {
+                columns: ':not(.no-export)',
+                footer: true
             }
         }
     ],
@@ -229,13 +209,12 @@ $('#TablaAdminProfesores').DataTable({
     "bLengthChange": true,
     "searching": true,
     "bInfo": false,
-    "bFilter": true,
     "paging": true,
     "language": {
-        url: filescdn + "/assets/js/lib/data-table/SpanishGrupos.json"
+        "url": (typeof filescdn !== 'undefined') ? filescdn + "/assets/js/lib/data-table/SpanishGrupos.json" : ""
     },
     "lengthMenu": [[5, 7, 10, 15, 20, 25, 50, -1], [5, 7, 10, 15, 20, 25, 50, "Todos"]],
-    "iDisplayLength": idlp,
+    "iDisplayLength": (typeof idlp !== 'undefined') ? idlp : 10
 });
 
 $(document).on(

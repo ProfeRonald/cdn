@@ -572,7 +572,7 @@ window.RevaluaRP = function (id_nota) {
 
       tp = Number(parseFloat(tp).toFixed(0));
   
-      $('#comp-'+id_nota+'-rp').attr('data-content', tp + '=Hola');
+      $('#comp-'+id_nota+'-rp').attr('data-content', tp + '<small>' + nota + ' + ' + parseFloat((notap / 100 * (100 - nota))).toFixed(0) + '/' + (100 - nota) + '</small>');
       $('#comp-'+id_nota+'-rp').attr('tp', 'RP'+p);
     
     }else if(notap > 0){

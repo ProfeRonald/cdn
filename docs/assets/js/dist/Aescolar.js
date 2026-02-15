@@ -194,54 +194,6 @@ $('#TablaAdminProfesores').DataTable({
         }
     });
 }
-          },
-          {
-            extend: 'pdfHtml5',
-            text: '<i class="fa fa-file-pdf-o"></i> Descargar PDF',
-            title: 'Lista de profesores',
-            filename: 'lista_profesores',
-            className: 'btn btn-danger btn-sm rounded-pill px-3',
-            footer: true,
-            orientation: 'landscape',
-            exportOptions: {
-              columns: ':not(.no-export)',
-              footer: true,
-              format: {
-                body: function ( data, row, column, node ) {
-                  var exportText = $(node).attr('data-export');
-                    if (exportText) {
-                      return exportText.replace(/<br\s*\/?>/gi, '\n');
-                    }
-                  return $(node).text().trim();
-                },
-                header: function ( data, column, node ) {
-                  var exportText = $(node).attr('data-export');
-                    if (exportText) {
-                      return exportText.replace(/<br\s*\/?>/gi, '\n');
-                    }
-                  return $(node).text().replace(/<br\s*\/?>/gi, '\n').trim();
-                },
-                footer: function(data, column, node) {
-                if (node) {
-                        var attr = node.getAttribute('data-export');
-                        if (attr) return attr.replace(/<br\s*\/?>/gi, '\n');
-                    }
-                    // Si no hay atributo, limpiamos el HTML
-                    return data ? data.replace(/<[^>]*>?/gm, '').trim() : '';
-        }
-              }
-            }
-          },
-          {
-            extend: 'print',
-            text: '<i class="fa fa-print"></i> Imprimir',
-            title: 'Lista de profesores',
-            className: 'btn btn-info btn-sm rounded-pill px-3',
-            footer: true,
-            exportOptions: {
-              columns: ':not(.no-export)',
-              footer: true
-            }
           }
         ],
           "responsive": true,
@@ -261,9 +213,87 @@ $('#TablaAdminProfesores').DataTable({
         "iDisplayLength":	idlp,
     });
 
+    // Configuración de exportación reutilizable para TablaAdminProfesores_2
+    var exportOptionsConfig = {
+        columns: ':not(.no-export)',
+        footer: true,
+        format: {
+            body: function ( data, row, column, node ) {
+                var exportText = $(node).attr('data-export');
+                return exportText ? exportText.replace(/<br\s*\/?>/gi, '\n') : $(node).text().trim();
+            },
+            header: function ( data, column, node ) {
+                var exportText = $(node).attr('data-export');
+                return exportText ? exportText.replace(/<br\s*\/?>/gi, '\n') : $(node).text().replace(/<br\s*\/?>/gi, '\n').trim();
+            },
+            footer: function(data, column, node) {
+                var attr = node ? node.getAttribute('data-export') : null;
+                return attr ? attr.replace(/<br\s*\/?>/gi, '\n') : (data ? data.replace(/<[^>]*>?/gm, '').trim() : '');
+            }
+        }
+    };
+
+    $('#TablaAdminProfesores_2').DataTable({
+        dom: 'lBfrtip',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                text: '<i class="fa fa-file-excel-o"></i> Excel',
+                titleAttr: 'Descargar lista en Excel',
+                title: 'Lista de profesores',
+                filename: 'lista_profesores',
+                className: 'btn btn-success btn-sm rounded-pill px-3 mr-1',
+                footer: true,
+                exportOptions: exportOptionsConfig,
+                customize: function(xlsx) {
+                    var sheet = xlsx.xl.worksheets['sheet1.xml'];
+                    $('row c', sheet).each(function() {
+                        if ($('is t', this).text().indexOf('\n') !== -1) {
+                            $(this).attr('s', '55'); 
+                        }
+                    });
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                text: '<i class="fa fa-file-pdf-o"></i> PDF',
+                titleAttr: 'Descargar lista en PDF',
+                title: 'Lista de profesores',
+                filename: 'lista_profesores',
+                className: 'btn btn-danger btn-sm rounded-pill px-3 mr-1',
+                footer: true,
+                orientation: 'landscape',
+                exportOptions: exportOptionsConfig
+            },
+            {
+                extend: 'print',
+                text: '<i class="fa fa-print"></i> Imprimir',
+                titleAttr: 'Imprimir lista',
+                title: 'Lista de profesores',
+                className: 'btn btn-info btn-sm rounded-pill px-3',
+                footer: true,
+                exportOptions: {
+                    columns: ':not(.no-export)',
+                    footer: true
+                }
+            }
+        ],
+        responsive: true,
+        columnDefs: [{ targets: 'no-sort', orderable: false }],
+        order: [[ 0, "asc" ]],
+        bLengthChange: true,
+        searching: true,
+        bInfo: false,
+        bFilter: true,
+        paging: true,
+        language: { url: filescdn + "/assets/js/lib/data-table/SpanishGrupos.json" },
+        lengthMenu: [[5, 7, 10, 15, 20, 25, 50, -1], [5, 7, 10, 15, 20, 25, 50, "Todos"]],
+        iDisplayLength: idlp,
+    });
+
 $(document).on(
     "blur",
-    "#TablaAescolar_wrapper select:first, #TablaAdminProfesores_wrapper select:first",
+    "#TablaAescolar_wrapper select:first, #TablaAdminProfesores_wrapper select:first, #TablaAdminProfesores_2_wrapper select:first",
     function () {
       var idpl = $(this).val();
       document.cookie = "idples=" + idpl;

@@ -561,9 +561,7 @@ window.RevaluaRP = function (id_nota) {
       var p = id_nota.split('-')[2];
       var nota = Number($("#" + id_nota).val());
       
-      var tp = nota + (notap / 100 * (100 - nota));
-
-      
+      var tp = notap + (nota / 100 * (100 - notap));
 
       setTimeout(function () {
         var id_popover = $('#comp-'+id_nota+'-rp').attr('aria-describedby');
@@ -572,7 +570,7 @@ window.RevaluaRP = function (id_nota) {
 
       tp = Number(parseFloat(tp).toFixed(0));
   
-      $('#comp-'+id_nota+'-rp').attr('data-content', tp + '<small>' + nota + ' + ' + parseFloat((notap / 100 * (100 - nota))).toFixed(0) + '/' + (100 - nota) + '</small>');
+      $('#comp-'+id_nota+'-rp').attr('data-content', tp + '<small>' + notap + ' + ' + parseFloat((nota / 100 * (100 - notap))).toFixed(0) + '/' + (100 - notap) + '</small>');
       $('#comp-'+id_nota+'-rp').attr('tp', 'RP'+p);
     
     }else if(notap > 0){

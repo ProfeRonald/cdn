@@ -570,7 +570,7 @@ window.RevaluaRP = function (id_nota) {
 
       tp = Number(parseFloat(tp).toFixed(0));
   
-      $('#comp-'+id_nota+'-rp').attr('data-content', '<div class="row p-0 m-0 text-left"><div class="col-5 recuperacion-nota-tp p-0 m-0 text-right">' + tp + '</div><div class="col-7 recuperacion-nota p-0 m-0 text-left">= ' + notap + ' + <div class="fraccion"><span class="dividendo">' + parseFloat((nota / 100 * (100 - notap))).toFixed(0) + '</span><span class="barra">/</span><span class="divisor">' + (100 - notap) + '</span></div></div></div>');
+      $('#comp-'+id_nota+'-rp').attr('data-content', '<div class="row p-0 m-0 text-left"><div class="col-5 recuperacion-nota-tp p-0 m-0 text-right">' + tp + '</div><div class="col-7 recuperacion-nota p-0 m-0 text-left"> = ' + notap + ' + <div class="fraccion"><span class="dividendo">' + parseFloat((nota / 100 * (100 - notap))).toFixed(0) + '</span><span class="barra">/</span><span class="divisor">' + (100 - notap) + '</span></div></div></div>');
         
       $('#comp-'+id_nota+'-rp').attr('tp', 'RP'+p);
     

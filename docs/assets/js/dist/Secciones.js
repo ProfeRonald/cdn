@@ -122,7 +122,7 @@ $(document).ready(function () {
     }],
     "responsive": true,
     "scrollX": false,
-    "scrollY": 300,
+    "scrollY": 600,
     "bAutoWidth": false,
     "searching": false,
     "bLengthChange": false,

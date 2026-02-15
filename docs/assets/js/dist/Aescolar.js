@@ -194,6 +194,54 @@ $('#TablaAdminProfesores').DataTable({
         }
     });
 }
+          },
+          {
+            extend: 'pdfHtml5',
+            text: '<i class="fa fa-file-pdf-o"></i> Descargar PDF',
+            title: 'Lista de profesores',
+            filename: 'lista_profesores',
+            className: 'btn btn-danger btn-sm rounded-pill px-3',
+            footer: true,
+            orientation: 'landscape',
+            exportOptions: {
+              columns: ':not(.no-export)',
+              footer: true,
+              format: {
+                body: function ( data, row, column, node ) {
+                  var exportText = $(node).attr('data-export');
+                    if (exportText) {
+                      return exportText.replace(/<br\s*\/?>/gi, '\n');
+                    }
+                  return $(node).text().trim();
+                },
+                header: function ( data, column, node ) {
+                  var exportText = $(node).attr('data-export');
+                    if (exportText) {
+                      return exportText.replace(/<br\s*\/?>/gi, '\n');
+                    }
+                  return $(node).text().replace(/<br\s*\/?>/gi, '\n').trim();
+                },
+                footer: function(data, column, node) {
+                if (node) {
+                        var attr = node.getAttribute('data-export');
+                        if (attr) return attr.replace(/<br\s*\/?>/gi, '\n');
+                    }
+                    // Si no hay atributo, limpiamos el HTML
+                    return data ? data.replace(/<[^>]*>?/gm, '').trim() : '';
+        }
+              }
+            }
+          },
+          {
+            extend: 'print',
+            text: '<i class="fa fa-print"></i> Imprimir',
+            title: 'Lista de profesores',
+            className: 'btn btn-info btn-sm rounded-pill px-3',
+            footer: true,
+            exportOptions: {
+              columns: ':not(.no-export)',
+              footer: true
+            }
           }
         ],
           "responsive": true,

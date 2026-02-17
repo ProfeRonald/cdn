@@ -100,7 +100,6 @@ $(document).ready(function () {
 
     if(orden == 'horarioaz' || orden == 'horarioza'){
 
-        
     var ordGrp = new Array();
         var valGrp = new Array();
         var d = 0;
@@ -118,6 +117,7 @@ $(document).ready(function () {
         
       }
 
+      console.log(ordGrp);
       
       $('#ordenarGrupoHorario').show();
 

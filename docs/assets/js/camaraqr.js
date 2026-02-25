@@ -80,7 +80,10 @@ function read(a){
 		weblogin.set(a[0]);
 		weblogin.remove();
 		firebase.database().ref('d2ViY2FtbG9naW5z/' + a[1] + '/' + deviceqr).on('value', function(ds) {
-		$('#vincular-regresar', window.parent.document).trigger('click');
+    document.getElementById("outdiv").innerHTML = '<i class="fa fa-spinner fa-spin fa-4x"></i>';
+		 setTimeout(function() {
+        $('#vincular-regresar', window.parent.document).trigger('click');
+      }, 700);
 		});
 	
     }else if(a != ''){

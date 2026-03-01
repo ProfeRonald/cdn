@@ -181,14 +181,7 @@ console.log('click');
   };
 
   //pdfMake.createPdf(docDefinition).download(gruposjson[4]);
-  pdfMake.createPdf(docDefinition).getBase64((data) => {
-        const linkSource = `data:application/pdf;base64,${data}`;
-        const downloadLink = document.createElement("a");
-        const fileName = gruposjson[4];
-        downloadLink.href = linkSource;
-        downloadLink.download = fileName;
-        downloadLink.click();
-      });
+  pdfMake.createPdf(docDefinition).open();
 
 
 }

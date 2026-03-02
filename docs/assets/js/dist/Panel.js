@@ -85,3 +85,9 @@ $(document).ready(function () {
 
      $('#estudiantes-pendientes').submit();
   });
+
+  $(document).on('click', '#genreplista', function (e) {
+      e.preventDefault();
+      ListaFinalPDF(1);
+  });
+    

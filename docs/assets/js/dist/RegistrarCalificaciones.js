@@ -120,8 +120,6 @@ $(document).ready(function () {
       ordGrp_2.sort();
         
       }
-
-      console.log(ordGrp);
       
       $('#ordenarGrupoHorario').show();
 

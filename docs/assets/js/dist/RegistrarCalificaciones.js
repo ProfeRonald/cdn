@@ -100,20 +100,24 @@ $(document).ready(function () {
 
     if(orden == 'horarioaz' || orden == 'horarioza'){
 
-    var ordGrp = new Array();
-        var valGrp = new Array();
+        var ordGrp_1 = new Array();
+        var ordGrp_2 = new Array();
+        var valGrp_1 = new Array();
+        var valGrp_2 = new Array();
         var d = 0;
       $("#gruposc .ordenGrupo").each(function(){
         if($(this).attr('data-horario') != undefined && $(this).attr('data-horario') != ''){
-          ordGrp[d] = $(this).attr('data-horario');
+          ordGrp_1[d] = $(this).attr('data-horario');
+          valGrp_1[ordGrp[d]] = $(this).prop('outerHTML');
         }else{
-          ordGrp[d] = d + 17;
+          ordGrp_2[d] = d + 17;
+          valGrp_2[ordGrp[d]] = $(this).prop('outerHTML');
         }
-        valGrp[ordGrp[d]] = $(this).prop('outerHTML');
         d++;
       });
 
-      ordGrp.sort();
+      ordGrp_1.sort();
+      ordGrp_2.sort();
         
       }
 
@@ -122,7 +126,7 @@ $(document).ready(function () {
       $('#ordenarGrupoHorario').show();
 
       if(orden == 'horarioza'){
-        ordGrp.reverse();
+        ordGrp_1.reverse();
         $('#ordenarGrupoHorario').html('<i class="fa fa-clock-o fa-2x p-1 border rounded mx-2 btn btn-dark text-white" rel="tooltip" title="Ordenar seg&uacute;n tu horario de clases de forma ascendente" aria-hidden="true"></i><i class="fa fa-long-arrow-down" aria-hidden="true" style="margin-left: -9px"></i>');
         $('#ordenarGrupoHorario').attr('data-orden', 'horarioaz');
       }else if(orden == 'horarioaz'){
@@ -133,8 +137,12 @@ $(document).ready(function () {
         if(orden == 'horarioaz' || orden == 'horarioza'){
 
       var htmlGrp = '';
-      $.each(ordGrp, function (i, o) {
-        htmlGrp += valGrp[o];
+      $.each(ordGrp_1, function (i, o) {
+        htmlGrp += valGrp_1[o];
+      });
+
+      $.each(ordGrp_2, function (i, o) {
+        htmlGrp += valGrp_2[o];
       });
 
       $("#gruposc").html(htmlGrp);

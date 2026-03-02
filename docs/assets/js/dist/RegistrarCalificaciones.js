@@ -108,10 +108,10 @@ $(document).ready(function () {
       $("#gruposc .ordenGrupo").each(function(){
         if($(this).attr('data-horario') != undefined && $(this).attr('data-horario') != ''){
           ordGrp_1[d] = $(this).attr('data-horario');
-          valGrp_1[ordGrp[d]] = $(this).prop('outerHTML');
+          valGrp_1[ordGrp_1[d]] = $(this).prop('outerHTML');
         }else{
           ordGrp_2[d] = d + 17;
-          valGrp_2[ordGrp[d]] = $(this).prop('outerHTML');
+          valGrp_2[ordGrp_2[d]] = $(this).prop('outerHTML');
         }
         d++;
       });

@@ -181,7 +181,11 @@ console.log('click');
   };
 
   //pdfMake.createPdf(docDefinition).download(gruposjson[4]);
-  pdfMake.createPdf(docDefinition).open();
+  
+pdfMake.createPdf(docDefinition).getBlob((blob) => {
+    const url = URL.createObjectURL(blob);
+    window.open(url, 'ventana', 'fullscreen=yes, scrollbars=auto, location=no, menubar=no, status=no, titlebar=yes, toolbar=no, left=0, top=0');
+});
 
 
 }

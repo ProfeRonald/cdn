@@ -135,12 +135,17 @@ $(document).ready(function () {
         if(orden == 'horarioaz' || orden == 'horarioza'){
 
       var htmlGrp = '';
+
       $.each(ordGrp_1, function (i, o) {
+        if(valGrp_1[o] != undefined){
         htmlGrp += valGrp_1[o];
+        }
       });
 
       $.each(ordGrp_2, function (i, o) {
+        if(valGrp_2[o] != undefined){
         htmlGrp += valGrp_2[o];
+        }
       });
 
       $("#gruposc").html(htmlGrp);
@@ -289,7 +294,6 @@ $("#gruposc").html(htmlGrp);
         horas = parseInt(horas, 10) + 12;
       }
 
-      // Creamos un objeto fecha con el día de hoy y la hora procesada
       const fecha = new Date();
       fecha.setHours(parseInt(horas, 10), parseInt(minutos, 10), 0, 0);
 

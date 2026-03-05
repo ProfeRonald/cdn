@@ -366,11 +366,15 @@ $.ajax({
           setTimeout(function(){
           $('#asistencia_diaria_archivo').attr('href', urlfile);
           $('#asistencia_diaria_archivo').text('Abrir archivo desde la cuenta de la escuela');
+          //TEMPORAL
+          $('#asistencia_diaria_archivo').hide();
             },1200);
         }else if(aviso['aviso'] == 0 || aviso['aviso'] == 7 || aviso['aviso'] == 8){
           $('#asistencia_diaria_archivo').attr('class', 'btn btn-success');
           $('#asistencia_diaria_archivo').text('Abrir archivo desde la cuenta de la escuela');
           $('#asistencia_diaria_archivo').attr('href', urlfile);
+          //TEMPORAL
+          $('#asistencia_diaria_archivo').hide();
           
         }
 

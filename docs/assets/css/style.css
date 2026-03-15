@@ -1108,16 +1108,18 @@ header .form-inline {
     position: absolute;
     width: 100%;
     z-index: 999;
-    min-width: 150px;
+    min-width: 200px;
     -webkit-box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
             box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05); }
     .user-area .user-menu .nav-link {
       color: #607d8b;
       display: block;
-      font-size: 13px;
-      line-height: 22px;
+      font-size: 1.3rem;
+      line-height: 30px;
       padding: 5px 0; }
-      .user-area .user-menu .nav-link > i {
+      .user-area .user-menu .nav-link:hover {
+        background: rgba(255, 255, 255, 0.5); }
+       .user-area .user-menu .nav-link > i {
         margin-right: 10px; }
   .user-area .user-avatar {
     float: right;

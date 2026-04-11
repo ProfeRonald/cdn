@@ -132,7 +132,7 @@ function getFileIcon(ext) {
   <div class="d-flex justify-content-between align-items-center border-bottom py-2" id="file_${fileId}">
     <span>${getFileIcon(fileName.split('.').pop())} ${fileName}</span>
               <div>
-                <a href="https://drive.google.com/file/d/${fileId}/view" target="_blank"
+                <a href="https://drive.google.com/file/d/${fileId}/view" onclick="window.open(this.href, 'ventana', 'fullscreen=yes, scrollbars=auto, location=no, menubar=no, status=no, titlebar=yes, toolbar=no, left=0, top=0');" target="ventana"
                    class="btn btn-sm btn-outline-primary mr-1">
                   <i class="fa fa-eye"></i> Ver
                 </a>

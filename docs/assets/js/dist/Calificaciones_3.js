@@ -530,7 +530,9 @@ window.RevaluaRP = function (id_nota) {
  });
  
  $(document).on('click focus', '#TablaCalificaciones_paginate, #TablaCalificaciones_paginate .pagination', function () {
-  CalcularComptencias();
+  setTimeout(function () {
+       CalcularComptencias();
+      }, 500);
 });
  
    $(window).on("load", function () {

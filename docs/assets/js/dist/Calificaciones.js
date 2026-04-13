@@ -40,7 +40,7 @@ function BotonesRecuperacionPedagogica(){
        }else{
          VerIndicadores();
        }
-         }, 501);
+         }, 1000);
 
 
   });
@@ -107,6 +107,11 @@ function BotonesRecuperacionPedagogica(){
     "blur",
     "#TablaCalificaciones_wrapper select:first",
     function () {
+   if(rpp == 1){
+      setTimeout(function () {
+       CalcularComptencias();
+      }, 500);
+    }
       var idpl = $(this).val();
       document.cookie = "idples=" + idpl;
     }
@@ -1271,7 +1276,7 @@ function actualizarThumb(scrollValue) {
     recalcular();
     window.addEventListener("resize", recalcular);
 
-	}, 1001);
+	}, 1000);
 }
 
 

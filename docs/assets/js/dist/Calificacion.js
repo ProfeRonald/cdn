@@ -243,7 +243,7 @@ $(document).ready(function () {
 			$('#' + a + '-' + col + '-' + per + '-rp-iper').text(ind + rp);
 			RevaluaRP(a + '-' + col + '-' + per + '-rp');
 			if(bloqueos_recuperacion.split(',').includes(per)){
-			$("#" + a + '-' + col + '-' + per + '-rp').prop("type", "hidden");
+			$('#' + a + '-' + col + '-' + per + '-rp').prop("type", "hidden");
 			}
 
 		}

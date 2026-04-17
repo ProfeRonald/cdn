@@ -1480,8 +1480,9 @@ var op3 = $('#'+ra3).attr('op');
 		} else {
 			$('#a' + id[0] + ' small').html(' - <span class="text-info">&iexcl;Apto!</span>');
 		}
-
+if (!isNaN(tra)) {
 		$('#total-' + id[0]).text(tra);
+}
         
 }
 

@@ -13,6 +13,7 @@ $(document).ready(function () {
 	var tperiodos_escuela = $("#datos_js").attr("tperiodos_escuela");
 	var fechaextraordinario = $("#datos_js").attr("fechaextraordinario");
 	var tiponota = $("#datos_js").attr("tipo_nota");
+	var bloqueos_recuperacion = $("#datos_js").attr("bloqueos_recuperacion");
 
 	$(document).on('click', '#verlista, #cerrar-listaests', function () {
 		$('#listaests').toggle("slow");
@@ -215,7 +216,6 @@ $(document).ready(function () {
 
 	function SumaPs(a, col, per, p=0, nota=0) {
 		
-		
 		if(tiponota == 'i'){
 		var suma = 0;
 		var n = 0;
@@ -241,7 +241,10 @@ $(document).ready(function () {
 			$('#ind-' + a + '-' + col + '-' + per).text(ind);
 			var rp = Number(parseFloat(($('#' + a + '-' + col + '-' + per + '-rp').val() / 100) * (100 - ind)).toFixed(0));
 			$('#' + a + '-' + col + '-' + per + '-rp-iper').text(ind + rp);
+			if(!bloqueos_recuperacion.includes(per)){
 			RevaluaRP(a + '-' + col + '-' + per + '-rp');
+			}
+
 		}
 
 	}
@@ -987,8 +990,6 @@ function SumaA(a){
 				
 						}else{
 
-							
-	
 		if($('#e-' + a).val() == 'A'){
 			
 			$('#pfs-' + a).closest('tr').show();

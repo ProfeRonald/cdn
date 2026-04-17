@@ -241,8 +241,9 @@ $(document).ready(function () {
 			$('#ind-' + a + '-' + col + '-' + per).text(ind);
 			var rp = Number(parseFloat(($('#' + a + '-' + col + '-' + per + '-rp').val() / 100) * (100 - ind)).toFixed(0));
 			$('#' + a + '-' + col + '-' + per + '-rp-iper').text(ind + rp);
-			if(!bloqueos_recuperacion.split(',').includes(per)){
 			RevaluaRP(a + '-' + col + '-' + per + '-rp');
+			if(bloqueos_recuperacion.split(',').includes(per)){
+			$("#" + a + '-' + col + '-' + per + '-rp').prop("type", "hidden");
 			}
 
 		}

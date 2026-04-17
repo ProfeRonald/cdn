@@ -860,6 +860,7 @@ function RevaluaRP(id_nota) {
 			setTimeout(function () {
 			 $("#" + id_nota).prop("disabled", "disabled");
 			 $("#" + id_nota).prop("type", "hidden");
+			 $("#" + id_nota + '-3').hide();
 			}, 1000);
 		  }else if ((nota != 0) || nota > 100) {
 			$("#" + id_nota).removeAttr("style");

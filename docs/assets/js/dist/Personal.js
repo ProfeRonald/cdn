@@ -106,20 +106,14 @@ $(document).ready(function() {
       $("#modalPerfil .info-val-correo").html(datos["correo"]);
       $("#modalPerfil .info-val-telefono").html(datos["telefono"]);
       $("#modalPerfil .info-val-nivel").html(datos["nivel"]);
-      $("#modalPerfil .info-val-area-laboral").html(datos["laboral"]);
-      /*<span class="tag tag-blue">Ing. de Sistemas</span>
-          <span class="tag tag-blue">Ciencias de la Computación</span>
-          <span class="tag tag-blue">Gestión TI</span>
-          <span class="tag tag-purple">Desarrollo de Software</span>
-          <span class="tag tag-purple">Metodologías Ágiles</span>*/
-      $("#modalPerfil .carreras-cursadas").html(datos["carreras"]);
-      /*<a href="#" class="resource-btn" target="_blank">
-            <i class="fa fa-chalkboard"></i> Pizarra online
-          </a>
-          <a href="#" class="resource-btn" target="_blank">
-            <i class="fa fa-calendar-alt"></i> Calendario personal
-          </a>*/
-      $("#modalPerfil .recursos-enlaces").html(datos["recursos"]);
+      var laboral = datos["laboral"];
+      laboral = laboral.split(':').join('</span><span class="tag tag-blue">');
+      $("#modalPerfil .info-val-area-laboral").html('<span class="tag tag-blue">' + laboral + '</span>');
+      var carreras = datos["carreras"];
+      carreras = carreras.split(':').join('</span><span class="tag tag-green">');
+      $("#modalPerfil .carreras-cursadas").html('<span class="tag tag-green">' + carreras + '</span>');
+      var recursos = datos["recursos"].join('<br />');
+      $("#modalPerfil .recursos-enlaces").html(recursos);
       $("#modalPerfil .grupos-cantidad").html(datos["grupos"]);
       $("#modalPerfil .estudiantes-cantidad").html(datos["estudiantes"]);
       $("#modalPerfil .asignaturas-cantidad").html(datos["asignaturas"]);

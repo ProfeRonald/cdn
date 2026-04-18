@@ -110,8 +110,8 @@ $(document).ready(function() {
       laboral = laboral.split(':').join(', ');
       $("#modalPerfil .info-val-area-laboral").html(laboral);
       var carreras = datos["carreras"];
-      carreras = carreras.split(':').join('</span><span class="tag tag-green">');
-      $("#modalPerfil .carreras-cursadas").html('<span class="tag tag-green">' + carreras + '</span>');
+      carreras = carreras.split(':').join('</span><span class="tag tag-blue">');
+      $("#modalPerfil .carreras-cursadas").html('<span class="tag tag-blue">' + carreras + '</span>');
       var recursos = datos["recursos"].join('<br />');
       $("#modalPerfil .recursos-enlaces").html(recursos);
       $("#modalPerfil .grupos-cantidad").html(datos["grupos"]);

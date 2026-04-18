@@ -132,12 +132,19 @@ $(document).ready(function() {
       $("#modalPerfil .info-val-correo").html(datos["correo"]);
       $("#modalPerfil .info-val-telefono").html(datos["telefono"]);
       $("#modalPerfil .info-val-nivel").html(datos["nivel"]);
+      
       var laboral = datos["laboral"];
-      laboral = laboral.split(':').join(', ');
-      $("#modalPerfil .info-val-area-laboral").html(laboral);
+      if(laboral != "" && laboral != null && laboral != undefined){
+        laboral = laboral.split(':').join(', ');
+        $("#modalPerfil .info-val-area-laboral").html(laboral);
+      }
+
       var carreras = datos["carreras"];
-      carreras = carreras.split(':').join('</span><span class="tag tag-blue">');
+      if(carreras != "" && carreras != null && carreras != undefined){
+        carreras = carreras.split(':').join('</span><span class="tag tag-blue">');
       $("#modalPerfil .carreras-cursadas").html('<span class="tag tag-blue">' + carreras + '</span>');
+      }
+      
       var recursos = datos["recursos"].join('\n');
       $("#modalPerfil .recursos-enlaces").html(recursos);
       $("#modalPerfil .grupos-cantidad").html(datos["grupos"]);

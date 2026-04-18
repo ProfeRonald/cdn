@@ -90,6 +90,32 @@ $(document).ready(function() {
   $(document).on(
     "click",
     ".VerPerfilModal", function () {
+      
+      $("#modalPerfil .avatar-ring img").attr("alt", '');
+      $("#modalPerfil .nombre-perfil").text('');
+      $("#modalPerfil .subtitle").text('');
+      $("#modalPerfil .activa-perfil").text('');
+      $("#modalPerfil .bio-block").text('');
+      $("#modalPerfil .info-val-cedula").text('');
+      $("#modalPerfil .info-val-sexo").text('');
+      $("#modalPerfil .info-val-fecha-cumple").text('');
+      $("#modalPerfil .info-val-direccion").text('');
+      $("#modalPerfil .info-val-correo").text('');
+      $("#modalPerfil .info-val-telefono").text('');
+      $("#modalPerfil .info-val-nivel").text('');
+      $("#modalPerfil .info-val-area-laboral").text('');
+      $("#modalPerfil .carreras-cursadas").text('');
+      $("#modalPerfil .recursos-enlaces").text('');
+      $("#modalPerfil .grupos-cantidad").text('');
+      $("#modalPerfil .estudiantes-cantidad").text('');
+      $("#modalPerfil .asignaturas-cantidad").text('');
+      $("#modalPerfil .horas-semana-cantidad").text('');
+      $("#modalPerfil .rendimiento-persona").text('');
+      $("#modalPerfil .asistencia-persona").text('');
+
+
+
+
       var id_personal = $(this).attr("id_personal");
       var datos = json_perfil[id_personal];
       console.log(datos);

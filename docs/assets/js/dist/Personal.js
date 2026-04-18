@@ -157,7 +157,9 @@ $(document).ready(function() {
         $("#modalPerfil .profesor-estadistica").hide('');
       }
 
-      $("#modalPerfil .rendimiento-persona").html(datos["rendimiento"]);
+      $("#modalPerfil .rendimiento-persona").html(datos["rendimiento"] 
+        + '%');
+      $("#modalPerfil .rendimiento-persona-fill").css("width", datos["rendimiento"] + '%');
       $("#modalPerfil .asistencia-persona").html(datos["asistencia"]);
 
       

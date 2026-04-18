@@ -95,4 +95,5 @@ $(document).ready(function() {
       console.log(datos);
       $("#modalPerfil .avatar-ring img").attr("src", datos["foto"]);
       $("#modalPerfil .avatar-ring img").attr("alt", datos["nombre"]);
+      $("#modalPerfil .nombre-perfil").html(datos["nombre"]);
     });

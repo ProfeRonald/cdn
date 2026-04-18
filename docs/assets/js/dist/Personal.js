@@ -112,7 +112,7 @@ $(document).ready(function() {
       var carreras = datos["carreras"];
       carreras = carreras.split(':').join('</span><span class="tag tag-blue">');
       $("#modalPerfil .carreras-cursadas").html('<span class="tag tag-blue">' + carreras + '</span>');
-      var recursos = datos["recursos"].join('<br />');
+      var recursos = datos["recursos"].join('\n');
       $("#modalPerfil .recursos-enlaces").html(recursos);
       $("#modalPerfil .grupos-cantidad").html(datos["grupos"]);
       $("#modalPerfil .estudiantes-cantidad").html(datos["estudiantes"]);

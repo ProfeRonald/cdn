@@ -107,8 +107,8 @@ $(document).ready(function() {
       $("#modalPerfil .info-val-telefono").html(datos["telefono"]);
       $("#modalPerfil .info-val-nivel").html(datos["nivel"]);
       var laboral = datos["laboral"];
-      laboral = laboral.split(':').join('</span><span class="tag tag-blue">');
-      $("#modalPerfil .info-val-area-laboral").html('<span class="tag tag-blue">' + laboral + '</span>');
+      laboral = laboral.split(':').join(', ');
+      $("#modalPerfil .info-val-area-laboral").html(laboral);
       var carreras = datos["carreras"];
       carreras = carreras.split(':').join('</span><span class="tag tag-green">');
       $("#modalPerfil .carreras-cursadas").html('<span class="tag tag-green">' + carreras + '</span>');

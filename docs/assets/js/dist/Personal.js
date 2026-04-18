@@ -96,4 +96,37 @@ $(document).ready(function() {
       $("#modalPerfil .avatar-ring img").attr("src", datos["foto"]);
       $("#modalPerfil .avatar-ring img").attr("alt", datos["nombre"]);
       $("#modalPerfil .nombre-perfil").html(datos["nombre"]);
+      $("#modalPerfil .subtitle").html(datos["puesto"]);
+      $("#modalPerfil .activa-perfil").html(datos["activo"]);
+      $("#modalPerfil .bio-block").html(datos["bio"]);
+      $("#modalPerfil .info-val-cedula").html(datos["cedula"]);
+      $("#modalPerfil .info-val-sexo").html(datos["sexo"]);
+      $("#modalPerfil .info-val-fecha-cumple").html(datos["cumple"]); 
+      $("#modalPerfil .info-val-direccion").html(datos["direccion"]);
+      $("#modalPerfil .info-val-correo").html(datos["correo"]);
+      $("#modalPerfil .info-val-telefono").html(datos["telefono"]);
+      $("#modalPerfil .info-val-nivel").html(datos["nivel"]);
+      $("#modalPerfil .info-val-area-laboral").html(datos["laboral"]);
+      /*<span class="tag tag-blue">Ing. de Sistemas</span>
+          <span class="tag tag-blue">Ciencias de la Computación</span>
+          <span class="tag tag-blue">Gestión TI</span>
+          <span class="tag tag-purple">Desarrollo de Software</span>
+          <span class="tag tag-purple">Metodologías Ágiles</span>*/
+      $("#modalPerfil .carreras-cursadas").html(datos["carreras"]);
+      /*<a href="#" class="resource-btn" target="_blank">
+            <i class="fa fa-chalkboard"></i> Pizarra online
+          </a>
+          <a href="#" class="resource-btn" target="_blank">
+            <i class="fa fa-calendar-alt"></i> Calendario personal
+          </a>*/
+      $("#modalPerfil .recursos-enlaces").html(datos["recursos"]);
+      $("#modalPerfil .grupos-cantidad").html(datos["grupos"]);
+      $("#modalPerfil .estudiantes-cantidad").html(datos["estudiantes"]);
+      $("#modalPerfil .asignaturas-cantidad").html(datos["asignaturas"]);
+      $("#modalPerfil .horas-semana-cantidad").html(datos["horas"]);
+      $("#modalPerfil .rendimiento-persona").html(datos["rendimiento"]);
+      $("#modalPerfil .asistencia-persona").html(datos["asistencia"]);
+
+      
+
     });

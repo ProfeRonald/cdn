@@ -86,3 +86,13 @@ $(document).ready(function() {
       document.cookie = "idples=" + idpl;
     }
   );
+
+  $(document).on(
+    "click",
+    ".VerPerfilModal", function () {
+      var id_personal = $(this).attr("id_personal");
+      var datos = json_perfil[id_personal];
+      console.log(datos["foto"]);
+      $("#modalPerfil .avatar-ring img").attr("src", datos["foto"]);
+      $("#modalPerfil .avatar-ring img").attr("alt", datos["nombre"]);
+    });

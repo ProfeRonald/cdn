@@ -149,8 +149,14 @@ $(document).ready(function() {
       $("#modalPerfil .recursos-enlaces").html(recursos);
       $("#modalPerfil .grupos-cantidad").html(datos["grupos"]);
       $("#modalPerfil .estudiantes-cantidad").html(datos["estudiantes"]);
+      if(datos["puesto"] == "Profesor"){
+      $("#modalPerfil .profesor-estadistica").show('');
       $("#modalPerfil .asignaturas-cantidad").html(datos["asignaturas"]);
       $("#modalPerfil .horas-semana-cantidad").html(datos["horas"]);
+      }else{
+        $("#modalPerfil .profesor-estadistica").hide('');
+      }
+
       $("#modalPerfil .rendimiento-persona").html(datos["rendimiento"]);
       $("#modalPerfil .asistencia-persona").html(datos["asistencia"]);
 

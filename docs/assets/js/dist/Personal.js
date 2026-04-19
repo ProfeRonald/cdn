@@ -2,6 +2,7 @@
 $(document).ready(function() {
 
     var filescdn = $("#datos_js").attr("filescdn");
+    var urlerd = $("#datos_js").attr("urlerd");
 
     var idlp = Number(document.cookie.replace(
         /(?:(?:^|.*;\s*)idples\s*\=\s*([^;]*).*$)|^.*$/,
@@ -153,6 +154,7 @@ $(document).ready(function() {
       $("#modalPerfil .profesor-estadistica").show('');
       $("#modalPerfil .asignaturas-cantidad").html(datos["asignaturas"]);
       $("#modalPerfil .horas-semana-cantidad").html(datos["horas"]);
+      $("#modalPerfil .boton-panel-profesor a").attr("href", urlerd + "/index.php?op=PanelProfesor&id=" + id_personal);
       $("#modalPerfil .boton-panel-profesor").show();
       }else{
         $("#modalPerfil .profesor-estadistica").hide('');

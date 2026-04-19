@@ -2959,6 +2959,11 @@ font-size: 1.2rem;
       gap: 10px 14px;
       margin-bottom: 16px;
     }
+    @media (max-width: 767px) {
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+    }
     .info-card { display: flex; align-items: flex-start; gap: 9px; }
     .info-icon-box {
       width: 32px; height: 32px; border-radius: 8px;
@@ -3013,7 +3018,7 @@ font-size: 1.2rem;
 
     /* ── PROGRESS ── */
     .prog-row { margin-bottom: 10px; }
-    .prog-labels { display: flex; justify-content: space-between; font-size: 1.1rem; margin-bottom: 4px; }
+    .prog-labels { display: flex; justify-content: space-between; font-size: 1rem; margin-bottom: 4px; }
     .prog-labels .lbl-name { color: var(--text-muted); }
     .prog-labels .lbl-val  { font-weight: 600; color: var(--text-main); }
     .prog-fill { height: 100%; border-radius: 4px; }

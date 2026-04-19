@@ -153,8 +153,10 @@ $(document).ready(function() {
       $("#modalPerfil .profesor-estadistica").show('');
       $("#modalPerfil .asignaturas-cantidad").html(datos["asignaturas"]);
       $("#modalPerfil .horas-semana-cantidad").html(datos["horas"]);
+      $("#modalPerfil .boton-panel-profesor").show();
       }else{
         $("#modalPerfil .profesor-estadistica").hide('');
+        $("#modalPerfil .boton-panel-profesor").hide();
       }
 
       $("#modalPerfil .rendimiento-persona").html(datos["rendimiento"] 

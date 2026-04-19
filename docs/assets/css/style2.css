@@ -2964,6 +2964,15 @@ font-size: 1.2rem;
         grid-template-columns: 1fr;
       }
     }
+    .info-grid-formacion{
+      grid-template-columns: repeat(2, 1fr);
+      margin-bottom: 10px;
+    }
+    @media (max-width: 767px) {
+      .info-grid-formacion {
+        grid-template-columns: 1fr;
+      }
+    }
     .info-card { display: flex; align-items: flex-start; gap: 9px; }
     .info-icon-box {
       width: 32px; height: 32px; border-radius: 8px;

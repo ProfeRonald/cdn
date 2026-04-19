@@ -155,7 +155,7 @@ $(document).ready(function() {
       $("#modalPerfil .profesor-estadistica").show('');
       $("#modalPerfil .asignaturas-cantidad").html(datos["asignaturas"]);
       $("#modalPerfil .horas-semana-cantidad").html(datos["horas"]);
-      $("#modalPerfil .boton-panel-profesor a").attr("href", urlerd + "/index.php?op=PanelProfesor&id=" + id_personal);
+      $("#modalPerfil .boton-panel-profesor a").attr("href", urlerd + "/index.php?op=PanelProfesor&id=" + id_personal.split('-')[1]);
       $("#modalPerfil .boton-panel-profesor").show();
       }else{
         $("#modalPerfil .profesor-estadistica").hide('');

@@ -2835,15 +2835,6 @@ font-size: 1.2rem;
       --radius-lg: 14px;
     }
 
-    .body-modal {
-      font-family: 'DM Sans', sans-serif;
-      background: linear-gradient(135deg, #e8f0fe 0%, #f3e8ff 100%);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
     /* ── MODAL ── */
     .modal-dialog { max-width: 780px; }
 

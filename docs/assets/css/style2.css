@@ -3013,7 +3013,7 @@ font-size: 1.2rem;
 
     /* ── PROGRESS ── */
     .prog-row { margin-bottom: 10px; }
-    .prog-labels { display: flex; justify-content: space-between; font-size: 1.3rem; margin-bottom: 4px; }
+    .prog-labels { display: flex; justify-content: space-between; font-size: 1.1rem; margin-bottom: 4px; }
     .prog-labels .lbl-name { color: var(--text-muted); }
     .prog-labels .lbl-val  { font-weight: 600; color: var(--text-main); }
     .prog-fill { height: 100%; border-radius: 4px; }

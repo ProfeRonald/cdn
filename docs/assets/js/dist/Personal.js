@@ -2,7 +2,6 @@
 $(document).ready(function() {
 
     var filescdn = $("#datos_js").attr("filescdn");
-    var urlerd = $("#datos_js").attr("urlerd");
 
     var idlp = Number(document.cookie.replace(
         /(?:(?:^|.*;\s*)idples\s*\=\s*([^;]*).*$)|^.*$/,
@@ -91,6 +90,8 @@ $(document).ready(function() {
   $(document).on(
     "click",
     ".VerPerfilModal", function () {
+
+      var urlerd = $("#datos_js").attr("urlerd");
       
       $("#modalPerfil .avatar-ring img").attr("alt", '');
       $("#modalPerfil .nombre-perfil").text('');

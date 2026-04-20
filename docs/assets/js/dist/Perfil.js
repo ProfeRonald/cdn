@@ -4,7 +4,6 @@
     ".VerPerfilModal", function () {
 
       var urlerd = $("#datos_js").attr("urlerd");
-      var urlimgs = $("#datos_js").attr("urlimgs");
       
       $("#modalPerfil .avatar-ring img").attr("alt", '');
       $("#modalPerfil .nombre-perfil").text('');
@@ -32,7 +31,6 @@
       var datos = json_perfil[id_personal];
       
       $("#modalPerfil .avatar-ring img").attr("src", datos["foto"]);
-      $("#modalPerfil .avatar-ring img").attr("onerror", 'this.onerror=null;this.src=\'' + urlimgs + '/foto.jpg\';);');
       $("#modalPerfil .avatar-ring img").attr("alt", datos["nombre"]);
       $("#modalPerfil .nombre-perfil").html(datos["nombre"]);
       $("#modalPerfil .subtitle").html(datos["puesto"]);

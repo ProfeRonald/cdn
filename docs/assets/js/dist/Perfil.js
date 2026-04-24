@@ -75,7 +75,8 @@
         + '%');
       $("#modalPerfil .rendimiento-persona-fill").css("width", datos["rendimiento"] + '%');
 
-      $("#modalPerfil .asistencia-persona").html(datos["asistencia"]);
+      $("#modalPerfil .asistencia-persona").html(datos["asistencia"] 
+        + '%');
       $("#modalPerfil .asistencia-persona-fill").css("width", datos["asistencia"] + '%');
 
     });

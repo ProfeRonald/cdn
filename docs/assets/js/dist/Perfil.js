@@ -30,7 +30,6 @@
       var id_personal = $(this).attr("id_personal");
       var datos = json_perfil[id_personal];
       
-      $("#modalPerfil .avatar-ring img").css("border", this.css("border"));
       $("#modalPerfil .avatar-ring img").attr("src", datos["foto"]);
       $("#modalPerfil .avatar-ring img").attr("alt", datos["nombre"]);
       $("#modalPerfil .nombre-perfil").html(datos["nombre"]);

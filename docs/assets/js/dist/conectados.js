@@ -94,7 +94,6 @@ web
           .catch((error) => {});
       }
     });
-
     
     $('.personal-conectados').css({'border': '2px solid transparent'});
     $('.personal-conectados').removeAttr('rel');
@@ -102,7 +101,6 @@ web
     $('.personal-conectados').removeAttr('conectado');
     $('.personal-conectados-grid').removeAttr('conectado');
     $('.personal-conectados-perfil').css({'border-color': 'transparent'});
-    $('.personal-conectados-panel').removeClass('bg-success').addClass('bg-danger');
     $('.personal-conectados-grid').css({'border': '5px solid rgba(255, 255, 255, 0.3)'});
     $('.personal-conectados-grid').parent().removeAttr('rel');
     $('.personal-conectados-grid').parent().removeAttr('title');
@@ -127,7 +125,6 @@ web
                 $('#estudiantes-conectados-grupo-' + online.key).css({'border-color': '#4cd137'});
                 $('#estudiantes-conectados-grupo-' + online.key).parent().attr('rel', 'tooltip');
                 $('#estudiantes-conectados-grupo-' + online.key).parent().attr('title', 'Conectado');
-                $('$personal-conectados-panel-' + online.key).removeClass('bg-danger').addClass('bg-success');
                 }else{
                     $('#personal-conectados-' + online.key).css({'border': '2px solid transparent'});
                     $('#personal-conectados-' + online.key).removeAttr('rel');
@@ -142,7 +139,6 @@ web
                     $('#estudiantes-conectados-grupo-' + online.key).css({'border-color': '#ffffff'});
                     $('#estudiantes-conectados-grupo-' + online.key).parent().removeAttr('rel');
                     $('#estudiantes-conectados-grupo-' + online.key).parent().removeAttr('title');
-                    $('$personal-conectados-panel-' + online.key).removeClass('bg-success').addClass('bg-danger');
                 }
             })
         })

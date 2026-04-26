@@ -99,7 +99,9 @@ web
     $('.personal-conectados').css({'border': '2px solid transparent'});
     $('.personal-conectados').removeAttr('rel');
     $('.personal-conectados').removeAttr('title');
-    $('.personal-conectados-perfil').removeAttr('conectado');
+    $('.personal-conectados').removeAttr('conectado');
+    $('.personal-conectados-perfil').css({'border-color': 'transparent'});
+    $('.personal-conectados-panel').removeClass('bg-success').addClass('bg-danger');
     $('.personal-conectados-grid').css({'border': '5px solid rgba(255, 255, 255, 0.3)'});
     $('.personal-conectados-grid').parent().removeAttr('rel');
     $('.personal-conectados-grid').parent().removeAttr('title');
@@ -114,7 +116,8 @@ web
                 $('#personal-conectados-' + online.key).css({'border': '2px solid #4cd137'});
                 $('#personal-conectados-' + online.key).attr('rel', 'tooltip');
                 $('#personal-conectados-' + online.key).attr('title', 'Conectado');
-                $('#personal-conectados-perfil-' + online.key).attr('conectado', 1);
+                $('#personal-conectados-' + online.key).attr('conectado', 1);
+                $('#personal-conectados-perfil-' + online.key).css({'border-color': '#4cd137'});
                 $('#personal-conectados-grid-' + online.key).css({'border': '5px solid #4cd137'});
                 $('#personal-conectados-grid-' + online.key).parent().attr('rel', 'tooltip');
                 $('#personal-conectados-grid-' + online.key).parent().attr('title', 'Conectado');
@@ -122,11 +125,13 @@ web
                 $('#estudiantes-conectados-grupo-' + online.key).css({'border-color': '#4cd137'});
                 $('#estudiantes-conectados-grupo-' + online.key).parent().attr('rel', 'tooltip');
                 $('#estudiantes-conectados-grupo-' + online.key).parent().attr('title', 'Conectado');
+                $('$personal-conectados-panel-' + online.key).removeClass('bg-danger').addClass('bg-success');
                 }else{
                     $('#personal-conectados-' + online.key).css({'border': '2px solid transparent'});
                     $('#personal-conectados-' + online.key).removeAttr('rel');
                     $('#personal-conectados-' + online.key).removeAttr('title');
-                    $('#personal-conectados-perfil-' + online.key).removeAttr('conectado');
+                    $('#personal-conectados-' + online.key).removeAttr('conectado');
+                    $('#personal-conectados-perfil-' + online.key).css({'border-color': 'transparent'});
                     $('#personal-conectados-grid-' + online.key).css({'border': '5px solid rgba(255, 255, 255, 0.3)'});
                     $('#personal-conectados-grid-' + online.key).parent().removeAttr('rel');
                     $('#personal-conectados-grid-' + online.key).parent().removeAttr('title');
@@ -134,6 +139,7 @@ web
                     $('#estudiantes-conectados-grupo-' + online.key).css({'border-color': '#ffffff'});
                     $('#estudiantes-conectados-grupo-' + online.key).parent().removeAttr('rel');
                     $('#estudiantes-conectados-grupo-' + online.key).parent().removeAttr('title');
+                    $('$personal-conectados-panel-' + online.key).removeClass('bg-success').addClass('bg-danger');
                 }
             })
         })

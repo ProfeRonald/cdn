@@ -98,8 +98,8 @@ web
     $('.personal-conectados').css({'border': '2px solid transparent'});
     $('.personal-conectados').removeAttr('rel');
     $('.personal-conectados').removeAttr('title');
-    $('.VerPerfilModal').removeAttr('conectado');
-    $('.personal-conectados-grid').removeAttr('conectado');
+    $('.personal-conectados').parent().removeAttr('conectado');
+    $('.personal-conectados-grid').parent().removeAttr('conectado');
     $('.personal-conectados-perfil').css({'border-color': 'transparent'});
     $('.personal-conectados-grid').css({'border': '5px solid rgba(255, 255, 255, 0.3)'});
     $('.personal-conectados-grid').parent().removeAttr('rel');

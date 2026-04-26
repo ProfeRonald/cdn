@@ -1,5 +1,12 @@
 
-  $(document).on(
+   $(document).on(
+    "click",
+    ".VerPerfilModalClick", function () {
+      $('#personal-conectados-' + $(this).attr('puesto') + '-' + $(this).attr('id_personal')).trigger('click');
+    
+    });
+  
+    $(document).on(
     "click",
     ".VerPerfilModal", function () {
 

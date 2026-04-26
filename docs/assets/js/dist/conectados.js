@@ -100,6 +100,7 @@ web
     $('.personal-conectados').removeAttr('rel');
     $('.personal-conectados').removeAttr('title');
     $('.personal-conectados').removeAttr('conectado');
+    $('.personal-conectados-grid').removeAttr('conectado');
     $('.personal-conectados-perfil').css({'border-color': 'transparent'});
     $('.personal-conectados-panel').removeClass('bg-success').addClass('bg-danger');
     $('.personal-conectados-grid').css({'border': '5px solid rgba(255, 255, 255, 0.3)'});
@@ -117,6 +118,7 @@ web
                 $('#personal-conectados-' + online.key).attr('rel', 'tooltip');
                 $('#personal-conectados-' + online.key).attr('title', 'Conectado');
                 $('#personal-conectados-' + online.key).attr('conectado', 1);
+                $('#personal-conectados-grid-' + online.key).attr('conectado', 1);
                 $('#personal-conectados-perfil-' + online.key).css({'border-color': '#4cd137'});
                 $('#personal-conectados-grid-' + online.key).css({'border': '5px solid #4cd137'});
                 $('#personal-conectados-grid-' + online.key).parent().attr('rel', 'tooltip');
@@ -131,6 +133,7 @@ web
                     $('#personal-conectados-' + online.key).removeAttr('rel');
                     $('#personal-conectados-' + online.key).removeAttr('title');
                     $('#personal-conectados-' + online.key).removeAttr('conectado');
+                    $('#personal-conectados-grid-' + online.key).removeAttr('conectado');
                     $('#personal-conectados-perfil-' + online.key).css({'border-color': 'transparent'});
                     $('#personal-conectados-grid-' + online.key).css({'border': '5px solid rgba(255, 255, 255, 0.3)'});
                     $('#personal-conectados-grid-' + online.key).parent().removeAttr('rel');

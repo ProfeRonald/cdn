@@ -30,10 +30,11 @@
       var id_personal = $(this).attr("id_personal");
       var datos = json_perfil[id_personal];
       
+      $("#modalPerfil .avatar-ring img").attr("id", 'personal-conectados-' + datos["puesto"] + '-' + id_personal);
       $("#modalPerfil .avatar-ring img").attr("src", datos["foto"]);
       $("#modalPerfil .avatar-ring img").attr("alt", datos["nombre"]);
       $("#modalPerfil .nombre-perfil").html(datos["nombre"]);
-      $("#modalPerfil .subtitle").html(datos["puesto"]);
+      $("#modalPerfil .subtitle").html(datos["puesto_titulo"]);
       $("#modalPerfil .activa-perfil").html(datos["activo"]);
       $("#modalPerfil .bio-block").html(datos["bio"]);
       $("#modalPerfil .info-val-cedula").html(datos["cedula"]);
@@ -60,11 +61,11 @@
       $("#modalPerfil .recursos-enlaces").html(recursos);
       $("#modalPerfil .grupos-cantidad").html(datos["grupos"]);
       $("#modalPerfil .estudiantes-cantidad").html(datos["estudiantes"]);
-      if(datos["puesto"] == "Profesor"){
+      if(datos["puesto"] == "profesor"){
       $("#modalPerfil .profesor-estadistica").show('');
       $("#modalPerfil .asignaturas-cantidad").html(datos["asignaturas"]);
       $("#modalPerfil .horas-semana-cantidad").html(datos["horas"]);
-      $("#modalPerfil .boton-panel-profesor a").attr("href", urlerd + "/index.php?op=PanelProfesor&id=" + id_personal.split('-')[1]);
+      $("#modalPerfil .boton-panel-profesor a").attr("href", urlerd + "/index.php?op=PanelProfesor&id=" + id_personal);
       $("#modalPerfil .boton-panel-profesor").show();
       }else{
         $("#modalPerfil .profesor-estadistica").hide('');

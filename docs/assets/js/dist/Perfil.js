@@ -4,6 +4,8 @@
     ".VerPerfilModal", function () {
 
       var urlerd = $("#datos_js").attr("urlerd");
+
+      var avatar = $("#modalPerfil .avatar-ring img").parent();
       
       $("#modalPerfil .avatar-ring img").attr("alt", '');
       $("#modalPerfil .nombre-perfil").text('');
@@ -26,10 +28,19 @@
       $("#modalPerfil .horas-semana-cantidad").text('');
       $("#modalPerfil .rendimiento-persona").text('');
       $("#modalPerfil .asistencia-persona").text('');
+      avatar.removeAttr('id');
 
       var id_personal = $(this).attr("id_personal");
       var datos = json_perfil[id_personal];
       
+      avatar.attr("id", 'personal-conectados-perfil-' + datos["puesto"] + '-' + id_personal);
+
+      if($(this).attr("conectado") == 1){
+        avatar.css({'border-color': '#4cd137'});
+      }else{
+        avatar.css({'border-color': 'transparent'});
+      }
+
       $("#modalPerfil .avatar-ring img").attr("src", datos["foto"]);
       $("#modalPerfil .avatar-ring img").attr("alt", datos["nombre"]);
       $("#modalPerfil .nombre-perfil").html(datos["nombre"]);

@@ -38,10 +38,7 @@ if (window.PublicKeyCredential) {
 					});
 				},
 
-				error: function(a, b, c){
-					console.log(a);
-					console.log(b);
-					console.log(c);
+				error: function(){
 					MostrarAviso('<strong class="text-warning">No se pudo registrar tu dato biométrico. Intenta de nuevo.</strong>');
 				}
 			   });

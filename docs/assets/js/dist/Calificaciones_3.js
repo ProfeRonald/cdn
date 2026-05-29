@@ -750,6 +750,7 @@ $(document).on("change blur", ".AsistenciasILFechaFinales", function () {
         id_grupo: id_grupo,
       },
     }).done(function (e) {
+      console.log(e);
       if (e == 1) {
         var color = "#2ECC71";
         input.val(fecha);

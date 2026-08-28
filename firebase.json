@@ -1,6 +1,21 @@
 {
   "hosting": {
     "public": "docs",
+    "headers": [
+      {
+        "source": "**/*.(js|css|map|woff|woff2|ttf|otf|eot)",
+        "headers": [
+          {
+            "key": "Access-Control-Allow-Origin",
+            "value": "https://escuelard.edu.do"
+          },
+          {
+            "key": "Access-Control-Allow-Methods",
+            "value": "GET, HEAD, OPTIONS"
+          }
+        ]
+      }
+    ],
     "ignore": [
       "firebase.json",
       "**/.*",

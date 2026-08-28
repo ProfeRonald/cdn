@@ -1,0 +1,937 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Propuestas de tarjetas de grupos</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f3f6fb;
+      --surface: #fff;
+      --surface-soft: #f8fafc;
+      --text: #172033;
+      --muted: #64748b;
+      --border: #dce4ef;
+      --primary: #1464d2;
+      --success: #00a889;
+      --warning: #f2a900;
+      --danger: #d94a58;
+      --card-shadow: 0 18px 40px rgba(22, 36, 62, .10);
+      --card-shadow-hover: 0 24px 58px rgba(22, 36, 62, .18);
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at top left, rgba(20, 100, 210, .12), transparent 34rem),
+        linear-gradient(180deg, #f7faff, var(--bg));
+      color: var(--text);
+      font-family: Inter, "Segoe UI", system-ui, sans-serif;
+    }
+
+    main {
+      width: min(1280px, calc(100% - 34px));
+      margin: 0 auto;
+      padding: 34px 0 48px;
+    }
+
+    header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 26px;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h1 {
+      font-size: clamp(30px, 4vw, 46px);
+      letter-spacing: 0;
+      line-height: 1.04;
+    }
+
+    header p {
+      max-width: 720px;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    .note {
+      border: 1px solid rgba(20, 100, 210, .18);
+      border-radius: 999px;
+      background: rgba(20, 100, 210, .08);
+      color: #155fbe;
+      padding: 9px 13px;
+      font-size: 12px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .proposal {
+      display: grid;
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .proposal > h2 {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 18px;
+    }
+
+    .proposal > h2 span {
+      display: inline-grid;
+      width: 32px;
+      height: 32px;
+      place-items: center;
+      border-radius: 10px;
+      background: var(--primary);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 950;
+    }
+
+    .proposal > p {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 750;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      --accent: #1464d2;
+      position: relative;
+      display: grid;
+      min-width: 0;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+
+    .card:hover {
+      border-color: color-mix(in srgb, var(--accent), var(--border) 48%);
+      box-shadow: var(--card-shadow-hover);
+      transform: translateY(-4px);
+    }
+
+    .icon-box {
+      display: inline-grid;
+      width: 42px;
+      height: 42px;
+      place-items: center;
+      border-radius: 12px;
+      background: color-mix(in srgb, var(--accent), transparent 88%);
+      color: var(--accent);
+      font-size: 18px;
+      font-weight: 950;
+    }
+
+    .badge,
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 24px;
+      border: 1px solid color-mix(in srgb, var(--accent), transparent 70%);
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--accent), transparent 90%);
+      color: color-mix(in srgb, var(--accent), #111827 20%);
+      padding: 4px 8px;
+      font-size: 11px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .stats div {
+      display: grid;
+      gap: 3px;
+      min-width: 0;
+      border-radius: 10px;
+      background: var(--surface-soft);
+      padding: 9px 10px;
+    }
+
+    .stats strong {
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .stats span {
+      overflow: hidden;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 850;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .meter {
+      display: grid;
+      gap: 7px;
+    }
+
+    .meter > div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .meter b {
+      color: var(--accent);
+    }
+
+    .track {
+      position: relative;
+      height: 10px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--accent), transparent 88%);
+    }
+
+    .track i {
+      display: block;
+      width: var(--value, 72%);
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--accent), color-mix(in srgb, var(--accent), #fff 28%));
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      min-height: 34px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--text);
+      padding: 7px 10px;
+      font-size: 12px;
+      font-weight: 900;
+      text-decoration: none;
+    }
+
+    .action.primary {
+      border-color: color-mix(in srgb, var(--accent), transparent 45%);
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .card-a {
+      border-radius: var(--radius);
+      background:
+        linear-gradient(135deg, color-mix(in srgb, var(--accent), transparent 88%), transparent 48%),
+        linear-gradient(180deg, var(--surface), color-mix(in srgb, var(--accent), transparent 94%));
+    }
+
+    .card-a::before {
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 8px;
+      background: var(--accent);
+      content: "";
+    }
+
+    .card-a__body {
+      display: grid;
+      gap: 14px;
+      padding: 16px 16px 16px 22px;
+    }
+
+    .card-a__head {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .card-a__head > div {
+      min-width: 0;
+    }
+
+    .card-a h3,
+    .card-b h3,
+    .card-c h3,
+    .card-d h3 {
+      overflow: hidden;
+      font-size: 18px;
+      line-height: 1.15;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .card-b {
+      gap: 0;
+      border-radius: 16px;
+      min-height: 100%;
+    }
+
+    .card-b__hero {
+      display: grid;
+      gap: 14px;
+      background:
+        linear-gradient(135deg, color-mix(in srgb, var(--accent), #111827 10%), color-mix(in srgb, var(--accent), #fff 16%));
+      color: #fff;
+      padding: 18px;
+    }
+
+    .card-b__hero-top {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: start;
+      gap: 12px;
+    }
+
+    .card-b__hero-top > div {
+      min-width: 0;
+    }
+
+    .card-b__section {
+      display: inline-grid;
+      width: 48px;
+      height: 48px;
+      place-items: center;
+      border: 2px solid rgba(255, 255, 255, .82);
+      border-radius: 15px;
+      background: rgba(255, 255, 255, .94);
+      color: var(--accent);
+      font-size: 24px;
+      font-weight: 950;
+    }
+
+    .card-b__hero small {
+      display: block;
+      margin-top: 5px;
+      color: rgba(255, 255, 255, .86);
+      font-weight: 800;
+      line-height: 1.25;
+    }
+
+    .card-b .pill {
+      justify-self: start;
+      max-width: 100%;
+      overflow: hidden;
+      border-color: rgba(255, 255, 255, .38);
+      background: rgba(255, 255, 255, .18);
+      color: #fff;
+      text-overflow: ellipsis;
+    }
+
+    .card-b__body {
+      display: grid;
+      gap: 14px;
+      align-content: start;
+      padding: 15px;
+    }
+
+    .card-c {
+      gap: 14px;
+      border-radius: 10px;
+      padding: 15px;
+    }
+
+    .card-c__top {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .card-c__title {
+      display: flex;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .card-c__section {
+      display: inline-grid;
+      width: 42px;
+      height: 42px;
+      flex: 0 0 auto;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-size: 20px;
+      font-weight: 950;
+    }
+
+    .card-c__people {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .card-c__people div {
+      display: grid;
+      gap: 2px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 8px;
+    }
+
+    .card-c__people span {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 850;
+    }
+
+    .card-c__people strong {
+      overflow: hidden;
+      font-size: 12px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .card-d {
+      grid-template-columns: 96px minmax(0, 1fr);
+      gap: 0;
+      border-radius: 16px;
+      background:
+        linear-gradient(135deg, color-mix(in srgb, var(--accent), transparent 88%), transparent 52%),
+        linear-gradient(180deg, var(--surface), color-mix(in srgb, var(--accent), transparent 94%));
+    }
+
+    .card-d__rail {
+      display: grid;
+      align-content: space-between;
+      justify-items: center;
+      background:
+        linear-gradient(180deg, color-mix(in srgb, var(--accent), #111827 5%), color-mix(in srgb, var(--accent), #fff 18%));
+      color: #fff;
+      padding: 14px 10px;
+      text-align: center;
+    }
+
+    .card-d__rail strong {
+      font-size: 34px;
+      line-height: 1;
+    }
+
+    .card-d__rail span {
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .card-d__body {
+      display: grid;
+      gap: 12px;
+      padding: 15px;
+    }
+
+    .card-d .stats {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .card-e {
+      min-height: 330px;
+      align-content: end;
+      border-radius: 18px;
+      background-color: var(--accent);
+      background:
+        linear-gradient(180deg, rgba(15, 23, 42, .18), rgba(15, 23, 42, .78)),
+        var(--bg-image, linear-gradient(135deg, color-mix(in srgb, var(--accent), white 8%), color-mix(in srgb, var(--accent), #111827 42%)));
+      background-position: center;
+      background-size: cover;
+      color: #fff;
+    }
+
+    .card-e::before {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at top right, color-mix(in srgb, var(--accent), transparent 30%), transparent 18rem),
+        linear-gradient(90deg, color-mix(in srgb, var(--accent), transparent 28%), transparent 52%);
+      content: "";
+      opacity: .58;
+      pointer-events: none;
+    }
+
+    .card-e__body {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 14px;
+      padding: 18px;
+    }
+
+    .card-e__top {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: start;
+      gap: 12px;
+    }
+
+    .card-e h3 {
+      overflow: hidden;
+      font-size: 22px;
+      line-height: 1.08;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .card-e p,
+    .card-e .meter > div {
+      color: rgba(255, 255, 255, .88);
+    }
+
+    .card-e .badge,
+    .card-e .pill,
+    .card-e .action {
+      border-color: rgba(255, 255, 255, .26);
+      background: rgba(255, 255, 255, .16);
+      color: #fff;
+      backdrop-filter: blur(10px);
+    }
+
+    .card-e .action.primary {
+      border-color: rgba(255, 255, 255, .34);
+      background: #fff;
+      color: color-mix(in srgb, var(--accent), #111827 32%);
+    }
+
+    .card-e .stats div {
+      background: rgba(255, 255, 255, .15);
+      backdrop-filter: blur(10px);
+    }
+
+    .card-e .stats span {
+      color: rgba(255, 255, 255, .76);
+    }
+
+    .card-e .meter b {
+      color: #fff;
+    }
+
+    .card-e .track {
+      background: rgba(255, 255, 255, .22);
+    }
+
+    .card-e .track i {
+      background: linear-gradient(90deg, #fff, color-mix(in srgb, #fff, var(--accent) 24%));
+    }
+
+    .card-e__section {
+      display: inline-grid;
+      min-width: 52px;
+      height: 52px;
+      place-items: center;
+      border: 2px solid rgba(255, 255, 255, .86);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, .92);
+      color: color-mix(in srgb, var(--accent), #111827 28%);
+      font-size: 26px;
+      font-weight: 950;
+      box-shadow: 0 16px 30px rgba(15, 23, 42, .24);
+    }
+
+    @media (max-width: 720px) {
+      header {
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .card-d {
+        grid-template-columns: 1fr;
+      }
+
+      .card-d__rail {
+        grid-template-columns: auto minmax(0, 1fr);
+        align-items: center;
+        justify-items: start;
+        text-align: left;
+      }
+
+      .card-a__head {
+        grid-template-columns: auto minmax(0, 1fr);
+      }
+
+      .card-a__head .badge {
+        grid-column: 1 / -1;
+        justify-self: start;
+      }
+
+      .card-b__hero-top {
+        grid-template-columns: 1fr;
+      }
+
+      .card-b__section {
+        justify-self: start;
+      }
+
+      .card-e__top {
+        grid-template-columns: 1fr;
+      }
+
+      .card-e__section {
+        justify-self: start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div>
+        <h1>Tarjetas de grupos</h1>
+        <p>Cuatro direcciones visuales para reemplazar el diseño actual. Son propuestas de estilo, no cambian todavía la pantalla real.</p>
+      </div>
+      <span class="note">Preview local</span>
+    </header>
+
+    <section class="proposal">
+      <h2><span>1</span> Cinta lateral operativa</h2>
+      <p>La más sobria. Prioriza lectura rápida, datos compactos y acciones claras. Buena para uso diario administrativo.</p>
+      <div class="cards">
+        <article class="card card-a" style="--accent:#0d6efd">
+          <div class="card-a__body">
+            <div class="card-a__head">
+              <span class="icon-box">TI</span>
+              <div>
+                <h3>4toA Desarrollo y Administración</h3>
+                <p class="muted">Técnico Profesional · Informática</p>
+              </div>
+              <span class="badge">Activo</span>
+            </div>
+            <div class="stats">
+              <div><strong>29</strong><span>Estudiantes</span></div>
+              <div><strong>12</strong><span>Asignaturas</span></div>
+              <div><strong>84%</strong><span>Ocupación</span></div>
+            </div>
+            <div class="meter">
+              <div><span>Rendimiento del grupo</span><b>76%</b></div>
+              <span class="track" style="--value:76%"><i></i></span>
+            </div>
+            <div class="actions">
+              <a class="action primary" href="#">Estudiantes</a>
+              <a class="action" href="#">Boletines</a>
+              <a class="action" href="#">Reportes</a>
+              <a class="action" href="#">Editar</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card card-a" style="--accent:#00a889">
+          <div class="card-a__body">
+            <div class="card-a__head">
+              <span class="icon-box">EL</span>
+              <div>
+                <h3>6toB Instalaciones Eléctricas</h3>
+                <p class="muted">Secundario · Familia profesional</p>
+              </div>
+              <span class="badge">Activo</span>
+            </div>
+            <div class="stats">
+              <div><strong>24</strong><span>Estudiantes</span></div>
+              <div><strong>10</strong><span>Asignaturas</span></div>
+              <div><strong>18</strong><span>Vinculados</span></div>
+            </div>
+            <div class="meter">
+              <div><span>Vinculación empresarial</span><b>75%</b></div>
+              <span class="track" style="--value:75%"><i></i></span>
+            </div>
+            <div class="actions">
+              <a class="action primary" href="#">Estudiantes</a>
+              <a class="action" href="#">Boletines</a>
+              <a class="action" href="#">Reportes</a>
+              <a class="action" href="#">Editar</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="proposal">
+      <h2><span>2</span> Hero superior con área protagonista</h2>
+      <p>Más vistosa, cercana a v3. El área manda visualmente y la sección aparece con fuerza. Buena para galería.</p>
+      <div class="cards">
+        <article class="card card-b" style="--accent:#6f42c1">
+          <div class="card-b__hero">
+            <div class="card-b__hero-top">
+              <div>
+                <h3>5toA Enfermería</h3>
+                <small>Servicios de salud · Técnico Profesional</small>
+              </div>
+              <span class="card-b__section">A</span>
+            </div>
+            <div class="pill">Familia profesional: Salud</div>
+          </div>
+          <div class="card-b__body">
+            <div class="stats">
+              <div><strong>31</strong><span>Estudiantes</span></div>
+              <div><strong>14</strong><span>Módulos</span></div>
+              <div><strong>81%</strong><span>Rendimiento</span></div>
+            </div>
+            <div class="meter">
+              <div><span>Rendimiento del grupo</span><b>81%</b></div>
+              <span class="track" style="--value:81%"><i></i></span>
+            </div>
+            <div class="actions">
+              <a class="action primary" href="#">Abrir grupo</a>
+              <a class="action" href="#">Reportes</a>
+              <a class="action" href="#">Fondo</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card card-b" style="--accent:#f2a900">
+          <div class="card-b__hero">
+            <div class="card-b__hero-top">
+              <div>
+                <h3>4toC Contabilidad</h3>
+                <small>Administración y comercio · Técnico Profesional</small>
+              </div>
+              <span class="card-b__section">C</span>
+            </div>
+            <div class="pill">Jornada Escolar Extendida</div>
+          </div>
+          <div class="card-b__body">
+            <div class="stats">
+              <div><strong>27</strong><span>Estudiantes</span></div>
+              <div><strong>11</strong><span>Asignaturas</span></div>
+              <div><strong>69%</strong><span>Rendimiento</span></div>
+            </div>
+            <div class="meter">
+              <div><span>Rendimiento del grupo</span><b>69%</b></div>
+              <span class="track" style="--value:69%"><i></i></span>
+            </div>
+            <div class="actions">
+              <a class="action primary" href="#">Abrir grupo</a>
+              <a class="action" href="#">Reportes</a>
+              <a class="action" href="#">Fondo</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="proposal">
+      <h2><span>3</span> Compacta académica</h2>
+      <p>Menos decorativa y más equilibrada. Funciona bien cuando hay muchos grupos y no quieres tarjetas enormes.</p>
+      <div class="cards">
+        <article class="card card-c" style="--accent:#0ea5e9">
+          <div class="card-c__top">
+            <div class="card-c__title">
+              <span class="card-c__section">B</span>
+              <div>
+                <h3>3roB Académico</h3>
+                <p class="muted">Secundario · Área académica</p>
+              </div>
+            </div>
+            <span class="badge">Activo</span>
+          </div>
+          <div class="stats">
+            <div><strong>33</strong><span>Estudiantes</span></div>
+            <div><strong>9</strong><span>Asignaturas</span></div>
+            <div><strong>72%</strong><span>Ocupación</span></div>
+          </div>
+          <div class="card-c__people">
+            <div><span>Titular</span><strong>María Rodríguez</strong></div>
+            <div><span>Psicólogo</span><strong>Juan Pérez</strong></div>
+          </div>
+          <div class="actions">
+            <a class="action primary" href="#">Estudiantes</a>
+            <a class="action" href="#">Reportes</a>
+            <a class="action" href="#">Editar</a>
+          </div>
+        </article>
+
+        <article class="card card-c" style="--accent:#d94a58">
+          <div class="card-c__top">
+            <div class="card-c__title">
+              <span class="card-c__section">D</span>
+              <div>
+                <h3>2doD Primario</h3>
+                <p class="muted">Segundo ciclo · General</p>
+              </div>
+            </div>
+            <span class="badge">Inactivo</span>
+          </div>
+          <div class="stats">
+            <div><strong>28</strong><span>Estudiantes</span></div>
+            <div><strong>8</strong><span>Asignaturas</span></div>
+            <div><strong>66%</strong><span>Ocupación</span></div>
+          </div>
+          <div class="card-c__people">
+            <div><span>Titular</span><strong>Sin titular</strong></div>
+            <div><span>Psicólogo</span><strong>Equipo orientación</strong></div>
+          </div>
+          <div class="actions">
+            <a class="action primary" href="#">Estudiantes</a>
+            <a class="action" href="#">Reportes</a>
+            <a class="action" href="#">Editar</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="proposal">
+      <h2><span>4</span> Rail lateral de sección</h2>
+      <p>Muy identificable: la sección y el área quedan separadas del contenido. Buena si quieres que A/B/C salten a la vista.</p>
+      <div class="cards">
+        <article class="card card-d" style="--accent:#00a889">
+          <aside class="card-d__rail">
+            <div><strong>A</strong><span>Sección</span></div>
+            <span>6to. Técnico</span>
+          </aside>
+          <div class="card-d__body">
+            <div>
+              <h3>6toA Gastronomía</h3>
+              <p class="muted">Hotelería y turismo · Familia profesional</p>
+            </div>
+            <div class="stats">
+              <div><strong>22</strong><span>Estudiantes</span></div>
+              <div><strong>20</strong><span>Vinculados</span></div>
+              <div><strong>13</strong><span>Módulos</span></div>
+              <div><strong>91%</strong><span>Progreso</span></div>
+            </div>
+            <div class="meter">
+              <div><span>Vinculación empresarial</span><b>91%</b></div>
+              <span class="track" style="--value:91%"><i></i></span>
+            </div>
+            <div class="actions">
+              <a class="action primary" href="#">Abrir</a>
+              <a class="action" href="#">Boletines</a>
+              <a class="action" href="#">Editar</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card card-d" style="--accent:#1464d2">
+          <aside class="card-d__rail">
+            <div><strong>B</strong><span>Sección</span></div>
+            <span>1ro Acad.</span>
+          </aside>
+          <div class="card-d__body">
+            <div>
+              <h3>1roB Académico</h3>
+              <p class="muted">Secundario · General</p>
+            </div>
+            <div class="stats">
+              <div><strong>36</strong><span>Estudiantes</span></div>
+              <div><strong>0</strong><span>Vinculados</span></div>
+              <div><strong>9</strong><span>Asignaturas</span></div>
+              <div><strong>78%</strong><span>Progreso</span></div>
+            </div>
+            <div class="meter">
+              <div><span>Rendimiento del grupo</span><b>78%</b></div>
+              <span class="track" style="--value:78%"><i></i></span>
+            </div>
+            <div class="actions">
+              <a class="action primary" href="#">Abrir</a>
+              <a class="action" href="#">Boletines</a>
+              <a class="action" href="#">Editar</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="proposal">
+      <h2><span>5</span> Fondo configurable color + imagen</h2>
+      <p>Diseñada para soportar color, imagen de fondo, o ambas cosas a la vez. La capa oscura conserva legibilidad aunque la imagen sea intensa.</p>
+      <div class="cards">
+        <article class="card card-e" style="--accent:#0d6efd; --bg-image:url('../assets/images/banner.png')">
+          <div class="card-e__body">
+            <div class="card-e__top">
+              <div>
+                <h3>4toA Desarrollo y Administración</h3>
+                <p>Informática · Técnico Profesional</p>
+              </div>
+              <span class="card-e__section">A</span>
+            </div>
+            <span class="pill">Fondo: imagen + color del área</span>
+            <div class="stats">
+              <div><strong>29</strong><span>Estudiantes</span></div>
+              <div><strong>12</strong><span>Asignaturas</span></div>
+              <div><strong>76%</strong><span>Rendimiento</span></div>
+            </div>
+            <div class="meter">
+              <div><span>Rendimiento del grupo</span><b>76%</b></div>
+              <span class="track" style="--value:76%"><i></i></span>
+            </div>
+            <div class="actions">
+              <a class="action primary" href="#">Abrir grupo</a>
+              <a class="action" href="#">Reportes</a>
+              <a class="action" href="#">Cambiar fondo</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card card-e" style="--accent:#00a889">
+          <div class="card-e__body">
+            <div class="card-e__top">
+              <div>
+                <h3>6toB Instalaciones Eléctricas</h3>
+                <p>Electricidad · Técnico Profesional</p>
+              </div>
+              <span class="card-e__section">B</span>
+            </div>
+            <span class="pill">Fondo: solo color del área</span>
+            <div class="stats">
+              <div><strong>24</strong><span>Estudiantes</span></div>
+              <div><strong>18</strong><span>Vinculados</span></div>
+              <div><strong>75%</strong><span>Vinculación</span></div>
+            </div>
+            <div class="meter">
+              <div><span>Vinculación empresarial</span><b>75%</b></div>
+              <span class="track" style="--value:75%"><i></i></span>
+            </div>
+            <div class="actions">
+              <a class="action primary" href="#">Abrir grupo</a>
+              <a class="action" href="#">Reportes</a>
+              <a class="action" href="#">Cambiar fondo</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

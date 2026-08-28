@@ -3,7 +3,20 @@
     "public": "docs",
     "headers": [
       {
-        "source": "**/*.@(js|css|map|woff|woff2|ttf|otf|eot)",
+        "source": "**/*.js",
+        "headers": [
+          {
+            "key": "Access-Control-Allow-Origin",
+            "value": "https://escuelard.edu.do"
+          },
+          {
+            "key": "Access-Control-Allow-Methods",
+            "value": "GET, HEAD, OPTIONS"
+          }
+        ]
+      },
+      {
+        "source": "**/*.css",
         "headers": [
           {
             "key": "Access-Control-Allow-Origin",

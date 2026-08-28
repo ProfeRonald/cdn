@@ -3,7 +3,7 @@
     "public": "docs",
     "headers": [
       {
-        "source": "**/*.(js|css|map|woff|woff2|ttf|otf|eot)",
+        "source": "**/*.@(js|css|map|woff|woff2|ttf|otf|eot)",
         "headers": [
           {
             "key": "Access-Control-Allow-Origin",

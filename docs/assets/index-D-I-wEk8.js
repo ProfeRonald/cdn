@@ -1972,6 +1972,9 @@ Minimum version required to store current data is: `+z+`.
       ${wo({title:t("profile.assignments"),iconName:"School2",body:r.length===0?`<p class="muted-text">${h(t("profile.noAssignments"))}</p>`:`<div class="profile-assignment-list">
               ${r.map(n=>`
                 <article class="profile-assignment-item">
+                  <div class="profile-assignment-item__school-logo">
+                    ${ne({src:n.school_logo||G.schoolLogoFallback,alt:n.school_name||"",fallback:G.schoolLogoFallback})}
+                  </div>
                   <div>
                     <strong>${y(n.role_icon||"CircleHelp")}${h(gt({...n,sex:e.sex},a,"name")||n.role_name||n.role||"")}</strong>
                     <span>${h(n.school_name||"")}</span>

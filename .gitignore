@@ -67,3 +67,4 @@ node_modules/
 
 # Configuracion local del editor
 .vscode/
+docs/.vscode

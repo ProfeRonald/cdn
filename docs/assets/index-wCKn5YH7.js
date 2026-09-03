@@ -27,10 +27,10 @@
         </section>
       `).join("")}
     </nav>
-  `}function VA({t:e,user:t,school:r,schoolYear:a,roleName:n,roleDescription:o,sidebarId:i,currentLocale:s,currentTheme:c}){const l=c==="dark"?"light":"dark",d=z0(s),u=KA(t),p=String(t?.role||t?.role_key||"").toLowerCase()==="profesor",f=String(t?.role||t?.role_key||"").toLowerCase(),g=["administrador","director","registro"].includes(f),v=Jn(t,t?.school_id),A=us(t,t?.school_id),S=de({src:t?.photo||U.personPhotoFallback,alt:t?.name||"",fallback:U.personPhotoFallback,className:"header-avatar__image",attributes:{"data-session-avatar":!0}});return`
+  `}function VA({t:e,user:t,school:r,schoolYear:a,roleName:n,roleDescription:o,sidebarId:i,currentLocale:s,currentTheme:c}){const l=c==="dark"?"light":"dark",d=z0(s),u=KA(t),p=String(t?.role||t?.role_key||"").toLowerCase()==="profesor",f=String(t?.role||t?.role_key||"").toLowerCase(),g=["administrador","director","registro"].includes(f),v=Jn(t,t?.school_id),A=us(t,t?.school_id),S=de({src:t?.photo||U.personPhotoFallback,alt:t?.name||"",fallback:U.personPhotoFallback,className:"header-avatar__image",attributes:{"data-session-avatar":!0}}),y=r?.banner||r?.banner_escuela||U.loginBanner;return`
     <div class="header-left">
       <a class="header-banner-link" href="${X.dashboard}" data-nav-link aria-label="${w(e("menu.dashboard"))}">
-        ${de({src:U.loginBanner,alt:"escuelaRD",fallback:U.schoolLogoFallback,className:"header-banner"})}
+        ${de({src:y,alt:"escuelaRD",fallback:U.loginBanner,className:"header-banner"})}
       </a>
       <button class="button button-ghost button-icon sidebar-toggle" type="button" data-sidebar-toggle aria-controls="${w(i)}" aria-expanded="false" aria-label="${w(e("nav.openMenu"))}">${m("Menu")}</button>
       <div class="header-school">

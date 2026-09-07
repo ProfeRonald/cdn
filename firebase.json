@@ -27,6 +27,32 @@
             "value": "GET, HEAD, OPTIONS"
           }
         ]
+      },
+      {
+        "source": "**/*.png",
+        "headers": [
+          {
+            "key": "Access-Control-Allow-Origin",
+            "value": "*"
+          },
+          {
+            "key": "Access-Control-Allow-Methods",
+            "value": "GET, HEAD, OPTIONS"
+          }
+        ]
+      },
+      {
+        "source": "manifest.webmanifest",
+        "headers": [
+          {
+            "key": "Access-Control-Allow-Origin",
+            "value": "*"
+          },
+          {
+            "key": "Cache-Control",
+            "value": "no-cache"
+          }
+        ]
       }
     ],
     "ignore": [

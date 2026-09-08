@@ -15,9 +15,24 @@
     <link rel="apple-touch-icon" href="https://cdn.escuelard.com/assets/pwa/icon-192.png" />
     <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
+    <style>
+      #app:empty::before {
+        content: "";
+        position: fixed;
+        inset: 50% auto auto 50%;
+        width: 28px;
+        height: 28px;
+        margin: -17px;
+        border: 3px solid #d6e2e8;
+        border-top-color: #0f766e;
+        border-radius: 50%;
+        animation: app-boot-spin 700ms linear infinite;
+      }
+      @keyframes app-boot-spin { to { transform: rotate(360deg); } }
+    </style>
     <title>escuelaRD v4</title>
-    <script type="module" crossorigin src="https://cdn.escuelard.com/assets/index-DMgooXTi.js"></script>
-    <link rel="stylesheet" crossorigin href="https://cdn.escuelard.com/assets/index-cLcII2an.css">
+    <script type="module" crossorigin src="https://cdn.escuelard.com/assets/index-qj4u0u2S.js"></script>
+    <link rel="stylesheet" crossorigin href="https://cdn.escuelard.com/assets/index-Bv6tbfr-.css">
   </head>
   <body>
     <div id="app"></div>

@@ -4,7 +4,7 @@
   "description": "Gestion escolar para centros educativos de Republica Dominicana.",
   "lang": "es",
   "id": "./#/",
-  "start_url": "./#/?pwa=1",
+  "start_url": "./#/",
   "scope": "./",
   "display_override": ["fullscreen", "standalone"],
   "display": "fullscreen",

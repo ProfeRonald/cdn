@@ -18,6 +18,25 @@ firebase.messaging().setBackgroundMessageHandler((payload) => {
   });
 });
 
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+  const data = event.notification.data || {};
+  const route = typeof data.route === 'string' && data.route.startsWith('#/') ? data.route : '#/pupils';
+  const url = new URL(self.registration.scope);
+  const separator = route.includes('?') ? '&' : '?';
+  url.hash = data.notification_id ? `${route}${separator}notification_id=${encodeURIComponent(data.notification_id)}` : route;
+  event.waitUntil(
+    clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
+      const existing = clientList.find((client) => 'focus' in client);
+      if (existing) {
+        existing.navigate(url.href);
+        return existing.focus();
+      }
+      return clients.openWindow(url.href);
+    }),
+  );
+});
+
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL)));
   self.skipWaiting();

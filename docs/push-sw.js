@@ -29,9 +29,5 @@ self.addEventListener('notificationclick', (event) => {
   if (data.date) params.set('attendance_date', data.date);
   if (data.notification_id) params.set('notification_id', data.notification_id);
   url.hash = params.toString() ? `#/pupils?${params.toString()}` : '#/pupils';
-  event.waitUntil(clients.matchAll({ type: 'window', includeUncontrolled: true }).then((list) => {
-    const client = list.find((item) => 'focus' in item);
-    if (client) return client.navigate(url.href).then(() => client.focus());
-    return clients.openWindow(url.href);
-  }));
+  event.waitUntil(clients.openWindow(url.href));
 });

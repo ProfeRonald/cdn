@@ -61,8 +61,25 @@ function notificationUrl(raw = {}) {
   if (!isAllowedAppOrigin(target.origin)) {
     target = new URL(fallback, self.location.origin);
   }
+  appendAttendanceContext(target, data);
   target.searchParams.set('push_click', String(Date.now()));
   return target.href;
+}
+
+function appendAttendanceContext(target, data) {
+  const [route, query = ''] = target.hash.replace(/^#/, '').split('?', 2);
+  if (route !== '/links-notifications') return;
+  const params = new URLSearchParams(query);
+  const values = {
+    student_id: data.student_id,
+    group_id: data.group_id,
+    attendance_date: data.attendance_date || data.date,
+    school_id: data.school_id,
+  };
+  Object.entries(values).forEach(([key, value]) => {
+    if (value !== undefined && value !== null && String(value) !== '') params.set(key, String(value));
+  });
+  target.hash = `${route}?${params.toString()}`;
 }
 
 async function openNotification(raw = {}) {

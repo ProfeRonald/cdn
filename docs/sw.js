@@ -1,4 +1,4 @@
-const CACHE_NAME = 'escuelard-v4-shell-pwa-only-1';
+const CACHE_NAME = 'escuelard-v4-shell-pwa-only-2';
 const APP_SHELL = ['./'];
 
 
@@ -21,6 +21,7 @@ self.addEventListener('fetch', (event) => {
 
   const url = new URL(request.url);
   if (url.pathname.includes('/app-api/') || url.hostname === 'api.escuelard.com') return;
+  if (url.origin !== self.location.origin) return;
 
   if (request.mode === 'navigate') {
     event.respondWith(networkFirst(request));
@@ -47,7 +48,7 @@ async function staleWhileRevalidate(request) {
   const cache = await caches.open(CACHE_NAME);
   const cached = await cache.match(request);
   const network = fetch(request).then((response) => {
-    if (response.ok || response.type === 'opaque') cache.put(request, response.clone());
+    if (response.ok) cache.put(request, response.clone());
     return response;
   }).catch(() => cached);
   return cached || network;

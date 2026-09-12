@@ -12,14 +12,16 @@ firebase.initializeApp({
 
 firebase.messaging().setBackgroundMessageHandler((payload) => {
   const notification = payload.notification || {};
+  const schoolLogo = notificationImage(payload.data?.school_logo || notification.image);
   return self.registration.showNotification(notification.title || 'EscuelaRD', {
     body: notification.body || 'Tienes una nueva notificación.',
-    icon: notificationIcon(payload.data?.school_logo),
+    icon: SYSTEM_NOTIFICATION_ICON,
+    image: schoolLogo,
     data: payload.data || {},
   });
 });
 
-function notificationIcon(value) {
+function notificationImage(value) {
   try {
     const url = new URL(String(value || ''));
     return url.protocol === 'https:' ? url.href : SYSTEM_NOTIFICATION_ICON;

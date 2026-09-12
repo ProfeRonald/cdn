@@ -21,6 +21,8 @@ self.addEventListener('notificationclick', (event) => {
   event.notification.close();
   const data = event.notification.data || {};
   const url = new URL(self.registration.scope);
+  // The FCM worker has its own /push/ scope; navigation must return to the app root.
+  url.pathname = url.pathname.replace(/push\/?$/, '');
   const params = new URLSearchParams();
   if (data.student_id) params.set('student_id', data.student_id);
   if (data.group_id) params.set('group_id', data.group_id);

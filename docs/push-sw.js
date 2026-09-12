@@ -13,8 +13,6 @@ self.addEventListener('notificationclick', (event) => {
 importScripts('https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js', 'https://www.gstatic.com/firebasejs/8.10.1/firebase-messaging.js');
 
 const SYSTEM_NOTIFICATION_ICON = 'https://imagenes.escuelard.com/logos/logo.png';
-const PUSH_NAVIGATION_CACHE = 'escuelard-push-navigation-v1';
-const PUSH_NAVIGATION_KEY = new URL('/__escuelard_push_navigation__', self.location.origin).href;
 
 firebase.initializeApp({
   apiKey: 'AIzaSyA9eJxcrKP8r4YuteGpfvQRTQxdj6ORqFg',
@@ -88,40 +86,18 @@ async function openNotification(raw = {}) {
   const windows = await self.clients.matchAll({ type: 'window', includeUncontrolled: true });
   const current = windows.find((client) => {
     try {
-      return new URL(client.url).origin === targetUrl.origin;
-    } catch {
-      return false;
-    }
-  }) || windows.find((client) => {
-    try {
-      return isAllowedAppOrigin(new URL(client.url).origin);
+      return new URL(client.url).origin === self.location.origin;
     } catch {
       return false;
     }
   });
-  if (current) {
-    const clientOrigin = new URL(current.url).origin;
-    if (targetUrl.origin !== clientOrigin) {
-      targetUrl.protocol = new URL(clientOrigin).protocol;
-      targetUrl.host = new URL(clientOrigin).host;
-    }
-    const clientTarget = targetUrl.href;
-    await rememberPendingNavigation(clientTarget);
-    const focused = await current.focus().catch(() => current);
-    focused.postMessage({ type: 'ESCUELARD_PUSH_NAVIGATE', url: clientTarget });
-    const navigated = await focused.navigate(clientTarget).catch(() => null);
-    return (navigated || focused).focus();
-  }
-  await rememberPendingNavigation(target);
-  return self.clients.openWindow(target);
-}
 
-async function rememberPendingNavigation(url) {
-  const cache = await caches.open(PUSH_NAVIGATION_CACHE);
-  const response = new Response(JSON.stringify({ url, created_at: Date.now() }), {
-    headers: { 'Content-Type': 'application/json' },
-  });
-  await cache.put(PUSH_NAVIGATION_KEY, response);
+  if (current) {
+    const navigated = await current.navigate(targetUrl.href);
+    return navigated.focus();
+  }
+
+  return self.clients.openWindow(target);
 }
 
 function isAllowedAppOrigin(origin) {

@@ -12,7 +12,7 @@ firebase.messaging().setBackgroundMessageHandler((payload) => {
   const notification = payload.notification || {};
   return self.registration.showNotification(notification.title || 'EscuelaRD', {
     body: notification.body || 'Tienes una nueva notificación.',
-    icon: './favicon.ico',
+    icon: payload.data?.school_logo || './favicon.ico',
     data: payload.data || {},
   });
 });

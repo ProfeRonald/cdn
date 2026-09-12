@@ -1,4 +1,4 @@
-const CACHE_NAME = 'escuelard-v4-shell-3';
+const CACHE_NAME = 'escuelard-v4-shell-push-rebuild-1';
 const APP_SHELL = ['./'];
 
 importScripts('https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js', 'https://www.gstatic.com/firebasejs/8.10.1/firebase-messaging.js');
@@ -13,34 +13,11 @@ firebase.messaging().setBackgroundMessageHandler((payload) => {
   const notification = payload.notification || {};
   return self.registration.showNotification(notification.title || 'EscuelaRD', {
     body: notification.body || 'Tienes una nueva notificación.',
-    icon: payload.data?.school_logo || './favicon.ico',
+    icon: './favicon.ico',
     data: payload.data || {},
   });
 });
 
-self.addEventListener('notificationclick', (event) => {
-  event.notification.close();
-  const data = event.notification.data || {};
-  const route = typeof data.route === 'string' && data.route.startsWith('#/pupils') ? '#/pupils' : '#/pupils';
-  const url = new URL(self.registration.scope);
-  const params = new URLSearchParams();
-  if (data.student_id) params.set('student_id', data.student_id);
-  if (data.group_id) params.set('group_id', data.group_id);
-  if (data.date) params.set('attendance_date', data.date);
-  if (data.notification_id) params.set('notification_id', data.notification_id);
-  const separator = route.includes('?') ? '&' : '?';
-  url.hash = params.toString() ? `${route}${separator}${params.toString()}` : route;
-  event.waitUntil(
-    clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
-      const existing = clientList.find((client) => 'focus' in client);
-      if (existing) {
-        existing.navigate(url.href);
-        return existing.focus();
-      }
-      return clients.openWindow(url.href);
-    }),
-  );
-});
 
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL)));

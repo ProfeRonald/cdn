@@ -12,22 +12,7 @@ firebase.messaging().setBackgroundMessageHandler((payload) => {
   const notification = payload.notification || {};
   return self.registration.showNotification(notification.title || 'EscuelaRD', {
     body: notification.body || 'Tienes una nueva notificación.',
-    icon: payload.data?.school_logo || './favicon.ico',
+    icon: './favicon.ico',
     data: payload.data || {},
   });
-});
-
-self.addEventListener('notificationclick', (event) => {
-  event.notification.close();
-  const data = event.notification.data || {};
-  const url = new URL(self.registration.scope);
-  // The FCM worker has its own /push/ scope; navigation must return to the app root.
-  url.pathname = url.pathname.replace(/push\/?$/, '');
-  const params = new URLSearchParams();
-  if (data.student_id) params.set('student_id', data.student_id);
-  if (data.group_id) params.set('group_id', data.group_id);
-  if (data.date) params.set('attendance_date', data.date);
-  if (data.notification_id) params.set('notification_id', data.notification_id);
-  url.hash = params.toString() ? `#/pupils?${params.toString()}` : '#/pupils';
-  event.waitUntil(clients.openWindow(url.href));
 });

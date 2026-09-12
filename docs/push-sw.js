@@ -82,21 +82,6 @@ function appendAttendanceContext(target, data) {
 
 async function openNotification(raw = {}) {
   const target = notificationUrl(raw);
-  const targetUrl = new URL(target);
-  const windows = await self.clients.matchAll({ type: 'window', includeUncontrolled: true });
-  const current = windows.find((client) => {
-    try {
-      return new URL(client.url).origin === self.location.origin;
-    } catch {
-      return false;
-    }
-  });
-
-  if (current) {
-    const navigated = await current.navigate(targetUrl.href);
-    return navigated.focus();
-  }
-
   return self.clients.openWindow(target);
 }
 

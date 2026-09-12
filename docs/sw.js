@@ -1,4 +1,4 @@
-const CACHE_NAME = 'escuelard-v4-shell-2';
+const CACHE_NAME = 'escuelard-v4-shell-3';
 const APP_SHELL = ['./'];
 
 importScripts('https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js', 'https://www.gstatic.com/firebasejs/8.10.1/firebase-messaging.js');
@@ -21,7 +21,7 @@ firebase.messaging().setBackgroundMessageHandler((payload) => {
 self.addEventListener('notificationclick', (event) => {
   event.notification.close();
   const data = event.notification.data || {};
-  const route = typeof data.route === 'string' && data.route.startsWith('#/') ? data.route : '#/pupils';
+  const route = typeof data.route === 'string' && data.route.startsWith('#/pupils') ? '#/pupils' : '#/pupils';
   const url = new URL(self.registration.scope);
   const params = new URLSearchParams();
   if (data.student_id) params.set('student_id', data.student_id);

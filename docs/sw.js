@@ -23,8 +23,13 @@ self.addEventListener('notificationclick', (event) => {
   const data = event.notification.data || {};
   const route = typeof data.route === 'string' && data.route.startsWith('#/') ? data.route : '#/pupils';
   const url = new URL(self.registration.scope);
+  const params = new URLSearchParams();
+  if (data.student_id) params.set('student_id', data.student_id);
+  if (data.group_id) params.set('group_id', data.group_id);
+  if (data.date) params.set('attendance_date', data.date);
+  if (data.notification_id) params.set('notification_id', data.notification_id);
   const separator = route.includes('?') ? '&' : '?';
-  url.hash = data.notification_id ? `${route}${separator}notification_id=${encodeURIComponent(data.notification_id)}` : route;
+  url.hash = params.toString() ? `${route}${separator}${params.toString()}` : route;
   event.waitUntil(
     clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
       const existing = clientList.find((client) => 'focus' in client);

@@ -82,6 +82,23 @@ function appendAttendanceContext(target, data) {
 
 async function openNotification(raw = {}) {
   const target = notificationUrl(raw);
+  const windows = await self.clients.matchAll({ type: 'window', includeUncontrolled: true });
+  const current = windows.find((client) => {
+    try {
+      return new URL(client.url).origin === self.location.origin;
+    } catch {
+      return false;
+    }
+  });
+
+  if (current) {
+    const navigated = await current.navigate(target).catch(() => null);
+    if (navigated) return navigated.focus();
+    await current.focus().catch(() => {});
+    current.postMessage({ type: 'ESCUELARD_PUSH_NAVIGATE', url: target });
+    return current.focus();
+  }
+
   return self.clients.openWindow(target);
 }
 

@@ -1,0 +1,2 @@
+const styles=["assets/reportTaskGuides-BmdnfeCW.css","assets/taskGuides-CWjM3xFr.css"];
+Promise.all(styles.map(file=>new Promise((resolve,reject)=>{const link=document.createElement('link');link.rel='stylesheet';link.href=new URL(file,import.meta.url).href;link.onload=resolve;link.onerror=reject;document.head.append(link);}))).then(()=>import(new URL("assets/reportTaskGuides-CP0vxfp4.js",import.meta.url).href)).catch(error=>console.error("reportTaskGuides",error));

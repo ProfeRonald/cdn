@@ -1,6 +1,8 @@
 <IfModule mod_headers.c>
-  Header always set Access-Control-Allow-Origin "*"
-  Header always set Cross-Origin-Resource-Policy "cross-origin"
+  <FilesMatch "\.(?:css|js|mjs|json|webmanifest|png|jpe?g|gif|svg|webp|avif|ico|woff2?|ttf|otf|pdf)$">
+    Header always set Access-Control-Allow-Origin "*"
+    Header always set Cross-Origin-Resource-Policy "cross-origin"
+  </FilesMatch>
 </IfModule>
 
 ErrorDocument 404 /404.html

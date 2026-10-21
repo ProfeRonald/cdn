@@ -1,2 +1,2 @@
-const styles=["assets/reportTaskGuides-BmdnfeCW.css","assets/taskGuides-DT325v8n.css"];
-Promise.all(styles.map(file=>new Promise((resolve,reject)=>{const link=document.createElement('link');link.rel='stylesheet';link.href=new URL(file,import.meta.url).href;link.onload=resolve;link.onerror=reject;document.head.append(link);}))).then(()=>import(new URL("assets/reportTaskGuides-Cbz4eFa-.js",import.meta.url).href)).catch(error=>console.error("reportTaskGuides",error));
+const styles=["assets/reportTaskGuides-BmdnfeCW.css","assets/taskGuides-C8dan0Gj.css"];
+Promise.all(styles.map(file=>new Promise((resolve,reject)=>{const link=document.createElement('link');link.rel='stylesheet';link.href=new URL(file,import.meta.url).href;link.onload=resolve;link.onerror=reject;document.head.append(link);}))).then(()=>import(new URL("assets/reportTaskGuides-Dnf5lsp2.js",import.meta.url).href)).catch(error=>console.error("reportTaskGuides",error));

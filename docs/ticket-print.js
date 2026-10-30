@@ -1,2 +1,2 @@
-const styles=["assets/ticketPrint-DOCv6rfg.css"];
-Promise.all(styles.map(file=>new Promise((resolve,reject)=>{const link=document.createElement('link');link.rel='stylesheet';link.href=new URL(file,import.meta.url).href;link.onload=resolve;link.onerror=reject;document.head.append(link);}))).then(()=>import(new URL("assets/ticketPrint-lx0vWXg_.js",import.meta.url).href)).catch(error=>console.error("ticketPrint",error));
+const styles=["assets/ticketPrint-f7xT3P2G.css"];
+Promise.all(styles.map(file=>new Promise((resolve,reject)=>{const link=document.createElement('link');link.rel='stylesheet';link.href=new URL(file,import.meta.url).href;link.onload=resolve;link.onerror=reject;document.head.append(link);}))).then(()=>import(new URL("assets/ticketPrint-CR3OIKzZ.js",import.meta.url).href)).catch(error=>console.error("ticketPrint",error));

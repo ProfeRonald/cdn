@@ -25,13 +25,18 @@ firebase.initializeApp({
 firebase.messaging().setBackgroundMessageHandler((payload) => {
   const notification = payload.notification || {};
   const schoolLogo = notificationImage(payload.data?.school_logo || notification.image);
-  return self.registration.showNotification(notification.title || 'EscuelaRD', {
+  return Promise.all([notifyOpenWindows(), self.registration.showNotification(notification.title || 'EscuelaRD', {
     body: notification.body || 'Tienes una nueva notificación.',
     icon: SYSTEM_NOTIFICATION_ICON,
     image: schoolLogo,
     data: payload.data || {},
-  });
+  })]);
 });
+
+async function notifyOpenWindows() {
+  const windows = await self.clients.matchAll({ type: 'window', includeUncontrolled: true });
+  windows.forEach((client) => client.postMessage({ type: 'ESCUELARD_NOTIFICATIONS_UPDATED' }));
+}
 
 function notificationImage(value) {
   try {
